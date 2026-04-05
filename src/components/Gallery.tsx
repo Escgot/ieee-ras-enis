@@ -12,31 +12,33 @@ export default function Gallery() {
       
       const totalWidth = el.scrollWidth / 2;
       
-      // Reset position
+      // Ensure the initial state is clean
       gsap.set(el, { x: 0 });
 
+      // Create a seamless timeline or a continuous tween
       gsap.to(el, {
         x: direction === 'left' ? -totalWidth : totalWidth,
         duration: speed,
         ease: 'none',
         repeat: -1,
         modifiers: {
-          x: gsap.utils.unitize((x) => {
+          x: (x) => {
             const num = parseFloat(x);
-            // Infinite wrap logic
-            return direction === 'left' 
-              ? num % totalWidth 
-              : ((num % totalWidth) - totalWidth) % totalWidth;
-          })
+            // Use GSAP's built-in wrap utility for mathematically perfect looping
+            // This prevents "jumps" or "restarts" by wrapping the value within the bounds
+            const wrapped = gsap.utils.wrap(-totalWidth, 0, num);
+            return `${wrapped}px`;
+          }
         }
       });
     };
 
-    // Give images a moment to calculate width if they are loading
+    // Images take a moment to report their proper scrollWidth
+    // A longer delay helps ensure the calculation is 100% accurate
     const timer = setTimeout(() => {
-      setupMarquee(row1Ref.current, 'left', 50);
-      setupMarquee(row2Ref.current, 'right', 55);
-    }, 100);
+      setupMarquee(row1Ref.current, 'left', 65);
+      setupMarquee(row2Ref.current, 'right', 70);
+    }, 500);
 
     return () => {
       clearTimeout(timer);
@@ -50,13 +52,13 @@ export default function Gallery() {
       <div className="absolute inset-0 cyber-grid opacity-10 pointer-events-none" />
       
       <div className="relative flex flex-col gap-8 sm:gap-12">
-        {/* Row 1 - Moves Left */}
+        {/* Row 1 - Content moves left */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
           <div ref={row1Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
             {[...row1Images, ...row1Images].map((img, i) => (
               <div 
                 key={i} 
-                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative"
+                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative flex-shrink-0"
               >
                 <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -90,14 +92,13 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Row 2 - Moves Right */}
+        {/* Row 2 - Content moves right */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
-          {/* Changed 'right-0' to 'left-0' for better consistency with the GSAP animation */}
           <div ref={row2Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
             {[...row2Images, ...row2Images].map((img, i) => (
               <div 
                 key={i} 
-                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative"
+                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative flex-shrink-0"
               >
                 <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
