@@ -1,0 +1,47 @@
+/* Global App Styles */
+#root {
+  isolation: isolate;
+}
+
+/* Premium page-load fade */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-fade-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Custom focus ring (red theme) */
+*:focus-visible {
+  outline: 2px solid rgba(239, 68, 68, 0.5);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(239, 68, 68, 0.25);
+  color: white;
+}
+
+/* Smooth image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Font Orbitron class */
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Global section transition */
+section {
+  will-change: auto;
+}
