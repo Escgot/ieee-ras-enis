@@ -1,23 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-const row1Images = [
-  'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1582213708913-3e0850228833?auto=format&fit=crop&q=80',
-];
-
-const row2Images = [
-  'https://images.unsplash.com/photo-1523240715639-960cda6c2211?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1558403194-611308249627?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1600880212319-7524eee002be?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80',
-];
+import { row1Images, row2Images } from '../data/gallery';
 
 export default function Gallery() {
   const row1Ref = useRef<HTMLDivElement>(null);
