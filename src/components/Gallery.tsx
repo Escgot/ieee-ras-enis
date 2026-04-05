@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-
 import { row1Images, row2Images } from '../data/gallery';
 
 export default function Gallery() {
@@ -8,32 +7,41 @@ export default function Gallery() {
   const row2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const setupMarquee = (ref: React.RefObject<HTMLDivElement | null>, direction: number, speed: number) => {
-      if (!ref.current) return;
-      const el = ref.current;
+    const setupMarquee = (el: HTMLDivElement | null, direction: 'left' | 'right', speed: number) => {
+      if (!el) return;
+      
       const totalWidth = el.scrollWidth / 2;
       
+      // Reset position
+      gsap.set(el, { x: 0 });
+
       gsap.to(el, {
-        x: direction > 0 ? -totalWidth : totalWidth,
+        x: direction === 'left' ? -totalWidth : totalWidth,
         duration: speed,
         ease: 'none',
         repeat: -1,
         modifiers: {
-          x: gsap.utils.unitize((val) => {
-            const num = parseFloat(val);
-            return direction > 0 
-              ? (num % totalWidth) 
-              : (num < 0 ? (num % totalWidth) + totalWidth : num % totalWidth) - totalWidth;
+          x: gsap.utils.unitize((x) => {
+            const num = parseFloat(x);
+            // Infinite wrap logic
+            return direction === 'left' 
+              ? num % totalWidth 
+              : ((num % totalWidth) - totalWidth) % totalWidth;
           })
         }
       });
     };
 
-    setupMarquee(row1Ref, 1, 40);
-    setupMarquee(row2Ref, -1, 45);
+    // Give images a moment to calculate width if they are loading
+    const timer = setTimeout(() => {
+      setupMarquee(row1Ref.current, 'left', 50);
+      setupMarquee(row2Ref.current, 'right', 55);
+    }, 100);
 
     return () => {
-      gsap.killTweensOf([row1Ref.current, row2Ref.current].filter(Boolean));
+      clearTimeout(timer);
+      if (row1Ref.current) gsap.killTweensOf(row1Ref.current);
+      if (row2Ref.current) gsap.killTweensOf(row2Ref.current);
     };
   }, []);
 
@@ -42,7 +50,7 @@ export default function Gallery() {
       <div className="absolute inset-0 cyber-grid opacity-10 pointer-events-none" />
       
       <div className="relative flex flex-col gap-8 sm:gap-12">
-        {/* Row 1 */}
+        {/* Row 1 - Moves Left */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
           <div ref={row1Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
             {[...row1Images, ...row1Images].map((img, i) => (
@@ -82,9 +90,10 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Row 2 */}
+        {/* Row 2 - Moves Right */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
-          <div ref={row2Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute right-0 h-full">
+          {/* Changed 'right-0' to 'left-0' for better consistency with the GSAP animation */}
+          <div ref={row2Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
             {[...row2Images, ...row2Images].map((img, i) => (
               <div 
                 key={i} 
