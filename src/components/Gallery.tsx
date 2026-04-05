@@ -24,7 +24,7 @@ export default function Gallery() {
   const row2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const setupMarquee = (ref: React.RefObject<HTMLDivElement>, direction: number, speed: number) => {
+    const setupMarquee = (ref: React.RefObject<HTMLDivElement | null>, direction: number, speed: number) => {
       if (!ref.current) return;
       const el = ref.current;
       const totalWidth = el.scrollWidth / 2;
@@ -49,7 +49,7 @@ export default function Gallery() {
     setupMarquee(row2Ref, -1, 45);
 
     return () => {
-      gsap.killTweensOf([row1Ref.current, row2Ref.current]);
+      gsap.killTweensOf([row1Ref.current, row2Ref.current].filter(Boolean));
     };
   }, []);
 
