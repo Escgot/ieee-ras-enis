@@ -160,9 +160,11 @@ export default function About() {
                 </div>
 
                 <img
-                  src="/images/about-team.jpg"
+                  src="/images/about-team.webp"
                   alt="RAS ENIS Team"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
                 />
 
                 {/* Gradient overlays */}

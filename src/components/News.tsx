@@ -73,6 +73,8 @@ export default function News() {
                   src={featured.image}
                   alt={featured.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-80"
+                  loading="lazy"
+                  decoding="async"
                 />
                 {/* Category */}
                 <div className="absolute top-5 left-5 z-20">
@@ -129,6 +131,8 @@ export default function News() {
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-50 group-hover:opacity-80"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
 

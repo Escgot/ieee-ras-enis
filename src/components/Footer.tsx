@@ -75,7 +75,13 @@ export default function Footer() {
                 className="inline-flex items-center mb-0 group"
               >
                 <div className="relative h-14 w-48 flex items-center justify-start">
-                  <img src="/images/ras.webp" alt="RAS Logo" className="relative h-12 w-auto object-contain" />
+                  <img 
+                    src="/images/ras.webp" 
+                    alt="RAS Logo" 
+                    className="relative h-12 w-auto object-contain" 
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               </a>
 

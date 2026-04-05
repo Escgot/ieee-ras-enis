@@ -12,4 +12,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    target: 'esnext',
+    minify: 'terser',
+    cssMinify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],
+          'animations': ['gsap', 'embla-carousel-react'],
+          'ui': ['@radix-ui/react-accordion', '@radix-ui/react-dialog', 'lucide-react']
+        }
+      }
+    }
+  }
 });

@@ -1,20 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
-import AllProjects from './components/AllProjects';
-import Events from './components/Events';
-import AllEvents from './components/AllEvents';
 import News from './components/News';
-import Gallery from './components/Gallery';
-import Team from './components/Team';
-import Shop from './components/Shop';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 import './App.css';
+
+// Lazy load components that are below the fold and secondary pages
+const Projects = lazy(() => import('./components/Projects'));
+const AllProjects = lazy(() => import('./components/AllProjects'));
+const Events = lazy(() => import('./components/Events'));
+const AllEvents = lazy(() => import('./components/AllEvents'));
+const Gallery = lazy(() => import('./components/Gallery'));
+const Team = lazy(() => import('./components/Team'));
+const Shop = lazy(() => import('./components/Shop'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,7 +53,13 @@ function LoadingScreen({ done }: { done: boolean }) {
             style={{ animation: 'rotate-slow 2s linear infinite reverse' }}
           />
           <div className="w-32 h-14 bg-gradient-to-br from-red-600/10 to-purple-600/10 rounded-xl flex items-center justify-center">
-            <img src="/images/ras.webp" alt="RAS Logo" className="w-28 h-10 object-contain" />
+            <img 
+              src="/images/ras.webp" 
+              alt="RAS Logo" 
+              className="w-28 h-10 object-contain"
+              loading="eager"
+              decoding="async"
+            />
           </div>
         </div>
 
@@ -167,43 +175,46 @@ function App() {
           isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {isHome ? (
-          <>
-            <Navigation
-              onNavigateHome={() => {
-                setShowAllEvents(false);
-                setShowAllProjects(false);
-              }}
-            />
-            <main>
-              <Hero />
-              <SectionDivider />
-              <About />
-              <SectionDivider />
-              <News />
-              <SectionDivider />
-              <Gallery />
-              <SectionDivider />
-              <Events onViewAll={handleShowAllEvents} />
-              <SectionDivider />
-              <Projects onViewAll={handleShowAllProjects} />
-              <SectionDivider />
-              <Team />
-              <SectionDivider />
-              <Shop />
-              <SectionDivider />
-              <Contact />
-            </main>
-            <Footer />
-          </>
-        ) : showAllEvents ? (
-          <AllEvents onBack={() => handleBackToHome('events')} />
-        ) : (
-          <AllProjects onBack={() => handleBackToHome('projects')} />
-        )}
+        <Suspense fallback={<div className="min-h-screen bg-[#0a0a0a]" />}>
+          {isHome ? (
+            <>
+              <Navigation
+                onNavigateHome={() => {
+                  setShowAllEvents(false);
+                  setShowAllProjects(false);
+                }}
+              />
+              <main>
+                <Hero />
+                <SectionDivider />
+                <About />
+                <SectionDivider />
+                <News />
+                <SectionDivider />
+                <Gallery />
+                <SectionDivider />
+                <Events onViewAll={handleShowAllEvents} />
+                <SectionDivider />
+                <Projects onViewAll={handleShowAllProjects} />
+                <SectionDivider />
+                <Team />
+                <SectionDivider />
+                <Shop />
+                <SectionDivider />
+                <Contact />
+              </main>
+              <Footer />
+            </>
+          ) : showAllEvents ? (
+            <AllEvents onBack={() => handleBackToHome('events')} />
+          ) : (
+            <AllProjects onBack={() => handleBackToHome('projects')} />
+          )}
+        </Suspense>
       </div>
     </>
   );
 }
 
 export default App;
+

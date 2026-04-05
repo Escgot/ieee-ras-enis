@@ -6,7 +6,7 @@ const teamMembers = [
   {
     name: 'MAHMOUD FEKI',
     role: 'CHAIRPERSON',
-    image: '/images/team-chair.jpg',
+    image: '/images/team-chair.webp',
     social: {
       instagram: 'https://www.instagram.com/mahmoud.feki.5/#',
       linkedin: 'https://www.linkedin.com/in/mahmoud-feki-120a3a302/',
@@ -17,7 +17,7 @@ const teamMembers = [
   {
     name: 'EDAM SELLAMI',
     role: 'VICE CHAIR',
-    image: '/images/team-vice-chair.jpg',
+    image: '/images/team-vice-chair.webp',
     social: {
       instagram: 'https://www.instagram.com/edam_.s/',
       linkedin: '#',
@@ -28,7 +28,7 @@ const teamMembers = [
   {
     name: 'AMINA JARRAYA',
     role: 'SECRETARY',
-    image: '/images/team-secretary.jpg',
+    image: '/images/team-secretary.webp',
     social: {
       instagram: 'http://instagram.com/aminajarraya357/',
       linkedin: 'https://www.linkedin.com/in/amina-jarraya-a1b700384/',
@@ -39,7 +39,7 @@ const teamMembers = [
   {
     name: 'MED AYOUB BEN AYED',
     role: 'TREASURER',
-    image: '/images/team-treasurer.jpg',
+    image: '/images/team-treasurer.webp',
     social: {
       instagram: 'https://www.instagram.com/ayoub.ben_ayed/',
       linkedin: 'https://www.linkedin.com/in/mohamed-ayoub-ben-ayed-b645bb355/',
@@ -50,7 +50,7 @@ const teamMembers = [
   {
     name: 'MOHAMED OULEDALI',
     role: 'WEB MASTER',
-    image: '/images/team-web-master.jpg',
+    image: '/images/team-web-master.webp',
     social: {
       instagram: 'https://www.instagram.com/med_ouledali/',
       linkedin: 'https://www.linkedin.com/in/mohamed-ouledali/',
@@ -61,7 +61,7 @@ const teamMembers = [
   {
     name: 'MELEK ZRIBI',
     role: 'MEDIA MANAGER',
-    image: '/images/team-media-manager.jpg',
+    image: '/images/team-media-manager.webp',
     social: {
       instagram: 'https://www.instagram.com/melek.zribi/',
       linkedin: '#',
@@ -233,6 +233,8 @@ export default function Team() {
                           src={member.image}
                           alt={member.name}
                           className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
+                          loading="lazy"
+                          decoding="async"
                         />
 
                         {/* Base gradient overlay */}

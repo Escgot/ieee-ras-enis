@@ -97,10 +97,12 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
 
               {/* Image */}
               <div className="relative aspect-[16/9] overflow-hidden">
-                <img
+                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover opacity-50 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent" />
 

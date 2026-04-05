@@ -14,7 +14,7 @@ export const shopItems: ShopItem[] = [
     description: 'Premium heavyweight cotton hoodie with high-quality embroidery.',
     price: '45.00 TND',
     category: 'Merch',
-    image: '/images/shop/hoodie.jpg',
+    image: '/images/shop/hoodie.webp',
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ export const shopItems: ShopItem[] = [
     description: 'Comprehensive guide to getting started with ROS2 and robotics.',
     price: '15.00 TND',
     category: 'Books',
-    image: '/images/shop/book.jpg',
+    image: '/images/shop/book.webp',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ export const shopItems: ShopItem[] = [
     description: 'Complete set of sensors and actuators for your next project.',
     price: '120.00 TND',
     category: 'Electronics',
-    image: '/images/shop/arduino.jpg',
+    image: '/images/shop/arduino.webp',
   },
   {
     id: 4,
@@ -38,6 +38,6 @@ export const shopItems: ShopItem[] = [
     description: 'Custom 3D printing for your robotic parts (price per gram).',
     price: 'From 5.00 TND',
     category: 'Service',
-    image: '/images/shop/3dprint.jpg',
+    image: '/images/shop/3dprint.webp',
   },
 ];

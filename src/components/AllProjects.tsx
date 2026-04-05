@@ -107,7 +107,13 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
                        View Case Study
                      </button>
                   </div>
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-40 group-hover:opacity-60" />
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-40 group-hover:opacity-60" 
+                    loading="lazy"
+                    decoding="async"
+                  />
                   
                   {/* Status Badge */}
                   <div className="absolute top-4 right-4 z-20">

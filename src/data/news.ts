@@ -17,7 +17,7 @@ export const news: NewsItem[] = [
     date: 'Feb 18, 2025',
     category: 'Competitions',
     readTime: '5 min read',
-    image: '/images/news-featured.jpg',
+    image: '/images/news-featured.webp',
     isFeatured: true,
   },
   {
@@ -27,7 +27,7 @@ export const news: NewsItem[] = [
     date: 'Feb 10, 2025',
     category: 'Events',
     readTime: '3 min read',
-    image: '/images/news-1.jpg',
+    image: '/images/news-1.webp',
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ export const news: NewsItem[] = [
     date: 'Jan 28, 2025',
     category: 'Workshop',
     readTime: '2 min read',
-    image: '/images/news-2.jpg',
+    image: '/images/news-2.webp',
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ export const news: NewsItem[] = [
     date: 'Jan 15, 2025',
     category: 'Sponsors',
     readTime: '1 min read',
-    image: '/images/news-3.jpg',
+    image: '/images/news-3.webp',
   },
   {
     id: 5,
@@ -54,6 +54,6 @@ export const news: NewsItem[] = [
     date: 'Jan 4, 2025',
     category: 'Project Update',
     readTime: '2 min read',
-    image: '/images/news-4.jpg',
+    image: '/images/news-4.webp',
   },
 ];
