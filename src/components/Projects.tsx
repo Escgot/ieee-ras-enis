@@ -56,7 +56,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+        <div className="flex flex-row justify-between items-end mb-10 gap-4">
           <div>
             <div className="flex items-center gap-3 mb-5">
               <div className="h-px w-8 bg-gradient-to-r from-red-500 to-transparent" />
@@ -69,7 +69,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
           </div>
           <button
             onClick={onViewAll}
-            className="group cyber-btn flex items-center gap-3 px-7 py-3.5 border border-white/10 hover:border-red-500/50 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase backdrop-blur-sm hover:bg-red-500/5"
+            className="group cyber-btn flex items-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-7 sm:py-3.5 border border-white/10 hover:border-red-500/50 hover:text-red-400 transition-all rounded-xl font-bold text-[9px] sm:text-[11px] tracking-widest text-gray-400 uppercase backdrop-blur-sm hover:bg-red-500/5"
           >
             All Projects
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -142,16 +142,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <button
-            onClick={onViewAll}
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group font-medium"
-          >
-            View all {projects.length} projects
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
+
       </div>
     </section>
   );

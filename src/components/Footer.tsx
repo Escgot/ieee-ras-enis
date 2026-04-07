@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { ArrowUp, Instagram, Facebook, Linkedin, Zap, Mail } from 'lucide-react';
 import DiscordIcon from './DiscordIcon';
 
@@ -25,6 +26,20 @@ const socials = [
 const MARQUEE_WORDS = ['ROBOTICS', 'AUTOMATION', 'INNOVATION', 'ENGINEERING', 'IEEE', 'RAS ENIS', 'SFAX', 'TUNISIA'];
 
 export default function Footer() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const scrollToSection = (href: string) => {
@@ -193,7 +208,9 @@ export default function Footer() {
       {/* Scroll to top FAB */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 w-11 h-11 flex items-center justify-center bg-red-600 hover:bg-red-500 text-white rounded-full shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:shadow-[0_0_30px_rgba(239,68,68,0.6)] transition-all duration-300 hover:scale-110 z-50 group"
+        className={`fixed bottom-6 right-6 w-11 h-11 flex items-center justify-center bg-red-600 hover:bg-red-500 text-white rounded-full shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:shadow-[0_0_30px_rgba(239,68,68,0.6)] transition-all duration-300 z-50 group ${
+          isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-50 pointer-events-none'
+        }`}
         aria-label="Scroll to top"
       >
         <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />

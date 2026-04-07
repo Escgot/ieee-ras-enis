@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Target, Lightbulb, Users, Trophy, ArrowRight } from 'lucide-react';
+import { Target, Lightbulb, Users, Trophy } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -203,7 +203,7 @@ export default function About() {
               </div>
 
               {/* Pillars grid */}
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 {pillars.map((item, index) => (
                   <div
                     key={index}
@@ -220,36 +220,29 @@ export default function About() {
                 ))}
               </div>
 
-              <a
-                href="#projects"
-                onClick={(e) => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="inline-flex items-center gap-2 text-red-500 hover:text-red-400 font-bold text-sm group transition-colors"
-              >
-                Explore Our Work
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+
             </div>
           </div>
 
           {/* Stats Row */}
-          <div ref={statsRef} className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <div ref={statsRef} className="mt-12 grid grid-cols-4 gap-2 sm:gap-6">
             {stats.map((stat, index) => (
-              <div
+                <div
                 key={index}
-                className="stat-card group relative p-6 sm:p-8 glass-dark border border-white/8 rounded-3xl hover:border-red-500/30 transition-all duration-500 cursor-default overflow-hidden"
+                className="stat-card group relative p-3 sm:p-8 glass-dark border border-white/8 rounded-2xl sm:rounded-3xl hover:border-red-500/30 transition-all duration-500 cursor-default overflow-hidden"
                 style={{ transition: 'transform 0.2s ease, border-color 0.3s' }}
               >
                 {/* Hover glow bg */}
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
 
                 <div className="relative">
-                  <div className="w-11 h-11 flex items-center justify-center bg-red-500/10 border border-red-500/20 rounded-2xl mb-5 group-hover:bg-red-500/20 transition-colors">
-                    <stat.icon className="w-5 h-5 text-red-500" />
+                  <div className="w-8 h-8 sm:w-11 sm:h-11 flex items-center justify-center bg-red-500/10 border border-red-500/20 rounded-xl sm:rounded-2xl mb-3 sm:mb-5 group-hover:bg-red-500/20 transition-colors">
+                    <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
                   </div>
-                  <div className="font-orbitron text-3xl sm:text-4xl font-black text-white mb-1 counter-value">
+                  <div className="font-orbitron text-lg sm:text-4xl font-black text-white mb-0.5 sm:mb-1 counter-value">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-xs text-gray-500 uppercase tracking-widest font-medium">{stat.label}</div>
+                  <div className="text-[8px] sm:text-xs text-gray-500 uppercase tracking-widest font-medium line-clamp-1">{stat.label}</div>
                 </div>
 
                 {/* Bottom accent */}

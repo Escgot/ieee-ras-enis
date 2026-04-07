@@ -63,8 +63,14 @@
   
   .glass-dark {
     background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  @media (min-width: 768px) {
+    .glass-dark {
+      backdrop-filter: blur(20px) saturate(180%);
+    }
   }
   
   .glow-red {
@@ -456,7 +462,13 @@
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(239, 68, 68, 0.25);
   transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(239, 68, 68, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 768px) {
+  .premium-card:hover {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(239, 68, 68, 0.08);
+  }
 }
 
 /* ==================== MAGNETIC BUTTON ==================== */
@@ -567,6 +579,10 @@
 }
 
 /* ==================== REVEAL ANIMATIONS ==================== */
+.reveal-up, .reveal-left, .reveal-right {
+  will-change: transform, opacity;
+}
+
 .reveal-up {
   opacity: 0;
   transform: translateY(40px);

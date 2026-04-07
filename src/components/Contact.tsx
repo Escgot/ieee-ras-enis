@@ -126,7 +126,7 @@ export default function Contact() {
               {/* Social Links */}
               <div className="p-4 bg-white/[0.02] border border-white/6 rounded-2xl">
                 <p className="text-[10px] text-gray-600 uppercase tracking-widest font-bold mb-4">Follow Us</p>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="flex flex-wrap gap-2.5 sm:gap-3">
                   {socials.map((s, i) => (
                     <a
                       key={i}
@@ -134,9 +134,9 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.label}
-                      className={`aspect-square flex items-center justify-center bg-white/5 border border-white/8 rounded-xl transition-all duration-300 text-gray-500 hover:text-white hover:scale-110 ${s.hoverColor}`}
+                      className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-white/5 border border-white/8 rounded-xl transition-all duration-300 text-gray-500 hover:text-white hover:scale-110 ${s.hoverColor}`}
                     >
-                      <s.icon className="w-4 h-4" />
+                      <s.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                     </a>
                   ))}
                 </div>

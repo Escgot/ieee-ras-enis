@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight, ChevronDown, Zap, Cpu, RadioTower } from 'lucide-react';
+import { ChevronDown, Zap, Cpu, RadioTower } from 'lucide-react';
 
 const TYPEWRITER_TEXTS = ['Robotics', 'Automation', 'Innovation', 'Engineering'];
 
@@ -84,11 +84,15 @@ export default function Hero() {
       pulse: number; pulseSpeed: number;
     }
 
-    const particles: Particle[] = Array.from({ length: 90 }, () => ({
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 40 : 90;
+    const connectionDist = isMobile ? 80 : 140;
+
+    const particles: Particle[] = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
+      vx: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.4),
+      vy: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.4),
       radius: Math.random() * 2 + 0.5,
       color: Math.random() > 0.6 ? 'rgba(239, 68, 68,' : 'rgba(168, 85, 247,',
       pulse: Math.random() * Math.PI * 2,
@@ -97,7 +101,6 @@ export default function Hero() {
 
     let animId: number;
     let frame = 0;
-    const connectionDist = 140;
 
     const animate = () => {
       frame++;
@@ -287,23 +290,21 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+          <div ref={ctaRef} className="flex flex-row items-center justify-center gap-3 sm:gap-5 mb-8">
             <a
               href="#membership"
               onClick={(e) => { e.preventDefault(); scrollToSection('#membership'); }}
-              className="group relative cyber-btn flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-red-600/30 hover:shadow-red-500/50 hover:scale-[1.03]"
+              className="group relative cyber-btn flex items-center justify-center gap-2.5 sm:gap-3 px-6 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white font-bold text-xs sm:text-lg rounded-xl transition-all duration-300 shadow-lg shadow-red-600/30 hover:shadow-red-500/50 hover:scale-[1.03] whitespace-nowrap min-w-[140px] sm:min-w-0"
             >
-              <Zap className="w-4 h-4" />
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
               Get Membership
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#about"
               onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
-              className="group cyber-btn flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/15 hover:border-white/30 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.03]"
+              className="group cyber-btn flex items-center justify-center gap-2 sm:gap-3 px-6 py-4 sm:px-10 sm:py-5 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/15 hover:border-white/30 text-white font-semibold text-xs sm:text-lg rounded-xl transition-all duration-300 hover:scale-[1.03] whitespace-nowrap min-w-[100px] sm:min-w-0"
             >
               Explore
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
 

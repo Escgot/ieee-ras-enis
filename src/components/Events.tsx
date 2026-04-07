@@ -24,7 +24,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
     return () => ctx.revert();
   }, []);
 
-  const upcomingEvents = events.filter(e => e.status === 'upcoming').slice(0, 3);
+  const upcomingEvents = events.filter(e => e.status === 'upcoming').slice(0, 2);
 
   return (
     <section id="events" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden">
