@@ -120,19 +120,28 @@ export default function About() {
           scrollTrigger: { trigger: contentRef.current, start: 'top 80%' },
         }
       );
+
+      // Section parallax
+      gsap.to(sectionRef.current, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden">
-      {/* Multi-layered background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a]" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent" />
-      <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none" />
-      <div className="absolute top-1/4 left-0 w-80 h-80 bg-red-500/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-[150px]" />
+    <section id="about" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden bg-transparent">
+      {/* Borders and Grid */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/10 to-transparent" />
+      <div className="absolute inset-0 cyber-grid opacity-10 pointer-events-none" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto">
@@ -197,7 +206,7 @@ export default function About() {
                   is a student chapter dedicated to advancing robotics and automation technology.
                 </p>
                 <p className="text-gray-500 leading-relaxed">
-                  Since 2010, we've been empowering the next generation of engineers — through hands-on projects, 
+                  Since 2010, we've been empowering the next generation of engineers — through hands-on projects,
                   workshops, hackathons, and international competitions. Our mission: shape the future of intelligent machines.
                 </p>
               </div>
@@ -227,7 +236,7 @@ export default function About() {
           {/* Stats Row */}
           <div ref={statsRef} className="mt-12 grid grid-cols-4 gap-2 sm:gap-6">
             {stats.map((stat, index) => (
-                <div
+              <div
                 key={index}
                 className="stat-card group relative p-3 sm:p-8 glass-dark border border-white/8 rounded-2xl sm:rounded-3xl hover:border-red-500/30 transition-all duration-500 cursor-default overflow-hidden"
                 style={{ transition: 'transform 0.2s ease, border-color 0.3s' }}

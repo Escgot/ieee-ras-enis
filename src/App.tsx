@@ -5,6 +5,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
 import News from './components/News';
+import ParticleBackground from './components/ParticleBackground';
 import './App.css';
 
 // Lazy load components that are below the fold and secondary pages
@@ -24,9 +25,8 @@ gsap.registerPlugin(ScrollTrigger);
 function LoadingScreen({ done }: { done: boolean }) {
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070707] transition-all duration-700 ${
-        done ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      }`}
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070707] transition-all duration-700 ${done ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
     >
       {/* Cyber grid in loader */}
       <div className="absolute inset-0 cyber-grid opacity-20" />
@@ -53,9 +53,9 @@ function LoadingScreen({ done }: { done: boolean }) {
             style={{ animation: 'rotate-slow 2s linear infinite reverse' }}
           />
           <div className="w-32 h-14 bg-gradient-to-br from-red-600/10 to-purple-600/10 rounded-xl flex items-center justify-center">
-            <img 
-              src="/images/ras.webp" 
-              alt="RAS Logo" 
+            <img
+              src="/images/ras.webp"
+              alt="RAS Logo"
               className="w-28 h-10 object-contain"
               loading="eager"
               decoding="async"
@@ -110,8 +110,8 @@ function App() {
 
   /* Loading sequence */
   useEffect(() => {
-    const t1 = setTimeout(() => setLoadingDone(true), 1300);
-    const t2 = setTimeout(() => setIsLoaded(true), 1800);
+    const t1 = setTimeout(() => setLoadingDone(true), 800);
+    const t2 = setTimeout(() => setIsLoaded(true), 1200);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
@@ -166,16 +166,16 @@ function App() {
 
   return (
     <>
+      <ParticleBackground />
       {/* Loading Screen */}
       <LoadingScreen done={loadingDone} />
 
       <div
         ref={mainRef}
-        className={`min-h-screen bg-[#0a0a0a] text-white transition-opacity duration-700 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`min-h-screen bg-transparent text-white transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
       >
-        <Suspense fallback={<div className="min-h-screen bg-[#0a0a0a]" />}>
+        <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
           {isHome ? (
             <>
               <Navigation

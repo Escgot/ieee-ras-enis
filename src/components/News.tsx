@@ -26,6 +26,18 @@ export default function News() {
           scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
         }
       );
+
+      // Section parallax
+      gsap.to(sectionRef.current, {
+        y: -40,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -35,12 +47,10 @@ export default function News() {
   const others = news.filter((n) => !n.isFeatured).slice(0, 4);
 
   return (
-    <section id="news" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a]" />
+    <section id="news" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden bg-transparent">
+      {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-      <div className="absolute top-1/4 right-0 w-80 h-80 bg-red-500/6 rounded-full blur-[150px]" />
-      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-purple-600/5 rounded-full blur-[150px]" />
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
         {/* Header */}

@@ -79,11 +79,10 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-[#0a0a0a]/85 backdrop-blur-2xl border-b border-white/8 shadow-2xl'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+            ? 'bg-[#0a0a0a]/85 backdrop-blur-xl border-b border-white/8 shadow-2xl'
             : 'bg-transparent'
-        }`}
+          }`}
       >
         {/* Gradient line at bottom of nav when scrolled */}
         {isScrolled && (
@@ -126,11 +125,10 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                     href={link.href}
                     ref={(el) => { if (el) linkRefs.current.set(sectionId, el); }}
                     onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                    className={`nav-link relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                      isActive
+                    className={`nav-link relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${isActive
                         ? 'text-white bg-white/5'
                         : 'text-gray-400 hover:text-white hover:bg-white/5'
-                    }`}
+                      }`}
                   >
                     {link.name}
                   </a>
@@ -165,18 +163,16 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
-          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-        }`}
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+          }`}
       >
         <div
           className="absolute inset-0 bg-[#070707]/95 backdrop-blur-2xl"
           onClick={() => setIsMobileMenuOpen(false)}
         />
         <div
-          className={`absolute top-16 left-0 right-0 border-b border-white/10 transition-transform duration-500 ${
-            isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
-          }`}
+          className={`absolute top-16 left-0 right-0 border-b border-white/10 transition-transform duration-500 ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
+            }`}
           style={{ background: 'rgba(12,12,12,0.98)', backdropFilter: 'blur(24px)' }}
         >
           {/* Top gradient border */}
@@ -191,11 +187,10 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                   key={link.name}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                  className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 font-medium text-sm ${
-                    isActive
+                  className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 font-medium text-sm ${isActive
                       ? 'text-white bg-red-500/10 border border-red-500/20'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   {link.name}
                   {isActive && (

@@ -19,6 +19,18 @@ export default function Shop() {
           scrollTrigger: { trigger: itemsRef.current, start: 'top 80%' },
         }
       );
+
+      // Section parallax
+      gsap.to(sectionRef.current, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -41,14 +53,10 @@ export default function Shop() {
   }, []);
 
   return (
-    <section id="shop" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0c0c0c] to-[#0a0a0a]" />
+    <section id="shop" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden bg-transparent">
+      {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-      <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/8 to-transparent" />
-      <div className="absolute inset-0 cyber-grid opacity-15 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/6 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-red-500/6 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
         {/* Header */}

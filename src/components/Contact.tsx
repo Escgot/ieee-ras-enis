@@ -50,6 +50,18 @@ export default function Contact() {
           scrollTrigger: { trigger: sectionRef.current, start: 'top 65%' },
         }
       );
+
+      // Section parallax
+      gsap.to(sectionRef.current, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -74,14 +86,11 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-14 lg:py-20 overflow-hidden"
+      className="relative py-14 lg:py-20 overflow-hidden bg-transparent"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#090909]" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent" />
-      <div className="absolute inset-0 neural-bg opacity-40 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(239,68,68,0.05) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+      {/* Background elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/10 to-transparent" />
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto">

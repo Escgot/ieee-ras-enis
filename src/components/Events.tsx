@@ -19,6 +19,18 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
           scrollTrigger: { trigger: containerRef.current, start: 'top 80%' },
         }
       );
+
+      // Section parallax
+      gsap.to(sectionRef.current, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -27,13 +39,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
   const upcomingEvents = events.filter(e => e.status === 'upcoming').slice(0, 2);
 
   return (
-    <section id="events" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden">
+    <section id="events" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden bg-transparent">
       {/* Background */}
-      <div className="absolute inset-0 bg-[#090909]" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
-      <div className="absolute top-1/4 left-0 w-80 h-80 bg-purple-500/8 rounded-full blur-[150px]" />
-      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-red-500/8 rounded-full blur-[150px]" />
-      <div className="absolute inset-0 cyber-grid opacity-15 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/10 to-transparent" />
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
         {/* Header */}
@@ -65,11 +74,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                   <div className="absolute left-14 top-[120px] bottom-0 w-px bg-gradient-to-b from-red-500/30 to-transparent z-0 hidden sm:block" />
                 )}
 
-                <div className={`relative flex flex-col sm:flex-row gap-5 sm:gap-7 border rounded-3xl p-5 sm:p-7 transition-all duration-500 group-hover:-translate-y-1 cursor-pointer overflow-hidden ${
-                  isFirst
+                <div className={`relative flex flex-col sm:flex-row gap-5 sm:gap-7 border rounded-3xl p-5 sm:p-7 transition-all duration-500 group-hover:-translate-y-1 cursor-pointer overflow-hidden ${isFirst
                     ? 'bg-white/[0.03] border-red-500/20 hover:border-red-500/40 hover:shadow-[0_20px_60px_rgba(239,68,68,0.08)]'
                     : 'bg-white/[0.02] border-white/6 hover:border-red-500/25 hover:shadow-[0_20px_40px_rgba(239,68,68,0.05)]'
-                }`}>
+                  }`}>
 
                   {/* Subtle gradient bg on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 to-purple-500/0 group-hover:from-red-500/[0.03] group-hover:to-purple-500/[0.02] transition-all duration-500 rounded-3xl pointer-events-none" />
@@ -82,11 +90,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                   )}
 
                   {/* Date Box */}
-                  <div className={`relative flex-shrink-0 self-start w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border flex flex-col items-center justify-center text-center shadow-lg transition-all duration-300 ${
-                    isFirst
+                  <div className={`relative flex-shrink-0 self-start w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border flex flex-col items-center justify-center text-center shadow-lg transition-all duration-300 ${isFirst
                       ? 'bg-red-500/10 border-red-500/30 group-hover:border-red-500/60 group-hover:bg-red-500/15'
                       : 'bg-white/[0.04] border-white/8 group-hover:border-red-500/30 group-hover:bg-white/[0.06]'
-                  }`}>
+                    }`}>
                     <span className="text-2xl sm:text-3xl font-black text-red-400 font-orbitron leading-none">{day.replace(',', '')}</span>
                     <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mt-1">{month}</span>
                   </div>

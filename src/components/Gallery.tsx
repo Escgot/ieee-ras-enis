@@ -9,9 +9,9 @@ export default function Gallery() {
   useEffect(() => {
     const setupMarquee = (el: HTMLDivElement | null, direction: 'left' | 'right', speed: number) => {
       if (!el) return;
-      
+
       const totalWidth = el.scrollWidth / 2;
-      
+
       // Ensure the initial state is clean
       gsap.set(el, { x: 0 });
 
@@ -48,16 +48,16 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section id="gallery" className="relative py-14 lg:py-20 overflow-hidden bg-[#090909]">
-      <div className="absolute inset-0 cyber-grid opacity-10 pointer-events-none" />
-      
+    <section id="gallery" className="relative py-14 lg:py-20 overflow-hidden bg-transparent">
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
+
       <div className="relative flex flex-col gap-8 sm:gap-12">
         {/* Row 1 - Content moves left */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
           <div ref={row1Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
             {[...row1Images, ...row1Images].map((img, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative flex-shrink-0"
               >
                 <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" loading="lazy" decoding="async" />
@@ -73,16 +73,16 @@ export default function Gallery() {
             <div className="flex items-center gap-4 w-full">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-red-500/20 to-red-500/40" />
               <span className="section-tag shrink-0">
-                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                 Moments
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                Moments
               </span>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-red-500/20 to-red-500/40" />
             </div>
-            
+
             <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-none uppercase tracking-tighter">
               Our <span className="text-gradient">Gallery</span>
             </h2>
-            
+
             <div className="flex flex-col items-center gap-2">
               <p className="text-gray-500 uppercase tracking-[0.3em] text-[10px] sm:text-xs font-bold">
                 Capturing innovation and community since 2013
@@ -96,8 +96,8 @@ export default function Gallery() {
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
           <div ref={row2Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
             {[...row2Images, ...row2Images].map((img, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative flex-shrink-0"
               >
                 <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" loading="lazy" decoding="async" />
@@ -108,9 +108,6 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Decorative environment blur */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[150px] pointer-events-none" />
     </section>
   );
 }

@@ -48,11 +48,10 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
   }, [filteredEvents]);
 
   return (
-    <section id="events" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 neural-bg" />
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-[150px]" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-red-500/5 rounded-full blur-[150px]" />
+    <section id="events" ref={sectionRef} className="relative py-14 lg:py-20 overflow-hidden bg-transparent">
+      {/* Background elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/10 to-transparent" />
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto">

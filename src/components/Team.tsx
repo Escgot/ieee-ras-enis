@@ -1,6 +1,10 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Linkedin, Instagram, Facebook, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const teamMembers = [
   {
@@ -124,22 +128,32 @@ export default function Team() {
     };
   }, [emblaApi, onSelect, isHovered, isInView]);
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.to(sectionRef.current, {
+        y: -40,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
+    }, sectionRef.current);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="team"
       ref={sectionRef}
-      className="relative py-14 lg:py-20 overflow-hidden min-h-[80vh] flex items-center"
+      className="relative py-14 lg:py-20 overflow-hidden min-h-[80vh] flex items-center bg-transparent"
     >
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#090909] via-[#0b0b0b] to-[#090909]" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent" />
-      <div className="absolute inset-0 cyber-grid opacity-15 pointer-events-none" />
-
-      {/* Aurora blobs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(239,68,68,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }} />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(168,85,247,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+      {/* Background elements */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/10 to-transparent" />
+      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
 
       {/* Floating geometric decorations */}
       <div className="absolute top-20 left-10 w-32 h-32 rounded-full border border-red-500/8 animate-rotate-slow pointer-events-none" />
@@ -213,13 +227,12 @@ export default function Team() {
                       <div
                         onMouseEnter={() => { if (isActive) setIsHovered(true); }}
                         onMouseLeave={() => setIsHovered(false)}
-                        className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group ${
-                          isActive
+                        className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group ${isActive
                             ? 'scale-100 opacity-100 z-20'
                             : diff === 1
-                            ? 'scale-90 opacity-40 grayscale-[50%] z-10 blur-[1px]'
-                            : 'scale-80 opacity-20 grayscale blur-[2px] z-10'
-                        }`}
+                              ? 'scale-90 opacity-40 grayscale-[50%] z-10 blur-[1px]'
+                              : 'scale-80 opacity-20 grayscale blur-[2px] z-10'
+                          }`}
                         style={{
                           boxShadow: isActive
                             ? '0 0 50px rgba(239,68,68,0.5), 0 0 100px rgba(239,68,68,0.2), 0 30px 60px rgba(0,0,0,0.6)'
@@ -320,11 +333,10 @@ export default function Team() {
                   <button
                     key={i}
                     onClick={() => emblaApi?.scrollTo(i)}
-                    className={`rounded-full transition-all duration-400 ${
-                      i === activeIndex
+                    className={`rounded-full transition-all duration-400 ${i === activeIndex
                         ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
                         : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                    }`}
+                      }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
                 ))}

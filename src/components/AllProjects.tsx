@@ -42,9 +42,9 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
   });
 
   return (
-    <div ref={sectionRef} className="min-h-screen bg-dark pt-0 pb-10">
+    <div ref={sectionRef} className="min-h-screen bg-transparent pt-0 pb-10">
       {/* Search & Filter Header */}
-      <div className="relative border-b border-white/5 bg-[#0a0a0a]/60 sticky top-0 z-40 backdrop-blur-2xl pt-4">
+      <div className="relative border-b border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-4">
         <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-4">
