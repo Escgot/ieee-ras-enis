@@ -102,4 +102,19 @@ export const events: Event[] = [
     registeredCount: 90,
     maxAttendees: 100,
   },
+  {
+    id: 7,
+    title: 'ARDUINO WORKSHOP',
+    description:
+      'This workshop introduced the basics of electronics and programming for line follower robots. Participants learned about key components, clean coding practices, and function management, while gaining hands-on experience using pre-prepared robots to understand how line followers work effectively.',
+    date: '07-october-2023',
+    time: '14:00 PM',
+    location: 'ENIS Robotics Lab',
+    category: 'Workshop',
+    image: '/images/event-workshop.webp',
+    attendees: 40,
+    status: 'past',
+    registeredCount: 40,
+    maxAttendees: 50,
+  },
 ];
