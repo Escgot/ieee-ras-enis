@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './components/Navigation';
@@ -6,6 +7,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import News from './components/News';
 import ParticleBackground from './components/ParticleBackground';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 // Lazy load components that are below the fold and secondary pages
@@ -18,6 +20,8 @@ const Team = lazy(() => import('./components/Team'));
 const Shop = lazy(() => import('./components/Shop'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
+const Dashboard = lazy(() => import('./components/Dashboard'));
+const AdminPanel = lazy(() => import('./components/AdminPanel'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,25 +104,15 @@ function SectionDivider() {
   );
 }
 
-/* ── Main App ── */
-function App() {
-  const [loadingDone, setLoadingDone] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+/* ── Home Page (all sections) ── */
+function HomePage() {
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
-
-  /* Loading sequence */
-  useEffect(() => {
-    const t1 = setTimeout(() => setLoadingDone(true), 800);
-    const t2 = setTimeout(() => setIsLoaded(true), 1200);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
+  const navigate = useNavigate();
 
   /* Global scroll-triggered section reveals */
   useEffect(() => {
-    if (!isLoaded) return;
-
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('.section-reveal').forEach((section) => {
         gsap.fromTo(
@@ -140,7 +134,7 @@ function App() {
     }, mainRef);
 
     return () => ctx.revert();
-  }, [isLoaded, showAllEvents, showAllProjects]);
+  }, [showAllEvents, showAllProjects]);
 
   const handleShowAllEvents = () => {
     setShowAllEvents(true);
@@ -165,51 +159,98 @@ function App() {
   const isHome = !showAllEvents && !showAllProjects;
 
   return (
+    <div ref={mainRef}>
+      <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
+        {isHome ? (
+          <>
+            <Navigation
+              onNavigateHome={() => {
+                setShowAllEvents(false);
+                setShowAllProjects(false);
+                navigate('/');
+              }}
+            />
+            <main>
+              <Hero />
+              <SectionDivider />
+              <About />
+              <SectionDivider />
+              <News />
+              <SectionDivider />
+              <Gallery />
+              <SectionDivider />
+              <Events onViewAll={handleShowAllEvents} />
+              <SectionDivider />
+              <Projects onViewAll={handleShowAllProjects} />
+              <SectionDivider />
+              <Team />
+              <SectionDivider />
+              <Shop />
+              <SectionDivider />
+              <Contact />
+            </main>
+            <Footer />
+          </>
+        ) : showAllEvents ? (
+          <AllEvents onBack={() => handleBackToHome('events')} />
+        ) : (
+          <AllProjects onBack={() => handleBackToHome('projects')} />
+        )}
+      </Suspense>
+    </div>
+  );
+}
+
+/* ── Main App ── */
+function App() {
+  const [loadingDone, setLoadingDone] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const location = useLocation();
+
+  /* Loading sequence — only on first visit */
+  useEffect(() => {
+    const t1 = setTimeout(() => setLoadingDone(true), 800);
+    const t2 = setTimeout(() => setIsLoaded(true), 1200);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
+  /* Scroll to top on route change */
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
+  return (
     <>
       <ParticleBackground />
       {/* Loading Screen */}
       <LoadingScreen done={loadingDone} />
 
       <div
-        ref={mainRef}
         className={`min-h-screen bg-transparent text-white transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
       >
         <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
-          {isHome ? (
-            <>
-              <Navigation
-                onNavigateHome={() => {
-                  setShowAllEvents(false);
-                  setShowAllProjects(false);
-                }}
-              />
-              <main>
-                <Hero />
-                <SectionDivider />
-                <About />
-                <SectionDivider />
-                <News />
-                <SectionDivider />
-                <Gallery />
-                <SectionDivider />
-                <Events onViewAll={handleShowAllEvents} />
-                <SectionDivider />
-                <Projects onViewAll={handleShowAllProjects} />
-                <SectionDivider />
-                <Team />
-                <SectionDivider />
-                <Shop />
-                <SectionDivider />
-                <Contact />
-              </main>
-              <Footer />
-            </>
-          ) : showAllEvents ? (
-            <AllEvents onBack={() => handleBackToHome('events')} />
-          ) : (
-            <AllProjects onBack={() => handleBackToHome('projects')} />
-          )}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Navigation />
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute requiredRole="admin">
+                  <Navigation />
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
         </Suspense>
       </div>
     </>
@@ -217,4 +258,3 @@ function App() {
 }
 
 export default App;
-

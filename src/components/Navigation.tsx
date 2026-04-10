@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import AuthButton from './AuthButton';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -20,6 +22,10 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -27,8 +33,10 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Track active section via IntersectionObserver
+  // Track active section via IntersectionObserver (only on home page)
   useEffect(() => {
+    if (!isHomePage) return;
+
     const observers: IntersectionObserver[] = [];
     const sections = navLinks.map(l => l.href.slice(1));
 
@@ -46,10 +54,11 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
     });
 
     return () => observers.forEach(o => o.disconnect());
-  }, []);
+  }, [isHomePage]);
 
-  // Move sliding underline indicator
+  // Move sliding underline indicator (only on home page)
   useEffect(() => {
+    if (!isHomePage) return;
     const activeLink = linkRefs.current.get(activeSection);
     const nav = navRef.current;
     if (!activeLink || !nav) return;
@@ -60,10 +69,18 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
       width: linkRect.width,
       opacity: 1,
     });
-  }, [activeSection]);
+  }, [activeSection, isHomePage]);
 
   const scrollToSection = (href: string) => {
-    if (onNavigateHome) {
+    if (!isHomePage) {
+      // Navigate to home first, then scroll
+      navigate('/');
+      if (onNavigateHome) onNavigateHome();
+      setTimeout(() => {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+    } else if (onNavigateHome) {
       onNavigateHome();
       setTimeout(() => {
         const el = document.querySelector(href);
@@ -106,19 +123,21 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
             {/* Desktop Navigation */}
             <div ref={navRef} className="hidden lg:flex items-center gap-1 relative">
               {/* Sliding indicator */}
-              <div
-                className="absolute bottom-0 h-0.5 bg-gradient-to-r from-red-500 to-purple-500 rounded-full transition-all duration-400 ease-out pointer-events-none"
-                style={{
-                  left: indicatorStyle.left,
-                  width: indicatorStyle.width,
-                  opacity: indicatorStyle.opacity,
-                  transform: 'translateY(0)',
-                }}
-              />
+              {isHomePage && (
+                <div
+                  className="absolute bottom-0 h-0.5 bg-gradient-to-r from-red-500 to-purple-500 rounded-full transition-all duration-400 ease-out pointer-events-none"
+                  style={{
+                    left: indicatorStyle.left,
+                    width: indicatorStyle.width,
+                    opacity: indicatorStyle.opacity,
+                    transform: 'translateY(0)',
+                  }}
+                />
+              )}
 
               {navLinks.map((link) => {
                 const sectionId = link.href.slice(1);
-                const isActive = activeSection === sectionId;
+                const isActive = isHomePage && activeSection === sectionId;
                 return (
                   <a
                     key={link.name}
@@ -136,8 +155,11 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
               })}
             </div>
 
-            {/* CTA + Mobile */}
+            {/* CTA + Auth + Mobile */}
             <div className="flex items-center gap-3">
+              {/* Auth Button */}
+              <AuthButton />
+
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
@@ -181,7 +203,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
           <div className="px-4 py-6 space-y-1">
             {navLinks.map((link) => {
               const sectionId = link.href.slice(1);
-              const isActive = activeSection === sectionId;
+              const isActive = isHomePage && activeSection === sectionId;
               return (
                 <a
                   key={link.name}
