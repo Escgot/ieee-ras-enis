@@ -122,11 +122,11 @@ export default function Footer() {
 
               {/* Quick contact */}
               <a
-                href="mailto:contact@rasenis.org"
+                href="mailto:sbc.enis.ras@ieee.org"
                 className="mt-6 inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-400 transition-colors group"
               >
                 <Mail className="w-4 h-4 group-hover:text-red-400" />
-                contact@rasenis.org
+                sbc.enis.ras@ieee.org
               </a>
             </div>
 

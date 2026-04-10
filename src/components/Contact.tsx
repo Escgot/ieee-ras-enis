@@ -7,7 +7,7 @@ import DiscordIcon from './DiscordIcon';
 gsap.registerPlugin(ScrollTrigger);
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'contact@rasenis.org', href: 'mailto:contact@rasenis.org', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
+  { icon: Mail, label: 'Email', value: 'sbc.enis.ras@ieee.org', href: 'mailto:sbc.enis.ras@ieee.org', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
   { icon: Phone, label: 'Phone', value: '+216 74 123 456', href: 'tel:+21674123456', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', hoverBg: 'group-hover:bg-purple-500' },
   { icon: MapPin, label: 'Location', value: 'ENIS, Sfax, Tunisia', href: '#', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
 ];
