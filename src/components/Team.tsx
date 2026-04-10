@@ -245,7 +245,7 @@ export default function Team() {
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                           loading="lazy"
                           decoding="async"
                         />
