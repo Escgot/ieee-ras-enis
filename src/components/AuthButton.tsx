@@ -3,7 +3,7 @@ import { LogIn, LogOut, User, Shield, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function AuthButton() {
+export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
   const { user, profile, loading, signInWithGoogle, signOut, isAdmin } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -21,27 +21,30 @@ export default function AuthButton() {
   }, []);
 
   if (loading) {
+    if (mobile) return null;
     return (
       <div className="w-8 h-8 rounded-full bg-white/5 animate-pulse" />
     );
   }
 
-  // Not signed in — show Sign In button
+  // Not signed in — show Join Now button
   if (!user) {
     return (
       <button
         onClick={signInWithGoogle}
         id="auth-sign-in-btn"
-        className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white 
-                   bg-white/5 border border-white/10 rounded-lg
-                   hover:bg-white/10 hover:border-red-500/30
-                   transition-all duration-300 group"
+        className={mobile
+          ? "block w-full px-4 py-3.5 bg-gradient-to-r from-red-600 to-red-500 text-white text-center font-bold rounded-xl tracking-wide cyber-btn"
+          : "hidden lg:flex cyber-btn items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white text-sm font-bold rounded-lg transition-all duration-300 shadow-lg shadow-red-600/20 hover:shadow-red-500/40 hover:scale-[1.03]"
+        }
       >
-        <LogIn className="w-4 h-4 text-gray-400 group-hover:text-red-400 transition-colors" />
-        <span className="hidden sm:inline">Sign In</span>
+        <LogIn className={`w-4 h-4 ${mobile ? 'hidden' : 'inline-block'}`} />
+        Join Now
       </button>
     );
   }
+
+  if (mobile) return null;
 
   // Signed in — show avatar + dropdown
   const avatarUrl = user.user_metadata?.avatar_url || profile?.avatar_url;

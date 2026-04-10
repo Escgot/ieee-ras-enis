@@ -160,14 +160,6 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
               {/* Auth Button */}
               <AuthButton />
 
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
-                className="hidden lg:flex cyber-btn items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white text-sm font-bold rounded-lg transition-all duration-300 shadow-lg shadow-red-600/20 hover:shadow-red-500/40 hover:scale-[1.03]"
-              >
-                Join Now
-              </a>
-
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors border border-white/10"
@@ -223,13 +215,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
             })}
 
             <div className="pt-4">
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
-                className="block w-full px-4 py-3.5 bg-gradient-to-r from-red-600 to-red-500 text-white text-center font-bold rounded-xl tracking-wide cyber-btn"
-              >
-                Join Now
-              </a>
+              <AuthButton mobile />
             </div>
           </div>
         </div>
