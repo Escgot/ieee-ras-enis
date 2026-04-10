@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowUp, Instagram, Facebook, Linkedin, Zap, Mail } from 'lucide-react';
+import { ArrowUp, Instagram, Facebook, Linkedin, Mail } from 'lucide-react';
 import DiscordIcon from './DiscordIcon';
 
 const footerLinks = {
