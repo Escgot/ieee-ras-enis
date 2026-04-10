@@ -236,7 +236,6 @@ function App() {
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <Navigation />
                   <Dashboard />
                 </ProtectedRoute>
               }
@@ -245,7 +244,6 @@ function App() {
               path="/admin"
               element={
                 <ProtectedRoute requiredRole="admin">
-                  <Navigation />
                   <AdminPanel />
                 </ProtectedRoute>
               }
