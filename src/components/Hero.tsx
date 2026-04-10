@@ -5,37 +5,16 @@ import { ChevronDown, Zap } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TYPEWRITER_TEXTS = ['Robotics', 'Automation', 'Innovation', 'Engineering'];
+const TYPEWRITER_TEXTS = ['Robotics', 'Automation', 'Intelligence', 'Engineering'];
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const cursorGlowRef = useRef<HTMLDivElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
+  const textColRef = useRef<HTMLDivElement>(null);
+  const robotRef = useRef<HTMLImageElement>(null);
 
   const [typewriterText, setTypewriterText] = useState('');
   const [typewriterIndex, setTypewriterIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  // Cursor glow effect
-  useEffect(() => {
-    const glow = cursorGlowRef.current;
-    if (!glow) return;
-
-    const move = (e: MouseEvent) => {
-      gsap.to(glow, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.6,
-        ease: 'power2.out',
-      });
-    };
-
-    window.addEventListener('mousemove', move);
-    return () => window.removeEventListener('mousemove', move);
-  }, []);
 
   // Typewriter Effect
   useEffect(() => {
@@ -46,15 +25,15 @@ export default function Hero() {
       if (typewriterText.length < currentWord.length) {
         timeout = setTimeout(() => {
           setTypewriterText(currentWord.slice(0, typewriterText.length + 1));
-        }, 100);
+        }, 80);
       } else {
-        timeout = setTimeout(() => setIsDeleting(true), 2000);
+        timeout = setTimeout(() => setIsDeleting(true), 2500);
       }
     } else {
       if (typewriterText.length > 0) {
         timeout = setTimeout(() => {
           setTypewriterText(currentWord.slice(0, typewriterText.length - 1));
-        }, 60);
+        }, 40);
       } else {
         setIsDeleting(false);
         setTypewriterIndex((prev) => (prev + 1) % TYPEWRITER_TEXTS.length);
@@ -67,33 +46,39 @@ export default function Hero() {
   // Entrance & Scroll Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Entrance
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo(badgeRef.current,
-        { opacity: 0, y: 20, scale: 0.9 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8 }
-      )
-      .fromTo(titleRef.current,
-        { opacity: 0, y: 80 },
-        { opacity: 1, y: 0, duration: 1.2 },
-        '-=0.4'
-      )
-      .fromTo(subtitleRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        '-=0.6'
-      )
-      .fromTo(ctaRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7 },
-        '-=0.4'
-      );
+      // Left column items staggered entrance
+      if (textColRef.current) {
+        const children = textColRef.current.children;
+        tl.fromTo(children,
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 1.2, stagger: 0.15 }
+        );
+      }
 
-      // Scroll-driven content zoom
+      // Robot entrance and floating
+      if (robotRef.current) {
+        tl.fromTo(robotRef.current,
+          { opacity: 0, x: 100, scale: 0.95 },
+          { opacity: 1, x: 0, scale: 1, duration: 1.8, ease: 'power4.out' },
+          '-=1.2'
+        );
+
+        // Continuous floating
+        gsap.to(robotRef.current, {
+          y: '-=25',
+          duration: 4,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1
+        });
+      }
+
+      // Parallax scroll fade out
       gsap.to(heroRef.current, {
-        scale: 1.1,
-        opacity: 0.5,
+        scale: 1.05,
+        opacity: 0,
         ease: 'none',
         scrollTrigger: {
           trigger: heroRef.current,
@@ -113,87 +98,105 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent">
+    <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent pt-24 lg:py-0">
 
       {/* Cyber grid */}
       <div className="absolute inset-0 cyber-grid opacity-30 pointer-events-none" />
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none" />
+      {/* Main Container */}
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[90rem] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
-      {/* Content */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 xl:px-12 pt-6">
-        <div className="max-w-5xl mx-auto text-center">
+          {/* Left Text Column */}
+          <div ref={textColRef} className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-20">
 
-          {/* Badge */}
-          <div ref={badgeRef} className="inline-flex items-center gap-2 px-5 py-2.5 mb-6 hero-badge bg-white/5 backdrop-blur-md border border-white/10 rounded-full animate-pulse-glow">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
-            </span>
-            <span className="text-sm text-gray-300 font-medium tracking-wide">IEEE Student Branch · RAS Chapter</span>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-6 py-2.5 mb-8 hero-badge bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+              </span>
+              <span className="text-xs sm:text-sm text-white font-bold tracking-widest uppercase">IEEE Student Branch · RAS Chapter</span>
+            </div>
+
+            {/* Massive Title */}
+            <h1 className="font-orbitron font-black mb-6 tracking-tighter leading-[0.85] flex flex-col">
+              <span className="text-white text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]">IEEE</span>
+              <div className="flex flex-row flex-wrap gap-x-4 sm:gap-x-6 lg:gap-x-8">
+                <span className="text-gradient pb-2 text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem] drop-shadow-[0_0_30px_rgba(239,68,68,0.3)]">RAS</span>
+                <span className="text-white pb-2 text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]">ENIS</span>
+              </div>
+            </h1>
+
+            {/* Typewriter Line */}
+            <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-6 mb-8 w-full mt-2">
+              <span className="font-orbitron text-2xl sm:text-3xl text-white font-black tracking-widest uppercase flex items-center whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                {typewriterText}
+                <span className="inline-block w-1.5 h-7 ml-2 bg-red-500 animate-pulse" />
+              </span>
+              <div className="hidden lg:block h-px flex-1 max-w-[200px] bg-gradient-to-r from-white/30 to-transparent" />
+            </div>
+
+            {/* Description */}
+            <p className="text-base sm:text-lg text-gray-400 max-w-xl mb-10 leading-relaxed font-medium">
+              Empowering students to innovate, build, and lead in the world of robotics and automation.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <a
+                href="#membership"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#membership'); }}
+                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4.5 bg-white text-black font-extrabold text-sm uppercase tracking-widest hover:bg-gray-200 transition-all shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] hover:scale-105"
+                style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
+              >
+                <Zap className="w-5 h-5 text-black" />
+                Initialize
+              </a>
+              <a
+                href="#about"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
+                className="group w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4.5 bg-transparent border border-white/20 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:border-white/40 transition-all hover:scale-105"
+                style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
+              >
+                Discover
+              </a>
+            </div>
           </div>
 
-          {/* Main Title */}
-          <h1
-            ref={titleRef}
-            className="font-orbitron text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight leading-none"
-          >
-            <span className="block text-white mb-2">IEEE RAS</span>
-            <span className="block text-gradient">ENIS</span>
-          </h1>
+          {/* Right Image Column */}
+          <div className="lg:col-span-5 relative mt-8 lg:mt-0 z-10 hidden lg:flex items-center justify-center pointer-events-none">
+            {/* Ambient Background Glow behind the robot */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[180%] bg-gradient-to-br from-red-600/10 to-blue-600/10 blur-[120px] rounded-full" />
 
-          {/* Typewriter Line */}
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-transparent to-red-500/50" />
-            <span className="font-orbitron text-lg sm:text-xl text-red-400 font-semibold tracking-widest min-w-[200px] text-center">
-              {typewriterText}
-              <span className="inline-block w-0.5 h-5 ml-1 -mb-0.5 bg-red-500 animate-pulse" />
-            </span>
-            <div className="h-px flex-1 max-w-[80px] bg-gradient-to-l from-transparent to-red-500/50" />
-          </div>
-
-          {/* Subtitle */}
-          <p
-            ref={subtitleRef}
-            className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed"
-          >
-            Empowering students to innovate, build, and lead in the world of robotics and automation.
-          </p>
-
-          {/* CTA Buttons */}
-          <div ref={ctaRef} className="flex flex-row items-center justify-center gap-3 sm:gap-5 mb-8">
-            <a
-              href="#membership"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#membership'); }}
-              className="group relative cyber-btn flex items-center justify-center gap-2.5 sm:gap-3 px-6 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white font-bold text-xs sm:text-lg rounded-xl transition-all duration-300 shadow-lg shadow-red-600/30 hover:shadow-red-500/50 hover:scale-[1.03] whitespace-nowrap min-w-[140px] sm:min-w-0"
-            >
-              <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
-              Get Membership
-            </a>
-            <a
-              href="#about"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
-              className="group cyber-btn flex items-center justify-center gap-2 sm:gap-3 px-6 py-4 sm:px-10 sm:py-5 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/15 hover:border-white/30 text-white font-semibold text-xs sm:text-lg rounded-xl transition-all duration-300 hover:scale-[1.03] whitespace-nowrap min-w-[100px] sm:min-w-0"
-            >
-              Explore
-            </a>
+            {/* The BIG Robot Image with screen blending mode */}
+            <img
+              ref={robotRef}
+              src="/images/x-robot.png"
+              alt="Advanced Robot Node"
+              className="relative w-[120%] sm:w-full max-w-[600px] lg:max-w-none lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-[15%] lg:translate-y-[25%]"
+              style={{
+                filter: 'drop-shadow(0 0 40px rgba(239,68,68,0.25)) contrast(1.1) brightness(1.1)',
+                WebkitMaskImage: 'linear-gradient(to top, transparent 5%, black 35%)',
+                maskImage: 'linear-gradient(to top, transparent 5%, black 35%)'
+              }}
+            />
           </div>
 
         </div>
       </div>
 
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent pointer-events-none z-0" />
+
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-[49%] -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-0 left-[49%] -translate-x-1/2 animate-bounce z-30 pb-2">
         <a
           href="#about"
           onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
-          className="flex flex-col items-center gap-2 text-gray-600 hover:text-red-400 transition-colors group"
+          className="flex flex-col items-center gap-2 text-gray-500 hover:text-white transition-colors group"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] font-medium">Scroll</span>
-          <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
-            <div className="w-1 h-2 bg-red-500 rounded-full animate-bounce" />
-          </div>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold">Scroll</span>
           <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
         </a>
       </div>
