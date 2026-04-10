@@ -1,15 +1,26 @@
 import { useAuth } from '../contexts/AuthContext';
-import { LogIn, LogOut, User, Shield, ChevronDown } from 'lucide-react';
+import { LogIn, LogOut, User as UserIcon, Shield, ChevronDown, X, Mail, Lock, Loader2 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
-  const { user, profile, loading, signInWithGoogle, signOut, isAdmin } = useAuth();
+  const { user, profile, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, signOut, isAdmin } = useAuth();
+  
+  // Auth Modal State
+  const [modalOpen, setModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  // Dropdown State (Logged In)
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Close menu on outside click
+  // Close dropdown menu on outside click
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -20,6 +31,36 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthError('');
+
+    let err;
+    if (authMode === 'signin') {
+      const res = await signInWithEmail(email, password);
+      err = res.error;
+    } else {
+      if (!name) {
+        setAuthError('Please enter your name.');
+        setAuthLoading(false);
+        return;
+      }
+      const res = await signUpWithEmail(email, password, name);
+      err = res.error;
+    }
+
+    if (err) {
+      setAuthError(err.message || 'Authentication failed');
+      setAuthLoading(false);
+    } else {
+      setModalOpen(false);
+      setAuthLoading(false);
+      // Wait a moment for auth state to update before navigating
+      setTimeout(() => navigate('/dashboard'), 500);
+    }
+  };
+
   if (loading) {
     if (mobile) return null;
     return (
@@ -27,26 +68,143 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
     );
   }
 
-  // Not signed in — show Join Now button
+  // Not signed in — show Join Now button + Auth Modal
   if (!user) {
     return (
-      <button
-        onClick={signInWithGoogle}
-        id="auth-sign-in-btn"
-        className={mobile
-          ? "block w-full px-4 py-3.5 bg-gradient-to-r from-red-600 to-red-500 text-white text-center font-bold rounded-xl tracking-wide cyber-btn"
-          : "hidden lg:flex cyber-btn items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white text-sm font-bold rounded-lg transition-all duration-300 shadow-lg shadow-red-600/20 hover:shadow-red-500/40 hover:scale-[1.03]"
-        }
-      >
-        <LogIn className={`w-4 h-4 ${mobile ? 'hidden' : 'inline-block'}`} />
-        Join Now
-      </button>
+      <>
+        {/* Join Now Button */}
+        <button
+          onClick={() => setModalOpen(true)}
+          className={mobile
+            ? "block w-full px-4 py-3.5 bg-gradient-to-r from-red-600 to-red-500 text-white text-center font-bold rounded-xl tracking-wide cyber-btn"
+            : "hidden lg:flex cyber-btn items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white text-sm font-bold rounded-lg transition-all duration-300 shadow-lg shadow-red-600/20 hover:shadow-red-500/40 hover:scale-[1.03]"
+          }
+        >
+          <LogIn className={`w-4 h-4 ${mobile ? 'hidden' : 'inline-block'}`} />
+          Join Now
+        </button>
+
+        {/* Auth Modal Overlay */}
+        {modalOpen && (
+          <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center px-4">
+            <div className="absolute inset-0 bg-[#070707]/90 backdrop-blur-md" onClick={() => setModalOpen(false)} />
+            
+            <div className="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl animate-in zoom-in-95 duration-200">
+              <button 
+                onClick={() => setModalOpen(false)}
+                className="absolute top-4 right-4 p-2 text-gray-500 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-orbitron font-bold text-white mb-2">Welcome</h2>
+                <p className="text-sm text-gray-400">IEEE RAS ENIS Student Branch</p>
+              </div>
+
+              {/* Toggle Mode */}
+              <div className="flex bg-white/5 p-1 rounded-xl mb-6">
+                <button 
+                  onClick={() => { setAuthMode('signin'); setAuthError(''); }}
+                  className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300
+                    ${authMode === 'signin' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'text-gray-400 hover:text-white'}`}
+                >
+                  Sign In
+                </button>
+                <button 
+                  onClick={() => { setAuthMode('signup'); setAuthError(''); }}
+                  className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300
+                    ${authMode === 'signup' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'text-gray-400 hover:text-white'}`}
+                >
+                  Sign Up
+                </button>
+              </div>
+
+              {/* Form */}
+              <form onSubmit={handleEmailAuth} className="space-y-4">
+                {authMode === 'signup' && (
+                  <div className="relative">
+                    <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all"
+                      required={authMode === 'signup'}
+                    />
+                  </div>
+                )}
+                
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all"
+                    required
+                  />
+                </div>
+
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all"
+                    required
+                    minLength={6}
+                  />
+                </div>
+
+                {authError && (
+                  <p className="text-xs text-red-400 text-center animate-in fade-in slide-in-from-top-1">{authError}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={authLoading}
+                  className="w-full py-3 bg-white text-black text-sm font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {authLoading && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {authMode === 'signin' ? 'Sign In' : 'Create Account'}
+                </button>
+              </form>
+
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/10"></div>
+                </div>
+                <div className="relative flex justify-center text-xs">
+                  <span className="bg-[#0a0a0a] px-2 text-gray-500 font-semibold uppercase tracking-wider">Or continue with</span>
+                </div>
+              </div>
+
+              <button
+                onClick={async () => {
+                  setAuthLoading(true);
+                  await signInWithGoogle();
+                }}
+                disabled={authLoading}
+                className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-3 disabled:opacity-50"
+              >
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-4 h-4" />
+                Google
+              </button>
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 
   if (mobile) return null;
 
-  // Signed in — show avatar + dropdown
+  // Signed in — show avatar + dropdown (Unchanged)
   const avatarUrl = user.user_metadata?.avatar_url || profile?.avatar_url;
   const displayName = profile?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'User';
 
@@ -110,7 +268,7 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
               className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 
                          hover:text-white hover:bg-white/5 transition-colors"
             >
-              <User className="w-4 h-4" />
+              <UserIcon className="w-4 h-4" />
               Dashboard
             </button>
 

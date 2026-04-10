@@ -10,6 +10,8 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
+  signInWithEmail: (email: string, pass: string) => Promise<{ error: any }>;
+  signUpWithEmail: (email: string, pass: string, name: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   isRole: (role: UserRole) => boolean;
   isAdmin: boolean;
@@ -93,6 +95,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) console.error('Google sign-in error:', error);
   };
 
+  // Sign in with Email
+  const signInWithEmail = async (email: string, pass: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password: pass });
+    if (error) console.error('Email sign-in error:', error);
+    return { error };
+  };
+
+  // Sign up with Email
+  const signUpWithEmail = async (email: string, pass: string, name: string) => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password: pass,
+      options: {
+        data: { full_name: name },
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+      },
+    });
+    if (error) console.error('Email sign-up error:', error);
+    return { error };
+  };
+
   // Sign out
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -113,6 +136,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         session,
         loading,
         signInWithGoogle,
+        signInWithEmail,
+        signUpWithEmail,
         signOut,
         isRole,
         isAdmin,
