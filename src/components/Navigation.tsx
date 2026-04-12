@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthButton from './AuthButton';
 
@@ -24,6 +25,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const location = useLocation();
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   const isHomePage = location.pathname === '/';
 
@@ -95,85 +97,92 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-            ? 'bg-[#0a0a0a]/85 backdrop-blur-xl border-b border-white/8 shadow-2xl'
-            : 'bg-transparent'
-          }`}
-      >
-        {/* Gradient line at bottom of nav when scrolled */}
-        {isScrolled && (
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent" />
-        )}
+      <div className={`fixed top-2 sm:top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-700 ease-out ${isScrolled ? 'translate-y-0' : 'translate-y-[-4px]'}`}>
+        <nav
+          className={`w-full max-w-6xl rounded-2xl lg:rounded-full transition-all duration-500 border ${isScrolled
+            ? 'bg-[#0a0a0a]/70 backdrop-blur-2xl border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
+            : 'bg-transparent border-transparent lg:bg-black/20 lg:backdrop-blur-xl lg:border-white/5'
+            }`}
+        >
+          <div className="w-full px-4 sm:px-6 lg:px-6">
+            <div className="flex items-center justify-between h-16 lg:h-16">
 
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between h-14 lg:h-16">
-
-            {/* Logo */}
-            <a
-              href="#home"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
-              className="flex items-center group"
-            >
-              <div className="relative h-10 w-32 sm:w-40 flex items-center justify-start flex-shrink-0">
-                <img src="/images/ras.webp" alt="RAS Logo" className="relative h-9 w-auto object-contain" />
-              </div>
-            </a>
-
-            {/* Desktop Navigation */}
-            <div ref={navRef} className="hidden lg:flex items-center gap-1 relative">
-              {/* Sliding indicator */}
-              {isHomePage && (
-                <div
-                  className="absolute bottom-0 h-0.5 bg-gradient-to-r from-red-500 to-purple-500 rounded-full transition-all duration-400 ease-out pointer-events-none"
-                  style={{
-                    left: indicatorStyle.left,
-                    width: indicatorStyle.width,
-                    opacity: indicatorStyle.opacity,
-                    transform: 'translateY(0)',
-                  }}
-                />
-              )}
-
-              {navLinks.map((link) => {
-                const sectionId = link.href.slice(1);
-                const isActive = isHomePage && activeSection === sectionId;
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    ref={(el) => { if (el) linkRefs.current.set(sectionId, el); }}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                    className={`nav-link relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${isActive
-                        ? 'text-white bg-white/5'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
-                      }`}
-                  >
-                    {link.name}
-                  </a>
-                );
-              })}
-            </div>
-
-            {/* CTA + Auth + Mobile */}
-            <div className="flex items-center gap-3">
-              {/* Auth Button */}
-              <AuthButton />
-
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors border border-white/10"
-                aria-label="Toggle menu"
+              {/* Logo */}
+              <a
+                href="#home"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
+                className="flex items-center group"
               >
-                {isMobileMenuOpen
-                  ? <X className="w-5 h-5" />
-                  : <Menu className="w-5 h-5" />
-                }
-              </button>
+                <div className="relative h-10 w-32 sm:w-40 flex items-center justify-start flex-shrink-0">
+                  <img src="/images/ras.webp" alt="RAS Logo" className="relative h-9 w-auto object-contain" />
+                </div>
+              </a>
+
+              {/* Desktop Navigation */}
+              <div ref={navRef} className="hidden lg:flex items-center gap-1 relative">
+                {/* Sliding indicator */}
+                {isHomePage && (
+                  <div
+                    className="absolute h-[38px] bg-red-500/10 border border-red-500/30 rounded-full transition-all duration-400 ease-out pointer-events-none shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+                    style={{
+                      left: indicatorStyle.left,
+                      width: indicatorStyle.width,
+                      opacity: indicatorStyle.opacity,
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                    }}
+                  />
+                )}
+
+                {navLinks.map((link) => {
+                  const sectionId = link.href.slice(1);
+                  const isActive = isHomePage && activeSection === sectionId;
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      ref={(el) => { if (el) linkRefs.current.set(sectionId, el); }}
+                      onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                      className={`nav-link relative px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${isActive
+                        ? 'text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                      {link.name}
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* CTA + Auth + Mobile */}
+              <div className="flex items-center gap-3">
+                {/* Theme Toggle Button */}
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="p-2.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-white/10"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5 text-black dark:text-white" />}
+                </button>
+
+                {/* Auth Button */}
+                <AuthButton />
+
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="lg:hidden p-2.5 text-white hover:bg-white/10 rounded-lg transition-colors border border-white/10"
+                  aria-label="Toggle menu"
+                >
+                  {isMobileMenuOpen
+                    ? <X className="w-5 h-5" />
+                    : <Menu className="w-5 h-5" />
+                  }
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
 
       {/* Mobile Menu */}
       <div
@@ -202,8 +211,8 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                   className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 font-medium text-sm ${isActive
-                      ? 'text-white bg-red-500/10 border border-red-500/20'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'text-white bg-red-500/10 border border-red-500/20'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
                 >
                   {link.name}

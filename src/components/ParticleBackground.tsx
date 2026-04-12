@@ -26,7 +26,7 @@ export default function ParticleBackground() {
     }
 
     const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 80 : 200; 
+    const particleCount = isMobile ? 80 : 200;
     const particles: Particle[] = [];
 
     const initParticles = () => {
@@ -57,14 +57,14 @@ export default function ParticleBackground() {
     let animId: number;
     const animate = () => {
       animId = requestAnimationFrame(animate);
-      
+
       lerpedScrollY += (scrollY - lerpedScrollY) * 0.08;
 
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = '#0a0a0a';
       ctx.fillRect(0, 0, width, height);
 
-      const fov = 400; 
+      const fov = 400;
       const centerX = width / 2;
       const centerY = height / 2;
 

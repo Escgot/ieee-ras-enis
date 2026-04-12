@@ -60,8 +60,8 @@ export default function Hero() {
       // Robot entrance and floating
       if (robotRef.current) {
         tl.fromTo(robotRef.current,
-          { opacity: 0, x: 100, scale: 0.95 },
-          { opacity: 1, x: 0, scale: 1, duration: 1.8, ease: 'power4.out' },
+          { opacity: 0, x: 100, scale: 1.1 },
+          { opacity: 1, x: 0, scale: 1.4, duration: 1.8, ease: 'power4.out' },
           '-=1.2'
         );
 
@@ -143,23 +143,22 @@ export default function Hero() {
             </p>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto mt-2">
               <a
                 href="#membership"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#membership'); }}
-                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4.5 bg-white text-black font-extrabold text-sm uppercase tracking-widest hover:bg-gray-200 transition-all shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] hover:scale-105"
-                style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
+                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 rounded-full text-white font-bold text-sm uppercase tracking-widest transition-all duration-300 shadow-[0_0_20px_rgba(239,68,68,0.3)] hover:shadow-[0_0_40px_rgba(239,68,68,0.6)] hover:scale-105 hover:-translate-y-1"
               >
-                <Zap className="w-5 h-5 text-black" />
+                <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <Zap className="w-5 h-5 text-white" />
                 Initialize
               </a>
               <a
                 href="#about"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
-                className="group w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4.5 bg-transparent border border-white/20 text-white font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:border-white/40 transition-all hover:scale-105"
-                style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
+                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-white/5 backdrop-blur-lg border border-white/10 rounded-full text-white font-bold text-sm uppercase tracking-widest transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:scale-105 hover:-translate-y-1"
               >
-                Discover
+                Discover More
               </a>
             </div>
           </div>
@@ -174,7 +173,7 @@ export default function Hero() {
               ref={robotRef}
               src="/images/x-robot.png"
               alt="Advanced Robot Node"
-              className="relative w-[120%] sm:w-full max-w-[600px] lg:max-w-none lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-[15%] lg:translate-y-[25%]"
+              className="relative w-[120%] sm:w-full max-w-[600px] lg:max-w-none lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[5%] scale-[1.7]"
               style={{
                 filter: 'drop-shadow(0 0 40px rgba(239,68,68,0.25)) contrast(1.1) brightness(1.1)',
                 WebkitMaskImage: 'linear-gradient(to top, transparent 5%, black 35%)',
