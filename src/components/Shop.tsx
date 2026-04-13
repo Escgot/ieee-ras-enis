@@ -6,7 +6,7 @@ import { shopItems } from '../data/shop';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Shop() {
+export default function Shop({ onViewAll }: { onViewAll: () => void }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement>(null);
 
@@ -152,7 +152,10 @@ export default function Shop() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <button className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-white/10 hover:border-red-500/40 bg-white/[0.02] hover:bg-red-500/5 text-white text-xs font-bold uppercase tracking-[0.3em] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]">
+          <button 
+            onClick={onViewAll}
+            className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-white/10 hover:border-red-500/40 bg-white/[0.02] hover:bg-red-500/5 text-white text-xs font-bold uppercase tracking-[0.3em] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]"
+          >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>

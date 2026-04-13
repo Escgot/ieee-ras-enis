@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Preloader from './components/Preloader';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 // Lazy load components that are below the fold and secondary pages
+const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const Projects = lazy(() => import('./components/Projects'));
 const AllProjects = lazy(() => import('./components/AllProjects'));
 const Events = lazy(() => import('./components/Events'));
@@ -22,78 +24,12 @@ const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
+const AllProducts = lazy(() => import('./components/AllProducts'));
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* ── Premium Loading Screen ── */
-function LoadingScreen({ done }: { done: boolean }) {
-  return (
-    <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070707] transition-all duration-700 ${done ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-    >
-      {/* Cyber grid in loader */}
-      <div className="absolute inset-0 cyber-grid opacity-20" />
 
-      {/* Radial glow */}
-      <div
-        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse, rgba(239,68,68,0.12) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
-
-      {/* Logo mark */}
-      <div className="relative flex flex-col items-center gap-6">
-        <div className="relative w-16 h-16 flex items-center justify-center">
-          {/* Spinning rings */}
-          <div
-            className="absolute inset-0 rounded-full border border-red-500/30"
-            style={{ animation: 'rotate-slow 3s linear infinite' }}
-          />
-          <div
-            className="absolute inset-2 rounded-full border border-purple-500/20"
-            style={{ animation: 'rotate-slow 2s linear infinite reverse' }}
-          />
-          <div className="w-32 h-14 bg-gradient-to-br from-red-600/10 to-purple-600/10 rounded-xl flex items-center justify-center">
-            <img
-              src="/images/ras.webp"
-              alt="RAS Logo"
-              className="w-28 h-10 object-contain"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-        </div>
-
-        <div className="text-center">
-          <p className="font-orbitron font-black text-xl text-white tracking-[0.2em] mb-1">
-            RAS <span className="text-gradient">ENIS</span>
-          </p>
-          <p className="text-[10px] text-gray-600 uppercase tracking-[0.4em]">Loading…</p>
-        </div>
-
-        {/* Progress bar */}
-        <div className="w-48 h-px bg-white/5 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-red-600 to-purple-500 rounded-full"
-            style={{
-              animation: 'loader-bar 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards',
-            }}
-          />
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes loader-bar {
-          from { width: 0%; }
-          to   { width: 100%; }
-        }
-      `}</style>
-    </div>
-  );
-}
 
 /* ── Section Divider ── */
 function SectionDivider() {
@@ -108,6 +44,7 @@ function SectionDivider() {
 function HomePage() {
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [showAllProducts, setShowAllProducts] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -117,49 +54,71 @@ function HomePage() {
       gsap.utils.toArray<HTMLElement>('.section-reveal').forEach((section) => {
         gsap.fromTo(
           section,
-          { opacity: 0, y: 40 },
+          { opacity: 0, y: 60, scale: 0.98 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.9,
-            ease: 'power3.out',
+            scale: 1,
+            duration: 1.2,
+            ease: 'expo.out',
             scrollTrigger: {
               trigger: section,
-              start: 'top 82%',
+              start: 'top 85%',
               toggleActions: 'play none none reverse',
             },
           }
         );
       });
+
+      // Hover Micro-interactions for all .cyber-btn elements
+      gsap.utils.toArray<HTMLElement>('.cyber-btn').forEach((btn) => {
+        btn.addEventListener('mouseenter', () => {
+          gsap.to(btn, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { scale: 1, duration: 0.3, ease: 'power2.out' });
+        });
+      });
     }, mainRef);
 
     return () => ctx.revert();
-  }, [showAllEvents, showAllProjects]);
+  }, [showAllEvents, showAllProjects, showAllProducts]);
 
   const handleShowAllEvents = () => {
     setShowAllEvents(true);
     setShowAllProjects(false);
+    setShowAllProducts(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleShowAllProjects = () => {
     setShowAllProjects(true);
     setShowAllEvents(false);
+    setShowAllProducts(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const handleBackToHome = (section: 'events' | 'projects') => {
+  const handleShowAllProducts = () => {
+    setShowAllProducts(true);
     setShowAllEvents(false);
     setShowAllProjects(false);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleBackToHome = (section: 'events' | 'projects' | 'shop') => {
+    setShowAllEvents(false);
+    setShowAllProjects(false);
+    setShowAllProducts(false);
     setTimeout(() => {
       document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
-  const isHome = !showAllEvents && !showAllProjects;
+  const isHome = !showAllEvents && !showAllProjects && !showAllProducts;
 
   return (
     <div ref={mainRef}>
+      <CustomCursor />
       <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
         {isHome ? (
           <>
@@ -167,32 +126,51 @@ function HomePage() {
               onNavigateHome={() => {
                 setShowAllEvents(false);
                 setShowAllProjects(false);
+                setShowAllProducts(false);
                 navigate('/');
               }}
             />
             <main>
               <Hero />
               <SectionDivider />
-              <About />
+              <div className="section-reveal">
+                <About />
+              </div>
               <SectionDivider />
-              <News />
+              <div className="section-reveal">
+                <News />
+              </div>
               <SectionDivider />
-              <Gallery />
+              <div className="section-reveal">
+                <Gallery />
+              </div>
               <SectionDivider />
-              <Events onViewAll={handleShowAllEvents} />
+              <div className="section-reveal">
+                <Events onViewAll={handleShowAllEvents} />
+              </div>
               <SectionDivider />
-              <Projects onViewAll={handleShowAllProjects} />
+              <div className="section-reveal">
+                <Projects onViewAll={handleShowAllProjects} />
+              </div>
               <SectionDivider />
-              <Team />
+              <div className="section-reveal">
+                <Team />
+              </div>
               <SectionDivider />
-              <Shop />
+              <div className="section-reveal">
+                <Shop onViewAll={handleShowAllProducts} />
+              </div>
               <SectionDivider />
-              <Contact />
+              <div className="section-reveal">
+                <Contact />
+              </div>
             </main>
             <Footer />
           </>
         ) : showAllEvents ? (
           <AllEvents onBack={() => handleBackToHome('events')} />
+        ) : showAllProducts ? (
+          <AllProducts onBack={() => handleBackToHome('shop')} />
         ) : (
           <AllProjects onBack={() => handleBackToHome('projects')} />
         )}
@@ -203,16 +181,7 @@ function HomePage() {
 
 /* ── Main App ── */
 function App() {
-  const [loadingDone, setLoadingDone] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const location = useLocation();
-
-  /* Loading sequence — only on first visit */
-  useEffect(() => {
-    const t1 = setTimeout(() => setLoadingDone(true), 800);
-    const t2 = setTimeout(() => setIsLoaded(true), 1200);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
 
   /* Scroll to top on route change */
   useEffect(() => {
@@ -222,13 +191,9 @@ function App() {
   return (
     <>
       <ParticleBackground />
-      {/* Loading Screen */}
-      <LoadingScreen done={loadingDone} />
+      <Preloader />
 
-      <div
-        className={`min-h-screen bg-transparent text-white transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-      >
+      <div className="min-h-screen bg-transparent text-foreground">
         <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

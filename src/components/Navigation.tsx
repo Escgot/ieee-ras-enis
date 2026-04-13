@@ -99,13 +99,13 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
     <>
       <div className={`fixed top-2 sm:top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-700 ease-out ${isScrolled ? 'translate-y-0' : 'translate-y-[-4px]'}`}>
         <nav
-          className={`w-full max-w-6xl rounded-2xl lg:rounded-full transition-all duration-500 border ${isScrolled
-            ? 'bg-[#0a0a0a]/70 backdrop-blur-2xl border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
-            : 'bg-transparent border-transparent lg:bg-black/20 lg:backdrop-blur-xl lg:border-white/5'
+          className={`w-full max-w-7xl rounded-2xl lg:rounded-full transition-all duration-500 border ${isScrolled
+            ? 'bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
+            : 'bg-transparent border-transparent lg:bg-white/50 lg:dark:bg-black/20 lg:backdrop-blur-xl lg:border-black/5 lg:dark:border-white/5'
             }`}
         >
           <div className="w-full px-4 sm:px-6 lg:px-6">
-            <div className="flex items-center justify-between h-16 lg:h-16">
+            <div className="flex items-center justify-between h-14 lg:h-14">
 
               {/* Logo */}
               <a
@@ -113,8 +113,8 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                 onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
                 className="flex items-center group"
               >
-                <div className="relative h-10 w-32 sm:w-40 flex items-center justify-start flex-shrink-0">
-                  <img src="/images/ras.webp" alt="RAS Logo" className="relative h-9 w-auto object-contain" />
+                <div className="relative h-12 w-48 sm:w-60 flex items-center justify-start flex-shrink-0">
+                  <img src="/images/ras.webp" alt="RAS Logo" className="relative h-10 w-auto object-contain" />
                 </div>
               </a>
 
@@ -143,9 +143,9 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                       href={link.href}
                       ref={(el) => { if (el) linkRefs.current.set(sectionId, el); }}
                       onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                      className={`nav-link relative px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${isActive
-                        ? 'text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      className={`nav-link relative px-4 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isActive
+                        ? 'text-red-500 dark:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
                         }`}
                     >
                       {link.name}

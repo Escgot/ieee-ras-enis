@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, Send, Clock } from 'lucide-react';
 import DiscordIcon from './DiscordIcon';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,6 +10,7 @@ const contactInfo = [
   { icon: Mail, label: 'Email', value: 'sbc.enis.ras@ieee.org', href: 'mailto:sbc.enis.ras@ieee.org', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
   { icon: Phone, label: 'Phone', value: '+216 74 123 456', href: 'tel:+21674123456', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', hoverBg: 'group-hover:bg-purple-500' },
   { icon: MapPin, label: 'Location', value: 'ENIS, Sfax, Tunisia', href: '#', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
+  { icon: Clock, label: 'Office Hours', value: 'Tue - Sun: 10:00-23:00', href: '#', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', hoverBg: 'group-hover:bg-purple-500' },
 ];
 
 const socials = [
@@ -25,7 +26,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', subject: '', message: '' });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -74,7 +75,7 @@ export default function Contact() {
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
     }, 4000);
   };
 
@@ -101,10 +102,10 @@ export default function Contact() {
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Get In Touch
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-4 uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-black dark:text-white mt-4 uppercase">
               Contact <span className="text-gradient">Us</span>
             </h2>
-            <p className="text-gray-500 max-w-md mx-auto mt-4 leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 max-w-xl mx-auto mt-4 leading-relaxed font-medium">
               Have a question, partnership idea, or just want to say hi? We'd love to hear from you.
             </p>
           </div>
@@ -124,8 +125,8 @@ export default function Contact() {
                     <item.icon className={`w-4 h-4 ${item.color} group-hover:text-white transition-colors`} />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[10px] text-gray-600 uppercase tracking-widest font-bold mb-0.5">{item.label}</p>
-                    <p className={`text-sm text-white font-medium group-hover:${item.color} transition-colors truncate`}>
+                    <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest font-bold mb-0.5">{item.label}</p>
+                    <p className={`text-sm text-black dark:text-white font-bold group-hover:${item.color} transition-colors truncate`}>
                       {item.value}
                     </p>
                   </div>
@@ -133,8 +134,8 @@ export default function Contact() {
               ))}
 
               {/* Social Links */}
-              <div className="p-4 bg-white/[0.02] border border-white/6 rounded-2xl">
-                <p className="text-[10px] text-gray-600 uppercase tracking-widest font-bold mb-4">Follow Us</p>
+              <div className="p-4 bg-white/[0.02] border border-black/10 dark:border-white/6 rounded-2xl">
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest font-bold mb-4">Follow Us</p>
                 <div className="flex flex-wrap gap-2.5 sm:gap-3">
                   {socials.map((s, i) => (
                     <a
@@ -143,7 +144,7 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.label}
-                      className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-white/5 border border-white/8 rounded-xl transition-all duration-300 text-gray-500 hover:text-white hover:scale-110 ${s.hoverColor}`}
+                      className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/8 rounded-xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-white hover:scale-110 ${s.hoverColor}`}
                     >
                       <s.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                     </a>
@@ -154,7 +155,7 @@ export default function Contact() {
 
             {/* Column 2: Map */}
             <div className="lg:col-span-4 contact-left" style={{ transitionDelay: '0.1s' }}>
-              <div className="relative w-full h-full min-h-[280px] lg:min-h-0 bg-white/[0.02] border border-white/6 rounded-3xl overflow-hidden group">
+              <div className="relative w-full h-full min-h-[280px] lg:min-h-0 bg-white/[0.02] border border-black/10 dark:border-white/6 rounded-3xl overflow-hidden group">
                 {/* Map border glow on hover */}
                 <div className="absolute inset-0 rounded-3xl border border-red-500/0 group-hover:border-red-500/15 transition-colors duration-500 z-10 pointer-events-none" />
 
@@ -166,7 +167,7 @@ export default function Contact() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="grayscale group-hover:grayscale-0 transition-all duration-700 opacity-50 group-hover:opacity-90"
+                  className="transition-all duration-700 opacity-100"
                 />
 
                 {/* Map overlay label */}
@@ -182,55 +183,81 @@ export default function Contact() {
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                className="p-6 sm:p-7 bg-white/[0.02] border border-white/6 rounded-3xl flex flex-col gap-4 hover:border-white/10 transition-colors duration-500"
+                className="p-6 sm:p-7 bg-white/[0.02] border border-black/10 dark:border-white/6 rounded-3xl flex flex-col gap-4 hover:border-white/10 transition-colors duration-500"
               >
                 {isSubmitted ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center">
                     <div className="w-16 h-16 flex items-center justify-center bg-green-500/10 border border-green-500/20 rounded-full mb-5 animate-scale-in">
                       <CheckCircle className="w-8 h-8 text-green-400" />
                     </div>
-                    <h3 className="font-orbitron text-xl font-bold text-white mb-2">Message Sent!</h3>
-                    <p className="text-gray-500 text-sm">We'll get back to you shortly.</p>
+                    <h3 className="font-orbitron text-xl font-bold text-black dark:text-white mb-2">Message Sent!</h3>
+                    <p className="text-gray-800 dark:text-gray-200 text-sm font-medium">We'll get back to you shortly.</p>
                   </div>
                 ) : (
                   <>
                     <div className="grid sm:grid-cols-2 gap-4">
-                      {(['name', 'email'] as const).map((field) => (
+                      {(['firstName', 'lastName'] as const).map((field) => (
                         <div key={field} className="relative">
+                          <label htmlFor={field} className="text-[10px] text-gray-700 dark:text-gray-300 uppercase tracking-widest font-bold mb-1.5 block ml-1">
+                            {field === 'firstName' ? 'First Name' : 'Last Name'}
+                          </label>
                           <input
-                            type={field === 'email' ? 'email' : 'text'}
+                            id={field}
+                            type="text"
                             name={field}
                             value={formData[field]}
                             onChange={handleChange}
                             onFocus={() => setFocusedField(field)}
                             onBlur={() => setFocusedField(null)}
                             required
-                            placeholder={field === 'name' ? 'Your Name' : 'Email Address'}
-                            className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-white text-sm placeholder-gray-700 focus:outline-none transition-all duration-300 ${
-                              focusedField === field
+                            placeholder={field === 'firstName' ? 'Enter first name' : 'Enter last name'}
+                            className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-black dark:text-white text-sm font-medium placeholder-gray-500 dark:placeholder-gray-600 focus:outline-none transition-all duration-300 ${focusedField === field
                                 ? 'border-red-500/50 bg-red-500/[0.03] shadow-[0_0_15px_rgba(239,68,68,0.08)]'
-                                : 'border-white/8 hover:border-white/15'
-                            }`}
+                                : 'border-black/10 dark:border-white/8 hover:border-white/15'
+                              }`}
                           />
                         </div>
                       ))}
                     </div>
 
                     <div className="relative">
+                      <label htmlFor="email" className="text-[10px] text-gray-700 dark:text-gray-300 uppercase tracking-widest font-bold mb-1.5 block ml-1">
+                        Email Address
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField('email')}
+                        onBlur={() => setFocusedField(null)}
+                        required
+                        placeholder="example@email.com"
+                        className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-black dark:text-white text-sm font-medium placeholder-gray-500 dark:placeholder-gray-600 focus:outline-none transition-all duration-300 ${focusedField === 'email'
+                            ? 'border-red-500/50 bg-red-500/[0.03] shadow-[0_0_15px_rgba(239,68,68,0.08)]'
+                            : 'border-black/10 dark:border-white/8 hover:border-white/15'
+                          }`}
+                      />
+                    </div>
+
+                    <div className="relative">
+                      <label htmlFor="subject" className="text-[10px] text-gray-700 dark:text-gray-300 uppercase tracking-widest font-bold mb-1.5 block ml-1">
+                        Subject / Topic
+                      </label>
                       <select
+                        id="subject"
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
                         onFocus={() => setFocusedField('subject')}
                         onBlur={() => setFocusedField(null)}
                         required
-                        className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-sm focus:outline-none transition-all duration-300 appearance-none cursor-pointer ${
-                          formData.subject ? 'text-white' : 'text-gray-700'
-                        } ${
-                          focusedField === 'subject'
+                        className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-sm font-bold focus:outline-none transition-all duration-300 appearance-none cursor-pointer ${formData.subject ? 'text-black dark:text-white' : 'text-gray-600 dark:text-gray-400'
+                          } ${focusedField === 'subject'
                             ? 'border-red-500/50 bg-red-500/[0.03]'
-                            : 'border-white/8 hover:border-white/15'
-                        }`}
+                            : 'border-black/10 dark:border-white/8 hover:border-white/15'
+                          }`}
                       >
                         <option value="" className="bg-[#0d0d0d] text-gray-500">Select a topic</option>
                         <option value="general" className="bg-[#0d0d0d] text-white">General Inquiry</option>
@@ -240,7 +267,7 @@ export default function Contact() {
                         <option value="membership" className="bg-[#0d0d0d] text-white">Membership</option>
                         <option value="other" className="bg-[#0d0d0d] text-white">Other</option>
                       </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                      <div className="absolute right-4 top-[calc(50%+10px)] -translate-y-1/2 pointer-events-none">
                         <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
@@ -248,7 +275,11 @@ export default function Contact() {
                     </div>
 
                     <div className="relative">
+                      <label htmlFor="message" className="text-[10px] text-gray-700 dark:text-gray-300 uppercase tracking-widest font-bold mb-1.5 block ml-1">
+                        Message
+                      </label>
                       <textarea
+                        id="message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
@@ -256,15 +287,14 @@ export default function Contact() {
                         onBlur={() => setFocusedField(null)}
                         required
                         rows={4}
-                        placeholder="Your message..."
-                        className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-white text-sm placeholder-gray-700 focus:outline-none transition-all duration-300 resize-none ${
-                          focusedField === 'message'
+                        placeholder="Write your message here..."
+                        className={`w-full px-4 py-3 bg-white/[0.03] border rounded-xl text-black dark:text-white text-sm font-medium placeholder-gray-500 dark:placeholder-gray-600 focus:outline-none transition-all duration-300 resize-none ${focusedField === 'message'
                             ? 'border-red-500/50 bg-red-500/[0.03] shadow-[0_0_15px_rgba(239,68,68,0.08)]'
-                            : 'border-white/8 hover:border-white/15'
-                        }`}
+                            : 'border-black/10 dark:border-white/8 hover:border-white/15'
+                          }`}
                       />
                       {/* Character hint */}
-                      <span className="absolute bottom-3 right-3 text-[10px] text-gray-700">
+                      <span className="absolute bottom-3 right-3 text-[10px] text-gray-700 dark:text-gray-400">
                         {formData.message.length}/500
                       </span>
                     </div>
@@ -290,7 +320,7 @@ export default function Contact() {
                       )}
                     </button>
 
-                    <p className="text-center text-[10px] text-gray-700">
+                    <p className="text-center text-[10px] text-gray-800 dark:text-gray-300 font-medium">
                       We typically respond within 24 hours.
                     </p>
                   </>

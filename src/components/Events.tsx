@@ -10,12 +10,43 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // 3D Tilt Effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+
+    gsap.to(card, {
+      rotateX: rotateX,
+      rotateY: rotateY,
+      duration: 0.5,
+      ease: 'power2.out',
+      transformPerspective: 1000
+    });
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.5,
+      ease: 'power2.out'
+    });
+  };
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.event-item',
-        { opacity: 0, x: -40 },
+        { opacity: 0, x: -40, scale: 0.95 },
         {
-          opacity: 1, x: 0, duration: 0.9, stagger: 0.2, ease: 'power3.out',
+          opacity: 1, x: 0, scale: 1, duration: 1.2, stagger: 0.2, ease: 'expo.out',
           scrollTrigger: { trigger: containerRef.current, start: 'top 80%' },
         }
       );
@@ -68,7 +99,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
             const [month, day] = event.date.split(' ');
             const isFirst = index === 0;
             return (
-              <div key={event.id} className="event-item flex-[0_0_85vw] sm:flex-[1_1_100%] sm:w-full min-w-0 snap-center group relative">
+              <div key={event.id} className="event-item flex-[0_0_85vw] sm:flex-[1_1_100%] sm:w-full min-w-0 snap-center group relative" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ transformStyle: 'preserve-3d' }}>
                 {/* Connector */}
                 {index !== upcomingEvents.length - 1 && (
                   <div className="absolute left-14 top-[120px] bottom-0 w-px bg-gradient-to-b from-red-500/30 to-transparent z-0 hidden sm:block" />

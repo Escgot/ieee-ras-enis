@@ -3,6 +3,8 @@ import { LogIn, LogOut, User as UserIcon, Shield, ChevronDown, X, Mail, Lock, Lo
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { createPortal } from 'react-dom';
+
 export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
   const { user, profile, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, signOut, isAdmin } = useAuth();
   
@@ -84,37 +86,44 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
           Join Now
         </button>
 
-        {/* Auth Modal Overlay */}
-        {modalOpen && (
-          <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center px-4">
-            <div className="absolute inset-0 bg-[#070707]/90 backdrop-blur-md" onClick={() => setModalOpen(false)} />
+        {/* Auth Modal Overlay - Using Portal to escape parent transforms */}
+        {modalOpen && createPortal(
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+            <div 
+              className="absolute inset-0 bg-black/60 dark:bg-[#070707]/90 backdrop-blur-sm dark:backdrop-blur-md" 
+              onClick={() => setModalOpen(false)} 
+            />
             
-            <div className="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="relative w-full max-w-md bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+              {/* Top accent light */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 to-red-500" />
+
               <button 
                 onClick={() => setModalOpen(false)}
-                className="absolute top-4 right-4 p-2 text-gray-500 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                className="absolute top-4 right-4 p-2 text-gray-500 hover:text-red-500 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition-colors"
+                aria-label="Close modal"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
 
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-orbitron font-bold text-white mb-2">Welcome</h2>
-                <p className="text-sm text-gray-400">IEEE RAS ENIS Student Branch</p>
+              <div className="text-center mb-8 pt-2">
+                <h2 className="text-3xl font-orbitron font-black text-black dark:text-white mb-2 uppercase tracking-tighter italic">Welcome</h2>
+                <p className="text-xs text-gray-700 dark:text-gray-400 font-bold uppercase tracking-widest">IEEE RAS ENIS Student Branch</p>
               </div>
 
               {/* Toggle Mode */}
-              <div className="flex bg-white/5 p-1 rounded-xl mb-6">
+              <div className="flex bg-black/[0.03] dark:bg-white/5 p-1.5 rounded-2xl mb-6 border border-black/5 dark:border-white/5">
                 <button 
                   onClick={() => { setAuthMode('signin'); setAuthError(''); }}
-                  className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300
-                    ${authMode === 'signin' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'text-gray-400 hover:text-white'}`}
+                  className={`flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-300
+                    ${authMode === 'signin' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
                 >
                   Sign In
                 </button>
                 <button 
                   onClick={() => { setAuthMode('signup'); setAuthError(''); }}
-                  className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300
-                    ${authMode === 'signup' ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'text-gray-400 hover:text-white'}`}
+                  className={`flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-300
+                    ${authMode === 'signup' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
                 >
                   Sign Up
                 </button>
@@ -124,63 +133,63 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
               <form onSubmit={handleEmailAuth} className="space-y-4">
                 {authMode === 'signup' && (
                   <div className="relative">
-                    <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                     <input
                       type="text"
                       placeholder="Full Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all"
+                      className="w-full bg-black/[0.02] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl pl-11 pr-4 py-3.5 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-600 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all font-medium"
                       required={authMode === 'signup'}
                     />
                   </div>
                 )}
                 
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                   <input
                     type="email"
                     placeholder="Email Address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all"
+                    className="w-full bg-black/[0.02] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl pl-11 pr-4 py-3.5 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-600 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all font-medium"
                     required
                   />
                 </div>
 
                 <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                   <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all"
+                    className="w-full bg-black/[0.02] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl pl-11 pr-4 py-3.5 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-600 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all font-medium"
                     required
                     minLength={6}
                   />
                 </div>
 
                 {authError && (
-                  <p className="text-xs text-red-400 text-center animate-in fade-in slide-in-from-top-1">{authError}</p>
+                  <p className="text-xs text-red-500 dark:text-red-400 text-center font-bold animate-pulse">{authError}</p>
                 )}
 
                 <button
                   type="submit"
                   disabled={authLoading}
-                  className="w-full py-3 bg-white text-black text-sm font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-3.5 bg-black dark:bg-white text-white dark:text-black text-xs font-black uppercase tracking-widest rounded-xl hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 shadow-xl"
                 >
                   {authLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                   {authMode === 'signin' ? 'Sign In' : 'Create Account'}
                 </button>
               </form>
 
-              <div className="relative my-6">
+              <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10"></div>
+                  <div className="w-full border-t border-black/5 dark:border-white/10"></div>
                 </div>
-                <div className="relative flex justify-center text-xs">
-                  <span className="bg-[#0a0a0a] px-2 text-gray-500 font-semibold uppercase tracking-wider">Or continue with</span>
+                <div className="relative flex justify-center text-[10px]">
+                  <span className="bg-white dark:bg-[#0a0a0a] px-3 text-gray-600 dark:text-gray-500 font-bold uppercase tracking-[0.2em]">Or continue with</span>
                 </div>
               </div>
 
@@ -190,13 +199,14 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
                   await signInWithGoogle();
                 }}
                 disabled={authLoading}
-                className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full py-3.5 bg-black/[0.02] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-black dark:text-white text-xs font-bold uppercase tracking-widest hover:bg-black/[0.04] dark:hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
               >
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-4 h-4" />
                 Google
               </button>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </>
     );
