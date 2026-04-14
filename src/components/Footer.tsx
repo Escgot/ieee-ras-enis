@@ -48,7 +48,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#070707] border-t border-white/6 overflow-hidden">
+    <footer className="relative bg-background border-t border-foreground/10 dark:border-white/6 overflow-hidden">
       {/* Background aurora */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-80 h-80 rounded-full"
@@ -66,7 +66,7 @@ export default function Footer() {
           <div className="marquee-track flex items-center gap-0">
             {[...MARQUEE_WORDS, ...MARQUEE_WORDS].map((word, i) => (
               <div key={i} className="flex items-center">
-                <span className="font-orbitron text-xs font-black text-white/8 uppercase tracking-[0.3em] px-6 whitespace-nowrap">
+                <span className="font-orbitron text-xs font-black text-foreground/10 uppercase tracking-[0.3em] px-6 whitespace-nowrap">
                   {word}
                 </span>
                 <span className="text-red-500/20 text-xs">◆</span>
@@ -100,7 +100,7 @@ export default function Footer() {
                 </div>
               </a>
 
-              <p className="text-gray-600 text-sm leading-relaxed mb-8 max-w-sm">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-sm">
                 IEEE Robotics & Automation Society at ENIS — empowering the next generation of engineers through innovation, collaboration, and cutting-edge technology.
               </p>
 
@@ -113,9 +113,9 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className={`group w-10 h-10 flex items-center justify-center bg-white/[0.03] border border-white/8 rounded-xl transition-all duration-300 hover:scale-110 ${s.hoverColor}`}
+                    className={`group w-10 h-10 flex items-center justify-center bg-foreground/5 dark:bg-white/[0.03] border border-foreground/10 dark:border-white/8 rounded-xl transition-all duration-300 hover:scale-110 ${s.hoverColor}`}
                   >
-                    <s.icon className="w-4 h-4 text-gray-600 group-hover:text-white transition-colors" />
+                    <s.icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                   </a>
                 ))}
               </div>
@@ -132,7 +132,7 @@ export default function Footer() {
 
             {/* Navigation */}
             <div className="lg:col-span-7 pl-0 lg:pl-12">
-              <h4 className="font-orbitron font-bold text-white text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
+              <h4 className="font-orbitron font-bold text-foreground text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
                 <span className="w-3 h-px bg-red-500 inline-block flex-shrink-0" />
                 Navigation
               </h4>
@@ -159,10 +159,10 @@ export default function Footer() {
       <div className="relative border-t border-white/5">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-5">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-gray-700">
+            <p className="text-xs text-muted-foreground">
               © {new Date().getFullYear()} IEEE RAS ENIS. All rights reserved.
             </p>
-            <div className="flex items-center gap-1 text-xs text-gray-700">
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
             </div>
           </div>
         </div>

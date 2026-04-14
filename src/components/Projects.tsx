@@ -72,14 +72,14 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
               <div className="h-px w-8 bg-gradient-to-r from-red-500 to-transparent" />
               <span className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-red-500">What We Build</span>
             </div>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-none uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-none uppercase">
               Featured{' '}<br />
               <span className="text-gradient">Projects</span>
             </h2>
           </div>
           <button
             onClick={onViewAll}
-            className="group cyber-btn flex items-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-7 sm:py-3.5 border border-white/10 hover:border-red-500/50 hover:text-red-400 transition-all rounded-xl font-bold text-[9px] sm:text-[11px] tracking-widest text-gray-400 uppercase backdrop-blur-sm hover:bg-red-500/5"
+            className="group cyber-btn flex items-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-7 sm:py-3.5 border border-foreground/10 dark:border-white/10 text-muted-foreground hover:text-foreground transition-all rounded-xl font-bold text-[9px] sm:text-[11px] tracking-widest uppercase backdrop-blur-sm hover:bg-foreground/5 dark:hover:bg-red-500/5"
           >
             All Projects
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -129,11 +129,11 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
 
               {/* Content */}
               <div className="p-7 lg:p-8 relative z-10">
-                <h3 className="font-orbitron text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors uppercase leading-snug line-clamp-2">
+                <h3 className="font-orbitron text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-red-400 transition-colors uppercase leading-snug line-clamp-2">
                   {project.title}
                 </h3>
 
-                <p className="text-gray-500 text-sm mb-8 line-clamp-3 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-8 line-clamp-3 leading-relaxed">
                   {project.description}
                 </p>
 

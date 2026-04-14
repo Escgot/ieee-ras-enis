@@ -145,7 +145,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                       onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                       className={`nav-link relative px-4 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ${isActive
                         ? 'text-red-500 dark:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-foreground/5 dark:hover:bg-white/5'
                         }`}
                     >
                       {link.name}
@@ -159,7 +159,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                 {/* Theme Toggle Button */}
                 <button
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="p-2.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-white/10"
+                  className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-foreground/5 dark:hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-foreground/10 dark:hover:border-white/10"
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5 text-black dark:text-white" />}

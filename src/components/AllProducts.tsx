@@ -48,13 +48,13 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
             <div className="flex items-center gap-4">
               <button 
                 onClick={onBack}
-                className="p-3 bg-white/5 border border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
+                className="p-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
               </button>
               <div>
-                <h1 className="font-orbitron text-2xl font-bold text-white uppercase tracking-tight">Full <span className="text-red-500">Catalog</span></h1>
-                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">Total {shopItems.length} Products</p>
+                <h1 className="font-orbitron text-2xl font-bold text-foreground uppercase tracking-tight">Full <span className="text-red-500">Catalog</span></h1>
+                <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Total {shopItems.length} Products</p>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
                 placeholder="Find gear or components..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500/50 transition-colors"
+                className="w-full pl-12 pr-4 py-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl text-foreground dark:text-white placeholder-muted-foreground focus:outline-none focus:border-red-500/50 transition-colors"
               />
             </div>
           </div>
@@ -76,9 +76,9 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border flex-shrink-0 whitespace-nowrap ${
-                  activeCategory === cat
-                    ? 'bg-red-500 border-red-500 text-white shadow-glow'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-red-500/50'
+                    activeCategory === cat
+                      ? 'bg-red-500 border-red-500 text-white shadow-glow'
+                      : 'bg-foreground/5 dark:bg-white/5 border-foreground/10 dark:border-white/10 text-muted-foreground hover:border-red-500/50'
                 }`}
               >
                 {cat}
@@ -95,7 +95,7 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
             {filteredProducts.map((item) => (
               <div 
                 key={item.id} 
-                className="product-grid-item group bg-white/[0.03] border border-white/5 rounded-3xl overflow-hidden hover:border-red-500/30 hover:bg-white/[0.05] transition-all duration-500 flex flex-col"
+                className="product-grid-item group bg-foreground/[0.03] dark:bg-white/[0.03] border border-foreground/5 dark:border-white/5 rounded-3xl overflow-hidden hover:border-red-500/30 hover:bg-foreground/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 flex flex-col"
               >
                 <div className="relative aspect-square overflow-hidden bg-white/[0.01]">
                    {/* Category Badge */}
@@ -124,14 +124,14 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="font-orbitron text-sm font-bold text-white mb-2 group-hover:text-red-500 transition-colors uppercase truncate">
+                  <h3 className="font-orbitron text-sm font-bold text-foreground mb-2 group-hover:text-red-500 transition-colors uppercase truncate">
                     {item.name}
                   </h3>
-                  <p className="text-gray-500 text-[11px] mb-4 line-clamp-2 leading-relaxed">
+                  <p className="text-muted-foreground text-[11px] mb-4 line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
                   <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/5">
-                    <span className="font-orbitron font-bold text-white text-md">
+                    <span className="font-orbitron font-bold text-foreground text-md">
                       {item.price}
                     </span>
                     <Sparkles className="w-3.5 h-3.5 text-gray-700" />
@@ -142,8 +142,8 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
           </div>
         ) : (
           <div className="py-20 text-center">
-            <h3 className="text-xl font-orbitron text-white">No products match your criteria.</h3>
-            <p className="text-gray-500 mt-2 text-sm uppercase tracking-widest">Try adjusting your filters.</p>
+            <h3 className="text-xl font-orbitron text-foreground">No products match your criteria.</h3>
+            <p className="text-muted-foreground mt-2 text-sm uppercase tracking-widest">Try adjusting your filters.</p>
           </div>
         )}
       </div>

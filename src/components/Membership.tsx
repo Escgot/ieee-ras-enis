@@ -92,7 +92,7 @@ export default function Membership() {
       className="relative py-14 lg:py-20 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0c0c0c] to-[#0a0a0a]" />
+      <div className="absolute inset-0 bg-background/50 dark:bg-transparent" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
       <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
@@ -106,10 +106,10 @@ export default function Membership() {
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Membership
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white mt-4 mb-5 uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mt-4 mb-5 uppercase">
               Choose Your <span className="text-gradient">Plan</span>
             </h2>
-            <p className="text-gray-500 max-w-xl mx-auto leading-relaxed">
+            <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
               Unlock your potential with our membership plans. Get access to exclusive resources,
               workshops, and networking opportunities.
             </p>
@@ -135,8 +135,8 @@ export default function Membership() {
                 <div
                   className={`relative p-7 lg:p-8 rounded-3xl border transition-all duration-500 h-full flex flex-col ${
                     plan.highlighted
-                      ? 'bg-gradient-to-b from-red-500/10 via-[#0f0f0f] to-[#0c0c0c] border-red-500/35 shadow-[0_0_50px_rgba(239,68,68,0.15)]'
-                      : 'bg-white/[0.02] border-white/8 hover:border-white/15 hover:bg-white/[0.04]'
+                      ? 'bg-gradient-to-b from-red-500/10 via-background to-background dark:via-[#0f0f0f] dark:to-[#0c0c0c] border-red-500/35 shadow-[0_20px_50px_rgba(239,68,68,0.15)] dark:shadow-[0_0_50px_rgba(239,68,68,0.15)]'
+                      : 'bg-foreground/[0.02] dark:bg-white/[0.02] border-foreground/10 dark:border-white/8 hover:border-red-500/20 dark:hover:border-white/15 hover:bg-foreground/[0.04] dark:hover:bg-white/[0.04]'
                   }`}
                   style={{ transition: 'transform 0.3s ease, border-color 0.4s, box-shadow 0.4s' }}
                 >
@@ -155,19 +155,19 @@ export default function Membership() {
                         : 'bg-white/[0.05] border-white/8'
                     }`}
                   >
-                    <plan.icon className={`w-5 h-5 ${plan.highlighted ? 'text-red-400' : 'text-gray-400'}`} />
+                    <plan.icon className={`w-5 h-5 ${plan.highlighted ? 'text-red-400' : 'text-muted-foreground'}`} />
                   </div>
 
                   {/* Plan Name */}
-                  <h3 className="font-orbitron text-lg font-black text-white mb-1 uppercase tracking-wider">{plan.name}</h3>
-                  <p className="text-gray-600 text-xs mb-5">{plan.description}</p>
+                  <h3 className="font-orbitron text-lg font-black text-foreground mb-1 uppercase tracking-wider">{plan.name}</h3>
+                  <p className="text-muted-foreground text-xs mb-5">{plan.description}</p>
 
                   {/* Price */}
                   <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/5">
-                    <span className={`font-orbitron text-4xl font-black ${plan.highlighted ? 'text-white' : 'text-white'}`}>
+                    <span className={`font-orbitron text-4xl font-black text-foreground`}>
                       {plan.price}
                     </span>
-                    <span className="text-gray-600 text-sm">{plan.period}</span>
+                    <span className="text-muted-foreground text-sm">{plan.period}</span>
                   </div>
 
                   {/* Features */}
@@ -179,9 +179,9 @@ export default function Membership() {
                             plan.highlighted ? 'bg-red-500/20 border border-red-500/30' : 'bg-white/8 border border-white/10'
                           }`}
                         >
-                          <Check className={`w-2.5 h-2.5 ${plan.highlighted ? 'text-red-400' : 'text-gray-500'}`} />
+                          <Check className={`w-2.5 h-2.5 ${plan.highlighted ? 'text-red-400' : 'text-muted-foreground'}`} />
                         </div>
-                        <span className="text-sm text-gray-400">{feature}</span>
+                        <span className="text-sm text-muted-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -191,7 +191,7 @@ export default function Membership() {
                     className={`cyber-btn w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
                       plan.highlighted
                         ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-rose-400 text-white shadow-lg shadow-red-600/25 hover:shadow-red-500/40'
-                        : 'bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20'
+                        : 'bg-foreground/5 dark:bg-white/5 hover:bg-foreground/10 dark:hover:bg-white/10 text-foreground dark:text-white border border-foreground/10 dark:border-white/10 hover:border-foreground/20 dark:hover:border-white/20'
                     }`}
                   >
                     {plan.cta}
@@ -203,10 +203,10 @@ export default function Membership() {
 
           {/* Additional Info */}
           <div className="mt-16 text-center">
-            <p className="text-gray-600 text-sm">
+            <p className="text-muted-foreground text-sm">
               All plans include access to our community Discord and monthly newsletter.
             </p>
-            <p className="text-gray-700 text-xs mt-1">Cancel anytime · No hidden fees · Instant access</p>
+            <p className="text-muted-foreground/80 text-xs mt-1">Cancel anytime · No hidden fees · Instant access</p>
           </div>
         </div>
       </div>

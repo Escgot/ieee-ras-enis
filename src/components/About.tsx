@@ -152,7 +152,7 @@ export default function About() {
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               About Us
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mt-4">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight mt-4">
               Building the{' '}
               <span className="text-gradient">Future</span>{' '}
               Together
@@ -177,22 +177,22 @@ export default function About() {
                 />
 
                 {/* Gradient overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent" />
 
                 {/* Border glow */}
-                <div className="absolute inset-0 rounded-3xl border border-white/10" />
+                <div className="absolute inset-0 rounded-3xl border border-foreground/8 dark:border-white/10" />
                 <div className="absolute inset-0 rounded-3xl border border-red-500/0 hover:border-red-500/20 transition-colors duration-500" />
               </div>
 
               {/* Floating badge */}
-              <div className="absolute -bottom-6 -right-6 px-6 py-4 glass-dark rounded-2xl shadow-2xl border border-red-500/20 animate-float">
+              <div className="absolute -bottom-6 -right-6 px-6 py-4 bg-background dark:bg-[#0a0a0a] backdrop-blur-xl border border-foreground/10 dark:border-red-500/20 rounded-2xl shadow-xl animate-float">
                 <div className="font-orbitron text-2xl font-black text-red-500">14+</div>
-                <div className="text-xs text-gray-400 font-medium mt-0.5">Years of Excellence</div>
+                <div className="text-xs text-muted-foreground font-medium mt-0.5">Years of Excellence</div>
               </div>
 
               {/* Top-left floating element */}
-              <div className="absolute -top-4 -left-4 w-14 h-14 flex items-center justify-center glass-dark rounded-2xl border border-purple-500/20 animate-float" style={{ animationDelay: '1.5s' }}>
+              <div className="absolute -top-4 -left-4 w-14 h-14 flex items-center justify-center bg-background dark:bg-[#0a0a0a] backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-lg animate-float" style={{ animationDelay: '1.5s' }}>
                 <span className="text-2xl">🤖</span>
               </div>
             </div>
@@ -200,12 +200,12 @@ export default function About() {
             {/* Content Column */}
             <div ref={contentRef} className="space-y-8">
               <div className="space-y-4">
-                <p className="text-lg text-gray-300 leading-relaxed">
+                <p className="text-lg text-foreground/80 leading-relaxed">
                   IEEE Robotics & Automation Society at ENIS{' '}
-                  <span className="text-white font-medium">(École Nationale d'Ingénieurs de Sfax)</span>{' '}
+                  <span className="text-foreground font-medium">(École Nationale d'Ingénieurs de Sfax)</span>{' '}
                   is a student chapter dedicated to advancing robotics and automation technology.
                 </p>
-                <p className="text-gray-500 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   Since 2010, we've been empowering the next generation of engineers — through hands-on projects,
                   workshops, hackathons, and international competitions. Our mission: shape the future of intelligent machines.
                 </p>
@@ -216,12 +216,12 @@ export default function About() {
                 {pillars.map((item, index) => (
                   <div
                     key={index}
-                    className={`pillar-card group relative p-4 bg-gradient-to-br ${item.color} border ${item.border} rounded-2xl hover:scale-[1.03] transition-all duration-300 cursor-default premium-card`}
+                    className={`pillar-card group relative p-4 bg-gradient-to-br ${item.color} border ${item.border} rounded-2xl hover:scale-[1.03] transition-all duration-300 cursor-default backdrop-blur-sm`}
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-xl mt-0.5">{item.icon}</span>
                       <div>
-                        <h4 className="font-orbitron font-bold text-white text-sm mb-1">{item.title}</h4>
+                        <h4 className="font-orbitron font-bold text-foreground text-sm mb-1">{item.title}</h4>
                         <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
@@ -238,7 +238,7 @@ export default function About() {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="stat-card group relative p-3 sm:p-8 glass-dark border border-white/8 rounded-2xl sm:rounded-3xl hover:border-red-500/30 transition-all duration-500 cursor-default overflow-hidden"
+                className="stat-card group relative p-3 sm:p-8 bg-foreground/[0.02] dark:bg-white/[0.03] backdrop-blur-sm border border-foreground/8 dark:border-white/8 rounded-2xl sm:rounded-3xl hover:border-red-500/30 transition-all duration-500 cursor-default overflow-hidden"
                 style={{ transition: 'transform 0.2s ease, border-color 0.3s' }}
               >
                 {/* Hover glow bg */}
@@ -248,10 +248,10 @@ export default function About() {
                   <div className="w-8 h-8 sm:w-11 sm:h-11 flex items-center justify-center bg-red-500/10 border border-red-500/20 rounded-xl sm:rounded-2xl mb-3 sm:mb-5 group-hover:bg-red-500/20 transition-colors">
                     <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
                   </div>
-                  <div className="font-orbitron text-lg sm:text-4xl font-black text-white mb-0.5 sm:mb-1 counter-value">
+                  <div className="font-orbitron text-lg sm:text-4xl font-black text-foreground mb-0.5 sm:mb-1 counter-value">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-[8px] sm:text-xs text-gray-500 uppercase tracking-widest font-medium line-clamp-1">{stat.label}</div>
+                  <div className="text-[8px] sm:text-xs text-muted-foreground uppercase tracking-widest font-medium line-clamp-1">{stat.label}</div>
                 </div>
 
                 {/* Bottom accent */}

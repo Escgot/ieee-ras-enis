@@ -65,10 +65,10 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
             <Sparkles className="w-3 h-3 text-red-400" />
             Official Merch
           </span>
-          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 mt-4 uppercase">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mb-6 mt-4 uppercase">
             Chapter{' '}<span className="text-gradient">Shop</span>
           </h2>
-          <p className="text-gray-500 max-w-lg mx-auto leading-relaxed">
+          <p className="text-muted-foreground max-w-lg mx-auto leading-relaxed">
             Support our club and represent RAS ENIS with high-quality gear, components, and official merchandise.
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
 
               {/* Info */}
               <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                <h3 className="font-orbitron font-bold text-white group-hover:text-red-400 transition-colors uppercase text-sm leading-tight mb-2">
+                <h3 className="font-orbitron font-bold text-foreground group-hover:text-red-400 transition-colors uppercase text-sm leading-tight mb-2">
                   {item.name}
                 </h3>
 
@@ -135,7 +135,7 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
                 </p>
 
                 <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                  <span className="font-orbitron font-bold text-white text-lg">
+                  <span className="font-orbitron font-bold text-foreground text-lg">
                     {item.price}
                   </span>
                   <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 group-hover:bg-red-500/20 border border-white/8 group-hover:border-red-500/30 transition-all duration-300">
@@ -154,7 +154,7 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
         <div className="mt-16 text-center">
           <button 
             onClick={onViewAll}
-            className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-white/10 hover:border-red-500/40 bg-white/[0.02] hover:bg-red-500/5 text-white text-xs font-bold uppercase tracking-[0.3em] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]"
+            className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-foreground/10 dark:border-white/10 bg-foreground/5 dark:bg-white/[0.02] hover:bg-red-500/5 text-foreground dark:text-white text-xs font-bold uppercase tracking-[0.3em] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]"
           >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

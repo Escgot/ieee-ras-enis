@@ -111,34 +111,34 @@ export default function Hero() {
           <div ref={textColRef} className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-20">
 
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-6 py-2.5 mb-8 hero-badge bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            <div className="inline-flex items-center gap-2 px-6 py-2.5 mb-8 hero-badge bg-foreground/5 dark:bg-white/5 backdrop-blur-md border border-foreground/10 dark:border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
               </span>
-              <span className="text-xs sm:text-sm text-white font-bold tracking-widest uppercase">IEEE Student Branch · RAS Chapter</span>
+              <span className="text-xs sm:text-sm text-foreground font-bold tracking-widest uppercase">IEEE Student Branch · RAS Chapter</span>
             </div>
 
             {/* Massive Title */}
             <h1 className="font-orbitron font-black mb-6 tracking-tighter leading-[0.85] flex flex-col">
-              <span className="text-white text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]">IEEE</span>
+              <span className="text-foreground text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]">IEEE</span>
               <div className="flex flex-row flex-wrap gap-x-4 sm:gap-x-6 lg:gap-x-8">
                 <span className="text-gradient pb-2 text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem] drop-shadow-[0_0_30px_rgba(239,68,68,0.3)]">RAS</span>
-                <span className="text-white pb-2 text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]">ENIS</span>
+                <span className="text-foreground pb-2 text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[7.5rem] xl:text-[9rem]">ENIS</span>
               </div>
             </h1>
 
             {/* Typewriter Line */}
             <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-6 mb-8 w-full mt-2">
-              <span className="font-orbitron text-2xl sm:text-3xl text-white font-black tracking-widest uppercase flex items-center whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              <span className="font-orbitron text-2xl sm:text-3xl text-foreground font-black tracking-widest uppercase flex items-center whitespace-nowrap drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                 {typewriterText}
                 <span className="inline-block w-1.5 h-7 ml-2 bg-red-500 animate-pulse" />
               </span>
-              <div className="hidden lg:block h-px flex-1 max-w-[200px] bg-gradient-to-r from-white/30 to-transparent" />
+              <div className="hidden lg:block h-px flex-1 max-w-[200px] bg-gradient-to-r from-foreground/30 to-transparent" />
             </div>
 
             {/* Description */}
-            <p className="text-base sm:text-lg text-gray-400 max-w-xl mb-10 leading-relaxed font-medium">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed font-medium">
               Empowering students to innovate, build, and lead in the world of robotics and automation.
             </p>
 
@@ -156,7 +156,7 @@ export default function Hero() {
               <a
                 href="#about"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
-                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-white/5 backdrop-blur-lg border border-white/10 rounded-full text-white font-bold text-sm uppercase tracking-widest transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:scale-105 hover:-translate-y-1"
+                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-background/40 dark:bg-white/5 backdrop-blur-lg border border-foreground/10 dark:border-white/10 rounded-full text-foreground dark:text-white font-bold text-sm uppercase tracking-widest transition-all duration-300 hover:bg-foreground/10 dark:hover:bg-white/10 hover:border-foreground/30 dark:hover:border-white/30 hover:shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:scale-105 hover:-translate-y-1"
               >
                 Discover More
               </a>
@@ -186,7 +186,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none z-0" />
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-0 left-[49%] -translate-x-1/2 animate-bounce z-30 pb-2">

@@ -60,7 +60,7 @@ export default function News() {
               <div className="h-px w-8 bg-gradient-to-r from-red-500 to-transparent" />
               <span className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-red-500">Latest</span>
             </div>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight uppercase">
               News &{' '}<span className="text-gradient">Updates</span>
             </h2>
           </div>
@@ -111,11 +111,11 @@ export default function News() {
                   </div>
                 </div>
 
-                <h3 className="font-orbitron text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors uppercase leading-tight line-clamp-2">
+                <h3 className="font-orbitron text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-4 group-hover:text-red-400 transition-colors uppercase leading-tight line-clamp-2">
                   {featured.title}
                 </h3>
 
-                <p className="text-gray-500 text-base mb-7 line-clamp-2 leading-relaxed flex-grow">
+                <p className="text-muted-foreground text-base mb-7 line-clamp-2 leading-relaxed flex-grow">
                   {featured.excerpt}
                 </p>
 
@@ -156,7 +156,7 @@ export default function News() {
                       </span>
                     </div>
 
-                    <h4 className="font-orbitron text-xs sm:text-sm font-bold text-white mb-1.5 group-hover:text-red-400 transition-colors uppercase line-clamp-2 leading-snug">
+                    <h4 className="font-orbitron text-xs sm:text-sm font-bold text-foreground mb-1.5 group-hover:text-red-400 transition-colors uppercase line-clamp-2 leading-snug">
                       {item.title}
                     </h4>
 

@@ -60,19 +60,19 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
             {onBack && (
               <button
                 onClick={onBack}
-                className="absolute left-0 top-0 p-2 text-gray-400 hover:text-white transition-colors flex items-center gap-2"
+                className="absolute left-0 top-0 p-2 text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
                 <span>Back</span>
               </button>
             )}
             <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-red-500 bg-red-500/10 border border-red-500/20 rounded-full">
               Full Archive
             </span>
-            <h2 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h2 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               All <span className="text-gradient">Events</span>
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Join us for exciting workshops, competitions, and networking events. Stay updated
               with the latest in robotics and automation.
             </p>
@@ -88,7 +88,7 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
                 placeholder="Search events..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500/50 transition-colors"
+                className="w-full pl-12 pr-4 py-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-xl text-foreground dark:text-white placeholder-muted-foreground focus:outline-none focus:border-red-500/50 transition-colors"
               />
             </div>
 
@@ -102,7 +102,7 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
                   className={`px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-xl whitespace-nowrap transition-all border shrink-0 ${
                     activeCategory === category
                       ? 'bg-red-500 border-red-500 text-white'
-                      : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-white'
+                      : 'bg-foreground/5 dark:bg-white/5 border-foreground/10 dark:border-white/10 text-muted-foreground hover:bg-foreground/10 dark:hover:bg-white/10 hover:text-foreground dark:hover:text-white'
                   }`}
                 >
                   {category}
@@ -116,7 +116,7 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
             {filteredEvents.map((event) => (
               <div
                 key={event.id}
-                className="event-card group relative bg-dark-100 border border-white/10 rounded-2xl overflow-hidden hover:border-red-500/30 transition-all duration-300"
+                className="event-card group relative bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl overflow-hidden hover:border-red-500/30 transition-all duration-300"
               >
                 {/* Image */}
                 <div className="relative aspect-video overflow-hidden">
@@ -127,7 +127,7 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background dark:from-dark-100 to-transparent" />
 
                   {/* Status Badge */}
                   <div
@@ -148,11 +148,11 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
 
                 {/* Content */}
                 <div className="p-5">
-                  <h3 className="font-orbitron text-lg font-bold text-white mb-2 group-hover:text-red-500 transition-colors">
+                  <h3 className="font-orbitron text-lg font-bold text-foreground mb-2 group-hover:text-red-500 transition-colors">
                     {event.title}
                   </h3>
 
-                  <p className="text-sm text-gray-400 mb-4 line-clamp-2">{event.description}</p>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{event.description}</p>
 
                   {/* Meta Info */}
                   <div className="space-y-2 mb-4">
@@ -201,10 +201,10 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-white/5 rounded-full">
                 <Search className="w-8 h-8 text-gray-500" />
               </div>
-              <h3 className="font-orbitron text-xl font-semibold text-white mb-2">
+              <h3 className="font-orbitron text-xl font-semibold text-foreground mb-2">
                 No events found
               </h3>
-              <p className="text-gray-400">Try adjusting your search or filter criteria</p>
+              <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
             </div>
           )}
 

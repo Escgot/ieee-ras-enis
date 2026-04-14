@@ -35,7 +35,7 @@ gsap.registerPlugin(ScrollTrigger);
 function SectionDivider() {
   return (
     <div className="relative w-full h-px overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/10 dark:via-white/8 to-transparent" />
     </div>
   );
 }

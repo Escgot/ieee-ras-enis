@@ -82,10 +82,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
             What's Happening
           </span>
-          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5 mt-4">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mb-5 mt-4">
             Upcoming{' '}<span className="text-gradient">Events</span>
           </h2>
-          <p className="text-gray-500 max-w-xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Join our workshops, hackathons, and competitions. Learn from experts and showcase your skills.
           </p>
         </div>
@@ -137,11 +137,11 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                       </span>
                     </div>
 
-                    <h3 className="font-orbitron text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
+                    <h3 className="font-orbitron text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-red-400 transition-colors">
                       {event.title}
                     </h3>
 
-                    <p className="text-gray-500 mb-5 line-clamp-2 text-sm leading-relaxed">
+                    <p className="text-muted-foreground mb-5 line-clamp-2 text-sm leading-relaxed">
                       {event.description}
                     </p>
 
@@ -176,7 +176,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
         <div className="text-center mt-8">
           <button
             onClick={onViewAll}
-            className="group inline-flex items-center gap-2 px-8 py-3.5 border border-white/10 hover:border-red-500/40 text-gray-400 hover:text-white text-sm font-bold uppercase tracking-widest rounded-xl transition-all duration-300 hover:bg-white/[0.03] cyber-btn"
+            className="group inline-flex items-center gap-2 px-8 py-3.5 border border-foreground/10 dark:border-white/10 text-muted-foreground hover:text-foreground transition-all duration-300 hover:bg-foreground/5 dark:hover:bg-white/[0.03] cyber-btn rounded-xl"
           >
             View All Events
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -30,7 +30,7 @@ export default function Preloader() {
             y: '-100%', 
             transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
           }}
-          className="fixed inset-0 z-[2000000] flex flex-col items-center justify-center bg-black"
+          className="fixed inset-0 z-[2000000] flex flex-col items-center justify-center bg-background"
         >
           {/* Cyber Grid Background */}
           <div className="absolute inset-0 cyber-grid opacity-20" />
@@ -43,13 +43,13 @@ export default function Preloader() {
               transition={{ duration: 0.5 }}
               className="mb-8"
             >
-              <h2 className="font-orbitron text-4xl sm:text-6xl font-black text-white tracking-tighter italic">
+              <h2 className="font-orbitron text-4xl sm:text-6xl font-black text-foreground tracking-tighter italic">
                 IEEE<span className="text-red-500">RAS</span>
               </h2>
             </motion.div>
 
             {/* Progress Bar Container */}
-            <div className="w-48 sm:w-64 h-1 bg-white/10 rounded-full overflow-hidden relative border border-white/5">
+            <div className="w-48 sm:w-64 h-1 bg-foreground/10 dark:bg-white/10 rounded-full overflow-hidden relative border border-foreground/5 dark:border-white/5">
               <motion.div
                 className="absolute top-0 left-0 h-full bg-gradient-to-r from-red-600 to-red-400"
                 style={{ width: `${progress}%` }}
@@ -61,7 +61,7 @@ export default function Preloader() {
               <span className="text-[10px] text-gray-500 uppercase tracking-[0.4em] font-black animate-pulse">
                 Initializing Core Systems
               </span>
-              <span className="mt-2 font-orbitron text-white text-xs font-bold tabular-nums">
+              <span className="mt-2 font-orbitron text-foreground text-xs font-bold tabular-nums">
                 {Math.round(progress)}%
               </span>
             </div>

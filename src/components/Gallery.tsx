@@ -58,7 +58,7 @@ export default function Gallery() {
             {[...row1Images, ...row1Images].map((img, i) => (
               <div
                 key={i}
-                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative flex-shrink-0"
+                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-foreground/10 dark:border-white/10 group relative flex-shrink-0"
               >
                 <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -79,12 +79,12 @@ export default function Gallery() {
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-red-500/20 to-red-500/40" />
             </div>
 
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-none uppercase tracking-tighter">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-7xl font-black text-foreground leading-none uppercase tracking-tighter">
               Our <span className="text-gradient">Gallery</span>
             </h2>
 
             <div className="flex flex-col items-center gap-2">
-              <p className="text-gray-500 uppercase tracking-[0.3em] text-[10px] sm:text-xs font-bold">
+              <p className="text-muted-foreground uppercase tracking-[0.3em] text-[10px] sm:text-xs font-bold">
                 Capturing innovation and community since 2013
               </p>
               <div className="w-12 h-1 bg-gradient-to-r from-red-600 to-purple-600 rounded-full" />
@@ -98,7 +98,7 @@ export default function Gallery() {
             {[...row2Images, ...row2Images].map((img, i) => (
               <div
                 key={i}
-                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-white/10 group relative flex-shrink-0"
+                className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-foreground/10 dark:border-white/10 group relative flex-shrink-0"
               >
                 <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

@@ -50,13 +50,13 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
             <div className="flex items-center gap-4">
               <button 
                 onClick={onBack}
-                className="p-3 bg-white/5 border border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
+                className="p-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
               </button>
               <div>
-                <h1 className="font-orbitron text-2xl font-bold text-white uppercase tracking-tight">Project <span className="text-red-500">Archive</span></h1>
-                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">Total {projects.length} Innovations</p>
+                <h1 className="font-orbitron text-2xl font-bold text-foreground uppercase tracking-tight">Project <span className="text-red-500">Archive</span></h1>
+                <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Total {projects.length} Innovations</p>
               </div>
             </div>
 
@@ -67,7 +67,7 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
                 placeholder="Search innovations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500/50 transition-colors"
+                className="w-full pl-12 pr-4 py-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl text-foreground dark:text-white placeholder-muted-foreground focus:outline-none focus:border-red-500/50 transition-colors"
               />
             </div>
           </div>
@@ -78,9 +78,9 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border flex-shrink-0 whitespace-nowrap ${
-                  activeCategory === cat
-                    ? 'bg-red-500 border-red-500 text-white shadow-glow'
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-red-500/50'
+                    activeCategory === cat
+                      ? 'bg-red-500 border-red-500 text-white shadow-glow'
+                      : 'bg-foreground/5 dark:bg-white/5 border-foreground/10 dark:border-white/10 text-muted-foreground hover:border-red-500/50'
                 }`}
               >
                 {cat}
@@ -97,7 +97,7 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
             {filteredProjects.map((project) => (
               <div 
                 key={project.id} 
-                className="project-grid-item group bg-white/[0.03] border border-white/5 rounded-3xl overflow-hidden hover:border-red-500/30 hover:bg-white/[0.05] transition-all duration-500 flex flex-col"
+                className="project-grid-item group bg-foreground/[0.03] dark:bg-white/[0.03] border border-foreground/5 dark:border-white/5 rounded-3xl overflow-hidden hover:border-red-500/30 hover:bg-foreground/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 flex flex-col"
               >
                 {/* Image Placeholder */}
                 <div className="relative aspect-video overflow-hidden border-b border-white/5">
@@ -133,22 +133,22 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
                     <span className="text-[10px] font-bold text-red-500 uppercase tracking-widest">
                       {project.category}
                     </span>
-                    <span className="w-1.5 h-1.5 bg-white/20 rounded-full" />
-                    <span className="text-[10px] text-gray-500 uppercase font-bold">{project.number}</span>
+                    <span className="w-1.5 h-1.5 bg-foreground/20 dark:bg-white/20 rounded-full" />
+                    <span className="text-[10px] text-muted-foreground uppercase font-bold">{project.number}</span>
                   </div>
 
-                  <h3 className="font-orbitron text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 group-hover:text-red-500 transition-colors uppercase leading-tight">
+                  <h3 className="font-orbitron text-lg sm:text-xl font-bold text-foreground mb-3 sm:mb-4 group-hover:text-red-500 transition-colors uppercase leading-tight">
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-400 text-xs sm:text-sm mb-6 sm:mb-8 line-clamp-3 leading-relaxed">
+                  <p className="text-muted-foreground text-xs sm:text-sm mb-6 sm:mb-8 line-clamp-3 leading-relaxed">
                     {project.description}
                   </p>
 
                   <div className="mt-auto pt-6 border-t border-white/5 space-y-6">
-                    <div className="flex flex-wrap gap-2 text-[9px] text-gray-500 font-bold uppercase">
+                    <div className="flex flex-wrap gap-2 text-[9px] text-muted-foreground font-bold uppercase">
                       {project.technologies.map((tech) => (
-                         <span key={tech} className="px-3 py-1 bg-white/5 rounded-md border border-white/5">{tech}</span>
+                         <span key={tech} className="px-3 py-1 bg-foreground/5 dark:bg-white/5 rounded-md border border-foreground/5 dark:border-white/5">{tech}</span>
                       ))}
                     </div>
                   </div>
@@ -158,8 +158,8 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
           </div>
         ) : (
           <div className="py-20 text-center">
-            <h3 className="text-xl font-orbitron text-white">No projects found.</h3>
-            <p className="text-gray-500 mt-2">Try adjusting your search or category filter.</p>
+            <h3 className="text-xl font-orbitron text-foreground">No projects found.</h3>
+            <p className="text-muted-foreground mt-2">Try adjusting your search or category filter.</p>
           </div>
         )}
       </div>

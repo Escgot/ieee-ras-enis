@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Linkedin, Instagram, Facebook, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -94,6 +95,9 @@ export default function Team() {
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
+  const { theme } = useTheme();
+  const isDarkMode = theme === 'dark';
+
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setActiveIndex(emblaApi.selectedScrollSnap());
@@ -168,10 +172,10 @@ export default function Team() {
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Build With Us
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-none uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-7xl font-black text-foreground leading-none uppercase">
               Our <span className="text-gradient">Team</span>
             </h2>
-            <p className="text-gray-500 max-w-md text-sm leading-relaxed">
+            <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
               Meet the passionate minds driving innovation forward at IEEE RAS ENIS.
             </p>
           </div>
@@ -182,31 +186,17 @@ export default function Team() {
           <div className="relative">
 
             {/* Left fade edge */}
-            <div
-              className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 lg:w-64 z-30 pointer-events-none"
-              style={{
-                background: 'linear-gradient(to right, #0b0b0b 0%, rgba(11,11,11,0.85) 40%, transparent 100%)',
-                backdropFilter: 'blur(2px)',
-                WebkitMaskImage: 'linear-gradient(to right, black 0%, black 40%, transparent 100%)',
-                maskImage: 'linear-gradient(to right, black 0%, black 40%, transparent 100%)',
-              }}
-            />
-
             {/* Right fade edge */}
-            <div
-              className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 lg:w-64 z-30 pointer-events-none"
-              style={{
-                background: 'linear-gradient(to left, #0b0b0b 0%, rgba(11,11,11,0.85) 40%, transparent 100%)',
-                backdropFilter: 'blur(2px)',
-                WebkitMaskImage: 'linear-gradient(to left, black 0%, black 40%, transparent 100%)',
-                maskImage: 'linear-gradient(to left, black 0%, black 40%, transparent 100%)',
-              }}
-            />
+            {/* (fades handled via CSS mask on the carousel container below) */}
 
             {/* Embla viewport */}
             <div
               className="overflow-hidden pb-16 pt-10 outline-none select-none"
               ref={emblaRef}
+              style={{
+                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+                maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+              }}
             >
               <div className="flex flex-row" style={{ backfaceVisibility: 'hidden' }}>
                 {teamMembers.map((member, index) => {
@@ -235,10 +225,10 @@ export default function Team() {
                           }`}
                         style={{
                           boxShadow: isActive
-                            ? '0 0 50px rgba(239,68,68,0.5), 0 0 100px rgba(239,68,68,0.2), 0 30px 60px rgba(0,0,0,0.6)'
-                            : '0 10px 30px rgba(0,0,0,0.4)',
-                          transform: isActive ? undefined : `scale(${diff === 1 ? 0.88 : 0.78})`,
-                          outline: isActive ? '1px solid rgba(239,68,68,0.3)' : 'none',
+                            ? `0 15px 50px rgba(239,68,68,${isDarkMode ? '0.4' : '0.2'}), 0 20px 100px rgba(239,68,68,${isDarkMode ? '0.2' : '0.1'}), 0 30px 60px ${isDarkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.08)'}`
+                            : `0 10px 30px ${isDarkMode ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.05)'}`,
+                          transform: isActive ? 'translateY(-8px)' : `scale(${diff === 1 ? 0.88 : 0.78})`,
+                          outline: isActive ? '1px solid rgba(239,68,68,0.2)' : 'none',
                         }}
                       >
                         {/* Member Photo */}
@@ -277,11 +267,11 @@ export default function Team() {
                         {/* Hover Info (with socials) — active card only */}
                         {isActive && (
                           <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 z-30 translate-y-2 group-hover:translate-y-0">
-                            <div className="glass-dark border border-white/10 rounded-2xl p-4 sm:p-5">
+                            <div className="bg-background/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border border-foreground/10 dark:border-white/10 rounded-2xl p-4 sm:p-5">
                               <span className="text-[9px] font-black text-red-400 tracking-[0.35em] uppercase block mb-2">
                                 {member.role}
                               </span>
-                              <h4 className="font-orbitron text-xl sm:text-2xl font-black text-white mb-4 uppercase leading-tight">
+                              <h4 className="font-orbitron text-xl sm:text-2xl font-black text-foreground dark:text-white mb-4 uppercase leading-tight">
                                 {member.name.split(' ')[0]}{' '}
                                 <span className="opacity-85">{member.name.split(' ').slice(1).join(' ')}</span>
                               </h4>
@@ -297,7 +287,7 @@ export default function Team() {
                                     href={href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className={`w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 border border-white/10 transition-all duration-200 text-white/60 hover:text-white ${hover}`}
+                                    className={`w-8 h-8 flex items-center justify-center rounded-lg bg-foreground/5 dark:bg-white/10 border border-foreground/10 dark:border-white/10 transition-all duration-200 text-muted-foreground hover:text-foreground dark:hover:text-white ${hover}`}
                                     onClick={(e) => e.stopPropagation()}
                                   >
                                     <Icon className="w-3.5 h-3.5" />

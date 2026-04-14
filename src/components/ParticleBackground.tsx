@@ -29,8 +29,16 @@ export default function ParticleBackground() {
     const particleCount = isMobile ? 80 : 200;
     const particles: Particle[] = [];
 
+    const isDark = document.documentElement.classList.contains('dark');
+
     const initParticles = () => {
       for (let i = 0; i < particleCount; i++) {
+        const color = Math.random() > 0.7 
+          ? '#ef4444' 
+          : Math.random() > 0.5 
+            ? '#a855f7' 
+            : isDark ? '#ffffff' : '#1a1a1a';
+
         particles.push({
           x: (Math.random() - 0.5) * width * 2,
           y: (Math.random() - 0.5) * height * 2,
@@ -39,8 +47,8 @@ export default function ParticleBackground() {
           vy: (Math.random() - 0.5) * 0.2,
           vz: (Math.random() - 0.5) * 0.1,
           baseRadius: Math.random() * 1.5 + 0.5,
-          color: Math.random() > 0.7 ? '#ef4444' : Math.random() > 0.5 ? '#a855f7' : '#ffffff',
-          opacity: Math.random() * 0.5 + 0.2,
+          color,
+          opacity: isDark ? (Math.random() * 0.5 + 0.2) : (Math.random() * 0.3 + 0.1),
         });
       }
     };
@@ -61,8 +69,6 @@ export default function ParticleBackground() {
       lerpedScrollY += (scrollY - lerpedScrollY) * 0.08;
 
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = '#0a0a0a';
-      ctx.fillRect(0, 0, width, height);
 
       const fov = 400;
       const centerX = width / 2;
