@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import {
   ArrowLeft, Calendar, FolderGit2, BookOpen, Award,
-  Edit3, Save, X, Loader2, MapPin, ExternalLink
+  Edit3, Save, X, Loader2, MapPin, ExternalLink, Shield
 } from 'lucide-react';
 import type { Event, EventRegistration, Project } from '../types/database';
 
@@ -139,168 +139,206 @@ export default function Dashboard() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto">
-        {/* Back button */}
-        <button
-          onClick={() => navigate('/')}
-          className="dash-animate flex items-center gap-2 text-sm text-gray-400 hover:text-white 
-                   transition-colors mb-8 group"
-        >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Back to Home
-        </button>
+        {/* Header with Progress */}
+        <div className="dash-animate flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div>
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-white 
+                       transition-all mb-2 group uppercase tracking-[0.2em]"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+              Terminal / Home
+            </button>
+            <h1 className="text-3xl font-orbitron font-black text-white uppercase italic tracking-tighter">Member <span className="text-gradient">Control Center</span></h1>
+          </div>
 
-        {/* Profile Header Card */}
-        <div className="dash-animate premium-card rounded-2xl p-6 sm:p-8 mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            {/* Avatar */}
-            <div className="relative">
-              {avatarUrl ? (
-                <img
-                  src={avatarUrl}
-                  alt={displayName}
-                  className="w-20 h-20 rounded-2xl border-2 border-white/10 object-cover"
-                />
-              ) : (
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-500 to-purple-600 
-                              flex items-center justify-center text-2xl font-bold text-white">
-                  {displayName.charAt(0).toUpperCase()}
-                </div>
-              )}
-              <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-[#070707]
-                ${profile?.role === 'admin' ? 'bg-red-500' : profile?.role === 'member' ? 'bg-purple-500' : 'bg-gray-500'}`} 
+          {/* Profile Completion Bar */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 min-w-[240px]">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Node Completion</span>
+              <span className="text-[10px] font-black text-red-500">
+                {Math.round(((editForm.full_name ? 1 : 0) + (editForm.bio ? 1 : 0) + (editForm.skills.length > 0 ? 1 : 0) + (editForm.ieee_member_id ? 1 : 0)) / 4 * 100)}%
+              </span>
+            </div>
+            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-red-600 to-purple-600 transition-all duration-1000"
+                style={{ width: `${((editForm.full_name ? 1 : 0) + (editForm.bio ? 1 : 0) + (editForm.skills.length > 0 ? 1 : 0) + (editForm.ieee_member_id ? 1 : 0)) / 4 * 100}%` }}
               />
             </div>
+          </div>
+        </div>
 
-            {/* Info */}
-            <div className="flex-1">
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={editForm.full_name}
-                  onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
-                  className="text-2xl font-orbitron font-bold text-white bg-transparent border-b border-white/20 
-                           focus:border-red-500 outline-none pb-1 w-full"
-                  placeholder="Your name"
-                />
-              ) : (
-                <h1 className="text-2xl font-orbitron font-bold text-white">{displayName}</h1>
-              )}
-              <p className="text-gray-500 text-sm mt-1">{user?.email}</p>
-              <div className="flex items-center gap-3 mt-2">
-                <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full
-                  ${profile?.role === 'admin' ? 'bg-red-500/15 text-red-400 border border-red-500/20'
-                    : profile?.role === 'member' ? 'bg-purple-500/15 text-purple-400 border border-purple-500/20'
-                    : 'bg-white/5 text-gray-500 border border-white/10'}`}>
-                  {profile?.role || 'visitor'}
-                </span>
-                {profile?.ieee_member_id && !isEditing && (
-                  <span className="flex items-center gap-1 text-xs text-gray-500">
-                    <Award className="w-3 h-3" />
-                    IEEE: {profile.ieee_member_id}
-                  </span>
+        {/* Profile Header Card */}
+        <div className="dash-animate relative overflow-hidden premium-card rounded-[2rem] p-8 mb-8 group">
+          {/* Animated Background Orbs */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-red-600/20 transition-all duration-700" />
+          
+          <div className="relative z-10 flex flex-col lg:flex-row gap-10">
+            {/* Left: Avatar & Role */}
+            <div className="flex flex-col items-center gap-4">
+              <div className="relative group/avatar">
+                <div className="absolute -inset-1.5 bg-gradient-to-tr from-red-600 to-purple-600 rounded-[2.5rem] blur-sm opacity-20 group-hover/avatar:opacity-40 transition-opacity" />
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt={displayName}
+                    className="relative w-32 h-32 rounded-[2.2rem] border border-white/10 object-cover shadow-2xl"
+                  />
+                ) : (
+                  <div className="relative w-32 h-32 rounded-[2.2rem] bg-[#0f0f0f] border border-white/5 
+                                flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-purple-600/20" />
+                    <span className="text-4xl font-orbitron font-black text-white relative z-10">
+                      {displayName.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                )}
+                <div className={`absolute -bottom-2 -right-2 p-2 rounded-xl border-2 border-[#070707] shadow-xl
+                  ${profile?.role === 'admin' ? 'bg-red-500' : 'bg-purple-600'}`}>
+                  {profile?.role === 'admin' ? <Shield className="w-4 h-4 text-white" /> : <Award className="w-4 h-4 text-white" />}
+                </div>
+              </div>
+              <span className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border
+                ${profile?.role === 'admin' ? 'bg-red-500/10 text-red-500 border-red-500/20'
+                  : 'bg-purple-500/10 text-purple-400 border-purple-500/20'}`}>
+                System {profile?.role || 'Member'}
+              </span>
+            </div>
+
+            {/* Middle: Core Info */}
+            <div className="flex-1 space-y-6">
+              <div className="space-y-1">
+                {isEditing ? (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Personal Identity</label>
+                      <input
+                        type="text"
+                        value={editForm.full_name}
+                        onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
+                        className="mt-1 block w-full text-2xl font-orbitron font-black text-white bg-white/5 border border-white/10 
+                                 rounded-xl px-4 py-3 focus:border-red-500/50 outline-none transition-all"
+                        placeholder="Full Name"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <h2 className="text-4xl font-orbitron font-black text-white tracking-tighter uppercase">{displayName}</h2>
+                    <p className="text-gray-500 font-medium tracking-wide flex items-center gap-2">
+                       <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                       {user?.email}
+                    </p>
+                  </>
+                )}
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
+                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">IEEE Accreditation</p>
+                   {isEditing ? (
+                     <input
+                       type="text"
+                       value={editForm.ieee_member_id}
+                       onChange={e => setEditForm(prev => ({ ...prev, ieee_member_id: e.target.value }))}
+                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-red-500/50 transition-all outline-none"
+                       placeholder="Member ID"
+                     />
+                   ) : (
+                     <p className="text-white font-orbitron font-bold tracking-wider">{profile?.ieee_member_id || "NOT LINKED"}</p>
+                   )}
+                </div>
+                <div className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
+                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Deployment Status</p>
+                   <p className="text-white font-orbitron font-bold tracking-wider text-emerald-500">ACTIVE NODE</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 ml-1">Expertise & Skills</p>
+                <div className="flex flex-wrap gap-2">
+                  {(isEditing ? AVAILABLE_SKILLS : (profile?.skills || [])).map(skill => (
+                    <button
+                      key={skill}
+                      disabled={!isEditing}
+                      onClick={() => toggleSkill(skill)}
+                      className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-all duration-200
+                        ${editForm.skills.includes(skill)
+                          ? 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/20'
+                          : isEditing 
+                            ? 'bg-white/5 text-gray-500 border-white/10 hover:border-white/30'
+                            : 'bg-white/5 text-gray-400 border-white/5'
+                        }`}
+                    >
+                      {skill}
+                    </button>
+                  ))}
+                  {!isEditing && (!profile?.skills || profile.skills.length === 0) && (
+                    <span className="text-xs text-gray-600 italic px-1">Configure expertise in edit mode</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Bio & Actions */}
+            <div className="lg:w-72 flex flex-col gap-6">
+              <div className="flex-1">
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 ml-1">Biography / Logs</p>
+                {isEditing ? (
+                  <textarea
+                    value={editForm.bio}
+                    onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
+                    rows={6}
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white 
+                             placeholder-gray-600 focus:border-red-500/50 focus:outline-none transition-colors resize-none h-full"
+                    placeholder="Tell your story..."
+                  />
+                ) : (
+                  <div className="p-5 bg-white/[0.02] border border-white/5 rounded-2xl min-h-[140px]">
+                    <p className="text-sm text-gray-400 leading-relaxed italic">
+                      {profile?.bio || "No biography logs found for this node. Initiate edit to add data."}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-3">
+                {isEditing ? (
+                  <>
+                    <button
+                      onClick={() => setIsEditing(false)}
+                      className="flex-1 flex items-center justify-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 
+                               hover:text-white hover:bg-white/10 transition-all font-black uppercase tracking-widest text-[10px]"
+                    >
+                      <X className="w-4 h-4" />
+                      Abort
+                    </button>
+                    <button
+                      onClick={handleSave}
+                      disabled={saving}
+                      className="flex-[2] flex items-center justify-center gap-2 p-4 rounded-2xl 
+                               bg-gradient-to-r from-red-600 to-red-500 text-white text-[10px] font-black uppercase tracking-widest
+                               hover:from-red-500 hover:scale-[1.02] transition-all disabled:opacity-50 shadow-xl shadow-red-600/20"
+                    >
+                      {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                      Sync Node
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="w-full flex items-center justify-center gap-3 p-4 rounded-2xl 
+                             bg-white border border-white/20 text-black text-[10px] font-black uppercase tracking-widest
+                             hover:bg-red-500 hover:text-white transition-all duration-500"
+                  >
+                    <Edit3 className="w-4 h-4" />
+                    Modify Configuration
+                  </button>
                 )}
               </div>
             </div>
-
-            {/* Edit/Save buttons */}
-            <div className="flex gap-2">
-              {isEditing ? (
-                <>
-                  <button
-                    onClick={() => setIsEditing(false)}
-                    className="p-2.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 
-                             hover:text-white hover:bg-white/10 transition-all"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={handleSave}
-                    disabled={saving}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg 
-                             bg-gradient-to-r from-red-600 to-red-500 text-white text-sm font-semibold
-                             hover:from-red-500 hover:to-rose-400 transition-all disabled:opacity-50"
-                  >
-                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                    Save
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg 
-                           bg-white/5 border border-white/10 text-gray-300 text-sm font-medium
-                           hover:bg-white/10 hover:text-white transition-all"
-                >
-                  <Edit3 className="w-4 h-4" />
-                  Edit Profile
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Bio */}
-          {isEditing ? (
-            <div className="mt-6">
-              <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">Bio</label>
-              <textarea
-                value={editForm.bio}
-                onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
-                rows={3}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white 
-                         placeholder-gray-600 focus:border-red-500/50 focus:outline-none transition-colors resize-none"
-                placeholder="Tell us about yourself..."
-              />
-            </div>
-          ) : profile?.bio && (
-            <p className="mt-4 text-sm text-gray-400 leading-relaxed">{profile.bio}</p>
-          )}
-
-          {/* IEEE Member ID (edit mode) */}
-          {isEditing && (
-            <div className="mt-4">
-              <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">IEEE Member ID</label>
-              <input
-                type="text"
-                value={editForm.ieee_member_id}
-                onChange={e => setEditForm(prev => ({ ...prev, ieee_member_id: e.target.value }))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white 
-                         placeholder-gray-600 focus:border-red-500/50 focus:outline-none transition-colors"
-                placeholder="e.g. 12345678"
-              />
-            </div>
-          )}
-
-          {/* Skills */}
-          <div className="mt-6">
-            <h3 className="text-xs text-gray-500 uppercase tracking-wider mb-3">Skills</h3>
-            {isEditing ? (
-              <div className="flex flex-wrap gap-2">
-                {AVAILABLE_SKILLS.map(skill => (
-                  <button
-                    key={skill}
-                    onClick={() => toggleSkill(skill)}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all duration-200
-                      ${editForm.skills.includes(skill)
-                        ? 'bg-red-500/15 text-red-400 border-red-500/30'
-                        : 'bg-white/3 text-gray-500 border-white/8 hover:border-white/20 hover:text-gray-300'
-                      }`}
-                  >
-                    {skill}
-                  </button>
-                ))}
-              </div>
-            ) : profile?.skills && profile.skills.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {profile.skills.map(skill => (
-                  <span key={skill} className="px-3 py-1.5 text-xs font-medium text-red-400 
-                                              bg-red-500/10 border border-red-500/20 rounded-lg">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-600">No skills added yet</p>
-            )}
           </div>
         </div>
 
