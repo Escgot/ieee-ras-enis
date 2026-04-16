@@ -118,7 +118,6 @@ function HomePage() {
 
   return (
     <div ref={mainRef}>
-      <CustomCursor />
       <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
         {isHome ? (
           <>
@@ -195,6 +194,7 @@ function App() {
 
       <div className="min-h-screen bg-transparent text-foreground">
         <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
+          <CustomCursor />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route

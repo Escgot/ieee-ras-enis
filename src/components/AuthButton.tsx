@@ -6,14 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 
 export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
-  const { user, profile, loading, signInWithGoogle, signInWithEmail, signUpWithEmail, signOut, isAdmin } = useAuth();
+  const { user, profile, loading, signInWithEmail, signOut, isAdmin } = useAuth();
   
   // Auth Modal State
   const [modalOpen, setModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
@@ -38,19 +36,7 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
     setAuthLoading(true);
     setAuthError('');
 
-    let err;
-    if (authMode === 'signin') {
-      const res = await signInWithEmail(email, password);
-      err = res.error;
-    } else {
-      if (!name) {
-        setAuthError('Please enter your name.');
-        setAuthLoading(false);
-        return;
-      }
-      const res = await signUpWithEmail(email, password, name);
-      err = res.error;
-    }
+    const { error: err } = await signInWithEmail(email, password);
 
     if (err) {
       setAuthError(err.message || 'Authentication failed');
@@ -70,11 +56,11 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
     );
   }
 
-  // Not signed in — show Join Now button + Auth Modal
+  // Not signed in — show Log In button + Auth Modal
   if (!user) {
     return (
       <>
-        {/* Join Now Button */}
+        {/* Log In Button */}
         <button
           onClick={() => setModalOpen(true)}
           className={mobile
@@ -83,7 +69,7 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
           }
         >
           <LogIn className={`w-4 h-4 ${mobile ? 'hidden' : 'inline-block'}`} />
-          Join Now
+          Log In
         </button>
 
         {/* Auth Modal Overlay - Using Portal to escape parent transforms */}
@@ -107,44 +93,12 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
               </button>
 
               <div className="text-center mb-8 pt-2">
-                <h2 className="text-3xl font-orbitron font-black text-black dark:text-white mb-2 uppercase tracking-tighter italic">Welcome</h2>
+                <h2 className="text-3xl font-orbitron font-black text-black dark:text-white mb-2 uppercase tracking-tighter italic">Member Portal</h2>
                 <p className="text-xs text-gray-700 dark:text-gray-400 font-bold uppercase tracking-widest">IEEE RAS ENIS Student Branch</p>
-              </div>
-
-              {/* Toggle Mode */}
-              <div className="flex bg-black/[0.03] dark:bg-white/5 p-1.5 rounded-2xl mb-6 border border-black/5 dark:border-white/5">
-                <button 
-                  onClick={() => { setAuthMode('signin'); setAuthError(''); }}
-                  className={`flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-300
-                    ${authMode === 'signin' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
-                >
-                  Sign In
-                </button>
-                <button 
-                  onClick={() => { setAuthMode('signup'); setAuthError(''); }}
-                  className={`flex-1 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-300
-                    ${authMode === 'signup' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'}`}
-                >
-                  Sign Up
-                </button>
               </div>
 
               {/* Form */}
               <form onSubmit={handleEmailAuth} className="space-y-4">
-                {authMode === 'signup' && (
-                  <div className="relative">
-                    <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-black/[0.02] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl pl-11 pr-4 py-3.5 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-600 focus:border-red-500/50 focus:outline-none focus:ring-1 focus:ring-red-500/50 transition-all font-medium"
-                      required={authMode === 'signup'}
-                    />
-                  </div>
-                )}
-                
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                   <input
@@ -180,30 +134,18 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
                   className="w-full py-3.5 bg-black dark:bg-white text-white dark:text-black text-xs font-black uppercase tracking-widest rounded-xl hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 shadow-xl"
                 >
                   {authLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {authMode === 'signin' ? 'Sign In' : 'Create Account'}
+                  Sign In
                 </button>
               </form>
 
-              <div className="relative my-8">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-black/5 dark:border-white/10"></div>
-                </div>
-                <div className="relative flex justify-center text-[10px]">
-                  <span className="bg-white dark:bg-[#0a0a0a] px-3 text-gray-600 dark:text-gray-500 font-bold uppercase tracking-[0.2em]">Or continue with</span>
-                </div>
+              <div className="mt-8 pt-6 border-t border-black/5 dark:border-white/10 text-center">
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                  Access is restricted to authorized members only. <br />
+                  <span className="text-red-500 dark:text-red-400 font-bold uppercase tracking-wider mt-2 block">
+                    Contact the chapter administrator to get your credentials.
+                  </span>
+                </p>
               </div>
-
-              <button
-                onClick={async () => {
-                  setAuthLoading(true);
-                  await signInWithGoogle();
-                }}
-                disabled={authLoading}
-                className="w-full py-3.5 bg-black/[0.02] dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl text-black dark:text-white text-xs font-bold uppercase tracking-widest hover:bg-black/[0.04] dark:hover:bg-white/10 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
-              >
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-4 h-4" />
-                Google
-              </button>
             </div>
           </div>,
           document.body

@@ -51,29 +51,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Initialize auth state
   useEffect(() => {
-    // Get the current session
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) {
-        fetchProfile(s.user.id).then((p) => {
-          setProfile(p);
-          setLoading(false);
-        });
-      } else {
-        setLoading(false);
-      }
-    });
+    let mounted = true;
 
-    // Listen for auth changes (sign in, sign out, token refresh)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, s) => {
+    async function initialize() {
+      try {
+        const { data: { session: s } } = await supabase.auth.getSession();
+        
+        if (!mounted) return;
+
         setSession(s);
         setUser(s?.user ?? null);
 
         if (s?.user) {
           const p = await fetchProfile(s.user.id);
-          setProfile(p);
+          if (mounted) setProfile(p);
+        }
+      } catch (err) {
+        console.error('Auth initialization error:', err);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+
+    initialize();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (_event, s) => {
+        if (!mounted) return;
+        
+        setSession(s);
+        setUser(s?.user ?? null);
+
+        if (s?.user) {
+          const p = await fetchProfile(s.user.id);
+          if (mounted) setProfile(p);
         } else {
           setProfile(null);
         }
@@ -81,7 +93,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     );
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [fetchProfile]);
 
   // Sign in with Google OAuth

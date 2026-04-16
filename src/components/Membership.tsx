@@ -19,7 +19,7 @@ const plans = [
       'Event notifications',
       'Basic project resources',
     ],
-    cta: 'Get Started',
+    cta: 'Contact Administrator',
     highlighted: false,
   },
   {
@@ -36,7 +36,7 @@ const plans = [
       'Competition registration',
       'Certificate of membership',
     ],
-    cta: 'Join Pro',
+    cta: 'Contact Administrator',
     highlighted: true,
   },
   {
@@ -53,7 +53,7 @@ const plans = [
       'VIP event access',
       'Dedicated support',
     ],
-    cta: 'Contact Us',
+    cta: 'Contact Administrator',
     highlighted: false,
   },
 ];
@@ -110,8 +110,10 @@ export default function Membership() {
               Choose Your <span className="text-gradient">Plan</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Unlock your potential with our membership plans. Get access to exclusive resources,
-              workshops, and networking opportunities.
+              Unlock your potential with our membership plans. Access is restricted to authorized members.
+              <span className="block mt-2 text-red-500/80 font-bold uppercase tracking-wider text-[10px]">
+                Please contact the chapter administrator to get your credentials.
+              </span>
             </p>
           </div>
 
