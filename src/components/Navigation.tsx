@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthButton from './AuthButton';
@@ -190,19 +190,30 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
           }`}
       >
         <div
-          className="absolute inset-0 bg-[#070707]/95 backdrop-blur-2xl"
+          className="absolute inset-0 bg-white/40 dark:bg-[#070707]/80 backdrop-blur-md"
           onClick={() => setIsMobileMenuOpen(false)}
         />
+        
         <div
-          className={`absolute top-16 left-0 right-0 border-b border-white/10 transition-transform duration-500 ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
-            }`}
-          style={{ background: 'rgba(12,12,12,0.98)', backdropFilter: 'blur(24px)' }}
+          className={`absolute top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white/90 dark:bg-[#0a0a0a]/95 backdrop-blur-3xl 
+                     transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-2xl flex flex-col
+                     ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         >
-          {/* Top gradient border */}
-          <div className="h-px bg-gradient-to-r from-transparent via-red-500/40 to-transparent" />
+          {/* Header area */}
+          <div className="p-6 flex items-center justify-between border-b border-black/5 dark:border-white/5">
+            <span className="font-orbitron font-black text-lg text-gradient leading-none">RAS ENIS</span>
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2.5 rounded-xl bg-black/5 dark:bg-white/5 text-gray-500 hover:text-red-500 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-          <div className="px-4 py-6 space-y-1">
-            {navLinks.map((link) => {
+          {/* Links Area */}
+          <div className="flex-1 overflow-y-auto px-6 py-8 space-y-2 no-scrollbar">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-6">Menu Navigation</p>
+            {navLinks.map((link, i) => {
               const sectionId = link.href.slice(1);
               const isActive = isHomePage && activeSection === sectionId;
               return (
@@ -210,22 +221,41 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                   key={link.name}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                  className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 font-medium text-sm ${isActive
-                    ? 'text-white bg-red-500/10 border border-red-500/20'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  className={`group flex items-center justify-between p-4 rounded-2xl transition-all duration-300
+                    ${isActive
+                      ? 'bg-red-500 text-white shadow-lg shadow-red-500/25'
+                      : 'text-gray-700 dark:text-gray-400 hover:bg-black/[0.03] dark:hover:bg-white/5 hover:text-black dark:hover:text-white'
                     }`}
+                  style={{ transitionDelay: `${i * 30}ms` }}
                 >
-                  {link.name}
-                  {isActive && (
-                    <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                  <span className="font-orbitron font-bold text-sm uppercase tracking-wider">{link.name}</span>
+                  {isActive ? (
+                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  ) : (
+                    <div className="w-5 h-px bg-current opacity-0 group-hover:opacity-20 transition-all" />
                   )}
                 </a>
               );
             })}
 
-            <div className="pt-4">
+            <div className="pt-8 mt-8 border-t border-black/5 dark:border-white/5">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-6">Member Access</p>
               <AuthButton mobile />
             </div>
+          </div>
+
+          {/* Footer Area */}
+          <div className="p-8 bg-black/[0.02] dark:bg-white/[0.02] border-t border-black/5 dark:border-white/5">
+            <div className="flex items-center gap-4 justify-center">
+              {[Instagram, Facebook, Linkedin].map((Icon, idx) => (
+                <a key={idx} href="#" className="p-3 bg-black/5 dark:bg-white/5 rounded-xl text-gray-500 hover:text-red-500 hover:scale-110 transition-all">
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+            <p className="text-[9px] text-center text-gray-400 dark:text-gray-600 mt-6 font-medium uppercase tracking-widest">
+              © IEEE RAS ENIS Student Branch
+            </p>
           </div>
         </div>
       </div>
