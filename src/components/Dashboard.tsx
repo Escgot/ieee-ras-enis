@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import {
   ArrowLeft, Calendar, FolderGit2, BookOpen, Award,
-  Edit3, Save, X, Loader2, MapPin, ExternalLink, Shield, Camera
+  Edit3, Save, Loader2, MapPin, ExternalLink, Shield, Camera
 } from 'lucide-react';
 import type { Event, EventRegistration, Project } from '../types/database';
 
