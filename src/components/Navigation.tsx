@@ -115,7 +115,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                 onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
                 className="flex items-center group"
               >
-                <div className="relative h-12 w-48 sm:w-60 flex items-center justify-start flex-shrink-0">
+                <div className="relative h-12 w-36 sm:w-60 flex items-center justify-start flex-shrink-0">
                   <img src="/images/ras.webp" alt="RAS Logo" className="relative h-10 w-auto object-contain" />
                 </div>
               </a>
@@ -213,8 +213,8 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
           </div>
 
           {/* Links Area */}
-          <div className="flex-1 overflow-y-auto px-6 py-8 space-y-2 no-scrollbar">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-6">Menu Navigation</p>
+          <div className="flex-1 overflow-y-auto px-6 py-4 space-y-1 no-scrollbar">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-4 ml-2">Menu Navigation</p>
             {navLinks.map((link, i) => {
               const sectionId = link.href.slice(1);
               const isActive = isHomePage && activeSection === sectionId;
@@ -223,14 +223,14 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                   key={link.name}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                  className={`group flex items-center justify-between p-4 rounded-2xl transition-all duration-300
+                  className={`group flex items-center justify-between p-3 rounded-xl transition-all duration-300
                     ${isActive
                       ? 'bg-red-500 text-white shadow-lg shadow-red-500/25'
                       : 'text-gray-700 dark:text-gray-400 hover:bg-black/[0.03] dark:hover:bg-white/5 hover:text-black dark:hover:text-white'
                     }`}
                   style={{ transitionDelay: `${i * 30}ms` }}
                 >
-                  <span className="font-orbitron font-bold text-sm uppercase tracking-wider">{link.name}</span>
+                  <span className="font-orbitron font-bold text-[12px] uppercase tracking-wider">{link.name}</span>
                   {isActive ? (
                     <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                   ) : (
@@ -240,22 +240,22 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
               );
             })}
 
-            <div className="pt-8 mt-8 border-t border-black/5 dark:border-white/5">
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-6">Member Access</p>
+            <div className="pt-6 mt-6 border-t border-black/5 dark:border-white/5">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-4 ml-2">Member Access</p>
               <AuthButton mobile />
             </div>
           </div>
 
           {/* Footer Area */}
-          <div className="p-8 bg-black/[0.02] dark:bg-white/[0.02] border-t border-black/5 dark:border-white/5">
-            <div className="flex items-center gap-4 justify-center">
+          <div className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border-t border-black/5 dark:border-white/5">
+            <div className="flex items-center gap-3 justify-center">
               {[Instagram, Facebook, Linkedin].map((Icon, idx) => (
-                <a key={idx} href="#" className="p-3 bg-black/5 dark:bg-white/5 rounded-xl text-gray-500 hover:text-red-500 hover:scale-110 transition-all">
-                  <Icon className="w-5 h-5" />
+                <a key={idx} href="#" className="p-2.5 bg-black/5 dark:bg-white/5 rounded-xl text-gray-500 hover:text-red-500 hover:scale-110 transition-all">
+                  <Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
-            <p className="text-[9px] text-center text-gray-400 dark:text-gray-600 mt-6 font-medium uppercase tracking-widest">
+            <p className="text-[8px] text-center text-gray-400 dark:text-gray-600 mt-4 font-medium uppercase tracking-widest">
               © IEEE RAS ENIS Student Branch
             </p>
           </div>
