@@ -171,36 +171,36 @@ export default function Dashboard() {
         </div>
 
         {/* Profile Header Card */}
-        <div className="dash-animate relative overflow-hidden premium-card rounded-[2rem] p-8 mb-8 group">
+        <div className="dash-animate relative overflow-hidden premium-card rounded-[2rem] p-6 sm:p-8 mb-8 group">
           {/* Animated Background Orbs */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-red-600/20 transition-all duration-700" />
           
           <div className="relative z-10">
-            {/* Header Actions (Top Right) */}
-            <div className="absolute top-0 right-0 flex gap-2">
+            {/* Header Actions - Responsive positioning */}
+            <div className="flex justify-end mb-6">
               {isEditing ? (
-                <>
+                <div className="flex gap-2 w-full sm:w-auto">
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"
+                    className="flex-1 sm:flex-initial p-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all flex items-center justify-center"
                   >
                     <X className="w-4 h-4" />
                   </button>
                   <button
                     onClick={handleSave}
                     disabled={saving}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl 
+                    className="flex-[3] sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 rounded-xl 
                              bg-white text-black text-[10px] font-black uppercase tracking-widest
                              hover:bg-red-500 hover:text-white transition-all disabled:opacity-50"
                   >
                     {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                     Save Changes
                   </button>
-                </>
+                </div>
               ) : (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-3 px-6 py-3 rounded-xl 
+                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl 
                            bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest
                            hover:bg-white/10 transition-all duration-300"
                 >
@@ -233,7 +233,7 @@ export default function Dashboard() {
                       </div>
                     )}
 
-                    {/* Photo Edit Overlay (Visible in Edit Mode) */}
+                    {/* Photo Edit Overlay */}
                     {isEditing && (
                       <label className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center cursor-pointer opacity-0 group-hover/avatar:opacity-100 transition-opacity backdrop-blur-sm">
                         <Camera className="w-6 h-6 text-white mb-1" />
@@ -246,13 +246,12 @@ export default function Dashboard() {
                             const file = e.target.files?.[0];
                             if (!file || !user) return;
                             
-                            // 1. Upload to Supabase Storage
                             const fileExt = file.name.split('.').pop();
                             const fileName = `${user.id}-${Math.random()}.${fileExt}`;
                             const filePath = `avatars/${fileName}`;
 
                             const { error: uploadError } = await supabase.storage
-                              .from('profiles') // Assuming you have a 'profiles' bucket
+                              .from('profiles')
                               .upload(filePath, file);
 
                             if (uploadError) {
@@ -260,12 +259,10 @@ export default function Dashboard() {
                               return;
                             }
 
-                            // 2. Get Public URL
                             const { data: { publicUrl } } = supabase.storage
                               .from('profiles')
                               .getPublicUrl(filePath);
 
-                            // 3. Update Profile Immediately
                             const { error: updateError } = await supabase
                               .from('profiles')
                               .update({ avatar_url: publicUrl })
@@ -308,13 +305,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                   ) : (
-                    <>
-                      <h2 className="text-4xl font-orbitron font-black text-white tracking-tighter uppercase">{displayName}</h2>
-                      <p className="text-gray-500 font-medium tracking-wide flex items-center gap-2">
-                         <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                         {user?.email}
-                      </p>
-                    </>
+                    <h2 className="text-4xl font-orbitron font-black text-white tracking-tighter uppercase">{displayName}</h2>
                   )}
                 </div>
 
