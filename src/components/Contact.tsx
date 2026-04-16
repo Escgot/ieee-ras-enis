@@ -10,8 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'sbc.enis.ras@ieee.org', href: 'mailto:sbc.enis.ras@ieee.org', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
   { icon: Phone, label: 'Phone', value: '+216 74 123 456', href: 'tel:+21674123456', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', hoverBg: 'group-hover:bg-purple-500' },
-  { icon: MapPin, label: 'Location', value: 'ENIS, Sfax, Tunisia', href: '#', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
-  { icon: Clock, label: 'Office Hours', value: 'Tue - Sun: 10:00-23:00', href: '#', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', hoverBg: 'group-hover:bg-purple-500' },
+  { icon: MapPin, label: 'Location', value: 'ENIS, Sfax, Tunisia', href: 'https://maps.app.goo.gl/T1VGoYWhgBpZEU986', color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', hoverBg: 'group-hover:bg-red-500' },
+  { icon: Clock, label: 'Office Hours', value: 'Tue - Sun: 10:00-23:00', href: null, color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', hoverBg: 'group-hover:bg-purple-500' },
 ];
 
 const socials = [
@@ -134,23 +134,40 @@ export default function Contact() {
 
             {/* Column 1: Info + Socials */}
             <div className="lg:col-span-3 space-y-4 contact-left">
-              {contactInfo.map((item, i) => (
-                <a
-                  key={i}
-                  href={item.href}
-                  className={`contact-info-item group flex items-center gap-4 p-4 bg-white/[0.02] border ${item.border} rounded-2xl hover:border-opacity-60 transition-all duration-300 hover:bg-white/[0.04] hover:-translate-y-0.5`}
-                >
-                  <div className={`w-11 h-11 flex-shrink-0 flex items-center justify-center ${item.bg} border ${item.border} rounded-xl ${item.hoverBg} hover:border-transparent transition-all duration-300`}>
-                    <item.icon className={`w-4 h-4 ${item.color} group-hover:text-white transition-colors`} />
+              {contactInfo.map((item, i) => {
+                const Content = (
+                  <>
+                    <div className={`w-11 h-11 flex-shrink-0 flex items-center justify-center ${item.bg} border ${item.border} rounded-xl ${item.hoverBg} hover:border-transparent transition-all duration-300`}>
+                      <item.icon className={`w-4 h-4 ${item.color} group-hover:text-white transition-colors`} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest font-bold mb-0.5">{item.label}</p>
+                      <p className={`text-sm text-black dark:text-white font-bold group-hover:${item.color} transition-colors truncate`}>
+                        {item.value}
+                      </p>
+                    </div>
+                  </>
+                );
+
+                return item.href ? (
+                  <a
+                    key={i}
+                    href={item.href}
+                    target={item.href.startsWith('http') ? "_blank" : undefined}
+                    rel={item.href.startsWith('http') ? "noopener noreferrer" : undefined}
+                    className={`contact-info-item group flex items-center gap-4 p-4 bg-white/[0.02] border ${item.border} rounded-2xl hover:border-opacity-60 transition-all duration-300 hover:bg-white/[0.04] hover:-translate-y-0.5 pointer-events-auto cursor-pointer`}
+                  >
+                    {Content}
+                  </a>
+                ) : (
+                  <div
+                    key={i}
+                    className={`contact-info-item group flex items-center gap-4 p-4 bg-white/[0.02] border ${item.border} rounded-2xl border-opacity-30 transition-all duration-300`}
+                  >
+                    {Content}
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest font-bold mb-0.5">{item.label}</p>
-                    <p className={`text-sm text-black dark:text-white font-bold group-hover:${item.color} transition-colors truncate`}>
-                      {item.value}
-                    </p>
-                  </div>
-                </a>
-              ))}
+                );
+              })}
 
               {/* Social Links */}
               <div className="p-4 bg-white/[0.02] border border-black/10 dark:border-white/6 rounded-2xl">

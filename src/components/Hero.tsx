@@ -184,7 +184,7 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none z-0" />
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-0 left-10 sm:left-1/2 -translate-x-1/2 animate-bounce z-30 pb-2">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 animate-bounce z-30 pb-2">
         <a
           href="#about"
           onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
