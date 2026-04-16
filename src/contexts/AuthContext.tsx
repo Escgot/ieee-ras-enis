@@ -83,13 +83,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(s);
         setUser(s?.user ?? null);
 
-        if (s?.user) {
-          const p = await fetchProfile(s.user.id);
-          if (mounted) setProfile(p);
-        } else {
-          setProfile(null);
+        try {
+          if (s?.user) {
+            const p = await fetchProfile(s.user.id);
+            if (mounted) setProfile(p);
+          } else {
+            setProfile(null);
+          }
+        } catch (err) {
+          console.error('Auth handler error:', err);
+        } finally {
+          if (mounted) setLoading(false);
         }
-        setLoading(false);
       }
     );
 
