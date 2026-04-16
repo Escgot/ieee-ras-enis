@@ -156,7 +156,7 @@ export default function Dashboard() {
           {/* Profile Completion Bar */}
           <div className="bg-white/5 border border-white/10 rounded-2xl p-4 min-w-[240px]">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Node Completion</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Profile Progress</span>
               <span className="text-[10px] font-black text-red-500">
                 {Math.round(((editForm.full_name ? 1 : 0) + (editForm.bio ? 1 : 0) + (editForm.skills.length > 0 ? 1 : 0) + (editForm.ieee_member_id ? 1 : 0)) / 4 * 100)}%
               </span>
@@ -176,43 +176,9 @@ export default function Dashboard() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-red-600/20 transition-all duration-700" />
           
           <div className="relative z-10">
-            {/* Header Actions - Responsive positioning */}
-            <div className="flex justify-end mb-6">
-              {isEditing ? (
-                <div className="flex gap-2 w-full sm:w-auto">
-                  <button
-                    onClick={() => setIsEditing(false)}
-                    className="flex-1 sm:flex-initial p-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all flex items-center justify-center"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={handleSave}
-                    disabled={saving}
-                    className="flex-[3] sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 rounded-xl 
-                             bg-white text-black text-[10px] font-black uppercase tracking-widest
-                             hover:bg-red-500 hover:text-white transition-all disabled:opacity-50"
-                  >
-                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                    Save Changes
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl 
-                           bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest
-                           hover:bg-white/10 transition-all duration-300"
-                >
-                  <Edit3 className="w-4 h-4" />
-                  Edit Profile
-                </button>
-              )}
-            </div>
-
             <div className="flex flex-col lg:flex-row gap-10">
-              {/* Left: Avatar & Role */}
-              <div className="flex flex-col items-center gap-4">
+              {/* Left Column: Avatar, Role, and Actions */}
+              <div className="flex flex-col items-center gap-4 lg:w-48">
                 <div className="relative group/avatar">
                   <div className="absolute -inset-1.5 bg-gradient-to-tr from-red-600 to-purple-600 rounded-[2.5rem] blur-sm opacity-20 group-hover/avatar:opacity-40 transition-opacity" />
                   
@@ -280,11 +246,48 @@ export default function Dashboard() {
                     {profile?.role === 'admin' ? <Shield className="w-4 h-4 text-white" /> : <Award className="w-4 h-4 text-white" />}
                   </div>
                 </div>
-                <span className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border
-                  ${profile?.role === 'admin' ? 'bg-red-500/10 text-red-500 border-red-500/20'
-                    : 'bg-purple-500/10 text-purple-400 border-purple-500/20'}`}>
-                  System {profile?.role || 'Member'}
-                </span>
+
+                <div className="flex flex-col items-center gap-3 w-full">
+                  <span className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border
+                    ${profile?.role === 'admin' ? 'bg-red-500/10 text-red-500 border-red-500/20'
+                      : 'bg-purple-500/10 text-purple-400 border-purple-500/20'}`}>
+                    System {profile?.role || 'Member'}
+                  </span>
+
+                  {/* Move Actions Here */}
+                  <div className="w-full pt-2">
+                    {isEditing ? (
+                      <div className="flex flex-col gap-2">
+                        <button
+                          onClick={handleSave}
+                          disabled={saving}
+                          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl 
+                                   bg-white text-black text-[10px] font-black uppercase tracking-widest
+                                   hover:bg-red-500 hover:text-white transition-all disabled:opacity-50"
+                        >
+                          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                          Sync Profile
+                        </button>
+                        <button
+                          onClick={() => setIsEditing(false)}
+                          className="w-full p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all text-[9px] font-black uppercase tracking-widest"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl 
+                                 bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest
+                                 hover:bg-white/10 transition-all duration-300"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                        Edit Profile
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* Middle: Core Info */}
