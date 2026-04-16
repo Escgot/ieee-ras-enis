@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, Send, Clock } from 'lucide-react';
 import DiscordIcon from './DiscordIcon';
+import { supabase } from '../lib/supabase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,13 +71,31 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((res) => setTimeout(res, 2000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
-    }, 4000);
+    
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([{
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        }]);
+
+      if (error) throw error;
+      
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
+      }, 4000);
+    } catch (err) {
+      console.error('Error sending message:', err);
+      alert('Failed to send message. Please try again or contact us directly at sbc.enis.ras@ieee.org.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

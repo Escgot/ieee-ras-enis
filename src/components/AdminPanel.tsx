@@ -6,11 +6,11 @@ import { gsap } from 'gsap';
 import {
   ArrowLeft, Users, Calendar, FileText,
   Shield, Search, ChevronDown, Loader2, Trash2,
-  Plus, X, Save, Eye, EyeOff
+  Plus, X, Save, Eye, EyeOff, Inbox, Mail
 } from 'lucide-react';
 import type { Profile, Event as DbEvent, Resource, UserRole } from '../types/database';
 
-type AdminTab = 'members' | 'events' | 'projects' | 'resources';
+type AdminTab = 'members' | 'events' | 'projects' | 'resources' | 'inbox';
 
 export default function AdminPanel() {
   const { profile } = useAuth();
@@ -21,6 +21,7 @@ export default function AdminPanel() {
   const [members, setMembers] = useState<Profile[]>([]);
   const [events, setEvents] = useState<DbEvent[]>([]);
   const [resources, setResources] = useState<Resource[]>([]);
+  const [messages, setMessages] = useState<any[]>([]); // Using any for messages
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -71,6 +72,14 @@ export default function AdminPanel() {
             .select('*')
             .order('created_at', { ascending: false });
           setResources((data as Resource[]) || []);
+          break;
+        }
+        case 'inbox': {
+          const { data } = await supabase
+            .from('contact_messages')
+            .select('*')
+            .order('created_at', { ascending: false });
+          setMessages(data || []);
           break;
         }
       }
@@ -152,6 +161,7 @@ export default function AdminPanel() {
     { key: 'members', label: 'Members', icon: Users, count: members.length },
     { key: 'events', label: 'Events', icon: Calendar, count: events.length },
     { key: 'resources', label: 'Resources', icon: FileText, count: resources.length },
+    { key: 'inbox', label: 'Inbox', icon: Inbox, count: messages.length },
   ];
 
   return (
@@ -462,6 +472,57 @@ export default function AdminPanel() {
                     </div>
                   )}
                 </div>
+              </div>
+            )}
+            {/* ===== INBOX TAB ===== */}
+            {activeTab === 'inbox' && (
+              <div className="admin-animate space-y-4">
+                {messages.length === 0 ? (
+                  <div className="text-center py-20 bg-white/[0.02] border border-white/5 rounded-3xl">
+                    <Mail className="w-8 h-8 text-gray-700 mx-auto mb-2" />
+                    <p className="text-sm text-gray-600">No messages in your inbox yet</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4">
+                    {messages.map((msg) => (
+                      <div key={msg.id} className="premium-card rounded-2xl p-6 border-l-4 border-l-red-500/50">
+                        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest bg-red-500/10 text-red-500 rounded-md border border-red-500/20">
+                                {msg.subject}
+                              </span>
+                              <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">
+                                {new Date(msg.created_at).toLocaleString()}
+                              </span>
+                            </div>
+                            <h4 className="text-lg font-orbitron font-bold text-white uppercase italic">
+                              {msg.first_name} {msg.last_name}
+                            </h4>
+                            <p className="text-xs text-red-400 font-medium">{msg.email}</p>
+                          </div>
+                          
+                          <button 
+                            onClick={async () => {
+                              if (!confirm('Permanently delete this message?')) return;
+                              const { error } = await supabase.from('contact_messages').delete().eq('id', msg.id);
+                              if (!error) setMessages(prev => prev.filter(m => m.id !== msg.id));
+                            }}
+                            className="p-2.5 rounded-xl bg-white/5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all self-start"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                        
+                        <div className="p-4 bg-white/[0.03] border border-white/5 rounded-xl">
+                          <p className="text-sm text-gray-300 leading-relaxed italic whitespace-pre-wrap">
+                            "{msg.message}"
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </>
