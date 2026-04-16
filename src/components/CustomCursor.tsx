@@ -65,12 +65,12 @@ export default function CustomCursor() {
       const centerY = rect.top + rect.height / 2;
 
       gsap.to(followerRef.current, {
-        scale: 1.5,
-        width: rect.width + 20,
-        height: rect.height + 20,
-        borderRadius: '8px',
-        borderColor: 'rgba(239, 68, 68, 0.5)',
-        duration: 0.4,
+        scale: 1.1,
+        width: rect.width + 10,
+        height: rect.height + 10,
+        borderRadius: '12px',
+        borderColor: 'rgba(239, 68, 68, 0.6)',
+        duration: 0.35,
         ease: 'expo.out'
       });
       gsap.to(cursorRef.current, { opacity: 0 });
