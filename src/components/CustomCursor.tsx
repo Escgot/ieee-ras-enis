@@ -1,10 +1,13 @@
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { gsap } from 'gsap';
+
 // Robotic HUD & Sensor Cursor
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
   const tailRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [isMobile, setIsMobile] = useState(false);
-  const [particles, setParticles] = useState<{ id: number; x: number; y: number; angle: number; speed: number }[]>([]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -33,7 +36,7 @@ export default function CustomCursor() {
       });
 
       // Robotic Node Trail (Stepped delay for mechanical feel)
-      tailRefs.current.forEach((dot, index) => {
+      tailRefs.current.forEach((dot: HTMLDivElement | null, index: number) => {
         if (!dot) return;
         gsap.to(dot, {
           x: e.clientX,
@@ -71,7 +74,9 @@ export default function CustomCursor() {
         ease: 'expo.out'
       });
       gsap.to(cursorRef.current, { opacity: 0 });
-      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0 }));
+      tailRefs.current.forEach((dot: HTMLDivElement | null) => {
+        if (dot) gsap.to(dot, { opacity: 0 });
+      });
 
       gsap.to(followerRef.current, {
         x: centerX,
@@ -93,7 +98,9 @@ export default function CustomCursor() {
         ease: 'expo.out'
       });
       gsap.to(cursorRef.current, { opacity: 1 });
-      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0.4 }));
+      tailRefs.current.forEach((dot: HTMLDivElement | null) => {
+        if (dot) gsap.to(dot, { opacity: 0.4 });
+      });
     };
 
     window.addEventListener('mousemove', moveCursor);
@@ -125,7 +132,6 @@ export default function CustomCursor() {
 
   return createPortal(
     <>
-      {/* HUD Brackets (Corner Targeting) */}
       <div 
         ref={followerRef}
         className="fixed top-0 left-0 w-10 h-10 border border-red-500/20 z-[1000001] pointer-events-none flex items-center justify-center"
@@ -137,22 +143,20 @@ export default function CustomCursor() {
         <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-red-500" />
       </div>
 
-      {/* Circuitry Node Trail (Geometric Squares) */}
       {[...Array(5)].map((_, i) => (
         <div 
           key={i}
-          ref={el => tailRefs.current[i] = el}
+          ref={(el) => { tailRefs.current[i] = el; }}
           className="fixed top-0 left-0 bg-red-500/40 z-[1000000] pointer-events-none border border-red-500/20"
           style={{ 
             width: `${8 - i}px`, 
             height: `${8 - i}px`,
             opacity: 0.5 - (i * 0.1),
-            transform: 'translate(-50%, -50%) rotate(45deg)', // Diamond tech shape
+            transform: 'translate(-50%, -50%) rotate(45deg)', 
           }}
         />
       ))}
 
-      {/* Central Laser Pulse */}
       <div 
         ref={cursorRef}
         className="fixed top-0 left-0 w-2 h-2 bg-red-600 z-[1000002] pointer-events-none shadow-[0_0_15px_#ff0000]"
