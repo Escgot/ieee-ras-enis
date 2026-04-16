@@ -388,9 +388,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-            </div>
-          </div>
-        </div>
+      </div>
 
         {/* Grid: Events + Projects */}
         <div className="grid md:grid-cols-2 gap-6">
