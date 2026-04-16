@@ -368,27 +368,27 @@ export default function Dashboard() {
 
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-3 ml-1">Log Entries / Biography</p>
-                  {isEditing ? (
-                    <textarea
-                      value={editForm.bio}
-                      onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
-                      rows={6}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white focus:border-red-500/50 outline-none transition-colors resize-none"
-                      placeholder="Record biography logs..."
-                    />
-                  ) : (
-                    <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl min-h-[140px]">
-                      <p className="text-sm text-gray-400 leading-relaxed italic">
-                        {profile?.bio || "No biography log found for this node entry."}
-                      </p>
-                    </div>
-                  )}
+                    {isEditing ? (
+                      <textarea
+                        value={editForm.bio}
+                        onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
+                        rows={6}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white focus:border-red-500/50 outline-none transition-colors resize-none"
+                        placeholder="Record biography logs..."
+                      />
+                    ) : (
+                      <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl min-h-[140px]">
+                        <p className="text-sm text-gray-400 leading-relaxed italic">
+                          {profile?.bio || "No biography log found for this node entry."}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
         {/* Grid: Events + Projects */}
         <div className="grid md:grid-cols-2 gap-6">
