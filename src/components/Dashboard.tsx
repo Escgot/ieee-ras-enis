@@ -274,7 +274,7 @@ export default function Dashboard() {
                         placeholder="Full Name"
                       />
                     ) : (
-                      <h2 className="text-2xl sm:text-4xl font-orbitron font-black text-white tracking-tighter uppercase italic truncate">
+                      <h2 className="text-2xl sm:text-4xl font-orbitron font-black text-white tracking-tighter uppercase italic leading-tight break-words">
                         {displayName}
                       </h2>
                     )}
