@@ -176,9 +176,11 @@ export default function Dashboard() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-red-600/20 transition-all duration-700" />
           
           <div className="relative z-10">
-            <div className="flex flex-col lg:flex-row gap-10">
-              {/* Left Column: Avatar, Role, and Actions */}
-              <div className="flex flex-col items-center gap-4 lg:w-48">
+            <div className="flex flex-col gap-10">
+              {/* Profile Main Section: Horizontal on mobile */}
+              <div className="flex flex-row items-start gap-6 sm:gap-10">
+                {/* Left Side: Avatar & Role */}
+                <div className="flex flex-col items-center gap-4 shrink-0">
                 <div className="relative group/avatar">
                   <div className="absolute -inset-1.5 bg-gradient-to-tr from-red-600 to-purple-600 rounded-[2.5rem] blur-sm opacity-20 group-hover/avatar:opacity-40 transition-opacity" />
                   
@@ -254,94 +256,105 @@ export default function Dashboard() {
                     System {profile?.role || 'Member'}
                   </span>
 
-                  {/* Move Actions Here */}
-                  <div className="w-full pt-2">
-                    {isEditing ? (
-                      <div className="flex flex-col gap-2">
-                        <button
-                          onClick={handleSave}
-                          disabled={saving}
-                          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl 
-                                   bg-white text-black text-[10px] font-black uppercase tracking-widest
-                                   hover:bg-red-500 hover:text-white transition-all disabled:opacity-50"
-                        >
-                          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                          Sync Profile
-                        </button>
-                        <button
-                          onClick={() => setIsEditing(false)}
-                          className="w-full p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all text-[9px] font-black uppercase tracking-widest"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => setIsEditing(true)}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl 
-                                 bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest
-                                 hover:bg-white/10 transition-all duration-300"
-                      >
-                        <Edit3 className="w-4 h-4" />
-                        Edit Profile
-                      </button>
-                    )}
-                  </div>
                 </div>
               </div>
 
-              {/* Middle: Core Info */}
-              <div className="flex-1 space-y-6">
-                <div className="space-y-1">
-                  {isEditing ? (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Personal Identity</label>
-                        <input
-                          type="text"
-                          value={editForm.full_name}
-                          onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
-                          className="mt-1 block w-full text-2xl font-orbitron font-black text-white bg-white/5 border border-white/10 
-                                   rounded-xl px-4 py-3 focus:border-red-500/50 outline-none transition-all"
-                          placeholder="Full Name"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <h2 className="text-4xl font-orbitron font-black text-white tracking-tighter uppercase">{displayName}</h2>
-                  )}
-                </div>
-
+              {/* Right Side: Identity, Accreditation, and Core Actions */}
+              <div className="flex-1 min-w-0 pt-1">
                 <div className="space-y-4">
-                   <div className="flex flex-col gap-1 ml-1">
-                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">IEEE Accreditation</p>
-                     {isEditing ? (
-                       <input
-                         type="text"
-                         value={editForm.ieee_member_id}
-                         onChange={e => setEditForm(prev => ({ ...prev, ieee_member_id: e.target.value }))}
-                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:border-red-500/50 transition-all outline-none"
-                         placeholder="Member ID"
-                       />
-                     ) : (
-                       <p className="text-white font-orbitron font-bold tracking-[0.2em] text-lg italic">
-                         {profile?.ieee_member_id || "PENDING LINK"}
-                       </p>
-                     )}
-                   </div>
-                </div>
+                  {/* Name/Identity */}
+                  <div className="space-y-1">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={editForm.full_name}
+                        onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
+                        className="w-full text-2xl sm:text-4xl font-orbitron font-black text-white bg-white/5 border border-white/10 
+                                 rounded-xl px-4 py-2 sm:py-3 focus:border-red-500/50 outline-none transition-all uppercase italic"
+                        placeholder="Full Name"
+                      />
+                    ) : (
+                      <h2 className="text-2xl sm:text-4xl font-orbitron font-black text-white tracking-tighter uppercase italic truncate">
+                        {displayName}
+                      </h2>
+                    )}
+                  </div>
 
+                  {/* IEEE Link */}
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">IEEE Accreditation</p>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={editForm.ieee_member_id}
+                        onChange={e => setEditForm(prev => ({ ...prev, ieee_member_id: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:border-red-500/50 transition-all outline-none"
+                        placeholder="Member ID"
+                      />
+                    ) : (
+                      <p className="text-white font-orbitron font-bold tracking-[0.2em] text-sm sm:text-lg italic opacity-80 uppercase">
+                        {profile?.ieee_member_id || "NOT LINKED"}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Actions for Desktop/Tablet */}
+                  <div className="hidden sm:flex items-center gap-3 pt-2">
+                     {isEditing ? (
+                       <>
+                         <button onClick={handleSave} disabled={saving} className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-black text-[10px] font-black uppercase hover:bg-red-500 hover:text-white transition-all">
+                           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                           Sync Profile
+                         </button>
+                         <button onClick={() => setIsEditing(false)} className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-500 hover:text-white transition-all text-[10px] font-black uppercase">
+                           Abort
+                         </button>
+                       </>
+                     ) : (
+                       <button onClick={() => setIsEditing(true)} className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase hover:bg-white/10 transition-all">
+                         <Edit3 className="w-4 h-4" />
+                         Edit Profile
+                       </button>
+                     )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Row Mobile: Edit Buttons & Bio & Skills */}
+            <div className="flex flex-col gap-8">
+              {/* Mobile Only Action Buttons */}
+              <div className="sm:hidden flex flex-col gap-2">
+                 {isEditing ? (
+                   <div className="flex gap-2">
+                     <button onClick={handleSave} disabled={saving} className="flex-[2] flex items-center justify-center gap-2 py-4 rounded-xl bg-white text-black text-[10px] font-black uppercase tracking-widest">
+                       {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                       Sync
+                     </button>
+                     <button onClick={() => setIsEditing(false)} className="flex-1 py-4 rounded-xl bg-white/5 border border-white/10 text-gray-500 text-[10px] font-black uppercase tracking-widest">
+                       Cancel
+                     </button>
+                   </div>
+                 ) : (
+                   <button onClick={() => setIsEditing(true)} className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest">
+                     <Edit3 className="w-4 h-4" />
+                     Edit Profile
+                   </button>
+                 )}
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-8">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 ml-1">Expertise & Skills</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-3 ml-1">Expertise Node Cluster</p>
                   <div className="flex flex-wrap gap-2">
                     {(isEditing ? AVAILABLE_SKILLS : (profile?.skills || [])).map(skill => (
                       <button
                         key={skill}
                         disabled={!isEditing}
                         onClick={() => toggleSkill(skill)}
-                        className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-all duration-200
+                        className={`px-3 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl border transition-all duration-200
                           ${editForm.skills.includes(skill)
-                            ? 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/20'
+                            ? 'bg-red-500 text-white border-red-500 shadow-xl shadow-red-500/30'
                             : isEditing 
                               ? 'bg-white/5 text-gray-500 border-white/10 hover:border-white/30'
                               : 'bg-white/5 text-gray-400 border-white/5'
@@ -352,28 +365,29 @@ export default function Dashboard() {
                     ))}
                   </div>
                 </div>
-              </div>
 
-              {/* Right: Bio Area */}
-              <div className="lg:w-72 flex flex-col gap-4">
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Biography / Logs</p>
-                {isEditing ? (
-                  <textarea
-                    value={editForm.bio}
-                    onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
-                    rows={8}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white 
-                             placeholder-gray-600 focus:border-red-500/50 focus:outline-none transition-colors resize-none h-full"
-                    placeholder="Tell your story..."
-                  />
-                ) : (
-                  <div className="flex-1 p-5 bg-white/[0.02] border border-white/5 rounded-2xl min-h-[160px]">
-                    <p className="text-sm text-gray-400 leading-relaxed italic">
-                      {profile?.bio || "No biography logs found for this node."}
-                    </p>
-                  </div>
-                )}
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-3 ml-1">Log Entries / Biography</p>
+                  {isEditing ? (
+                    <textarea
+                      value={editForm.bio}
+                      onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
+                      rows={6}
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white focus:border-red-500/50 outline-none transition-colors resize-none"
+                      placeholder="Record biography logs..."
+                    />
+                  ) : (
+                    <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl min-h-[140px]">
+                      <p className="text-sm text-gray-400 leading-relaxed italic">
+                        {profile?.bio || "No biography log found for this node entry."}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
             </div>
           </div>
         </div>
