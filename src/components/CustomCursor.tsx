@@ -1,8 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { gsap } from 'gsap';
-
-// Ultra-Premium Cursor with Light Streak Trail
+// Robotic HUD & Sensor Cursor
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
@@ -20,59 +16,43 @@ export default function CustomCursor() {
     if (isMobile) return;
 
     const moveCursor = (e: MouseEvent) => {
-      // Main Center Dot
+      // Precision Laser Focus
       gsap.to(cursorRef.current, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.1,
-        ease: 'power2.out'
+        duration: 0.05,
+        ease: 'none'
       });
 
-      // Rapid Follower Ring
+      // Targeting HUD Ring
       gsap.to(followerRef.current, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.3,
-        ease: 'power3.out'
+        duration: 0.15,
+        ease: 'power2.out'
       });
 
-      // 8-Stage Light Streak Tail
+      // Robotic Node Trail (Stepped delay for mechanical feel)
       tailRefs.current.forEach((dot, index) => {
         if (!dot) return;
         gsap.to(dot, {
           x: e.clientX,
           y: e.clientY,
-          duration: 0.2 + (index * 0.08), // Highly responsive staggering
-          ease: 'power2.out',
+          duration: 0.15 + (index * 0.05),
+          ease: 'power1.out',
           overwrite: 'auto'
         });
       });
     };
 
-    const handleMouseDown = (e: MouseEvent) => {
-      gsap.to(cursorRef.current, { scale: 0.6 });
-      gsap.to(followerRef.current, { scale: 1.4, backgroundColor: 'rgba(239, 68, 68, 0.2)' });
-      tailRefs.current.forEach(dot => gsap.to(dot, { scale: 1.5, opacity: 0.8, filter: 'blur(4px)' }));
-
-      const burstId = Date.now();
-      const newParticles = Array.from({ length: 12 }).map((_, i) => ({
-        id: burstId + i,
-        x: e.clientX,
-        y: e.clientY,
-        angle: (i / 12) * Math.PI * 2 + (Math.random() * 0.5),
-        speed: 40 + Math.random() * 40
-      }));
-
-      setParticles((prev) => [...prev, ...newParticles]);
-      setTimeout(() => {
-        setParticles((prev) => prev.filter(p => !newParticles.find(np => np.id === p.id)));
-      }, 800);
+    const handleMouseDown = () => {
+      gsap.to(cursorRef.current, { scale: 1.5, filter: 'brightness(2)' });
+      gsap.to(followerRef.current, { rotate: 90, scale: 0.8 });
     };
 
     const handleMouseUp = () => {
-      gsap.to(cursorRef.current, { scale: 1 });
-      gsap.to(followerRef.current, { scale: 1, backgroundColor: 'transparent' });
-      tailRefs.current.forEach(dot => gsap.to(dot, { scale: 1, opacity: 0.4, filter: 'blur(2px)' }));
+      gsap.to(cursorRef.current, { scale: 1, filter: 'brightness(1)' });
+      gsap.to(followerRef.current, { rotate: 0, scale: 1 });
     };
 
     const handleMouseEnterLink = (e: Event) => {
@@ -82,19 +62,21 @@ export default function CustomCursor() {
       const centerY = rect.top + rect.height / 2;
 
       gsap.to(followerRef.current, {
-        scale: 2.8,
-        backgroundColor: 'rgba(239, 68, 68, 0.15)',
-        borderColor: 'rgba(239, 68, 68, 0.8)',
-        duration: 0.5,
+        scale: 1.5,
+        width: rect.width + 20,
+        height: rect.height + 20,
+        borderRadius: '8px',
+        borderColor: 'rgba(239, 68, 68, 0.5)',
+        duration: 0.4,
         ease: 'expo.out'
       });
-      gsap.to(cursorRef.current, { opacity: 0, scale: 0, duration: 0.3 });
-      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0, scale: 0, duration: 0.3 }));
+      gsap.to(cursorRef.current, { opacity: 0 });
+      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0 }));
 
       gsap.to(followerRef.current, {
         x: centerX,
         y: centerY,
-        duration: 0.6,
+        duration: 0.4,
         ease: 'expo.out',
         overwrite: 'auto'
       });
@@ -103,13 +85,15 @@ export default function CustomCursor() {
     const handleMouseLeaveLink = () => {
       gsap.to(followerRef.current, {
         scale: 1,
-        backgroundColor: 'transparent',
-        borderColor: 'currentColor',
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        borderColor: 'rgba(239, 68, 68, 0.3)',
         duration: 0.4,
         ease: 'expo.out'
       });
-      gsap.to(cursorRef.current, { opacity: 1, scale: 1, duration: 0.3 });
-      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0.4, scale: 1, duration: 0.4 }));
+      gsap.to(cursorRef.current, { opacity: 1 });
+      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0.4 }));
     };
 
     window.addEventListener('mousemove', moveCursor);
@@ -117,8 +101,8 @@ export default function CustomCursor() {
     window.addEventListener('mouseup', handleMouseUp);
 
     const addLinkEvents = () => {
-      const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
-      interactiveElements.forEach((el) => {
+      const elements = document.querySelectorAll('a, button, [role="button"]');
+      elements.forEach((el) => {
         el.addEventListener('mouseenter', handleMouseEnterLink);
         el.addEventListener('mouseleave', handleMouseLeaveLink);
       });
@@ -141,65 +125,43 @@ export default function CustomCursor() {
 
   return createPortal(
     <>
-      {/* 8-Stage Dynamic Energy Tail */}
-      {[...Array(8)].map((_, i) => (
+      {/* HUD Brackets (Corner Targeting) */}
+      <div 
+        ref={followerRef}
+        className="fixed top-0 left-0 w-10 h-10 border border-red-500/20 z-[1000001] pointer-events-none flex items-center justify-center"
+        style={{ transform: 'translate(-50%, -50%)', transition: 'border-radius 0.3s, width 0.3s, height 0.3s' }}
+      >
+        <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-red-500" />
+        <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-red-500" />
+        <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-red-500" />
+        <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-red-500" />
+      </div>
+
+      {/* Circuitry Node Trail (Geometric Squares) */}
+      {[...Array(5)].map((_, i) => (
         <div 
           key={i}
           ref={el => tailRefs.current[i] = el}
-          className="fixed top-0 left-0 rounded-full z-[1000000] pointer-events-none"
+          className="fixed top-0 left-0 bg-red-500/40 z-[1000000] pointer-events-none border border-red-500/20"
           style={{ 
-            width: `${12 - i * 1.4}px`, 
-            height: `${12 - i * 1.4}px`,
-            backgroundColor: 'rgba(239, 68, 68, 1)',
-            opacity: 0.4 - (i * 0.05),
-            transform: 'translate(-50%, -50%)',
-            filter: `blur(${1 + i * 0.5}px)`,
-            boxShadow: '0 0 15px rgba(239, 68, 68, 0.4)'
+            width: `${8 - i}px`, 
+            height: `${8 - i}px`,
+            opacity: 0.5 - (i * 0.1),
+            transform: 'translate(-50%, -50%) rotate(45deg)', // Diamond tech shape
           }}
         />
       ))}
 
-      {/* Main Core Dot */}
+      {/* Central Laser Pulse */}
       <div 
         ref={cursorRef}
-        className="fixed top-0 left-0 w-2 h-2 bg-red-600 rounded-full z-[1000002] pointer-events-none mix-blend-difference shadow-[0_0_15px_rgba(239,68,68,0.8)]"
+        className="fixed top-0 left-0 w-2 h-2 bg-red-600 z-[1000002] pointer-events-none shadow-[0_0_15px_#ff0000]"
         style={{ transform: 'translate(-50%, -50%)' }}
       />
-      
-      {/* Follower Aura */}
-      <div 
-        ref={followerRef}
-        className="fixed top-0 left-0 w-10 h-10 border border-red-500/20 dark:border-red-500/40 rounded-full z-[1000001] pointer-events-none transition-all duration-300 flex items-center justify-center text-red-500 shadow-[inset_0_0_10px_rgba(239,68,68,0.1)]"
-        style={{ transform: 'translate(-50%, -50%)' }}
-      >
-        <div className="absolute inset-2 rounded-full border border-red-500/5" />
-      </div>
-
-      {/* Click Particles */}
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className="fixed top-0 left-0 pointer-events-none z-[1000000] animate-particle"
-          style={{
-            left: p.x,
-            top: p.y,
-            '--tx': `${Math.cos(p.angle) * p.speed}px`,
-            '--ty': `${Math.sin(p.angle) * p.speed}px`,
-            transform: 'translate(-50%, -50%)',
-          } as any}
-        >
-          <div className="w-1 h-1 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.6)]" />
-        </div>
-      ))}
 
       <style>{`
-        @keyframes particle-burst {
-          0% { transform: translate(-50%, -50%) translate(0, 0) scale(2); opacity: 1; filter: blur(0px); }
-          100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0); opacity: 0; filter: blur(4px); }
-        }
-        .animate-particle {
-          animation: particle-burst 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        body { cursor: none !important; }
+        a, button, [role="button"] { cursor: none !important; }
       `}</style>
     </>,
     document.body
