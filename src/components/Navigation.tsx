@@ -97,7 +97,9 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
 
   return (
     <>
-      <div className={`fixed top-2 sm:top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-700 ease-out ${isScrolled ? 'translate-y-0' : 'translate-y-[-4px]'}`}>
+      <div className={`fixed top-2 sm:top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-700 ease-out 
+        ${isScrolled ? 'translate-y-0' : 'translate-y-[-4px]'}
+        ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <nav
           className={`w-full max-w-7xl rounded-2xl lg:rounded-full transition-all duration-500 border ${isScrolled
             ? 'bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
