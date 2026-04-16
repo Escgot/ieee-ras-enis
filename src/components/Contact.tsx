@@ -196,7 +196,7 @@ export default function Contact() {
                 <div className="absolute inset-0 rounded-3xl border border-red-500/0 group-hover:border-red-500/15 transition-colors duration-500 z-10 pointer-events-none" />
 
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4111.773082045189!2d10.714615326368852!3d34.72608243184951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13002ca414596f93%3A0xe3e9722b14d6ef6!2sIEEE%20ENIS%20SB!5e1!3m2!1sen!2stn!4v1775397193565!5m2!1sen!2stn"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1043.1824346955668!2d10.717474605954882!3d34.72572755145792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13002ca414596f93%3A0xe3e9722b14d6ef6!2sIEEE%20ENIS%20SB!5e1!3m2!1sen!2stn!4v1776366655140!5m2!1sen!2stn"
                   width="100%"
                   height="100%"
                   style={{ border: 0, minHeight: 280 }}

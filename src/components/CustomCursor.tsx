@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
+  const tailRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [isMobile, setIsMobile] = useState(false);
   const [particles, setParticles] = useState<{ id: number; x: number; y: number; angle: number; speed: number }[]>([]);
 
@@ -24,21 +25,34 @@ export default function CustomCursor() {
         x: e.clientX,
         y: e.clientY,
         duration: 0.1,
-        ease: 'power3.out'
+        ease: 'power2.out'
       });
 
-      // Outer follower has a slight lag for "organic" feel
+      // Increased Speed: Outer follower tracks closer (0.35s instead of 0.8s)
       gsap.to(followerRef.current, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.8,
+        duration: 0.35,
         ease: 'power3.out'
+      });
+
+      // Tail Animation: Staggered trail dots
+      tailRefs.current.forEach((dot, index) => {
+        if (!dot) return;
+        gsap.to(dot, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.45 + (index * 0.15), // Smoothly increasing delay
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
       });
     };
 
     const handleMouseDown = (e: MouseEvent) => {
       gsap.to(cursorRef.current, { scale: 0.8 });
       gsap.to(followerRef.current, { scale: 1.5 });
+      tailRefs.current.forEach(dot => gsap.to(dot, { scale: 0.5, opacity: 0.3 }));
 
       // Create click particle burst
       const burstId = Date.now();
@@ -52,7 +66,6 @@ export default function CustomCursor() {
 
       setParticles((prev) => [...prev, ...newParticles]);
       
-      // Auto-remove particles after animation
       setTimeout(() => {
         setParticles((prev) => prev.filter(p => !newParticles.find(np => np.id === p.id)));
       }, 1000);
@@ -61,9 +74,9 @@ export default function CustomCursor() {
     const handleMouseUp = () => {
       gsap.to(cursorRef.current, { scale: 1 });
       gsap.to(followerRef.current, { scale: 1 });
+      tailRefs.current.forEach(dot => gsap.to(dot, { scale: 1, opacity: 0.6 }));
     };
 
-    // Hover effects for interactive elements - with magnetic pull
     const handleMouseEnterLink = (e: Event) => {
       const target = e.currentTarget as HTMLElement;
       const rect = target.getBoundingClientRect();
@@ -77,12 +90,9 @@ export default function CustomCursor() {
         duration: 0.4,
         ease: 'expo.out'
       });
-      gsap.to(cursorRef.current, {
-        opacity: 0,
-        duration: 0.2
-      });
+      gsap.to(cursorRef.current, { opacity: 0, duration: 0.2 });
+      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0, scale: 0.2, duration: 0.2 }));
 
-      // Magnetic pull toward element center
       gsap.to(followerRef.current, {
         x: centerX,
         y: centerY,
@@ -100,17 +110,14 @@ export default function CustomCursor() {
         duration: 0.4,
         ease: 'expo.out'
       });
-      gsap.to(cursorRef.current, {
-        opacity: 1,
-        duration: 0.2
-      });
+      gsap.to(cursorRef.current, { opacity: 1, duration: 0.2 });
+      tailRefs.current.forEach(dot => gsap.to(dot, { opacity: 0.6, scale: 1, duration: 0.3 }));
     };
 
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
 
-    // Initial links find
     const addLinkEvents = () => {
       const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
       interactiveElements.forEach((el) => {
@@ -119,7 +126,6 @@ export default function CustomCursor() {
       });
     };
 
-    // Run initially and then observe for new elements
     addLinkEvents();
     
     const observer = new MutationObserver(() => {
@@ -141,19 +147,38 @@ export default function CustomCursor() {
 
   return createPortal(
     <>
+      {/* Main interactive dot */}
       <div 
         ref={cursorRef}
         className="fixed top-0 left-0 w-1.5 h-1.5 bg-red-600 rounded-full z-[1000002] pointer-events-none mix-blend-difference shadow-[0_0_10px_rgba(239,68,68,0.5)]"
         style={{ transform: 'translate(-50%, -50%)' }}
       />
+      
+      {/* Follower ring */}
       <div 
         ref={followerRef}
         className="fixed top-0 left-0 w-8 h-8 border border-black/30 dark:border-white/30 rounded-full z-[1000001] pointer-events-none transition-colors duration-300 flex items-center justify-center text-black dark:text-white"
         style={{ transform: 'translate(-50%, -50%)' }}
       >
-        {/* Subtle inner glow */}
         <div className="absolute inset-0 rounded-full bg-red-500/5 opacity-0 group-hover:opacity-100" />
       </div>
+
+      {/* Trailing Tail Dots */}
+      {[...Array(3)].map((_, i) => (
+        <div 
+          key={i}
+          ref={el => tailRefs.current[i] = el}
+          className="fixed top-0 left-0 rounded-full z-[1000000] pointer-events-none"
+          style={{ 
+            width: `${6 - i * 1.5}px`, 
+            height: `${6 - i * 1.5}px`,
+            backgroundColor: 'rgba(239, 68, 68, 0.6)',
+            opacity: 0.6 - (i * 0.15),
+            transform: 'translate(-50%, -50%)',
+            filter: 'blur(1px)'
+          }}
+        />
+      ))}
 
       {/* Click Particles */}
       {particles.map((p) => (
@@ -175,7 +200,7 @@ export default function CustomCursor() {
       <style>{`
         @keyframes particle-burst {
           0% { transform: translate(-50%, -50%) translate(0, 0) scale(1.5); opacity: 1; }
-          100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0) rotate(90deg); opacity: 0; }
+          100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0) rotate(10deg); opacity: 0; }
         }
         .animate-particle {
           animation: particle-burst 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
