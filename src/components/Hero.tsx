@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ChevronDown, Zap } from 'lucide-react';
+import { ChevronDown, Zap, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,23 +142,18 @@ export default function Hero() {
               Empowering students to innovate, build, and lead in the world of robotics and automation.
             </p>
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto mt-2">
+            {/* Minimalist CTA */}
+            <div className="flex w-full sm:w-auto mt-6">
               <a
-                href="#membership"
-                onClick={(e) => { e.preventDefault(); scrollToSection('#membership'); }}
-                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 rounded-full text-white font-bold text-sm uppercase tracking-widest transition-all duration-300 shadow-[0_0_20px_rgba(239,68,68,0.3)] hover:shadow-[0_0_40px_rgba(239,68,68,0.6)] hover:scale-105 hover:-translate-y-1"
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
+                className="group relative flex items-center gap-3 text-foreground dark:text-white font-orbitron font-bold text-xl uppercase tracking-[0.2em] transition-all duration-300"
               >
-                <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                <Zap className="w-5 h-5 text-white" />
-                Initialize
-              </a>
-              <a
-                href="#about"
-                onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
-                className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-background/40 dark:bg-white/5 backdrop-blur-lg border border-foreground/10 dark:border-white/10 rounded-full text-foreground dark:text-white font-bold text-sm uppercase tracking-widest transition-all duration-300 hover:bg-foreground/10 dark:hover:bg-white/10 hover:border-foreground/30 dark:hover:border-white/30 hover:shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:scale-105 hover:-translate-y-1"
-              >
-                Discover More
+                <span className="relative">
+                  Join Us
+                  <span className="absolute -bottom-2 left-0 w-0 h-1 bg-red-500 transition-all duration-500 group-hover:w-full" />
+                </span>
+                <ArrowRight className="w-6 h-6 text-red-500 group-hover:translate-x-3 transition-transform duration-500 ease-out" />
               </a>
             </div>
           </div>
