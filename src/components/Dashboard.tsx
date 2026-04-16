@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import {
   ArrowLeft, Calendar, FolderGit2, BookOpen, Award,
-  Edit3, Save, X, Loader2, MapPin, ExternalLink, Shield
+  Edit3, Save, X, Loader2, MapPin, ExternalLink, Shield, Camera
 } from 'lucide-react';
 import type { Event, EventRegistration, Project } from '../types/database';
 
@@ -175,167 +175,209 @@ export default function Dashboard() {
           {/* Animated Background Orbs */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-red-600/20 transition-all duration-700" />
           
-          <div className="relative z-10 flex flex-col lg:flex-row gap-10">
-            {/* Left: Avatar & Role */}
-            <div className="flex flex-col items-center gap-4">
-              <div className="relative group/avatar">
-                <div className="absolute -inset-1.5 bg-gradient-to-tr from-red-600 to-purple-600 rounded-[2.5rem] blur-sm opacity-20 group-hover/avatar:opacity-40 transition-opacity" />
-                {avatarUrl ? (
-                  <img
-                    src={avatarUrl}
-                    alt={displayName}
-                    className="relative w-32 h-32 rounded-[2.2rem] border border-white/10 object-cover shadow-2xl"
-                  />
-                ) : (
-                  <div className="relative w-32 h-32 rounded-[2.2rem] bg-[#0f0f0f] border border-white/5 
-                                flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-purple-600/20" />
-                    <span className="text-4xl font-orbitron font-black text-white relative z-10">
-                      {displayName.charAt(0).toUpperCase()}
-                    </span>
-                  </div>
-                )}
-                <div className={`absolute -bottom-2 -right-2 p-2 rounded-xl border-2 border-[#070707] shadow-xl
-                  ${profile?.role === 'admin' ? 'bg-red-500' : 'bg-purple-600'}`}>
-                  {profile?.role === 'admin' ? <Shield className="w-4 h-4 text-white" /> : <Award className="w-4 h-4 text-white" />}
-                </div>
-              </div>
-              <span className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border
-                ${profile?.role === 'admin' ? 'bg-red-500/10 text-red-500 border-red-500/20'
-                  : 'bg-purple-500/10 text-purple-400 border-purple-500/20'}`}>
-                System {profile?.role || 'Member'}
-              </span>
+          <div className="relative z-10">
+            {/* Header Actions (Top Right) */}
+            <div className="absolute top-0 right-0 flex gap-2">
+              {isEditing ? (
+                <>
+                  <button
+                    onClick={() => setIsEditing(false)}
+                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    disabled={saving}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl 
+                             bg-white text-black text-[10px] font-black uppercase tracking-widest
+                             hover:bg-red-500 hover:text-white transition-all disabled:opacity-50"
+                  >
+                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                    Save Changes
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="flex items-center gap-3 px-6 py-3 rounded-xl 
+                           bg-white/5 border border-white/10 text-white text-[10px] font-black uppercase tracking-widest
+                           hover:bg-white/10 transition-all duration-300"
+                >
+                  <Edit3 className="w-4 h-4" />
+                  Edit Profile
+                </button>
+              )}
             </div>
 
-            {/* Middle: Core Info */}
-            <div className="flex-1 space-y-6">
-              <div className="space-y-1">
-                {isEditing ? (
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Personal Identity</label>
-                      <input
-                        type="text"
-                        value={editForm.full_name}
-                        onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
-                        className="mt-1 block w-full text-2xl font-orbitron font-black text-white bg-white/5 border border-white/10 
-                                 rounded-xl px-4 py-3 focus:border-red-500/50 outline-none transition-all"
-                        placeholder="Full Name"
+            <div className="flex flex-col lg:flex-row gap-10">
+              {/* Left: Avatar & Role */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="relative group/avatar">
+                  <div className="absolute -inset-1.5 bg-gradient-to-tr from-red-600 to-purple-600 rounded-[2.5rem] blur-sm opacity-20 group-hover/avatar:opacity-40 transition-opacity" />
+                  
+                  {/* Avatar Image / Placeholder */}
+                  <div className="relative w-32 h-32 rounded-[2.2rem] overflow-hidden border border-white/10 shadow-2xl bg-[#0f0f0f]">
+                    {avatarUrl ? (
+                      <img
+                        src={avatarUrl}
+                        alt={displayName}
+                        className="w-full h-full object-cover"
                       />
-                    </div>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-purple-600/20" />
+                        <span className="text-4xl font-orbitron font-black text-white relative z-10">
+                          {displayName.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Photo Edit Overlay (Visible in Edit Mode) */}
+                    {isEditing && (
+                      <label className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center cursor-pointer opacity-0 group-hover/avatar:opacity-100 transition-opacity backdrop-blur-sm">
+                        <Camera className="w-6 h-6 text-white mb-1" />
+                        <span className="text-[8px] font-black text-white uppercase tracking-widest">Update</span>
+                        <input 
+                          type="file" 
+                          className="hidden" 
+                          accept="image/*"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file || !user) return;
+                            
+                            // 1. Upload to Supabase Storage
+                            const fileExt = file.name.split('.').pop();
+                            const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+                            const filePath = `avatars/${fileName}`;
+
+                            const { error: uploadError } = await supabase.storage
+                              .from('profiles') // Assuming you have a 'profiles' bucket
+                              .upload(filePath, file);
+
+                            if (uploadError) {
+                              console.error('Upload error:', uploadError);
+                              return;
+                            }
+
+                            // 2. Get Public URL
+                            const { data: { publicUrl } } = supabase.storage
+                              .from('profiles')
+                              .getPublicUrl(filePath);
+
+                            // 3. Update Profile Immediately
+                            const { error: updateError } = await supabase
+                              .from('profiles')
+                              .update({ avatar_url: publicUrl })
+                              .eq('id', user.id);
+
+                            if (!updateError) await refreshProfile();
+                          }}
+                        />
+                      </label>
+                    )}
                   </div>
-                ) : (
-                  <>
-                    <h2 className="text-4xl font-orbitron font-black text-white tracking-tighter uppercase">{displayName}</h2>
-                    <p className="text-gray-500 font-medium tracking-wide flex items-center gap-2">
-                       <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                       {user?.email}
-                    </p>
-                  </>
-                )}
+
+                  <div className={`absolute -bottom-2 -right-2 p-2 rounded-xl border-2 border-[#070707] shadow-xl
+                    ${profile?.role === 'admin' ? 'bg-red-500' : 'bg-purple-600'}`}>
+                    {profile?.role === 'admin' ? <Shield className="w-4 h-4 text-white" /> : <Award className="w-4 h-4 text-white" />}
+                  </div>
+                </div>
+                <span className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border
+                  ${profile?.role === 'admin' ? 'bg-red-500/10 text-red-500 border-red-500/20'
+                    : 'bg-purple-500/10 text-purple-400 border-purple-500/20'}`}>
+                  System {profile?.role || 'Member'}
+                </span>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
-                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">IEEE Accreditation</p>
-                   {isEditing ? (
-                     <input
-                       type="text"
-                       value={editForm.ieee_member_id}
-                       onChange={e => setEditForm(prev => ({ ...prev, ieee_member_id: e.target.value }))}
-                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-red-500/50 transition-all outline-none"
-                       placeholder="Member ID"
-                     />
-                   ) : (
-                     <p className="text-white font-orbitron font-bold tracking-wider">{profile?.ieee_member_id || "NOT LINKED"}</p>
-                   )}
-                </div>
-                <div className="p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
-                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Deployment Status</p>
-                   <p className="text-white font-orbitron font-bold tracking-wider text-emerald-500">ACTIVE NODE</p>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 ml-1">Expertise & Skills</p>
-                <div className="flex flex-wrap gap-2">
-                  {(isEditing ? AVAILABLE_SKILLS : (profile?.skills || [])).map(skill => (
-                    <button
-                      key={skill}
-                      disabled={!isEditing}
-                      onClick={() => toggleSkill(skill)}
-                      className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-all duration-200
-                        ${editForm.skills.includes(skill)
-                          ? 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/20'
-                          : isEditing 
-                            ? 'bg-white/5 text-gray-500 border-white/10 hover:border-white/30'
-                            : 'bg-white/5 text-gray-400 border-white/5'
-                        }`}
-                    >
-                      {skill}
-                    </button>
-                  ))}
-                  {!isEditing && (!profile?.skills || profile.skills.length === 0) && (
-                    <span className="text-xs text-gray-600 italic px-1">Configure expertise in edit mode</span>
+              {/* Middle: Core Info */}
+              <div className="flex-1 space-y-6">
+                <div className="space-y-1">
+                  {isEditing ? (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Personal Identity</label>
+                        <input
+                          type="text"
+                          value={editForm.full_name}
+                          onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
+                          className="mt-1 block w-full text-2xl font-orbitron font-black text-white bg-white/5 border border-white/10 
+                                   rounded-xl px-4 py-3 focus:border-red-500/50 outline-none transition-all"
+                          placeholder="Full Name"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <h2 className="text-4xl font-orbitron font-black text-white tracking-tighter uppercase">{displayName}</h2>
+                      <p className="text-gray-500 font-medium tracking-wide flex items-center gap-2">
+                         <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                         {user?.email}
+                      </p>
+                    </>
                   )}
                 </div>
-              </div>
-            </div>
 
-            {/* Right: Bio & Actions */}
-            <div className="lg:w-72 flex flex-col gap-6">
-              <div className="flex-1">
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 ml-1">Biography / Logs</p>
+                <div className="space-y-4">
+                   <div className="flex flex-col gap-1 ml-1">
+                     <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">IEEE Accreditation</p>
+                     {isEditing ? (
+                       <input
+                         type="text"
+                         value={editForm.ieee_member_id}
+                         onChange={e => setEditForm(prev => ({ ...prev, ieee_member_id: e.target.value }))}
+                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:border-red-500/50 transition-all outline-none"
+                         placeholder="Member ID"
+                       />
+                     ) : (
+                       <p className="text-white font-orbitron font-bold tracking-[0.2em] text-lg italic">
+                         {profile?.ieee_member_id || "PENDING LINK"}
+                       </p>
+                     )}
+                   </div>
+                </div>
+
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 ml-1">Expertise & Skills</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(isEditing ? AVAILABLE_SKILLS : (profile?.skills || [])).map(skill => (
+                      <button
+                        key={skill}
+                        disabled={!isEditing}
+                        onClick={() => toggleSkill(skill)}
+                        className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-all duration-200
+                          ${editForm.skills.includes(skill)
+                            ? 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/20'
+                            : isEditing 
+                              ? 'bg-white/5 text-gray-500 border-white/10 hover:border-white/30'
+                              : 'bg-white/5 text-gray-400 border-white/5'
+                          }`}
+                      >
+                        {skill}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Bio Area */}
+              <div className="lg:w-72 flex flex-col gap-4">
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Biography / Logs</p>
                 {isEditing ? (
                   <textarea
                     value={editForm.bio}
                     onChange={e => setEditForm(prev => ({ ...prev, bio: e.target.value }))}
-                    rows={6}
+                    rows={8}
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white 
                              placeholder-gray-600 focus:border-red-500/50 focus:outline-none transition-colors resize-none h-full"
                     placeholder="Tell your story..."
                   />
                 ) : (
-                  <div className="p-5 bg-white/[0.02] border border-white/5 rounded-2xl min-h-[140px]">
+                  <div className="flex-1 p-5 bg-white/[0.02] border border-white/5 rounded-2xl min-h-[160px]">
                     <p className="text-sm text-gray-400 leading-relaxed italic">
-                      {profile?.bio || "No biography logs found for this node. Initiate edit to add data."}
+                      {profile?.bio || "No biography logs found for this node."}
                     </p>
                   </div>
-                )}
-              </div>
-
-              <div className="flex gap-3">
-                {isEditing ? (
-                  <>
-                    <button
-                      onClick={() => setIsEditing(false)}
-                      className="flex-1 flex items-center justify-center gap-2 p-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 
-                               hover:text-white hover:bg-white/10 transition-all font-black uppercase tracking-widest text-[10px]"
-                    >
-                      <X className="w-4 h-4" />
-                      Abort
-                    </button>
-                    <button
-                      onClick={handleSave}
-                      disabled={saving}
-                      className="flex-[2] flex items-center justify-center gap-2 p-4 rounded-2xl 
-                               bg-gradient-to-r from-red-600 to-red-500 text-white text-[10px] font-black uppercase tracking-widest
-                               hover:from-red-500 hover:scale-[1.02] transition-all disabled:opacity-50 shadow-xl shadow-red-600/20"
-                    >
-                      {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                      Sync Node
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="w-full flex items-center justify-center gap-3 p-4 rounded-2xl 
-                             bg-white border border-white/20 text-black text-[10px] font-black uppercase tracking-widest
-                             hover:bg-red-500 hover:text-white transition-all duration-500"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                    Modify Configuration
-                  </button>
                 )}
               </div>
             </div>
