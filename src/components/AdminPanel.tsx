@@ -49,41 +49,46 @@ export default function AdminPanel() {
   useEffect(() => {
     const fetchTab = async () => {
       setLoading(true);
-      switch (activeTab) {
-        case 'members': {
-          const { data } = await supabase
-            .from('profiles')
-            .select('*')
-            .order('joined_at', { ascending: false });
-          setMembers((data as Profile[]) || []);
-          break;
+      try {
+        switch (activeTab) {
+          case 'members': {
+            const { data } = await supabase
+              .from('profiles')
+              .select('*')
+              .order('joined_at', { ascending: false });
+            setMembers((data as Profile[]) || []);
+            break;
+          }
+          case 'events': {
+            const { data } = await supabase
+              .from('events')
+              .select('*')
+              .order('date', { ascending: false });
+            setEvents((data as DbEvent[]) || []);
+            break;
+          }
+          case 'resources': {
+            const { data } = await supabase
+              .from('resources')
+              .select('*')
+              .order('created_at', { ascending: false });
+            setResources((data as Resource[]) || []);
+            break;
+          }
+          case 'inbox': {
+            const { data } = await supabase
+              .from('contact_messages')
+              .select('*')
+              .order('created_at', { ascending: false });
+            setMessages(data || []);
+            break;
+          }
         }
-        case 'events': {
-          const { data } = await supabase
-            .from('events')
-            .select('*')
-            .order('date', { ascending: false });
-          setEvents((data as DbEvent[]) || []);
-          break;
-        }
-        case 'resources': {
-          const { data } = await supabase
-            .from('resources')
-            .select('*')
-            .order('created_at', { ascending: false });
-          setResources((data as Resource[]) || []);
-          break;
-        }
-        case 'inbox': {
-          const { data } = await supabase
-            .from('contact_messages')
-            .select('*')
-            .order('created_at', { ascending: false });
-          setMessages(data || []);
-          break;
-        }
+      } catch (err) {
+        console.error('Error fetching admin data:', err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchTab();
   }, [activeTab]);
