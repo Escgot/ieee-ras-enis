@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Linkedin, Instagram, Facebook, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,16 +86,13 @@ export default function Team() {
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const [prevBtnReady, setPrevBtnReady] = useState(false);
   const [nextBtnReady, setNextBtnReady] = useState(false);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -105,14 +101,7 @@ export default function Team() {
     setNextBtnReady(emblaApi.canScrollNext());
   }, [emblaApi]);
 
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) obs.observe(sectionRef.current);
-    return () => { if (sectionRef.current) obs.unobserve(sectionRef.current); };
-  }, []);
+
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -173,12 +162,6 @@ export default function Team() {
               <div className="flex flex-row" style={{ backfaceVisibility: 'hidden' }}>
                 {teamMembers.map((member, index) => {
                   const isActive = activeIndex === index;
-                  // Distance from active for scale/opacity
-                  const diff = Math.min(
-                    Math.abs(index - activeIndex),
-                    Math.abs(index - activeIndex + teamMembers.length),
-                    Math.abs(index - activeIndex - teamMembers.length)
-                  );
 
                   return (
                     <div
