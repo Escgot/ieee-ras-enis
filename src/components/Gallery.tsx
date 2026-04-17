@@ -4,11 +4,11 @@ import { row1Images, row2Images } from '../data/gallery';
 
 export default function Gallery() {
   const [emblaRef1] = useEmblaCarousel({ loop: true, align: 'start' }, [
-    AutoScroll({ speed: 1, stopOnInteraction: false, stopOnMouseEnter: true })
+    AutoScroll({ speed: 1, stopOnInteraction: false, stopOnMouseEnter: false, startDelay: 0 })
   ]);
 
   const [emblaRef2] = useEmblaCarousel({ loop: true, align: 'start', direction: 'rtl' }, [
-    AutoScroll({ speed: 1, stopOnInteraction: false, stopOnMouseEnter: true })
+    AutoScroll({ speed: 1, stopOnInteraction: false, stopOnMouseEnter: false, startDelay: 0 })
   ]);
 
   return (
