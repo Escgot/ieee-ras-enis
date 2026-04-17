@@ -7,16 +7,15 @@ export default function Gallery() {
   const row2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const tweens: gsap.core.Tween[] = [];
+
     const setupMarquee = (el: HTMLDivElement | null, direction: 'left' | 'right', speed: number) => {
       if (!el) return;
 
       const totalWidth = el.scrollWidth / 2;
-
-      // Ensure the initial state is clean
       gsap.set(el, { x: 0 });
 
-      // Create a seamless timeline or a continuous tween
-      gsap.to(el, {
+      const tween = gsap.to(el, {
         x: direction === 'left' ? -totalWidth : totalWidth,
         duration: speed,
         ease: 'none',
@@ -24,17 +23,75 @@ export default function Gallery() {
         modifiers: {
           x: (x) => {
             const num = parseFloat(x);
-            // Use GSAP's built-in wrap utility for mathematically perfect looping
-            // This prevents "jumps" or "restarts" by wrapping the value within the bounds
             const wrapped = gsap.utils.wrap(-totalWidth, 0, num);
             return `${wrapped}px`;
           }
         }
       });
+
+      tweens.push(tween);
+
+      // ── Drag-to-scroll logic ──
+      let isDragging = false;
+      let startX = 0;
+      let startTranslateX = 0;
+
+      const getTranslateX = () => {
+        const transform = window.getComputedStyle(el).transform;
+        if (transform === 'none') return 0;
+        const matrix = new DOMMatrix(transform);
+        return matrix.m41;
+      };
+
+      const onPointerDown = (e: PointerEvent) => {
+        isDragging = true;
+        startX = e.clientX;
+        startTranslateX = getTranslateX();
+        tween.pause();
+        el.setPointerCapture(e.pointerId);
+        el.style.cursor = 'grabbing';
+      };
+
+      const onPointerMove = (e: PointerEvent) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const newX = startTranslateX + dx;
+        // Wrap within bounds for seamless loop
+        const wrapped = ((newX % totalWidth) + totalWidth) % totalWidth - totalWidth;
+        gsap.set(el, { x: wrapped });
+      };
+
+      const onPointerUp = (e: PointerEvent) => {
+        if (!isDragging) return;
+        isDragging = false;
+        el.releasePointerCapture(e.pointerId);
+        el.style.cursor = 'grab';
+
+        // Resume the tween from current position
+        const currentX = getTranslateX();
+        // Calculate progress within the tween's range
+        const target = direction === 'left' ? -totalWidth : totalWidth;
+        const progress = ((currentX % totalWidth) + totalWidth) % totalWidth / totalWidth;
+        tween.progress(direction === 'left' ? 1 - progress : progress);
+        tween.play();
+      };
+
+      el.style.cursor = 'grab';
+      el.style.touchAction = 'pan-y';
+      el.addEventListener('pointerdown', onPointerDown);
+      el.addEventListener('pointermove', onPointerMove);
+      el.addEventListener('pointerup', onPointerUp);
+      el.addEventListener('pointercancel', onPointerUp);
+
+      // Store cleanup references on the element
+      (el as any)._dragCleanup = () => {
+        el.removeEventListener('pointerdown', onPointerDown);
+        el.removeEventListener('pointermove', onPointerMove);
+        el.removeEventListener('pointerup', onPointerUp);
+        el.removeEventListener('pointercancel', onPointerUp);
+      };
     };
 
-    // Images take a moment to report their proper scrollWidth
-    // A longer delay helps ensure the calculation is 100% accurate
     const timer = setTimeout(() => {
       setupMarquee(row1Ref.current, 'left', 65);
       setupMarquee(row2Ref.current, 'right', 70);
@@ -42,8 +99,13 @@ export default function Gallery() {
 
     return () => {
       clearTimeout(timer);
-      if (row1Ref.current) gsap.killTweensOf(row1Ref.current);
-      if (row2Ref.current) gsap.killTweensOf(row2Ref.current);
+      tweens.forEach(t => t.kill());
+      [row1Ref.current, row2Ref.current].forEach(el => {
+        if (el) {
+          gsap.killTweensOf(el);
+          (el as any)._dragCleanup?.();
+        }
+      });
     };
   }, []);
 
@@ -54,13 +116,13 @@ export default function Gallery() {
       <div className="relative flex flex-col gap-8 sm:gap-12">
         {/* Row 1 - Content moves left */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
-          <div ref={row1Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
+          <div ref={row1Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full select-none">
             {[...row1Images, ...row1Images].map((img, i) => (
               <div
                 key={i}
                 className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-foreground/10 dark:border-white/10 group relative flex-shrink-0"
               >
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" loading="lazy" decoding="async" />
+                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
@@ -94,13 +156,13 @@ export default function Gallery() {
 
         {/* Row 2 - Content moves right */}
         <div className="relative overflow-hidden w-full h-[180px] sm:h-[260px]">
-          <div ref={row2Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full">
+          <div ref={row2Ref} className="flex gap-4 sm:gap-6 whitespace-nowrap absolute left-0 h-full select-none">
             {[...row2Images, ...row2Images].map((img, i) => (
               <div
                 key={i}
                 className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-foreground/10 dark:border-white/10 group relative flex-shrink-0"
               >
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" loading="lazy" decoding="async" />
+                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
