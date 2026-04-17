@@ -190,7 +190,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
               </button>
 
               {/* Left Side: Hero Image */}
-              <div className="w-full lg:w-[60%] h-56 sm:h-72 lg:h-full relative shrink-0">
+              <div className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0">
                 <img
                   src={activeImage || selectedProject.image}
                   alt={selectedProject.title}
@@ -202,7 +202,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
               </div>
 
               {/* Right Side: Main Content Area */}
-              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-16 sm:-mt-24 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none">
+              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none">
 
                 {/* Category Badge */}
                 <div className="mb-4 lg:mb-6 self-start shrink-0">
