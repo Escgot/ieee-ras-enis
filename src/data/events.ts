@@ -11,6 +11,7 @@ export interface Event {
   status: 'upcoming' | 'past';
   registeredCount?: number;
   maxAttendees?: number;
+  photos?: string[];
 }
 
 export const events: Event[] = [
@@ -28,6 +29,12 @@ export const events: Event[] = [
     status: 'upcoming',
     registeredCount: 67,
     maxAttendees: 100,
+    photos: [
+      '/images/event-hackathon.webp',
+      '/images/event-workshop.webp',
+      '/images/event-competition.webp',
+      '/images/news-1.webp'
+    ]
   },
   {
     id: 2,

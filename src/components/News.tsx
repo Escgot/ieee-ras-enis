@@ -1,14 +1,36 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Clock, Calendar, TrendingUp } from 'lucide-react';
-import { news } from '../data/news';
+import { ArrowRight, Clock, Calendar, TrendingUp, X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { news, type NewsItem } from '../data/news';
+import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function News() {
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+
+  const newsGalleryRef = useRef<HTMLDivElement>(null);
+
+  const scrollGallery = (direction: 'left' | 'right') => {
+    if (newsGalleryRef.current) {
+      const scrollAmount = 200;
+      newsGalleryRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+
+  useEffect(() => {
+    if (selectedNews) {
+      setActiveImage(selectedNews.image);
+    }
+  }, [selectedNews]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -74,7 +96,10 @@ export default function News() {
         <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
           {/* Featured Post */}
-          <div className="news-featured lg:col-span-7 group cursor-pointer">
+          <div 
+            className="news-featured lg:col-span-7 group cursor-pointer"
+            onClick={() => setSelectedNews(featured)}
+          >
             <div className="relative h-full flex flex-col bg-white/[0.02] border border-white/6 rounded-3xl overflow-hidden hover:border-red-500/25 transition-all duration-500 holographic hover:shadow-[0_20px_60px_rgba(239,68,68,0.06)]">
               {/* Image */}
               <div className="relative aspect-[16/9] overflow-hidden">
@@ -133,7 +158,11 @@ export default function News() {
           {/* Other Posts */}
           <div className="lg:col-span-5 flex overflow-x-auto lg:flex-col gap-4 -mx-4 px-4 lg:mx-0 lg:px-0 pb-4 lg:pb-0 snap-x no-scrollbar">
             {others.map((item) => (
-              <div key={item.id} className="news-item flex-[0_0_80vw] sm:flex-[0_0_55vw] lg:flex-none min-w-0 snap-center group cursor-pointer">
+              <div 
+                key={item.id} 
+                className="news-item flex-[0_0_80vw] sm:flex-[0_0_55vw] lg:flex-none min-w-0 snap-center group cursor-pointer"
+                onClick={() => setSelectedNews(item)}
+              >
                 <div className="flex items-start gap-4 p-5 bg-white/[0.02] border border-white/6 rounded-2xl hover:border-red-500/20 transition-all duration-400 hover:bg-white/[0.04]">
                   {/* Thumbnail */}
                   <div className="hidden sm:block flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border border-white/8 group-hover:border-red-500/20 transition-colors">
@@ -170,6 +199,125 @@ export default function News() {
           </div>
         </div>
       </div>
+
+      <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-purple-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(139,92,246,0.15)] flex flex-col my-4">
+          {selectedNews && (
+            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-y-auto lg:overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+              <button 
+                onClick={() => setSelectedNews(null)}
+                className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Left Side: Hero Image */}
+              <div className="w-full lg:w-[60%] h-56 sm:h-72 lg:h-full relative shrink-0">
+                <img 
+                  src={activeImage || selectedNews.image} 
+                  alt={selectedNews.title} 
+                  className="w-full h-full object-cover opacity-60 lg:opacity-80 transition-all duration-700 ease-in-out"
+                />
+                {/* Gradient fade to seamlessly blend with background */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-[#0c0515]/60 to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent lg:hidden" />
+                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-transparent via-[#0c0515]/20 to-[#0c0515]" />
+              </div>
+
+              {/* Right Side: Main Content Area */}
+              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-16 sm:-mt-24 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none">
+                
+                {/* Title */}
+                <DialogTitle asChild>
+                  <h2 className="font-orbitron text-base sm:text-lg lg:text-xl font-black text-white mb-4 lg:mb-6 leading-tight tracking-wide shrink-0">
+                    {selectedNews.title}
+                  </h2>
+                </DialogTitle>
+
+                {/* Metadata Row */}
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-4 lg:mb-6 text-xs text-gray-300 font-medium shrink-0">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-fuchsia-500" />
+                    <span>{selectedNews.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <MapPin className="w-4 h-4 text-fuchsia-500" />
+                     <span>IIT</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <Clock className="w-4 h-4 text-fuchsia-500" />
+                     <span>{selectedNews.readTime}</span>
+                  </div>
+                </div>
+
+                {/* Top Divider */}
+                <div className="h-px w-full bg-white/5 mb-4 lg:mb-6 shrink-0" />
+
+                {/* Content / Excerpt */}
+                <div className="space-y-4 text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
+                  <p className="text-gray-200">
+                    {selectedNews.excerpt}
+                  </p>
+                  <p>
+                     This is an expanded view. Content can be injected here dynamically. The layout puts the picture on the left while perfectly scaling down constraints to give you the ideal proportion you requested.
+                  </p>
+                  <p>
+                     Stay tuned for more updates from the RAS ENIS chapter. We are constantly innovating and pushing the boundaries of what is possible in the field of robotics and automation.
+                  </p>
+                </div>
+
+                {/* Bottom Divider */}
+                <div className="h-px w-full bg-white/5 mb-3 shrink-0" />
+
+                {/* Bottom Photos Gallery */}
+                <div className="shrink-0 relative">
+                  {selectedNews.photos && selectedNews.photos.length > 0 ? (
+                    <div className="relative group/gallery">
+                      <button 
+                        onClick={() => scrollGallery('left')}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-fuchsia-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -ml-3 backdrop-blur-md"
+                      >
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+
+                      <div 
+                        ref={newsGalleryRef}
+                        className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
+                      >
+                        {selectedNews.photos.map((photo, idx) => (
+                          <div 
+                            key={idx} 
+                            onClick={() => setActiveImage(photo)}
+                            className="w-16 h-12 sm:w-20 sm:h-14 lg:w-24 lg:h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group cursor-pointer snap-center relative"
+                          >
+                            <img 
+                              src={photo} 
+                              alt={`Gallery ${idx + 1}`} 
+                              className={`w-full h-full object-cover transition-all duration-500 hover:scale-110 ${activeImage === photo ? 'opacity-100 scale-110' : 'opacity-40 group-hover:opacity-100'}`} 
+                            />
+                            {activeImage === photo && (
+                              <div className="absolute inset-0 border-2 border-fuchsia-500 rounded-lg pointer-events-none shadow-[inset_0_0_10px_rgba(217,70,239,0.5)]"></div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      <button 
+                        onClick={() => scrollGallery('right')}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-fuchsia-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -mr-3 backdrop-blur-md"
+                      >
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="hidden"></div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

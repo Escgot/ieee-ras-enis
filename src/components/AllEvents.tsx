@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Search, Calendar, MapPin, Users, Filter, ChevronRight, ArrowLeft } from 'lucide-react';
-import { events } from '../data/events';
+import { Search, Calendar, MapPin, Users, Filter, ChevronRight, ArrowLeft, X, Image as ImageIcon } from 'lucide-react';
+import { events, type Event } from '../data/events';
+import { Dialog, DialogContent } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ const categories = ['All Events', 'Workshops', 'Competitions', 'Social'];
 export default function AllEvents({ onBack }: { onBack?: () => void }) {
   const [activeCategory, setActiveCategory] = useState('All Events');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -116,7 +118,8 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
             {filteredEvents.map((event) => (
               <div
                 key={event.id}
-                className="event-card group relative bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl overflow-hidden hover:border-red-500/30 transition-all duration-300"
+                className="event-card group relative bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl overflow-hidden hover:border-red-500/30 transition-all duration-300 cursor-pointer"
+                onClick={() => setSelectedEvent(event)}
               >
                 {/* Image */}
                 <div className="relative aspect-video overflow-hidden">
@@ -208,9 +211,110 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
             </div>
           )}
 
-          {/* Stats Removed */}
         </div>
       </div>
+
+      <Dialog open={!!selectedEvent} onOpenChange={() => setSelectedEvent(null)}>
+        <DialogContent className="max-w-6xl w-[95vw] sm:w-[90vw] md:w-[85vw] bg-[#0a0a0b]/95 border-white/10 backdrop-blur-2xl p-0 overflow-y-auto max-h-[90vh] rounded-3xl no-scrollbar">
+          {selectedEvent && (
+            <div className="relative flex flex-col">
+              <button 
+                onClick={() => setSelectedEvent(null)}
+                className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-red-500 text-white rounded-full transition-colors flex items-center justify-center backdrop-blur-xl"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-full h-48 sm:h-64 relative overflow-hidden shrink-0">
+                <img 
+                  src={selectedEvent.image} 
+                  alt={selectedEvent.title} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 z-20 flex gap-2">
+                  <span className="px-4 py-2 bg-red-500 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
+                    {selectedEvent.status === 'upcoming' ? 'Upcoming' : 'Past'}
+                  </span>
+                  <span className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg backdrop-blur-md">
+                    {selectedEvent.category}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-10 flex flex-col gap-8 shrink-0">
+                <h2 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase leading-tight mt-2">
+                  {selectedEvent.title}
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="col-span-1 md:col-span-2 space-y-6">
+                    <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-medium">
+                      {selectedEvent.description}
+                    </p>
+                    
+                    {/* Event Info Details */}
+                    <div className="flex flex-col gap-4 p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
+                      <div className="flex items-center gap-4 text-gray-300">
+                        <Calendar className="w-5 h-5 text-red-500" />
+                        <span className="font-medium text-sm sm:text-base">{selectedEvent.date} @ {selectedEvent.time}</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-gray-300">
+                        <MapPin className="w-5 h-5 text-red-500" />
+                        <span className="font-medium text-sm sm:text-base">{selectedEvent.location}</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-gray-300">
+                        <Users className="w-5 h-5 text-red-500" />
+                        <span className="font-medium text-sm sm:text-base">{selectedEvent.registeredCount}/{selectedEvent.maxAttendees} Attendees</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-span-1 flex flex-col gap-4">
+                    {selectedEvent.status === 'upcoming' && (
+                      <button className="group cyber-btn flex items-center justify-center gap-3 w-full py-4 bg-red-600 hover:bg-red-500 border border-red-500/50 text-white rounded-2xl transition-all font-black text-[12px] tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                        RSVP Now
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    )}
+                    <button className="group flex items-center justify-center gap-3 w-full py-4 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white rounded-2xl transition-all font-bold text-[10px] tracking-[0.2em] uppercase">
+                      Add to Calendar
+                    </button>
+                  </div>
+                </div>
+
+                {/* Photos Gallery Area */}
+                <div className="mt-8 pt-8 border-t border-white/10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <ImageIcon className="w-5 h-5 text-red-500" />
+                    <h3 className="font-orbitron font-bold text-xl uppercase tracking-widest text-white">Event Gallery</h3>
+                  </div>
+                  
+                  {selectedEvent.photos && selectedEvent.photos.length > 0 ? (
+                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {selectedEvent.photos.map((photo, idx) => (
+                           <div key={idx} className="aspect-square bg-white/[0.05] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer">
+                              <img 
+                                src={photo} 
+                                alt={`Event photo ${idx + 1}`} 
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                              />
+                           </div>
+                        ))}
+                     </div>
+                  ) : (
+                    <div className="p-12 border-2 border-dashed border-white/10 rounded-3xl flex flex-col items-center justify-center text-center bg-white/[0.01]">
+                       <ImageIcon className="w-10 h-10 text-white/20 mb-4" />
+                       <p className="text-white/40 font-bold uppercase tracking-widest text-xs">No photos available yet</p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

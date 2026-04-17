@@ -7,26 +7,32 @@ export interface Project {
   image: string;
   status: 'completed' | 'in-progress';
   technologies: string[];
+  photos?: string[];
 }
 
 export const projects: Project[] = [
   {
     id: 1,
-    title: 'DELTA DRONE V2',
-    description: 'LiDAR-equipped quadcopter with onboard path planning using ROS2 and custom navigation stack. Obstacle avoidance at 12m/s.',
-    category: 'AUTONOMOUS',
+    title: 'LINE FOLLOWER ROBOT',
+    description: 'This project showcases a compact robot designed to follow a predefined path using line-tracking technology. Built on a custom electronic board, the robot integrates multiple sensors that detect contrast between the surface and the guiding line, allowing it to navigate curves and intersections with precision.',
+    category: 'LINE FOLLOWER',
     number: '01',
-    image: '/images/projects/drone.webp',
+    image: '/images/projects/news-featured.webp',
     status: 'completed',
     technologies: ['ROS2', 'C++', 'Python', 'LiDAR'],
+    photos: [
+      '/images/projects/news-featured.webp',
+      '/images/projects/tt-terrain.webp',
+      '/images/projects/ml.webp'
+    ]
   },
   {
     id: 2,
-    title: 'HEX-ARM 6DOF',
-    description: '6-axis robotic arm with sub-millimeter precision, running on custom inverse kinematics solver. Designed for PCB assembly demos.',
-    category: 'INDUSTRIAL ARM',
+    title: 'ALL TERRAIN ROBOT',
+    description: 'This project features a robust all-terrain robotic vehicle engineered for mobility across challenging surfaces. Designed with four high-traction rugged wheels, the robot ensures stability and control on uneven terrain, making it suitable for both indoor testing environments and outdoor exploration.',
+    category: 'ALL TERRAIN',
     number: '02',
-    image: '/images/projects/arm.webp',
+    image: '/images/projects/tt-terrain.webp',
     status: 'completed',
     technologies: ['Inverse Kinematics', 'STMCube', 'Python'],
   },

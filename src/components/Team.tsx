@@ -218,10 +218,10 @@ export default function Team() {
                         onMouseEnter={() => { if (isActive) setIsHovered(true); }}
                         onMouseLeave={() => setIsHovered(false)}
                         className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group ${isActive
-                            ? 'scale-100 opacity-100 z-20'
-                            : diff === 1
-                              ? 'scale-90 opacity-40 grayscale-[50%] z-10 blur-[1px]'
-                              : 'scale-80 opacity-20 grayscale blur-[2px] z-10'
+                          ? 'scale-100 opacity-100 z-20'
+                          : diff === 1
+                            ? 'scale-90 opacity-40 grayscale-[50%] z-10 blur-[1px]'
+                            : 'scale-80 opacity-20 grayscale blur-[2px] z-10'
                           }`}
                         style={{
                           boxShadow: isActive
@@ -324,8 +324,8 @@ export default function Team() {
                     key={i}
                     onClick={() => emblaApi?.scrollTo(i)}
                     className={`rounded-full transition-all duration-400 ${i === activeIndex
-                        ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
-                        : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                      ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
+                      : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                       }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />

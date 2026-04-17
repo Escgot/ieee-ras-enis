@@ -7,18 +7,28 @@ export interface NewsItem {
   readTime: string;
   image: string;
   isFeatured?: boolean;
+  photos?: string[];
 }
 
 export const news: NewsItem[] = [
   {
     id: 1,
-    title: 'AXIOM TAKES 1ST PLACE AT REGIONAL ROBOTICS LEAGUE',
-    excerpt: 'Our Delta Drone V2 team swept the autonomous navigation category, outpacing 14 other university teams in a timed obstacle course challenge...',
-    date: 'Feb 18, 2025',
+    title: 'SANGOUR TAKES 1ST PLACE AT LINE FOLLOWER CHALLENGE AT IIT ROBOTICS',
+    excerpt: 'The Line Follower Challenge at IIT Robots brought together some of the sharpest university teams in a high-speed test of precision, control, and algorithmic efficiency. After an intense showdown on the track, it was Sangour who claimed the top spot, outperforming the competition with exceptional stability and speed.',
+    date: 'April 11, 2026',
     category: 'Competitions',
-    readTime: '5 min read',
+    readTime: '3 min read',
     image: '/images/news-featured.webp',
     isFeatured: true,
+    photos: [
+      '/images/gallery/iit6.webp',
+      '/images/gallery/iit0.webp',
+      '/images/gallery/iit1.webp',
+      '/images/gallery/iit2.webp',
+      '/images/gallery/iit3.webp',
+      '/images/gallery/iit4.webp',
+
+    ]
   },
   {
     id: 2,

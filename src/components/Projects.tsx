@@ -1,14 +1,36 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, ExternalLink } from 'lucide-react';
-import { projects } from '../data/projects';
+import { ArrowRight, ExternalLink, X, Cpu, Settings, Target, ChevronLeft, ChevronRight } from 'lucide-react';
+import { projects, type Project } from '../data/projects';
+import { Dialog, DialogContent } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+
+  const projectGalleryRef = useRef<HTMLDivElement>(null);
+
+  const scrollGallery = (direction: 'left' | 'right') => {
+    if (projectGalleryRef.current) {
+      const scrollAmount = 200;
+      projectGalleryRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+
+  useEffect(() => {
+    if (selectedProject) {
+      setActiveImage(selectedProject.image);
+    }
+  }, [selectedProject]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -96,6 +118,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
               key={project.id}
               className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-white/[0.02] border border-white/6 rounded-3xl overflow-hidden hover:border-red-500/25 transition-all duration-500 cursor-pointer holographic"
               style={{ transition: 'transform 0.2s ease, border-color 0.4s, box-shadow 0.4s' }}
+              onClick={() => setSelectedProject(project)}
             >
               {/* Hover glow */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl" style={{ boxShadow: 'inset 0 0 40px rgba(239,68,68,0.04)' }} />
@@ -107,7 +130,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
 
               {/* Image */}
               <div className="relative aspect-[16/9] overflow-hidden">
-                 <img
+                <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover opacity-50 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
@@ -154,6 +177,132 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
 
 
       </div>
+
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
+          {selectedProject && (
+            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-y-auto lg:overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Left Side: Hero Image */}
+              <div className="w-full lg:w-[60%] h-56 sm:h-72 lg:h-full relative shrink-0">
+                <img
+                  src={activeImage || selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover opacity-60 lg:opacity-80 transition-all duration-700 ease-in-out"
+                />
+                {/* Gradient fade to seamlessly blend with background */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-[#0c0515]/60 to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent lg:hidden" />
+                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-transparent via-[#0c0515]/20 to-[#0c0515]" />
+              </div>
+
+              {/* Right Side: Main Content Area */}
+              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-16 sm:-mt-24 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none">
+
+                {/* Category Badge */}
+                <div className="mb-4 lg:mb-6 self-start shrink-0">
+                  <span className="px-3 py-1.5 border border-red-500/30 text-red-300 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] rounded-md bg-red-500/10 backdrop-blur-md">
+                    PROJECT // {selectedProject.category.toUpperCase()}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h2 className="font-orbitron text-base sm:text-lg lg:text-xl font-black text-white mb-4 lg:mb-6 leading-tight tracking-wide shrink-0">
+                  {selectedProject.title}
+                </h2>
+
+                {/* Metadata Row */}
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-4 lg:mb-6 text-xs text-gray-300 font-medium shrink-0">
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-red-500" />
+                    <span className="uppercase text-[9px] tracking-widest">{selectedProject.status}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Cpu className="w-4 h-4 text-red-500" />
+                    <span className="uppercase text-[9px] tracking-widest">R&D Phase</span>
+                  </div>
+                </div>
+
+                {/* Top Divider */}
+                <div className="h-px w-full bg-white/5 mb-4 lg:mb-6 shrink-0" />
+
+                {/* Content / Excerpt */}
+                <div className="space-y-4 text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
+                  <p className="text-gray-200">
+                    {selectedProject.description}
+                  </p>
+
+                  <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block flex items-center gap-2 mt-6">
+                    <Settings className="w-3 h-3 text-red-500" />
+                    Integrated Technologies
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {selectedProject.technologies.map((tech) => (
+                      <span key={tech} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[9px] text-gray-300 uppercase font-black tracking-widest hover:border-red-500 hover:text-white transition-all duration-300 cursor-default">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Divider */}
+                <div className="h-px w-full bg-white/5 mb-3 shrink-0" />
+
+                {/* Bottom Photos Gallery */}
+                <div className="shrink-0 relative">
+                  {selectedProject.photos && selectedProject.photos.length > 0 ? (
+                    <div className="relative group/gallery">
+                      <button 
+                        onClick={() => scrollGallery('left')}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-red-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -ml-3 backdrop-blur-md"
+                      >
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+
+                      <div 
+                        ref={projectGalleryRef}
+                        className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
+                      >
+                        {selectedProject.photos.map((photo, idx) => (
+                          <div 
+                            key={idx} 
+                            onClick={() => setActiveImage(photo)}
+                            className="w-16 h-12 sm:w-20 sm:h-14 lg:w-24 lg:h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group cursor-pointer snap-center relative"
+                          >
+                            <img 
+                              src={photo} 
+                              alt={`Gallery ${idx + 1}`} 
+                              className={`w-full h-full object-cover transition-all duration-500 hover:scale-110 ${activeImage === photo ? 'opacity-100 scale-110' : 'opacity-40 group-hover:opacity-100'}`} 
+                            />
+                            {activeImage === photo && (
+                              <div className="absolute inset-0 border-2 border-red-500 rounded-lg pointer-events-none shadow-[inset_0_0_10px_rgba(239,68,68,0.5)]"></div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      <button 
+                        onClick={() => scrollGallery('right')}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-red-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -mr-3 backdrop-blur-md"
+                      >
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="hidden"></div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

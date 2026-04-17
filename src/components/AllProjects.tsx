@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Search, ArrowLeft } from 'lucide-react';
-import { projects } from '../data/projects';
+import { Search, ArrowLeft, X, Cpu, Settings, Target, ExternalLink } from 'lucide-react';
+import { projects, type Project } from '../data/projects';
+import { Dialog, DialogContent } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AllProjects({ onBack }: { onBack: () => void }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Projects');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const categories = ['All Projects', 'Autonomous', 'Industrial Arm', 'Computer Vision', 'Humanoid'];
@@ -97,7 +99,8 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
             {filteredProjects.map((project) => (
               <div 
                 key={project.id} 
-                className="project-grid-item group bg-foreground/[0.03] dark:bg-white/[0.03] border border-foreground/5 dark:border-white/5 rounded-3xl overflow-hidden hover:border-red-500/30 hover:bg-foreground/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 flex flex-col"
+                className="project-grid-item group bg-foreground/[0.03] dark:bg-white/[0.03] border border-foreground/5 dark:border-white/5 rounded-3xl overflow-hidden hover:border-red-500/30 hover:bg-foreground/[0.05] dark:hover:bg-white/[0.05] transition-all duration-500 flex flex-col cursor-pointer"
+                onClick={() => setSelectedProject(project)}
               >
                 {/* Image Placeholder */}
                 <div className="relative aspect-video overflow-hidden border-b border-white/5">
@@ -163,6 +166,130 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
           </div>
         )}
       </div>
+
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="max-w-7xl bg-transparent border-none shadow-none p-0 overflow-visible">
+          {selectedProject && (
+            <div className="relative w-full max-h-[90vh] overflow-y-auto no-scrollbar bg-[#080809]/95 border border-white/10 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.8)]">
+              {/* Close button - floating style */}
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-8 right-8 z-[60] p-4 bg-white/5 hover:bg-red-500 text-white rounded-full transition-all duration-300 border border-white/10 backdrop-blur-xl group hover:scale-110 active:scale-95 shadow-2xl"
+              >
+                <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
+              </button>
+
+              <div className="flex flex-col lg:flex-row min-h-[600px]">
+                {/* Left Side: Visual Showcase */}
+                <div className="lg:w-[55%] relative overflow-hidden group/img min-h-[400px] lg:min-h-full">
+                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#080809] via-transparent to-transparent lg:bg-gradient-to-r" />
+                  <img 
+                    src={selectedProject.image} 
+                    alt={selectedProject.title} 
+                    className="absolute inset-0 w-full h-full object-cover scale-105 group-hover/img:scale-110 transition-transform duration-[2s] ease-out opacity-60 group-hover/img:opacity-80"
+                  />
+                  
+                  {/* Floating ID badge */}
+                  <div className="absolute top-10 left-10 z-20 flex flex-col">
+                    <span className="font-orbitron text-7xl font-black text-white/5 leading-none select-none tracking-tighter">
+                      {selectedProject.number}
+                    </span>
+                    <div className="h-0.5 w-12 bg-red-500 mt-2 ml-1" />
+                  </div>
+
+                  {/* Bottom info Overlay */}
+                  <div className="absolute bottom-10 left-10 z-20 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <span className={`px-5 py-2 text-white text-[10px] font-black uppercase tracking-[0.35em] rounded-full shadow-[0_0_25px_rgba(239,68,68,0.4)] ${selectedProject.status === 'completed' ? 'bg-green-500 shadow-green-500/20' : 'bg-yellow-500 shadow-yellow-500/20'}`}>
+                        {selectedProject.status}
+                      </span>
+                      <div className="px-5 py-2 bg-white/5 border border-white/10 backdrop-blur-md rounded-full text-[10px] text-gray-300 font-bold uppercase tracking-widest">
+                        R&D PHASE
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Side: Technical Dossier */}
+                <div className="lg:w-[45%] p-8 sm:p-12 lg:p-16 flex flex-col relative overflow-hidden bg-white/[0.01]">
+                  {/* Decorative background elements */}
+                  <div className="absolute -top-24 -right-24 w-64 h-64 bg-red-500/5 rounded-full blur-[100px] pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent" />
+
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-4 mb-8">
+                       <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                       <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.5em]">
+                         Archive Dossier // {selectedProject.category}
+                       </span>
+                    </div>
+
+                    <h2 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-8 uppercase leading-[1.1] tracking-tight">
+                      {selectedProject.title.split(' ').map((word, i) => (
+                        <span key={i} className={i === selectedProject.title.split(' ').length - 1 ? "text-gradient block mt-1" : "block"}>
+                          {word}
+                        </span>
+                      ))}
+                    </h2>
+
+                    <div className="space-y-10">
+                      <div className="relative group/desc">
+                        <div className="absolute -left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500/50 to-transparent opacity-0 group-hover/desc:opacity-100 transition-opacity" />
+                        <p className="text-gray-400 text-base leading-relaxed font-medium">
+                          {selectedProject.description}
+                        </p>
+                      </div>
+
+                      {/* Technical Specs Grid */}
+                      <div className="grid grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block">Primary Core</label>
+                          <div className="flex items-center gap-3 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors">
+                            <Cpu className="w-5 h-5 text-red-500" />
+                            <div className="text-xs text-white font-bold uppercase tracking-tight">NVIDIA ORIN</div>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block">Performance</label>
+                          <div className="flex items-center gap-3 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors">
+                            <Target className="w-5 h-5 text-red-500" />
+                            <div className="text-xs text-white font-bold uppercase tracking-tight">99.8% ACC</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Extended Technologies */}
+                      <div className="space-y-4">
+                        <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block flex items-center gap-2">
+                           <Settings className="w-3 h-3 text-red-500" />
+                           Integrated Technologies
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.technologies.map((tech) => (
+                            <span key={tech} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] text-gray-300 uppercase font-black tracking-widest hover:border-red-500 hover:text-white transition-all duration-300 cursor-default">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-16 flex flex-col sm:flex-row gap-4">
+                      <button className="flex-grow group relative overflow-hidden px-8 py-5 bg-red-600 hover:bg-red-700 text-white rounded-2xl transition-all font-black text-xs tracking-[0.3em] uppercase">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                        <span className="relative flex items-center justify-center gap-3">
+                          Access Case Study
+                          <ExternalLink className="w-4 h-4" />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
