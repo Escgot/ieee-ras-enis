@@ -120,33 +120,15 @@ export default function Team() {
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
 
-    let autoPlay: ReturnType<typeof setInterval> | undefined;
-    if (!isHovered && isInView) {
-      autoPlay = setInterval(() => emblaApi.scrollNext(), 4000);
-    }
-
     return () => {
       emblaApi.off('select', onSelect);
       emblaApi.off('reInit', onSelect);
-      if (autoPlay) clearInterval(autoPlay);
     };
-  }, [emblaApi, onSelect, isHovered, isInView]);
+  }, [emblaApi, onSelect]);
 
   useEffect(() => {
-    if (!sectionRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.to(sectionRef.current, {
-        y: -40,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        }
-      });
-    }, sectionRef.current);
-    return () => ctx.revert();
+    // Parallax disabled to fix mobile performance
+    return () => {};
   }, []);
 
   return (
@@ -157,12 +139,6 @@ export default function Team() {
     >
       {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/10 to-transparent" />
-      <div className="absolute inset-0 cyber-grid opacity-5 pointer-events-none" />
-
-      {/* Floating geometric decorations */}
-      <div className="absolute top-20 left-10 w-32 h-32 rounded-full border border-red-500/8 animate-rotate-slow pointer-events-none" />
-      <div className="absolute bottom-20 right-10 w-24 h-24 rounded-full border border-purple-500/8 animate-rotate-reverse pointer-events-none" />
-      <div className="absolute top-1/2 left-4 w-16 h-16 rounded-full border border-white/4 animate-rotate-slow pointer-events-none" style={{ animationDuration: '30s' }} />
 
       <div className="relative w-full z-10">
         {/* Header */}
@@ -193,10 +169,6 @@ export default function Team() {
             <div
               className="overflow-hidden pb-16 pt-10 outline-none select-none"
               ref={emblaRef}
-              style={{
-                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-                maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-              }}
             >
               <div className="flex flex-row" style={{ backfaceVisibility: 'hidden' }}>
                 {teamMembers.map((member, index) => {
@@ -211,24 +183,16 @@ export default function Team() {
                   return (
                     <div
                       key={index}
-                      className="flex-[0_0_auto] min-w-0 cursor-pointer px-3 sm:px-5"
+                      className="flex-[0_0_auto] min-w-0 px-3 sm:px-5"
                       onClick={() => emblaApi?.scrollTo(index)}
                     >
                       <div
-                        onMouseEnter={() => { if (isActive) setIsHovered(true); }}
-                        onMouseLeave={() => setIsHovered(false)}
-                        className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group ${isActive
-                          ? 'scale-100 opacity-100 z-20'
-                          : diff === 1
-                            ? 'scale-90 opacity-40 grayscale-[50%] z-10 blur-[1px]'
-                            : 'scale-80 opacity-20 grayscale blur-[2px] z-10'
+                        className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group will-change-transform ${isActive
+                          ? 'scale-100 opacity-100 z-20 translate-y-[-8px]'
+                          : 'scale-90 opacity-40 z-10'
                           }`}
                         style={{
-                          boxShadow: isActive
-                            ? `0 15px 50px rgba(239,68,68,${isDarkMode ? '0.4' : '0.2'}), 0 20px 100px rgba(239,68,68,${isDarkMode ? '0.2' : '0.1'}), 0 30px 60px ${isDarkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.08)'}`
-                            : `0 10px 30px ${isDarkMode ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.05)'}`,
-                          transform: isActive ? 'translateY(-8px)' : `scale(${diff === 1 ? 0.88 : 0.78})`,
-                          outline: isActive ? '1px solid rgba(239,68,68,0.2)' : 'none',
+                          boxShadow: isActive ? '0 15px 30px rgba(0,0,0,0.4)' : 'none',
                         }}
                       >
                         {/* Member Photo */}
@@ -267,7 +231,7 @@ export default function Team() {
                         {/* Hover Info (with socials) — active card only */}
                         {isActive && (
                           <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 z-30 translate-y-2 group-hover:translate-y-0">
-                            <div className="bg-background/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border border-foreground/10 dark:border-white/10 rounded-2xl p-4 sm:p-5">
+                            <div className="bg-black/80 border border-white/10 rounded-2xl p-4 sm:p-5">
                               <span className="text-[9px] font-black text-red-400 tracking-[0.35em] uppercase block mb-2">
                                 {member.role}
                               </span>
