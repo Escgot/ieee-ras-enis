@@ -67,11 +67,12 @@ export default function Gallery() {
         el.releasePointerCapture(e.pointerId);
         el.style.cursor = 'grab';
 
-        // Resume the tween from current position
         const currentX = getTranslateX();
-        const progress = direction === 'left' 
-          ? Math.abs(currentX) / totalWidth 
-          : (totalWidth - currentX) / totalWidth;
+        // Calculate the internal progress of the loop [0, 1]
+        // Left goes 0 -> -totalWidth, Right goes -totalWidth -> 0
+        const progress = direction === 'left'
+          ? Math.abs(currentX) / totalWidth
+          : (currentX + totalWidth) / totalWidth;
         
         tween.progress(progress % 1);
         tween.play();
