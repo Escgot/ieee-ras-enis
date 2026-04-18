@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, MapPin, Users, ChevronRight, ArrowRight, X, Image as ImageIcon, Activity } from 'lucide-react';
+import { Calendar, MapPin, Users, ChevronRight, ArrowRight, X, Image as ImageIcon } from 'lucide-react';
 import { events, type Event } from '../data/events';
 import { Dialog, DialogContent } from './ui/dialog';
 
@@ -101,7 +101,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
           ref={containerRef}
           className="flex flex-row sm:flex-col overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar gap-4 sm:gap-5 justify-start sm:justify-normal pb-6 sm:pb-0 w-full max-w-4xl mx-auto px-4 sm:px-0"
         >
-          {upcomingEvents.map((event, index) => (
+          {upcomingEvents.map((event) => (
             <div 
               key={event.id} 
               className="event-item flex-[0_0_85vw] sm:flex-[1_1_100%] sm:w-full min-w-0 snap-center group relative cursor-pointer" 
