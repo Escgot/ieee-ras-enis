@@ -18,15 +18,15 @@ export const news: NewsItem[] = [
     date: 'April 11, 2026',
     category: 'Competitions',
     readTime: '3 min read',
-    image: '/images/news-featured.webp',
+    image: '/images/gallery/iit/iit0.webp',
     isFeatured: true,
     photos: [
-      '/images/gallery/iit6.webp',
-      '/images/gallery/iit0.webp',
-      '/images/gallery/iit1.webp',
-      '/images/gallery/iit2.webp',
-      '/images/gallery/iit3.webp',
-      '/images/gallery/iit4.webp',
+      '/images/gallery/iit/iit0.webp',
+      '/images/gallery/iit/iit1.webp',
+      '/images/gallery/iit/iit2.webp',
+      '/images/gallery/iit/iit3.webp',
+      '/images/gallery/iit/iit4.webp',
+      '/images/gallery/iit/iit5.webp',
 
     ]
   },
@@ -90,11 +90,17 @@ export const news: NewsItem[] = [
   },
   {
     id: 5,
-    title: 'HEX-ARM 6DOF Completes First Full Demo Run',
-    excerpt: 'Significant milestone reached in our latest industrial robotic arm project.',
+    title: 'HUNTER TAKES 1ST PLACE AT LINE FOLLOWER CHALLENGE AT ENSIT BOTPATH',
+    excerpt: 'The ENSIT Botpath competition was a thrilling event that tested the skills of the best robotics teams in the country. Our team, Sangour, emerged victorious, showcasing the power of our innovative robot design.',
     date: 'Jan 4, 2025',
-    category: 'Project Update',
+    category: 'Competitions',
     readTime: '2 min read',
-    image: '/images/news-4.webp',
+    image: '/images/gallery/ensit/ensit0.webp',
+    photos: [
+      '/images/gallery/ensit/ensit0.webp',
+      '/images/gallery/ensit/ensit1.webp',
+      '/images/gallery/ensit/ensit2.webp',
+
+    ]
   },
 ];

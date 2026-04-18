@@ -203,7 +203,7 @@ export default function News() {
       <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>
         <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-purple-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(139,92,246,0.15)] flex flex-col my-4">
           {selectedNews && (
-            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-y-auto lg:overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
               <button 
                 onClick={() => setSelectedNews(null)}
                 className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
@@ -224,7 +224,7 @@ export default function News() {
               </div>
 
               {/* Right Side: Main Content Area */}
-              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none">
+              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
                 
                 {/* Title */}
                 <DialogTitle asChild>

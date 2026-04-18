@@ -8,7 +8,7 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
   const [activeCategory, setActiveCategory] = useState('All Products');
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const categories = ['All Products', 'Merch', 'Books', 'Electronics', 'Service'];
+  const categories = ['All Products', 'Merch', 'key chain', 'Electronics', 'Service'];
 
   useEffect(() => {
     window.scrollTo(0, 0);

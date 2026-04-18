@@ -19,11 +19,9 @@ export const projects: Project[] = [
     number: '01',
     image: '/images/projects/news-featured.webp',
     status: 'completed',
-    technologies: ['ROS2', 'C++', 'Python', 'LiDAR'],
+    technologies: ['ESP32', 'C++', 'custom electronic board', 'IR sensors', 'DC motors'],
     photos: [
       '/images/projects/news-featured.webp',
-      '/images/projects/tt-terrain.webp',
-      '/images/projects/ml.webp'
     ]
   },
   {
@@ -38,13 +36,13 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'VISIONSORT ML',
-    description: 'Real-time conveyor sorting system using YOLOv8 and custom pneumatic actuators. Achieves 98.2% classification accuracy.',
-    category: 'COMPUTER VISION',
+    title: 'FIGHTER',
+    description: 'This project presents a compact fighter robot engineered for competitive robotics challenges. Built on a robust custom chassis, the robot combines powerful motors, precise control systems, and responsive sensors to detect opponents and react instantly. Its design emphasizes speed, stability, and strategic maneuverability, enabling it to push, evade, and outmatch rivals within the arena. Optimized for performance and durability, the robot delivers fast, aggressive, and controlled combat behavior in every match',
+    category: 'FIGHTER',
     number: '03',
-    image: '/images/projects/ml.webp',
+    image: '/images/projects/fighter.webp',
     status: 'completed',
-    technologies: ['PyTorch', 'OpenCV', 'YOLOv8'],
+    technologies: [''],
   },
   {
     id: 4,
