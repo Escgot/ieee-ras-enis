@@ -88,10 +88,17 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Workshop',
-    image: '/images/event-workshop.webp',
+    image: '/images/gallery/workshop/0.webp',
     attendees: 92,
     status: 'past',
     registeredCount: 92,
     maxAttendees: 92,
+    photos: [
+      '/images/gallery/workshop/0.webp',
+      '/images/gallery/workshop/1.webp',
+      '/images/gallery/workshop/2.webp',
+      '/images/gallery/workshop/3.webp',
+      
+    ]
   },
 ];

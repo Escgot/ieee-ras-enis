@@ -140,8 +140,8 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
                     </span>
                   </div>
 
-                  {/* Status Indicator */}
-                  <div className="absolute top-6 right-6 z-20 flex items-center gap-1.5 px-2.5 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  {/* Status Indicator - Always Visible */}
+                  <div className="absolute top-6 right-6 z-20 flex items-center gap-1.5 px-2.5 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/5 shadow-sm transition-opacity duration-700">
                     <div className={`w-1 h-1 rounded-full animate-pulse ${event.status === 'upcoming' ? 'bg-green-500' : 'bg-gray-500'}`} />
                     <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">{event.status}</span>
                   </div>
