@@ -118,61 +118,80 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
           {featuredProjects.map((project) => (
             <div
               key={project.id}
-              className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-white/[0.02] border border-white/6 rounded-3xl overflow-hidden hover:border-red-500/25 transition-all duration-500 cursor-pointer holographic"
-              style={{ transition: 'transform 0.2s ease, border-color 0.4s, box-shadow 0.4s' }}
+              className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-[#0a0a0b]/40 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5"
               onClick={() => setSelectedProject(project)}
             >
-              {/* Hover glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl" style={{ boxShadow: 'inset 0 0 40px rgba(239,68,68,0.04)' }} />
-
-              {/* Number badge */}
-              <div className="absolute top-5 right-5 font-orbitron text-5xl font-black text-white/[0.04] group-hover:text-red-500/10 transition-colors z-0 select-none pointer-events-none leading-none">
-                {project.number}
-              </div>
-
-              {/* Image */}
-              <div className="relative aspect-[16/9] overflow-hidden">
+              {/* Top Section: Imagery */}
+              <div className="relative aspect-[4/3] overflow-hidden">
+                {/* Image */}
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover opacity-50 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1 opacity-40 group-hover:opacity-100 group-hover:brightness-75"
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent" />
-
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-red-500/0 group-hover:bg-red-500/5 transition-colors duration-500" />
-
-                {/* Category tag */}
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 text-[10px] font-black text-red-400 uppercase tracking-widest bg-red-500/15 border border-red-500/25 backdrop-blur-md rounded-lg">
+                
+                {/* Cinematic Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent z-10" />
+                <div className="absolute inset-0 bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
+                
+                {/* Floating Tags */}
+                <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <span className="px-3 py-1 text-[9px] font-black text-red-400 bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
                     {project.category}
                   </span>
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                    <div className="w-1 h-1 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">{project.status}</span>
+                  </div>
                 </div>
+
+                {/* Big Background Number */}
+                <span className="absolute -bottom-4 -right-2 font-orbitron text-8xl font-black text-white/[0.03] group-hover:text-red-500/5 transition-colors duration-1000 select-none z-0">
+                  {project.number}
+                </span>
               </div>
 
-              {/* Content */}
-              <div className="p-7 lg:p-8 relative z-10">
-                <h3 className="font-orbitron text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-red-400 transition-colors uppercase leading-snug line-clamp-2">
+              {/* Bottom Section: Content */}
+              <div className="p-8 pb-10 relative z-20 flex flex-col">
+                <h3 className="font-orbitron text-xl font-black text-foreground mb-4 group-hover:text-red-400 transition-colors uppercase leading-[1.1] tracking-tight">
                   {project.title}
                 </h3>
 
-                <p className="text-muted-foreground text-sm mb-8 line-clamp-3 leading-relaxed">
+                <p className="text-muted-foreground text-[13px] leading-relaxed mb-8 line-clamp-2 font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-500">
                   {project.description}
                 </p>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[10px] font-black text-red-500 uppercase tracking-[0.2em] group-hover:gap-3 transition-all">
-                    Explore
-                    <ArrowRight className="w-3.5 h-3.5" />
+                {/* Tech Pills */}
+                <div className="flex flex-wrap gap-2 mb-8 opacity-40 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-[-4px]">
+                  {project.technologies.slice(0, 3).map((tech) => (
+                    <span key={tech} className="text-[8px] font-black text-gray-500 px-2 py-0.5 border border-white/5 rounded-md uppercase tracking-widest group-hover:border-red-500/30 group-hover:text-red-300 transition-colors">
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 3 && (
+                    <span className="text-[8px] font-black text-gray-600 px-2 py-0.5 uppercase tracking-widest">+{project.technologies.length - 3} More</span>
+                  )}
+                </div>
+
+                {/* Footer Action */}
+                <div className="flex items-center justify-between pt-6 border-t border-white/[0.03] group-hover:border-red-500/10 transition-colors">
+                  <div className="flex items-center gap-3 text-[10px] font-black text-red-500 uppercase tracking-[0.25em] transition-all">
+                    <span className="relative">
+                      Deep View
+                      <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all duration-500 group-hover:w-full" />
+                    </span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" />
                   </div>
-                  <ExternalLink className="w-4 h-4 text-gray-700 group-hover:text-gray-400 transition-colors" />
+                  <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 border border-white/5 group-hover:border-red-500/20 transition-all">
+                    <ExternalLink className="w-3.5 h-3.5 text-gray-600 group-hover:text-red-400" />
+                  </div>
                 </div>
               </div>
 
-              {/* Bottom progress bar */}
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-purple-500 group-hover:w-full transition-all duration-700" />
+              {/* Advanced Interactive Glow */}
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-red-500/0 via-red-500/40 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             </div>
           ))}
         </div>
