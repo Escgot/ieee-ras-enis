@@ -101,84 +101,70 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
           ref={containerRef}
           className="flex flex-row sm:flex-col overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar gap-4 sm:gap-5 justify-start sm:justify-normal pb-6 sm:pb-0 w-full max-w-4xl mx-auto px-4 sm:px-0"
         >
-          {upcomingEvents.map((event, index) => {
-            const [month, day] = event.date.split(' ');
-            const isFirst = index === 0;
-            return (
-              <div key={event.id} className="event-item flex-[0_0_85vw] sm:flex-[1_1_100%] sm:w-full min-w-0 snap-center group relative" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ transformStyle: 'preserve-3d' }}>
-                {/* Connector */}
-                {index !== upcomingEvents.length - 1 && (
-                  <div className="absolute left-14 top-[120px] bottom-0 w-px bg-gradient-to-b from-red-500/30 to-transparent z-0 hidden sm:block" />
-                )}
-
-                <div 
-                  className={`relative flex flex-col sm:flex-row gap-5 sm:gap-7 border rounded-3xl p-5 sm:p-7 transition-all duration-500 group-hover:-translate-y-1 cursor-pointer overflow-hidden ${isFirst
-                    ? 'bg-white/[0.03] border-red-500/20 hover:border-red-500/40 hover:shadow-[0_20px_60px_rgba(239,68,68,0.08)]'
-                    : 'bg-white/[0.02] border-white/6 hover:border-red-500/25 hover:shadow-[0_20px_40px_rgba(239,68,68,0.05)]'
-                  }`}
-                  onClick={() => setSelectedEvent(event)}
-                >
-
-                  {/* Subtle gradient bg on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 to-purple-500/0 group-hover:from-red-500/[0.03] group-hover:to-purple-500/[0.02] transition-all duration-500 rounded-3xl pointer-events-none" />
-
-                  {/* "Featured" badge for first event */}
-                  {isFirst && (
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
-                      Featured
-                    </div>
-                  )}
-
-                  {/* Date Box */}
-                  <div className={`relative flex-shrink-0 self-start w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border flex flex-col items-center justify-center text-center shadow-lg transition-all duration-300 ${isFirst
-                      ? 'bg-red-500/10 border-red-500/30 group-hover:border-red-500/60 group-hover:bg-red-500/15'
-                      : 'bg-white/[0.04] border-white/8 group-hover:border-red-500/30 group-hover:bg-white/[0.06]'
-                    }`}>
-                    <span className="text-2xl sm:text-3xl font-black text-red-400 font-orbitron leading-none">{day.replace(',', '')}</span>
-                    <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mt-1">{month}</span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-grow relative">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-lg">
-                        {event.category}
-                      </span>
-                    </div>
-
-                    <h3 className="font-orbitron text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-red-400 transition-colors">
-                      {event.title}
-                    </h3>
-
-                    <p className="text-muted-foreground mb-5 line-clamp-2 text-sm leading-relaxed">
-                      {event.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-x-5 gap-y-2">
-                      {[
-                        { icon: Calendar, text: event.time },
-                        { icon: MapPin, text: event.location },
-                        { icon: Users, text: `${event.registeredCount}/${event.maxAttendees} registered` },
-                      ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-1.5 text-xs text-gray-600">
-                          <item.icon className="w-3.5 h-3.5 text-red-500/60" />
-                          <span>{item.text}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="flex items-center sm:items-start shrink-0 sm:pt-7">
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-red-600/20 hover:shadow-red-500/30 cyber-btn whitespace-nowrap">
-                      RSVP Now
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
+          {upcomingEvents.map((event, index) => (
+            <div 
+              key={event.id} 
+              className="event-item flex-[0_0_85vw] sm:flex-[1_1_100%] sm:w-full min-w-0 snap-center group relative cursor-pointer" 
+              onMouseMove={handleMouseMove} 
+              onMouseLeave={handleMouseLeave} 
+              style={{ transformStyle: 'preserve-3d' }}
+              onClick={() => setSelectedEvent(event)}
+            >
+              <div 
+                className="relative bg-[#0a0a0b]/40 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 shadow-2xl hover:shadow-red-500/5 flex flex-col sm:flex-row h-full"
+              >
+                {/* Left Side: Imagery */}
+                <div className="relative w-full sm:w-[40%] aspect-[4/3] sm:aspect-auto overflow-hidden">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1 opacity-40 group-hover:opacity-100 group-hover:brightness-75"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent sm:bg-gradient-to-r sm:from-[#0a0a0b] sm:via-transparent sm:to-transparent z-10" />
+                  
+                  <div className="absolute top-6 left-6 z-20">
+                    <span className="px-3 py-1 text-[9px] font-black text-red-400 bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
+                      {event.category}
+                    </span>
                   </div>
                 </div>
+
+                {/* Right Side: Content */}
+                <div className="p-8 sm:p-10 flex flex-col flex-grow relative z-20">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Upcoming Assignment</span>
+                  </div>
+
+                  <h3 className="font-orbitron text-xl sm:text-2xl font-black text-foreground mb-4 group-hover:text-red-400 transition-colors uppercase leading-[1.1] tracking-tight">
+                    {event.title}
+                  </h3>
+
+                  <p className="text-muted-foreground text-[13px] leading-relaxed mb-8 line-clamp-2 font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                    {event.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-6 mt-auto pt-6 border-t border-white/[0.03]">
+                    <div className="flex items-center gap-2.5 text-[10px] text-gray-500 font-black uppercase tracking-widest group-hover:text-red-400 transition-colors">
+                      <Calendar className="w-4 h-4 text-red-500/60" />
+                      <span>{event.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-[10px] text-gray-500 font-black uppercase tracking-widest group-hover:text-red-400 transition-colors">
+                      <MapPin className="w-4 h-4 text-red-500/60" />
+                      <span>{event.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-[10px] text-gray-500 font-black uppercase tracking-widest group-hover:text-red-400 transition-colors">
+                      <Users className="w-4 h-4 text-red-500/60" />
+                      <span>{event.registeredCount} Personnel</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Border Action Line */}
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-red-500/0 via-red-500/40 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {/* View All */}
