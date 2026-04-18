@@ -28,7 +28,7 @@ export const shopItems: ShopItem[] = [
     id: 3,
     name: 'Arduino Development Kit',
     description: 'Complete set of sensors and actuators for your next project.',
-    price: '90.00 TND',
+    price: '60.00 TND',
     category: 'Electronics',
     image: '/images/shop/kit-arduino.webp',
   },

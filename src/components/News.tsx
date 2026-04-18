@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Clock, Calendar, TrendingUp, X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -12,6 +13,7 @@ export default function News() {
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const newsGalleryRef = useRef<HTMLDivElement>(null);
 
@@ -211,16 +213,29 @@ export default function News() {
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Left Side: Hero Image */}
-              <div className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0">
-                <img 
+              {/* Left Side: Hero Image - Draggable Pan Effect */}
+              <div 
+                ref={imageContainerRef}
+                className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden cursor-grab active:cursor-grabbing bg-black flex items-center justify-center"
+              >
+                <motion.img 
+                  key={activeImage || selectedNews.image}
                   src={activeImage || selectedNews.image} 
                   alt={selectedNews.title} 
-                  className="w-full h-full object-cover opacity-60 lg:opacity-80 transition-all duration-700 ease-in-out"
+                  drag="x"
+                  dragConstraints={imageContainerRef}
+                  className="h-full w-auto max-w-none object-contain opacity-60 lg:opacity-80 transition-opacity duration-700"
                 />
+                
+                {/* Drag Hint - Only visible on desktop or until first interaction */}
+                <div className="absolute top-4 left-4 z-40 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                   <div className="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-pulse" />
+                   <span className="text-[10px] text-white font-black uppercase tracking-widest">Drag to Panner</span>
+                </div>
+
                 {/* Gradient fade to seamlessly blend with background */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-[#0c0515]/60 to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent lg:hidden" />
-                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-transparent via-[#0c0515]/20 to-[#0c0515]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-[#0c0515]/60 to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent lg:hidden pointer-events-none" />
+                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-transparent via-[#0c0515]/20 to-[#0c0515] pointer-events-none" />
               </div>
 
               {/* Right Side: Main Content Area */}
