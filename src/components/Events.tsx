@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, MapPin, Users, ChevronRight, ArrowRight, X, Image as ImageIcon } from 'lucide-react';
+import { Calendar, MapPin, Users, ChevronRight, ArrowRight, X, Image as ImageIcon, Activity } from 'lucide-react';
 import { events, type Event } from '../data/events';
 import { Dialog, DialogContent } from './ui/dialog';
 
@@ -11,6 +12,9 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
 
   // 3D Tilt Effect
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -190,97 +194,141 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
       </div>
 
       <Dialog open={!!selectedEvent} onOpenChange={() => setSelectedEvent(null)}>
-        <DialogContent className="max-w-6xl w-[95vw] sm:w-[90vw] md:w-[85vw] bg-[#0a0a0b]/95 border-white/10 backdrop-blur-2xl p-0 overflow-y-auto max-h-[90vh] rounded-3xl no-scrollbar">
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
           {selectedEvent && (
-            <div className="relative flex flex-col">
+            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
               <button 
                 onClick={() => setSelectedEvent(null)}
-                className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-red-500 text-white rounded-full transition-colors flex items-center justify-center backdrop-blur-xl"
+                className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="w-full h-48 sm:h-64 relative overflow-hidden shrink-0">
-                <img 
-                  src={selectedEvent.image} 
+              {/* Left Side: Hero Image - Draggable Pan Effect */}
+              <div 
+                ref={imageContainerRef}
+                className="w-full lg:w-[50%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden cursor-grab active:cursor-grabbing bg-black flex items-center justify-center"
+              >
+                <motion.img 
+                  key={activeImage || selectedEvent.image}
+                  src={activeImage || selectedEvent.image} 
                   alt={selectedEvent.title} 
-                  className="w-full h-full object-cover"
+                  drag="x"
+                  dragConstraints={imageContainerRef}
+                  className="h-full w-auto max-w-none object-cover opacity-60 lg:opacity-80 transition-opacity duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 z-20 flex gap-2">
+                
+                {/* Visual Status Badges */}
+                <div className="absolute bottom-10 left-10 z-20 flex gap-3 translate-y-4 group-hover:translate-y-0 transition-transform hidden lg:flex">
                   <span className="px-4 py-2 bg-red-500 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
-                    {selectedEvent.status === 'upcoming' ? 'Upcoming' : 'Past'}
+                    {selectedEvent.status}
                   </span>
                   <span className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg backdrop-blur-md">
                     {selectedEvent.category}
                   </span>
                 </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent pointer-events-none" />
               </div>
 
-              <div className="p-6 sm:p-10 flex flex-col gap-8 shrink-0">
-                <h2 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase leading-tight mt-2">
+              {/* Right Side: Main Content Area */}
+              <div className="lg:w-[50%] px-6 pt-6 pb-2 sm:px-10 sm:pt-6 sm:pb-4 lg:px-12 lg:pt-8 lg:pb-4 relative z-10 flex flex-col -mt-24 sm:-mt-32 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
+                
+                <h2 className="font-orbitron text-lg sm:text-xl lg:text-2xl font-black text-white mb-6 leading-tight tracking-tight shrink-0 uppercase">
                   {selectedEvent.title}
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="col-span-1 md:col-span-2 space-y-6">
-                    <p className="text-gray-400 text-base sm:text-lg leading-relaxed font-medium">
-                      {selectedEvent.description}
-                    </p>
-                    
-                    {/* Event Info Details */}
-                    <div className="flex flex-col gap-4 p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
-                      <div className="flex items-center gap-4 text-gray-300">
-                        <Calendar className="w-5 h-5 text-red-500" />
-                        <span className="font-medium text-sm sm:text-base">{selectedEvent.date} @ {selectedEvent.time}</span>
+                {/* Asymmetric Tactical Dashboard */}
+                <div className="space-y-3 mb-10 shrink-0">
+                  {/* Row 1: Smaller Info Chips */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/5 rounded-xl hover:bg-white/[0.04] transition-all group/chip">
+                      <Calendar className="w-4 h-4 text-red-500 shrink-0" />
+                      <div>
+                        <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Timeframe</p>
+                        <p className="text-white text-[10px] font-bold leading-none">{selectedEvent.date.split(',')[0]}</p>
                       </div>
-                      <div className="flex items-center gap-4 text-gray-300">
-                        <MapPin className="w-5 h-5 text-red-500" />
-                        <span className="font-medium text-sm sm:text-base">{selectedEvent.location}</span>
-                      </div>
-                      <div className="flex items-center gap-4 text-gray-300">
-                        <Users className="w-5 h-5 text-red-500" />
-                        <span className="font-medium text-sm sm:text-base">{selectedEvent.registeredCount}/{selectedEvent.maxAttendees} Attendees</span>
+                    </div>
+
+                    <div className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/5 rounded-xl hover:bg-white/[0.04] transition-all group/chip">
+                      <MapPin className="w-4 h-4 text-purple-500 shrink-0" />
+                      <div>
+                        <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Deployment</p>
+                        <p className="text-white text-[10px] font-bold leading-none truncate">{selectedEvent.location}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="col-span-1 flex flex-col gap-4">
-                    {selectedEvent.status === 'upcoming' && (
-                      <button className="group cyber-btn flex items-center justify-center gap-3 w-full py-4 bg-red-600 hover:bg-red-500 border border-red-500/50 text-white rounded-2xl transition-all font-black text-[12px] tracking-[0.2em] uppercase shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-                        RSVP Now
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    )}
-                    <button className="group flex items-center justify-center gap-3 w-full py-4 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white rounded-2xl transition-all font-bold text-[10px] tracking-[0.2em] uppercase">
-                      Add to Calendar
-                    </button>
+                  {/* Row 2: Weighted Action Bar - Reduced Height */}
+                  <div className="flex gap-3 h-12 sm:h-14">
+                    {/* Wider RSVP Box */}
+                    <div className="flex-grow min-w-0">
+                       {selectedEvent.status === 'upcoming' ? (
+                          <button className="w-full h-full flex items-center gap-3 px-5 bg-red-600/90 hover:bg-red-500 text-white rounded-xl transition-all group/rsvp relative overflow-hidden shadow-lg shadow-red-600/10 active:scale-[0.98]">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/rsvp:translate-x-full transition-transform duration-1000" />
+                            <div className="w-7 h-7 flex items-center justify-center bg-white/20 rounded-lg group-hover/rsvp:rotate-90 transition-transform hidden sm:flex">
+                              <ChevronRight className="w-4 h-4" />
+                            </div>
+                            <div className="text-left">
+                              <p className="text-[7px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">Authorization</p>
+                              <p className="text-white text-[10px] font-black tracking-[0.2em] uppercase italic">Initiate Presence</p>
+                            </div>
+                          </button>
+                        ) : (
+                          <div className="w-full h-full flex items-center gap-4 px-5 bg-white/[0.05] border border-white/5 rounded-xl opacity-50 grayscale cursor-not-allowed">
+                            <div className="w-7 h-7 flex items-center justify-center bg-gray-500/10 text-gray-400 rounded-lg">
+                              <X className="w-3.5 h-3.5" />
+                            </div>
+                            <p className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Session Concluded</p>
+                          </div>
+                        )}
+                    </div>
+
+                    {/* Square Attendance Box */}
+                    <div className="aspect-square h-full flex flex-col items-center justify-center bg-white/[0.03] border border-white/10 rounded-xl group/chip relative overflow-hidden transition-colors hover:bg-white/[0.06]">
+                      <div className="absolute top-0 right-0 p-1">
+                        <div className={`w-1 h-1 rounded-full animate-pulse ${selectedEvent.status === 'upcoming' ? 'bg-blue-500' : 'bg-green-500'}`} />
+                      </div>
+                      <p className="text-white text-base font-black leading-none mb-1">{selectedEvent.registeredCount}</p>
+                      <p className="text-[6px] font-black text-gray-500 uppercase tracking-[0.2em] text-center px-1">
+                        {selectedEvent.status === 'upcoming' ? 'Reg.' : 'Att.'}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Photos Gallery Area */}
-                <div className="mt-8 pt-8 border-t border-white/10">
-                  <div className="flex items-center gap-3 mb-6">
-                    <ImageIcon className="w-5 h-5 text-red-500" />
-                    <h3 className="font-orbitron font-bold text-xl uppercase tracking-widest text-white">Event Gallery</h3>
+                <div className="space-y-6 text-gray-400 text-xs sm:text-sm leading-relaxed mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-6 custom-scrollbar">
+                  <div className="relative">
+                    <div className="absolute -left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 to-transparent opacity-40" />
+                    <p className="text-gray-200 text-sm sm:text-base font-medium leading-relaxed mb-4">
+                      {selectedEvent.description}
+                    </p>
                   </div>
-                  
+                </div>
+
+                {/* Bottom Gallery */}
+                <div className="shrink-0 relative">
                   {selectedEvent.photos && selectedEvent.photos.length > 0 ? (
-                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {selectedEvent.photos.map((photo, idx) => (
-                           <div key={idx} className="aspect-square bg-white/[0.05] rounded-2xl overflow-hidden border border-white/10 group cursor-pointer">
-                              <img 
-                                src={photo} 
-                                alt={`Event photo ${idx + 1}`} 
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100"
-                              />
+                    <div className="relative group/gallery">
+                       <div 
+                         ref={galleryRef}
+                         className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
+                       >
+                         {selectedEvent.photos.map((photo, idx) => (
+                           <div 
+                             key={idx} 
+                             onClick={() => setActiveImage(photo)}
+                             className={`w-20 h-14 shrink-0 rounded-xl overflow-hidden border transition-all duration-300 group cursor-pointer snap-center relative ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
+                           >
+                             <img src={photo} className="w-full h-full object-cover" alt="" />
                            </div>
-                        ))}
-                     </div>
+                         ))}
+                       </div>
+                    </div>
                   ) : (
-                    <div className="p-12 border-2 border-dashed border-white/10 rounded-3xl flex flex-col items-center justify-center text-center bg-white/[0.01]">
-                       <ImageIcon className="w-10 h-10 text-white/20 mb-4" />
-                       <p className="text-white/40 font-bold uppercase tracking-widest text-xs">No photos available yet</p>
+                    <div className="flex items-center gap-2 p-4 border border-dashed border-white/10 rounded-2xl bg-white/[0.01]">
+                       <ImageIcon className="w-4 h-4 text-white/20" />
+                       <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest">No Intelligence gathered (Photos)</span>
                     </div>
                   )}
                 </div>
