@@ -241,7 +241,7 @@ export default function News() {
                   </div>
                   <div className="flex items-center gap-2">
                      <MapPin className="w-4 h-4 text-fuchsia-500" />
-                     <span>IIT</span>
+                     <span>{selectedNews.location}</span>
                   </div>
                   <div className="flex items-center gap-2">
                      <Clock className="w-4 h-4 text-fuchsia-500" />

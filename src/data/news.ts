@@ -6,6 +6,7 @@ export interface NewsItem {
   category: string;
   readTime: string;
   image: string;
+  location: string;
   isFeatured?: boolean;
   photos?: string[];
 }
@@ -19,6 +20,7 @@ export const news: NewsItem[] = [
     category: 'Competitions',
     readTime: '3 min read',
     image: '/images/gallery/iit/iit0.webp',
+    location: 'IIT Sfax',
     isFeatured: true,
     photos: [
       '/images/gallery/iit/iit0.webp',
@@ -27,7 +29,6 @@ export const news: NewsItem[] = [
       '/images/gallery/iit/iit3.webp',
       '/images/gallery/iit/iit4.webp',
       '/images/gallery/iit/iit5.webp',
-
     ]
   },
   {
@@ -38,10 +39,10 @@ export const news: NewsItem[] = [
     category: 'Competitions',
     readTime: '3 min read',
     image: '/images/gallery/epi1.webp',
+    location: 'EPI Sousse',
     photos: [
       '/images/gallery/epi1.webp',
       '/images/gallery/epi2.webp',
-
     ]
   },
   {
@@ -52,12 +53,12 @@ export const news: NewsItem[] = [
     category: 'Competitions',
     readTime: '5 min read',
     image: '/images/gallery/fsm/fsm1.webp',
+    location: 'FSM Monastir',
     photos: [
       '/images/gallery/fsm/fsm1.webp',
       '/images/gallery/fsm/fsm2.webp',
       '/images/gallery/fsm/fsm3.webp',
       '/images/gallery/fsm/fsm4.webp',
-
     ]
   },
   {
@@ -68,6 +69,7 @@ export const news: NewsItem[] = [
     category: 'Competitions',
     readTime: '4 min read',
     image: '/images/gallery/enet/enet0.webp',
+    location: "ENET'Com Sfax",
     photos: [
       '/images/gallery/enet/enet0.webp',
       '/images/gallery/enet/enet1.webp',
@@ -85,7 +87,6 @@ export const news: NewsItem[] = [
       '/images/gallery/enet/enet13.webp',
       '/images/gallery/enet/enet14.webp',
       '/images/gallery/enet/enet15.webp',
-
     ]
   },
   {
@@ -96,11 +97,11 @@ export const news: NewsItem[] = [
     category: 'Competitions',
     readTime: '2 min read',
     image: '/images/gallery/ensit/ensit0.webp',
+    location: 'ENSIT Tunis',
     photos: [
       '/images/gallery/ensit/ensit0.webp',
       '/images/gallery/ensit/ensit1.webp',
       '/images/gallery/ensit/ensit2.webp',
-
     ]
   },
 ];
