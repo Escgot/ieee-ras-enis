@@ -110,14 +110,23 @@ export default function Hero() {
           {/* Left Text Column */}
           <div ref={textColRef} className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-20">
 
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-6 py-2.5 mb-8 hero-badge bg-foreground/5 dark:bg-white/5 backdrop-blur-md border border-foreground/10 dark:border-white/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+            {/* ENICAR Announcement Badge */}
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSck4eCXC7dNc1zINEu2B07CxrywcQStTC58ff-RatrZI0RahQ/viewform?pli=1&pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 px-6 py-2.5 mb-8 hero-badge bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_0_30px_rgba(239,68,68,0.1)] hover:border-red-500/50 transition-all duration-300 hover:scale-[1.02]"
+            >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
               </span>
-              <span className="text-xs sm:text-sm text-foreground font-bold tracking-widest uppercase">IEEE Student Branch · RAS Chapter</span>
-            </div>
+              <div className="flex items-center gap-2">
+                <span className="px-1.5 py-0.5 rounded-md bg-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest">New</span>
+                <span className="text-xs sm:text-sm text-foreground font-bold tracking-[0.2em] uppercase group-hover:text-red-400 transition-colors">ENICAR FL CAR</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-red-500 group-hover:translate-x-1 transition-transform" />
+            </a>
 
             {/* Massive Title */}
             <h1 className="font-orbitron font-black mb-6 tracking-tighter leading-[0.85] flex flex-col">
