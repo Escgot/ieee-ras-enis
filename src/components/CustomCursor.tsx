@@ -18,7 +18,33 @@ export default function CustomCursor() {
 
     if (isMobile) return;
 
+    let isHoveringLink = false;
+
+    const handleMouseLeaveLink = () => {
+      isHoveringLink = false;
+      gsap.to(followerRef.current, {
+        scale: 1,
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        borderColor: 'rgba(239, 68, 68, 0.3)',
+        duration: 0.4,
+        ease: 'expo.out'
+      });
+      gsap.to(cursorRef.current, { opacity: 1 });
+      tailRefs.current.forEach((dot: HTMLDivElement | null) => {
+        if (dot) gsap.to(dot, { opacity: 0.4 });
+      });
+    };
+
     const moveCursor = (e: MouseEvent) => {
+      // Self-healing check: if the component we hovered unmounted
+      if (isHoveringLink) {
+        const target = e.target as HTMLElement | null;
+        if (target && !target.closest('a, button, [role="button"]')) {
+          handleMouseLeaveLink();
+        }
+      }
       // Precision Laser Focus
       gsap.to(cursorRef.current, {
         x: e.clientX,
@@ -59,6 +85,7 @@ export default function CustomCursor() {
     };
 
     const handleMouseEnterLink = (e: Event) => {
+      isHoveringLink = true;
       const target = e.currentTarget as HTMLElement;
       const rect = target.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -87,21 +114,7 @@ export default function CustomCursor() {
       });
     };
 
-    const handleMouseLeaveLink = () => {
-      gsap.to(followerRef.current, {
-        scale: 1,
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        borderColor: 'rgba(239, 68, 68, 0.3)',
-        duration: 0.4,
-        ease: 'expo.out'
-      });
-      gsap.to(cursorRef.current, { opacity: 1 });
-      tailRefs.current.forEach((dot: HTMLDivElement | null) => {
-        if (dot) gsap.to(dot, { opacity: 0.4 });
-      });
-    };
+
 
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mousedown', handleMouseDown);
