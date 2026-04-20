@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Clock, Calendar, TrendingUp, X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -236,12 +236,12 @@ export default function News() {
                         setActiveImage(photos[prevIdx]);
                       }
                     }}
-                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing p-4 lg:p-12"
+                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing bg-black/20"
                   >
                     <img 
                       src={activeImage || selectedNews.image} 
                       alt={selectedNews.title} 
-                      className="max-w-full max-h-full object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                      className="w-full h-full object-contain"
                     />
                   </motion.div>
                 </AnimatePresence>

@@ -36,7 +36,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'FIGHTER',
+    title: 'FIGHTER ROBOT',
     description: 'This project presents a compact fighter robot engineered for competitive robotics challenges. Built on a robust custom chassis, the robot combines powerful motors, precise control systems, and responsive sensors to detect opponents and react instantly. Its design emphasizes speed, stability, and strategic maneuverability, enabling it to push, evade, and outmatch rivals within the arena. Optimized for performance and durability, the robot delivers fast, aggressive, and controlled combat behavior in every match',
     category: 'FIGHTER',
     number: '03',

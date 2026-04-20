@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ExternalLink, X, Cpu, Settings, Target, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -233,12 +233,12 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                         setActiveImage(photos[prevIdx]);
                       }
                     }}
-                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing p-4 lg:p-12"
+                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
                   >
                     <img 
                       src={activeImage || selectedProject.image} 
                       alt={selectedProject.title} 
-                      className="max-w-full max-h-full object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                      className="w-full h-full object-cover"
                     />
                   </motion.div>
                 </AnimatePresence>
@@ -262,7 +262,9 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                    <ChevronRight className="w-6 h-6 text-white/20" />
                 </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent pointer-events-none" />
+                {/* Gradient merge effect for side-by-side layout */}
+                <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0c0515] to-transparent pointer-events-none z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:hidden pointer-events-none z-20" />
               </div>
 
               {/* Right Side: Main Content Area */}
