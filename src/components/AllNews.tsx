@@ -164,7 +164,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest"><Clock className="w-3.5 h-3.5 text-purple-500" />{item.readTime}</div>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-black text-foreground hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
-                        Engage Intel <ArrowLeft className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
+                        <ArrowLeft className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
                       </div>
                     </div>
                   </div>
@@ -213,7 +213,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest"><Clock className="w-3.5 h-3.5 text-purple-500" />{item.readTime}</div>
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-black text-foreground hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
-                        Engage Intel <ChevronRight className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
+                        <ChevronRight className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
                       </div>
                     </div>
                   </div>
@@ -327,9 +327,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                     Connecting members and celebrating achievements is a core directive of RAS ENIS. Our continuous evolution pushes the boundaries of autonomous systems.
                   </p>
 
-                  <button className="flex items-center gap-2 mt-6 px-4 py-2 bg-white/[0.05] hover:bg-fuchsia-500 text-white rounded-lg transition-colors border border-white/10 text-[10px] font-black uppercase tracking-widest w-fit">
-                    <Share2 className="w-3.5 h-3.5" /> Share Intel
-                  </button>
+
                 </div>
 
                 {/* Bottom Divider */}
