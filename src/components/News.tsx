@@ -87,7 +87,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
               News &{' '}<span className="text-gradient">Updates</span>
             </h2>
           </div>
-          <button className="group cyber-btn flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-red-500/40 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase hover:bg-red-500/5">
+          <button onClick={onViewAll} className="group cyber-btn flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-red-500/40 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase hover:bg-red-500/5">
             All Posts
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
@@ -200,18 +200,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
           </div>
         </div>
 
-        {/* View All */}
-        {onViewAll && (
-          <div className="text-center mt-12">
-            <button
-              onClick={onViewAll}
-              className="group inline-flex items-center gap-2 px-8 py-3.5 border border-foreground/10 dark:border-white/10 text-muted-foreground hover:text-foreground transition-all duration-300 hover:bg-foreground/5 dark:hover:bg-white/[0.03] cyber-btn rounded-xl"
-            >
-              View All Posts
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-        )}
+
       </div>
 
       <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>

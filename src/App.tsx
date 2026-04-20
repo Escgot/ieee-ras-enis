@@ -56,16 +56,15 @@ function HomePage() {
       gsap.utils.toArray<HTMLElement>('.section-reveal').forEach((section) => {
         gsap.fromTo(
           section,
-          { opacity: 0, y: 60, scale: 0.98 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: 'expo.out',
+            duration: 0.7,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: section,
-              start: 'top 85%',
+              start: 'top 95%',
               toggleActions: 'play none none reverse',
             },
           }
