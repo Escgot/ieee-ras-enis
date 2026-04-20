@@ -38,8 +38,8 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
       gsap.fromTo('.project-card',
         { opacity: 0, y: 30, scale: 0.98 },
         {
-          opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out', stagger: 0.15,
-          scrollTrigger: { trigger: gridRef.current, start: 'top 94%' },
+          opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out', stagger: 0.15, delay: 0.3,
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 95%' },
         }
       );
 

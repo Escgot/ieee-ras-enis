@@ -50,7 +50,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
       gsap.fromTo('.event-item',
         { opacity: 0, x: -20, scale: 0.98 },
         {
-          opacity: 1, x: 0, scale: 1, duration: 0.7, ease: 'power2.out', stagger: 0.15,
+          opacity: 1, x: 0, scale: 1, duration: 0.7, ease: 'power2.out', stagger: 0.15, delay: 0.3,
           scrollTrigger: { trigger: sectionRef.current, start: 'top 95%' },
         }
       );
