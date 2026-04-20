@@ -47,23 +47,41 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         { height: '100%', opacity: 1, duration: 1.5, ease: 'power2.inOut', delay: 0.5 }
       );
 
-      // Alternating timeline nodes entrance
-      gsap.utils.toArray<HTMLElement>('.timeline-node').forEach((node, index) => {
-        const isLeft = index % 2 === 0;
+      // Timeline nodes entrance
+      gsap.utils.toArray<HTMLElement>('.timeline-node').forEach((node) => {
         gsap.fromTo(node,
-          { opacity: 0, x: isLeft ? -80 : 80, scale: 0.9 },
+          { opacity: 0, x: -40, scale: 0.95 },
           {
             opacity: 1,
             x: 0,
             scale: 1,
-            duration: 0.8,
-            ease: 'back.out(1.2)',
+            duration: 0.6,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: node,
-              start: 'top 85%',
+              start: 'top 90%',
             }
           }
         );
+
+        // Core dot entrance (fade and move from bottom)
+        const dot = node.querySelector('.timeline-dot');
+        if (dot) {
+          gsap.fromTo(dot,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'back.out(1.5)',
+              delay: 0.2, // slight delay after card
+              scrollTrigger: {
+                trigger: node,
+                start: 'top 90%',
+              }
+            }
+          );
+        }
       });
     }, containerRef);
 
@@ -117,7 +135,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
               {news.filter((_, idx) => idx % 2 === 0).map((item) => (
                 <div key={item.id} className="timeline-node relative group cursor-pointer" onClick={() => setSelectedNews(item)}>
                   {/* Core Dot */}
-                  <div className="absolute -right-6 top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-y-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+                  <div className="timeline-dot absolute -right-6 top-[calc(50%-8px)] w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
@@ -166,7 +184,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
               {news.filter((_, idx) => idx % 2 !== 0).map((item) => (
                 <div key={item.id} className="timeline-node relative group cursor-pointer" onClick={() => setSelectedNews(item)}>
                   {/* Core Dot (Left side of card) */}
-                  <div className="absolute -left-6 top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-y-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+                  <div className="timeline-dot absolute -left-6 top-[calc(50%-8px)] w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
