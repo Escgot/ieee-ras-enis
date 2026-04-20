@@ -14,6 +14,17 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const projectGalleryRef = useRef<HTMLDivElement>(null);
+
+  const scrollGallery = (direction: 'left' | 'right') => {
+    if (projectGalleryRef.current) {
+      const scrollAmount = 200;
+      projectGalleryRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const categories = ['All Projects', 'Autonomous', 'Industrial Arm', 'Computer Vision', 'Humanoid'];
 
@@ -170,168 +181,170 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-7xl bg-transparent border-none shadow-none p-0 overflow-visible">
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
           {selectedProject && (
-            <div className="relative w-full max-h-[90vh] overflow-y-auto no-scrollbar bg-[#080809]/95 border border-white/10 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_0_100px_rgba(0,0,0,0.8)]">
-              {/* Close button - floating style */}
-              <button 
+            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+              <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-8 right-8 z-[60] p-4 bg-white/5 hover:bg-red-500 text-white rounded-full transition-all duration-300 border border-white/10 backdrop-blur-xl group hover:scale-110 active:scale-95 shadow-2xl"
+                className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
               >
-                <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
+                <X className="w-5 h-5" />
               </button>
 
-              <div className="flex flex-col lg:flex-row min-h-[600px]">
-                {/* Left Side: Visual Showcase - Swippable Gallery */}
-                <div className="lg:w-[55%] relative overflow-hidden group/img min-h-[400px] lg:min-h-full bg-[#050505] flex items-center justify-center">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeImage || selectedProject.image}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      drag="x"
-                      dragConstraints={{ left: 0, right: 0 }}
-                      onDragEnd={(_, info) => {
-                        const swipe = info.offset.x;
-                        const photos = selectedProject.photos || [selectedProject.image];
-                        const currentIdx = photos.indexOf(activeImage || selectedProject.image);
-                        
-                        if (swipe < -50) { // Swipe Left -> Next
-                          const nextIdx = (currentIdx + 1) % photos.length;
-                          setActiveImage(photos[nextIdx]);
-                        } else if (swipe > 50) { // Swipe Right -> Prev
-                          const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
-                          setActiveImage(photos[prevIdx]);
-                        }
-                      }}
-                      className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-                    >
-                      <img 
-                        src={activeImage || selectedProject.image} 
-                        alt={selectedProject.title} 
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                  
-                  {/* Bottom info Overlay */}
-                  <div className="absolute bottom-10 left-10 z-20 space-y-4">
-                    <div className="flex items-center gap-3">
-                      <span className={`px-5 py-2 text-white text-[10px] font-black uppercase tracking-[0.35em] rounded-full shadow-[0_0_25px_rgba(239,68,68,0.4)] ${selectedProject.status === 'completed' ? 'bg-green-500 shadow-green-500/20' : 'bg-yellow-500 shadow-yellow-500/20'}`}>
-                        {selectedProject.status}
-                      </span>
-                      <div className="px-5 py-2 bg-white/5 border border-white/10 backdrop-blur-md rounded-full text-[10px] text-gray-300 font-bold uppercase tracking-widest">
-                        R&D PHASE
-                      </div>
-                    </div>
+              {/* Left Side: Hero Image - Swippable Gallery */}
+              <div className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center group/hero">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeImage || selectedProject.image}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    onDragEnd={(_, info) => {
+                      const swipe = info.offset.x;
+                      const photos = selectedProject.photos || [selectedProject.image];
+                      const currentIdx = photos.indexOf(activeImage || selectedProject.image);
+                      
+                      if (swipe < -50) { // Swipe Left -> Next
+                        const nextIdx = (currentIdx + 1) % photos.length;
+                        setActiveImage(photos[nextIdx]);
+                      } else if (swipe > 50) { // Swipe Right -> Prev
+                        const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
+                        setActiveImage(photos[prevIdx]);
+                      }
+                    }}
+                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+                  >
+                    <img 
+                      src={activeImage || selectedProject.image} 
+                      alt={selectedProject.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Visual Status Badges */}
+                <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
+                  <span className="px-3 py-1 text-[9px] font-black text-red-400 bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
+                    {selectedProject.category}
+                  </span>
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/5 shadow-sm opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700 delay-100">
+                    <div className="w-1 h-1 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">{selectedProject.status}</span>
                   </div>
-
-                  {/* Navigation Overlay Hints */}
-                  <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                     <ChevronLeft className="w-6 h-6 text-white/20" />
-                  </div>
-                  <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                     <ChevronRight className="w-6 h-6 text-white/20" />
-                  </div>
-
-                  {/* Gradient merge effect for side-by-side layout */}
-                  <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#080809] to-transparent pointer-events-none z-20" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080809] via-transparent to-transparent lg:hidden pointer-events-none z-20" />
                 </div>
 
-                {/* Right Side: Technical Dossier */}
-                <div className="lg:w-[45%] p-8 sm:p-12 lg:p-16 flex flex-col relative overflow-hidden bg-white/[0.01]">
-                  {/* Decorative background elements */}
-                  <div className="absolute -top-24 -right-24 w-64 h-64 bg-red-500/5 rounded-full blur-[100px] pointer-events-none" />
-                  <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent" />
+                {/* Navigation Overlay Hints */}
+                <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center">
+                   <ChevronLeft className="w-6 h-6 text-white/20" />
+                </div>
+                <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center">
+                   <ChevronRight className="w-6 h-6 text-white/20" />
+                </div>
 
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-4 mb-8">
-                       <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                       <span className="text-[10px] font-black text-gray-500 uppercase tracking-[0.5em]">
-                         Archive Dossier // {selectedProject.category}
-                       </span>
-                    </div>
+                {/* Gradient merge effect for side-by-side layout */}
+                <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0c0515] to-transparent pointer-events-none z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:hidden pointer-events-none z-20" />
+              </div>
 
-                    <h2 className="font-orbitron text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-8 uppercase leading-[1.1] tracking-tight">
-                      {selectedProject.title.split(' ').map((word, i) => (
-                        <span key={i} className={i === selectedProject.title.split(' ').length - 1 ? "text-gradient block mt-1" : "block"}>
-                          {word}
-                        </span>
-                      ))}
-                    </h2>
+              {/* Right Side: Main Content Area */}
+              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
 
-                    <div className="space-y-10">
-                      <div className="relative group/desc">
-                        <div className="absolute -left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500/50 to-transparent opacity-0 group-hover/desc:opacity-100 transition-opacity" />
-                        <p className="text-gray-400 text-base leading-relaxed font-medium">
-                          {selectedProject.description}
-                        </p>
-                      </div>
+                {/* Category Badge */}
+                <div className="mb-4 lg:mb-6 self-start shrink-0">
+                  <span className="px-3 py-1.5 border border-red-500/30 text-red-300 text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] rounded-md bg-red-500/10 backdrop-blur-md">
+                    PROJECT // {selectedProject.category.toUpperCase()}
+                  </span>
+                </div>
 
-                      {/* Technical Specs Grid */}
-                      <div className="grid grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block">Primary Core</label>
-                          <div className="flex items-center gap-3 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors">
-                            <Cpu className="w-5 h-5 text-red-500" />
-                            <div className="text-xs text-white font-bold uppercase tracking-tight">NVIDIA ORIN</div>
+                {/* Title */}
+                <h2 className="font-orbitron text-base sm:text-lg lg:text-xl font-black text-white mb-4 lg:mb-6 leading-tight tracking-wide shrink-0">
+                  {selectedProject.title}
+                </h2>
+
+                {/* Metadata Row */}
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-4 lg:mb-6 text-xs text-gray-300 font-medium shrink-0">
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4 text-red-500" />
+                    <span className="uppercase text-[9px] tracking-widest">{selectedProject.status}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Cpu className="w-4 h-4 text-red-500" />
+                    <span className="uppercase text-[9px] tracking-widest">R&D Phase</span>
+                  </div>
+                </div>
+
+                {/* Top Divider */}
+                <div className="h-px w-full bg-white/5 mb-4 lg:mb-6 shrink-0" />
+
+                {/* Content / Excerpt */}
+                <div className="space-y-4 text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
+                  <p className="text-gray-200">
+                    {selectedProject.description}
+                  </p>
+
+                  <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block flex items-center gap-2 mt-6">
+                    <Settings className="w-3 h-3 text-red-500" />
+                    Integrated Technologies
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {selectedProject.technologies.map((tech) => (
+                      <span key={tech} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[9px] text-gray-300 uppercase font-black tracking-widest hover:border-red-500 hover:text-white transition-all duration-300 cursor-default">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Divider */}
+                <div className="h-px w-full bg-white/5 mb-3 shrink-0" />
+
+                {/* Bottom Photos Gallery */}
+                <div className="shrink-0 relative">
+                  {selectedProject.photos && selectedProject.photos.length > 0 ? (
+                    <div className="relative group/gallery">
+                      <button 
+                        onClick={() => scrollGallery('left')}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-red-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -ml-3 backdrop-blur-md"
+                      >
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+
+                      <div 
+                        ref={projectGalleryRef}
+                        className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
+                      >
+                        {selectedProject.photos.map((photo, idx) => (
+                          <div 
+                            key={idx} 
+                            onClick={() => setActiveImage(photo)}
+                            className="w-16 h-12 sm:w-20 sm:h-14 lg:w-24 lg:h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group cursor-pointer snap-center relative"
+                          >
+                            <img 
+                              src={photo} 
+                              alt={`Gallery ${idx + 1}`} 
+                              className={`w-full h-full object-cover transition-all duration-500 hover:scale-110 ${activeImage === photo ? 'opacity-100 scale-110' : 'opacity-40 group-hover:opacity-100'}`} 
+                            />
+                            {activeImage === photo && (
+                              <div className="absolute inset-0 border-2 border-red-500 rounded-lg pointer-events-none shadow-[inset_0_0_10px_rgba(239,68,68,0.5)]"></div>
+                            )}
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block">Performance</label>
-                          <div className="flex items-center gap-3 p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 transition-colors">
-                            <Target className="w-5 h-5 text-red-500" />
-                            <div className="text-xs text-white font-bold uppercase tracking-tight">99.8% ACC</div>
-                          </div>
-                        </div>
+                        ))}
                       </div>
 
-                      {/* Extended Technologies */}
-                      <div className="space-y-4">
-                        <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block flex items-center gap-2">
-                           <Settings className="w-3 h-3 text-red-500" />
-                           Integrated Technologies
-                        </label>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.technologies.map((tech) => (
-                            <span key={tech} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] text-gray-300 uppercase font-black tracking-widest hover:border-red-500 hover:text-white transition-all duration-300 cursor-default">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Bottom Photos Gallery (Archive View) */}
-                      <div className="shrink-0 relative">
-                        {selectedProject.photos && selectedProject.photos.length > 0 && (
-                          <div className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth">
-                            {selectedProject.photos.map((photo, idx) => (
-                              <div 
-                                key={idx} 
-                                onClick={() => setActiveImage(photo)}
-                                className={`w-16 h-12 shrink-0 rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer snap-center ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
-                              >
-                                <img src={photo} className="w-full h-full object-cover" alt="" />
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="mt-16 flex flex-col sm:flex-row gap-4">
-                      <button className="flex-grow group relative overflow-hidden px-8 py-5 bg-red-600 hover:bg-red-700 text-white rounded-2xl transition-all font-black text-xs tracking-[0.3em] uppercase">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                        <span className="relative flex items-center justify-center gap-3">
-                          Access Case Study
-                          <ExternalLink className="w-4 h-4" />
-                        </span>
+                      <button 
+                        onClick={() => scrollGallery('right')}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-red-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -mr-3 backdrop-blur-md"
+                      >
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="hidden"></div>
+                  )}
                 </div>
+
               </div>
             </div>
           )}
