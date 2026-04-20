@@ -72,11 +72,14 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-[#070707] pt-24 pb-20 relative overflow-hidden">
-      {/* Dynamic Background Noise & Orbs */}
+      {/* Rich Ambient Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-600/10 blur-[150px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-600/10 blur-[150px] rounded-full mix-blend-screen" />
-        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-red-600/8 blur-[180px] rounded-full" />
+        <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-purple-600/8 blur-[160px] rounded-full" />
+        <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-fuchsia-600/6 blur-[140px] rounded-full" />
+        <div className="absolute bottom-0 right-1/3 w-[500px] h-[500px] bg-red-500/5 blur-[200px] rounded-full" />
+        <div className="absolute inset-0 cyber-grid opacity-[0.03] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070707] via-transparent to-[#070707] pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,11 +112,11 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         </div>
 
         {/* Central Asymmetrical Timeline Architecture */}
-        <div ref={timelineRef} className="relative mt-20">
+        <div ref={timelineRef} className="relative mt-10">
           {/* Main Central Glow Line */}
           <div className="timeline-line absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent lg:-translate-x-1/2 rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
 
-          <div className="space-y-12 sm:space-y-24">
+          <div className="space-y-6 sm:space-y-8">
             {news.map((item, index) => {
               const isLeft = index % 2 === 0;
               return (
