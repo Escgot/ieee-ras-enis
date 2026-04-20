@@ -137,17 +137,16 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 
                 {/* Floating Tags */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="px-3 py-1 text-[9px] font-black text-red-400 bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
+                  <span className="px-3 py-1 text-[9px] font-black text-red-100 bg-red-600 dark:bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
                     {project.category}
                   </span>
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/50 dark:bg-black/40 backdrop-blur-md rounded-full border border-black/10 dark:border-white/5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
                     <div className="w-1 h-1 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">{project.status}</span>
+                    <span className="text-[8px] text-gray-200 dark:text-gray-400 font-bold uppercase tracking-wider">{project.status}</span>
                   </div>
                 </div>
 
                 {/* Big Background Number */}
-                <span className="absolute -bottom-4 -right-2 font-orbitron text-8xl font-black text-black/[0.05] dark:text-white/[0.03] group-hover:text-red-500/5 transition-colors duration-1000 select-none z-0">
                 <span className="absolute -bottom-4 -right-2 font-orbitron text-8xl font-black text-foreground/[0.03] group-hover:text-red-500/5 transition-colors duration-1000 select-none z-0">
                   {project.number}
                 </span>
