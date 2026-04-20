@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function News() {
+export default function News({ onViewAll }: { onViewAll?: () => void }) {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -198,7 +198,21 @@ export default function News() {
               </div>
             ))}
           </div>
+          </div>
         </div>
+
+        {/* View All */}
+        {onViewAll && (
+          <div className="text-center mt-12">
+            <button
+              onClick={onViewAll}
+              className="group inline-flex items-center gap-2 px-8 py-3.5 border border-foreground/10 dark:border-white/10 text-muted-foreground hover:text-foreground transition-all duration-300 hover:bg-foreground/5 dark:hover:bg-white/[0.03] cyber-btn rounded-xl"
+            >
+              View All Posts
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        )}
       </div>
 
       <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>

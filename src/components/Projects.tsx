@@ -36,10 +36,10 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.project-card',
-        { opacity: 0, y: 60, scale: 0.96 },
+        { opacity: 0, y: 30, scale: 0.98 },
         {
-          opacity: 1, y: 0, scale: 1, duration: 0.9, stagger: 0.18, ease: 'power3.out',
-          scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
+          opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: gridRef.current, start: 'top 90%' },
         }
       );
 

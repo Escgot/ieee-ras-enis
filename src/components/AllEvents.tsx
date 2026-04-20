@@ -300,9 +300,11 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
                     </div>
 
                     <div className="aspect-square h-full flex flex-col items-center justify-center bg-white/[0.03] border border-white/10 rounded-xl group/chip relative overflow-hidden">
-                      <p className="text-white text-base font-black leading-none mb-1">{selectedEvent.registeredCount}</p>
+                      <p className={selectedEvent.status === 'upcoming' ? "text-white text-[7px] font-black leading-tight uppercase text-center px-1" : "text-white text-base font-black leading-none mb-1"}>
+                        {selectedEvent.status === 'upcoming' ? 'Coming Soon' : selectedEvent.registeredCount}
+                      </p>
                       <p className="text-[6px] font-black text-gray-500 uppercase tracking-[0.2em] text-center px-1">
-                        {selectedEvent.status === 'upcoming' ? 'Reg.' : 'Att.'}
+                        {selectedEvent.status === 'upcoming' ? 'Status' : 'Att.'}
                       </p>
                     </div>
                   </div>

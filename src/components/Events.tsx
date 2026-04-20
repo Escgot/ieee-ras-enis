@@ -48,10 +48,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.event-item',
-        { opacity: 0, x: -40, scale: 0.95 },
+        { opacity: 0, x: -20, scale: 0.98 },
         {
-          opacity: 1, x: 0, scale: 1, duration: 1.2, stagger: 0.2, ease: 'expo.out',
-          scrollTrigger: { trigger: containerRef.current, start: 'top 80%' },
+          opacity: 1, x: 0, scale: 1, duration: 0.7, ease: 'power2.out',
+          scrollTrigger: { trigger: containerRef.current, start: 'top 90%' },
         }
       );
 
@@ -156,7 +156,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                       {[
                         { icon: Calendar, text: event.time },
                         { icon: MapPin, text: event.location },
-                        { icon: Users, text: `${event.registeredCount}/${event.maxAttendees} registered` },
+                        { icon: Users, text: event.status === 'upcoming' ? 'Coming Soon' : `${event.registeredCount}/${event.maxAttendees} registered` },
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-1.5 text-xs text-gray-600">
                           <item.icon className="w-3.5 h-3.5 text-red-500/60" />
@@ -314,9 +314,11 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                       <div className="absolute top-0 right-0 p-1">
                         <div className={`w-1 h-1 rounded-full animate-pulse ${selectedEvent.status === 'upcoming' ? 'bg-blue-500' : 'bg-green-500'}`} />
                       </div>
-                      <p className="text-white text-base font-black leading-none mb-1">{selectedEvent.registeredCount}</p>
+                      <p className={selectedEvent.status === 'upcoming' ? "text-white text-[7px] font-black leading-tight uppercase text-center px-1" : "text-white text-base font-black leading-none mb-1"}>
+                        {selectedEvent.status === 'upcoming' ? 'Coming Soon' : selectedEvent.registeredCount}
+                      </p>
                       <p className="text-[6px] font-black text-gray-500 uppercase tracking-[0.2em] text-center px-1">
-                        {selectedEvent.status === 'upcoming' ? 'Reg.' : 'Att.'}
+                        {selectedEvent.status === 'upcoming' ? 'Status' : 'Att.'}
                       </p>
                     </div>
                   </div>

@@ -25,6 +25,7 @@ const Footer = lazy(() => import('./components/Footer'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const AllProducts = lazy(() => import('./components/AllProducts'));
+const AllNews = lazy(() => import('./components/AllNews'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,6 +46,7 @@ function HomePage() {
   const [showAllEvents, setShowAllEvents] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllProducts, setShowAllProducts] = useState(false);
+  const [showAllNews, setShowAllNews] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -88,6 +90,7 @@ function HomePage() {
     setShowAllEvents(true);
     setShowAllProjects(false);
     setShowAllProducts(false);
+    setShowAllNews(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -95,6 +98,7 @@ function HomePage() {
     setShowAllProjects(true);
     setShowAllEvents(false);
     setShowAllProducts(false);
+    setShowAllNews(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -102,19 +106,29 @@ function HomePage() {
     setShowAllProducts(true);
     setShowAllEvents(false);
     setShowAllProjects(false);
+    setShowAllNews(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const handleBackToHome = (section: 'events' | 'projects' | 'shop') => {
+  const handleShowAllNews = () => {
+    setShowAllNews(true);
     setShowAllEvents(false);
     setShowAllProjects(false);
     setShowAllProducts(false);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleBackToHome = (section: 'events' | 'projects' | 'shop' | 'news') => {
+    setShowAllEvents(false);
+    setShowAllProjects(false);
+    setShowAllProducts(false);
+    setShowAllNews(false);
     setTimeout(() => {
       document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
-  const isHome = !showAllEvents && !showAllProjects && !showAllProducts;
+  const isHome = !showAllEvents && !showAllProjects && !showAllProducts && !showAllNews;
 
   return (
     <div ref={mainRef}>
@@ -126,6 +140,7 @@ function HomePage() {
                 setShowAllEvents(false);
                 setShowAllProjects(false);
                 setShowAllProducts(false);
+                setShowAllNews(false);
                 navigate('/');
               }}
             />
@@ -137,7 +152,7 @@ function HomePage() {
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <News />
+                <News onViewAll={handleShowAllNews} />
               </div>
               <SectionDivider />
               <div className="section-reveal">
@@ -170,6 +185,8 @@ function HomePage() {
           <AllEvents onBack={() => handleBackToHome('events')} />
         ) : showAllProducts ? (
           <AllProducts onBack={() => handleBackToHome('shop')} />
+        ) : showAllNews ? (
+          <AllNews onBack={() => handleBackToHome('news')} />
         ) : (
           <AllProjects onBack={() => handleBackToHome('projects')} />
         )}
