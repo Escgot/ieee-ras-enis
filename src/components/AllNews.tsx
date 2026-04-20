@@ -130,7 +130,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
-                  <div className="relative overflow-hidden bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-black/[0.04] dark:hover:bg-white/[0.04]">
+                  <div className="relative overflow-hidden bg-black/[0.02] dark:bg-white/[0.02] border border-transparent rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-black/[0.04] dark:hover:bg-white/[0.04] shadow-sm dark:shadow-none">
                     <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-black/10 dark:via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
 
@@ -179,7 +179,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
-                  <div className="relative overflow-hidden bg-black/[0.02] dark:bg-white/[0.02] border border-black/10 dark:border-white/10 rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-black/[0.04] dark:hover:bg-white/[0.04]">
+                  <div className="relative overflow-hidden bg-black/[0.02] dark:bg-white/[0.02] border border-transparent rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-black/[0.04] dark:hover:bg-white/[0.04] shadow-sm dark:shadow-none">
                     <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-black/10 dark:via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
 

@@ -117,7 +117,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
           {featuredProjects.map((project) => (
             <div
               key={project.id}
-              className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-black/5 dark:bg-[#0a0a0b]/40 border border-black/5 dark:border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5 transition-colors duration-500"
+              className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-black/5 dark:bg-[#0a0a0b]/40 border border-transparent rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5 transition-colors duration-500 shadow-sm dark:shadow-none"
               onClick={() => setSelectedProject(project)}
             >
               {/* Top Section: Imagery */}

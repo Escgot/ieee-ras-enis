@@ -32,7 +32,7 @@ export const projects: Project[] = [
     number: '02',
     image: '/images/projects/tt-terrain.webp',
     status: 'completed',
-    technologies: ['Inverse Kinematics', 'STMCube', 'Python'],
+    technologies: ['Real-time control', 'STMCube', 'PID', 'UART', 'Kinematics'],
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     number: '03',
     image: '/images/projects/fighter.webp',
     status: 'completed',
-    technologies: [''],
+    technologies: ['Weapon systems', 'Armor systems', 'Chassis design', 'Kinetic energy weapons'],
   },
   {
     id: 4,
@@ -52,6 +52,6 @@ export const projects: Project[] = [
     number: '04',
     image: '/images/projects/autonome.webp',
     status: 'in-progress',
-    technologies: ['Control Systems', 'Pneumatics'],
+    technologies: ['Raspberry Pi', 'ROS2', 'LiDAR', 'RF modules', 'PWM control'],
   },
 ];
