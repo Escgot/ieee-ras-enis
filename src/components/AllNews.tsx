@@ -171,7 +171,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
 
                     {/* Right Post */}
                     {right && (
-                      <div className="group cursor-pointer lg:mt-16" onClick={() => setSelectedNews(right)}>
+                      <div className="group cursor-pointer lg:mt-32" onClick={() => setSelectedNews(right)}>
                         <div className="relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-2xl p-5 lg:p-6 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-white/[0.04] h-full">
                           <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
                           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
