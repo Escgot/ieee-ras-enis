@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, MapPin, Users, ChevronRight, ArrowRight, X, Image as ImageIcon } from 'lucide-react';
+import { Calendar, MapPin, Users, ChevronRight, ArrowRight, X, ChevronLeft } from 'lucide-react';
 import { events, type Event } from '../data/events';
 import { Dialog, DialogContent } from './ui/dialog';
 
@@ -12,8 +12,6 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  const galleryRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
   // 3D Tilt Effect

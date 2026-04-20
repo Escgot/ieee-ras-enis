@@ -13,7 +13,6 @@ export default function News() {
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const newsGalleryRef = useRef<HTMLDivElement>(null);
 

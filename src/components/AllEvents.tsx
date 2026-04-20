@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Search, Calendar, MapPin, Filter, ArrowLeft, X, Image as ImageIcon } from 'lucide-react';
+import { Search, Calendar, MapPin, Filter, ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { events, type Event } from '../data/events';
 import { Dialog, DialogContent } from './ui/dialog';
 
@@ -16,7 +16,6 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
   const filteredEvents = events.filter((event) => {

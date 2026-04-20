@@ -13,7 +13,6 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const projectGalleryRef = useRef<HTMLDivElement>(null);
 
