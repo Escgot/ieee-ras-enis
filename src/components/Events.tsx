@@ -204,19 +204,38 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Left Side: Hero Image - Draggable Pan Effect */}
-              <div 
-                ref={imageContainerRef}
-                className="w-full lg:w-[50%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden cursor-grab active:cursor-grabbing bg-black flex items-center justify-center"
-              >
-                <motion.img 
-                  key={activeImage || selectedEvent.image}
-                  src={activeImage || selectedEvent.image} 
-                  alt={selectedEvent.title} 
-                  drag="x"
-                  dragConstraints={imageContainerRef}
-                  className="h-full w-auto max-w-none object-cover opacity-60 lg:opacity-80 transition-opacity duration-700"
-                />
+              {/* Left Side: Hero Image - Swippable Gallery */}
+              <div className="w-full lg:w-[50%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeImage || selectedEvent.image}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    onDragEnd={(_, info) => {
+                      const swipe = info.offset.x;
+                      const photos = selectedEvent.photos || [selectedEvent.image];
+                      const currentIdx = photos.indexOf(activeImage || selectedEvent.image);
+                      
+                      if (swipe < -50) { // Swipe Left -> Next
+                        const nextIdx = (currentIdx + 1) % photos.length;
+                        setActiveImage(photos[nextIdx]);
+                      } else if (swipe > 50) { // Swipe Right -> Prev
+                        const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
+                        setActiveImage(photos[prevIdx]);
+                      }
+                    }}
+                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing p-4 lg:p-12"
+                  >
+                    <img 
+                      src={activeImage || selectedEvent.image} 
+                      alt={selectedEvent.title} 
+                      className="max-w-full max-h-full object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                    />
+                  </motion.div>
+                </AnimatePresence>
                 
                 {/* Visual Status Badges */}
                 <div className="absolute bottom-10 left-10 z-20 flex gap-3 translate-y-4 group-hover:translate-y-0 transition-transform hidden lg:flex">
@@ -226,6 +245,14 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                   <span className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg backdrop-blur-md">
                     {selectedEvent.category}
                   </span>
+                </div>
+
+                {/* Navigation Overlay Hints */}
+                <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                   <ChevronLeft className="w-6 h-6 text-white/20" />
+                </div>
+                <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                   <ChevronRight className="w-6 h-6 text-white/20" />
                 </div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent pointer-events-none" />
@@ -308,10 +335,9 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
 
                 {/* Bottom Gallery */}
                 <div className="shrink-0 relative">
-                  {selectedEvent.photos && selectedEvent.photos.length > 0 ? (
+                  {selectedEvent.photos && selectedEvent.photos.length > 0 && (
                     <div className="relative group/gallery">
                        <div 
-                         ref={galleryRef}
                          className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
                        >
                          {selectedEvent.photos.map((photo, idx) => (
@@ -324,11 +350,6 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                            </div>
                          ))}
                        </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 p-4 border border-dashed border-white/10 rounded-2xl bg-white/[0.01]">
-                       <ImageIcon className="w-4 h-4 text-white/20" />
-                       <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest">No Intelligence gathered (Photos)</span>
                     </div>
                   )}
                 </div>

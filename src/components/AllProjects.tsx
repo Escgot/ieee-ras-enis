@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Search, ArrowLeft, X, Cpu, Settings, Target, ExternalLink } from 'lucide-react';
+import { Search, ArrowLeft, X, Cpu, Settings, Target, ExternalLink, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { projects, type Project } from '../data/projects';
 import { Dialog, DialogContent } from './ui/dialog';
+import { AnimatePresence } from 'framer-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Projects');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const categories = ['All Projects', 'Autonomous', 'Industrial Arm', 'Computer Vision', 'Humanoid'];
@@ -180,23 +182,39 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
               </button>
 
               <div className="flex flex-col lg:flex-row min-h-[600px]">
-                {/* Left Side: Visual Showcase */}
-                <div className="lg:w-[55%] relative overflow-hidden group/img min-h-[400px] lg:min-h-full">
-                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#080809] via-transparent to-transparent lg:bg-gradient-to-r" />
-                  <img 
-                    src={selectedProject.image} 
-                    alt={selectedProject.title} 
-                    className="absolute inset-0 w-full h-full object-cover scale-105 group-hover/img:scale-110 transition-transform duration-[2s] ease-out opacity-60 group-hover/img:opacity-80"
-                  />
+                {/* Left Side: Visual Showcase - Swippable Gallery */}
+                <div className="lg:w-[55%] relative overflow-hidden group/img min-h-[400px] lg:min-h-full bg-[#050505] flex items-center justify-center">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeImage || selectedProject.image}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      onDragEnd={(_, info) => {
+                        const swipe = info.offset.x;
+                        const photos = selectedProject.photos || [selectedProject.image];
+                        const currentIdx = photos.indexOf(activeImage || selectedProject.image);
+                        
+                        if (swipe < -50) { // Swipe Left -> Next
+                          const nextIdx = (currentIdx + 1) % photos.length;
+                          setActiveImage(photos[nextIdx]);
+                        } else if (swipe > 50) { // Swipe Right -> Prev
+                          const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
+                          setActiveImage(photos[prevIdx]);
+                        }
+                      }}
+                      className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing p-4 lg:p-12"
+                    >
+                      <img 
+                        src={activeImage || selectedProject.image} 
+                        alt={selectedProject.title} 
+                        className="max-w-full max-h-full object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                   
-                  {/* Floating ID badge */}
-                  <div className="absolute top-10 left-10 z-20 flex flex-col">
-                    <span className="font-orbitron text-7xl font-black text-white/5 leading-none select-none tracking-tighter">
-                      {selectedProject.number}
-                    </span>
-                    <div className="h-0.5 w-12 bg-red-500 mt-2 ml-1" />
-                  </div>
-
                   {/* Bottom info Overlay */}
                   <div className="absolute bottom-10 left-10 z-20 space-y-4">
                     <div className="flex items-center gap-3">
@@ -208,6 +226,16 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
                       </div>
                     </div>
                   </div>
+
+                  {/* Navigation Overlay Hints */}
+                  <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                     <ChevronLeft className="w-6 h-6 text-white/20" />
+                  </div>
+                  <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                     <ChevronRight className="w-6 h-6 text-white/20" />
+                  </div>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080809] via-transparent to-transparent lg:bg-gradient-to-r" />
                 </div>
 
                 {/* Right Side: Technical Dossier */}
@@ -271,6 +299,23 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
                             </span>
                           ))}
                         </div>
+                      </div>
+
+                      {/* Bottom Photos Gallery (Archive View) */}
+                      <div className="shrink-0 relative">
+                        {selectedProject.photos && selectedProject.photos.length > 0 && (
+                          <div className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth">
+                            {selectedProject.photos.map((photo, idx) => (
+                              <div 
+                                key={idx} 
+                                onClick={() => setActiveImage(photo)}
+                                className={`w-16 h-12 shrink-0 rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer snap-center ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
+                              >
+                                <img src={photo} className="w-full h-full object-cover" alt="" />
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
 

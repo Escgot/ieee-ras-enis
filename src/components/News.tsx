@@ -213,29 +213,55 @@ export default function News() {
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Left Side: Hero Image - Draggable Pan Effect */}
-              <div 
-                ref={imageContainerRef}
-                className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden cursor-grab active:cursor-grabbing bg-black flex items-center justify-center"
-              >
-                <motion.img 
-                  key={activeImage || selectedNews.image}
-                  src={activeImage || selectedNews.image} 
-                  alt={selectedNews.title} 
-                  drag="x"
-                  dragConstraints={imageContainerRef}
-                  className="h-full w-auto max-w-none object-contain opacity-60 lg:opacity-80 transition-opacity duration-700"
-                />
+              {/* Left Side: Hero Image - Swippable Gallery */}
+              <div className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center group/hero">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeImage || selectedNews.image}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    onDragEnd={(_, info) => {
+                      const swipe = info.offset.x;
+                      const photos = selectedNews.photos || [selectedNews.image];
+                      const currentIdx = photos.indexOf(activeImage || selectedNews.image);
+                      
+                      if (swipe < -50) { // Swipe Left -> Next
+                        const nextIdx = (currentIdx + 1) % photos.length;
+                        setActiveImage(photos[nextIdx]);
+                      } else if (swipe > 50) { // Swipe Right -> Prev
+                        const prevIdx = (currentIdx - 1 + photos.length) % photos.length;
+                        setActiveImage(photos[prevIdx]);
+                      }
+                    }}
+                    className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing p-4 lg:p-12"
+                  >
+                    <img 
+                      src={activeImage || selectedNews.image} 
+                      alt={selectedNews.title} 
+                      className="max-w-full max-h-full object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                    />
+                  </motion.div>
+                </AnimatePresence>
                 
-                {/* Drag Hint - Only visible on desktop or until first interaction */}
-                <div className="absolute top-4 left-4 z-40 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                   <div className="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-pulse" />
-                   <span className="text-[10px] text-white font-black uppercase tracking-widest">Drag to Panner</span>
+                {/* Visual Metadata Overlay */}
+                <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
+                  <span className="px-3 py-1.5 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
+                    {selectedNews.category}
+                  </span>
                 </div>
 
-                {/* Gradient fade to seamlessly blend with background */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-[#0c0515]/60 to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent lg:hidden pointer-events-none" />
-                <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-transparent via-[#0c0515]/20 to-[#0c0515] pointer-events-none" />
+                {/* Navigation Overlay Hints */}
+                <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center">
+                   <ChevronLeft className="w-6 h-6 text-white/20" />
+                </div>
+                <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center">
+                   <ChevronRight className="w-6 h-6 text-white/20" />
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent pointer-events-none" />
               </div>
 
               {/* Right Side: Main Content Area */}
