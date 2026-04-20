@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
+import { useLocation } from 'react-router-dom';
 
 // Robotic HUD & Sensor Cursor
 export default function CustomCursor() {
@@ -8,6 +9,26 @@ export default function CustomCursor() {
   const followerRef = useRef<HTMLDivElement>(null);
   const tailRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [isMobile, setIsMobile] = useState(false);
+  const location = useLocation();
+
+  // Force reset cursor on route changes
+  useEffect(() => {
+    if (followerRef.current && cursorRef.current) {
+      gsap.to(followerRef.current, {
+        scale: 1,
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        borderColor: 'rgba(239, 68, 68, 0.3)',
+        duration: 0.4,
+        ease: 'expo.out'
+      });
+      gsap.to(cursorRef.current, { opacity: 1 });
+      tailRefs.current.forEach((dot: HTMLDivElement | null) => {
+        if (dot) gsap.to(dot, { opacity: 0.4 });
+      });
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -121,8 +142,9 @@ export default function CustomCursor() {
     window.addEventListener('mouseup', handleMouseUp);
 
     const addLinkEvents = () => {
-      const elements = document.querySelectorAll('a, button, [role="button"]');
+      const elements = document.querySelectorAll('a:not(.cursor-tracked), button:not(.cursor-tracked), [role="button"]:not(.cursor-tracked)');
       elements.forEach((el) => {
+        el.classList.add('cursor-tracked');
         el.addEventListener('mouseenter', handleMouseEnterLink);
         el.addEventListener('mouseleave', handleMouseLeaveLink);
       });
