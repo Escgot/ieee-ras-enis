@@ -47,20 +47,19 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         { height: '100%', opacity: 1, duration: 1.5, ease: 'power2.inOut', delay: 0.5 }
       );
 
-      // Alternating timeline nodes entrance
-      gsap.utils.toArray<HTMLElement>('.timeline-node').forEach((node, index) => {
-        const isLeft = index % 2 === 0;
+      // Timeline nodes entrance
+      gsap.utils.toArray<HTMLElement>('.timeline-node').forEach((node) => {
         gsap.fromTo(node,
-          { opacity: 0, x: isLeft ? -80 : 80, scale: 0.9 },
+          { opacity: 0, x: -40, scale: 0.95 },
           {
             opacity: 1,
             x: 0,
             scale: 1,
-            duration: 0.8,
-            ease: 'back.out(1.2)',
+            duration: 0.6,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: node,
-              start: 'top 85%',
+              start: 'top 90%',
             }
           }
         );
@@ -114,24 +113,21 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         {/* Central Asymmetrical Timeline Architecture */}
         <div ref={timelineRef} className="relative mt-10">
           {/* Main Central Glow Line */}
-          <div className="timeline-line absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent lg:-translate-x-1/2 rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
+          <div className="timeline-line absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
 
           <div className="space-y-6 sm:space-y-8">
             {news.map((item, index) => {
               const isLeft = index % 2 === 0;
               return (
-                <div key={item.id} className={`timeline-node relative flex flex-col lg:flex-row items-center justify-between gap-8 ${isLeft ? 'lg:flex-row-reverse' : ''}`}>
+                <div key={item.id} className="timeline-node relative flex items-start gap-6">
                   
-                  {/* Timeline Core Dot (Desktop Only) */}
-                  <div className="absolute left-[26px] lg:left-1/2 top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 lg:-translate-x-1/2 -translate-y-1/2 z-20 hidden sm:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+                  {/* Timeline Core Dot */}
+                  <div className="absolute left-[18px] sm:left-[18px] top-8 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 z-20 hidden sm:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
-                  {/* Empty Spacer for alternating layout on desktop */}
-                  <div className="hidden lg:block lg:w-[45%]" />
-
                   {/* Content Container */}
-                  <div className={`w-full sm:w-[calc(100%-4rem)] lg:w-[45%] ml-auto sm:ml-12 lg:ml-0 group cursor-pointer ${isLeft ? 'lg:text-right' : 'lg:text-left'}`} onClick={() => setSelectedNews(item)}>
+                  <div className="w-full sm:ml-12 group cursor-pointer" onClick={() => setSelectedNews(item)}>
                     
                     <div className="relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-white/[0.04]">
                       {/* Background Hover Effect */}
@@ -139,7 +135,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
 
                       {/* Header Meta */}
-                      <div className={`flex items-center gap-3 mb-6 ${isLeft ? 'lg:justify-end' : 'justify-start'}`}>
+                      <div className="flex items-center gap-3 mb-6">
                         <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
                           LOG #{String(item.id).padStart(3, '0')}
                         </span>
@@ -173,8 +169,8 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                       </p>
 
                       {/* Bottom Meta & Action */}
-                      <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-white/5 ${isLeft ? 'lg:flex-row-reverse' : ''}`}>
-                        <div className={`flex flex-wrap items-center gap-4 ${isLeft ? 'lg:justify-end' : 'justify-start'}`}>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-white/5">
+                        <div className="flex flex-wrap items-center gap-4">
                            <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                              <MapPin className="w-3.5 h-3.5 text-purple-500" />
                              {item.location}
@@ -186,7 +182,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                         </div>
 
                         <div className="flex items-center gap-2 text-[10px] font-black text-white hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
-                          Engage Intel <ArrowLeft className={`w-4 h-4 transition-transform group-hover:scale-110 ${isLeft && 'hidden lg:block'} ${!isLeft && 'hidden'}`} /><ChevronRight className={`w-4 h-4 transition-transform group-hover:scale-110 ${isLeft && 'lg:hidden'} ${!isLeft && 'block'}`} />
+                          Engage Intel <ChevronRight className="w-4 h-4 transition-transform group-hover:scale-110" />
                         </div>
                       </div>
 
