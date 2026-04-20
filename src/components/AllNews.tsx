@@ -111,108 +111,120 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
           </div>
         </div>
 
-        {/* Paired 2-Column Grid Architecture */}
+        {/* Central Asymmetrical Timeline Architecture */}
         <div ref={timelineRef} className="relative mt-10">
+          {/* Main Central Glow Line */}
+          <div className="timeline-line absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent lg:-translate-x-1/2 rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
 
-          <div className="space-y-6">
-            {Array.from({ length: Math.ceil(news.length / 2) }, (_, pairIdx) => {
-              const left = news[pairIdx * 2];
-              const right = news[pairIdx * 2 + 1];
-              return (
-                <div key={pairIdx} className="timeline-node relative">
-                  {/* Central Timeline Dot (Desktop) */}
-                  <div className="absolute left-1/2 top-8 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-x-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+          {/* Masonry 2-Column F1 Grid Architecture */}
+          <div className="relative flex flex-col lg:flex-row items-start gap-8 lg:gap-16">
+            
+            {/* Central Timeline Glow Line (Desktop) */}
+            <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent lg:-translate-x-1/2 rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
+
+            {/* Left Column (Posts 1, 3, 5...) */}
+            <div className="w-full lg:w-1/2 flex flex-col gap-8">
+              {news.filter((_, idx) => idx % 2 === 0).map((item) => (
+                <div key={item.id} className="timeline-node relative group cursor-pointer" onClick={() => setSelectedNews(item)}>
+                  {/* Core Dot */}
+                  <div className="absolute -right-[2.35rem] top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-y-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
-                  {/* Central Line Segment (Desktop) */}
-                  <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500/40 via-purple-500/30 to-red-500/40 -translate-x-1/2 hidden lg:block" />
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                    {/* Left Post */}
-                    {left && (
-                      <div className="group cursor-pointer" onClick={() => setSelectedNews(left)}>
-                        <div className="relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-2xl p-5 lg:p-6 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-white/[0.04] h-full">
-                          <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
-                          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
+                  <div className="relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-white/[0.04]">
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
 
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
-                              LOG #{String(left.id).padStart(3, '0')}
-                            </span>
-                            <div className="flex items-center gap-2 opacity-50">
-                              <Calendar className="w-3.5 h-3.5" />
-                              <span className="text-[10px] font-bold uppercase tracking-widest">{left.date}</span>
-                            </div>
-                          </div>
-
-                          <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-4 border border-white/5">
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                            <img src={left.image} alt={left.title} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
-                          </div>
-
-                          <h3 className="text-lg font-orbitron font-black text-white uppercase italic leading-tight mb-3 group-hover:text-red-400 transition-colors line-clamp-2">
-                            {left.title}
-                          </h3>
-                          <p className="text-xs text-gray-400 leading-relaxed font-medium line-clamp-2 mb-4">{left.excerpt}</p>
-
-                          <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                            <div className="flex items-center gap-3">
-                              <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-500 uppercase tracking-widest">
-                                <MapPin className="w-3 h-3 text-purple-500" />{left.location}
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-1.5 text-[9px] font-black text-white hover:text-red-500 uppercase tracking-[0.15em] transition-colors">
-                              Read <ChevronRight className="w-3.5 h-3.5" />
-                            </div>
-                          </div>
-                        </div>
+                    <div className="flex items-center gap-3 mb-6 justify-start lg:justify-end">
+                      <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
+                        LOG #{String(item.id).padStart(3, '0')}
+                      </span>
+                      <div className="flex items-center gap-2 opacity-50">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">{item.date}</span>
                       </div>
-                    )}
+                    </div>
 
-                    {/* Right Post */}
-                    {right && (
-                      <div className="group cursor-pointer lg:mt-32" onClick={() => setSelectedNews(right)}>
-                        <div className="relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-2xl p-5 lg:p-6 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-white/[0.04] h-full">
-                          <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
-                          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
-
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
-                              LOG #{String(right.id).padStart(3, '0')}
-                            </span>
-                            <div className="flex items-center gap-2 opacity-50">
-                              <Calendar className="w-3.5 h-3.5" />
-                              <span className="text-[10px] font-bold uppercase tracking-widest">{right.date}</span>
-                            </div>
-                          </div>
-
-                          <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-4 border border-white/5">
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                            <img src={right.image} alt={right.title} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
-                          </div>
-
-                          <h3 className="text-lg font-orbitron font-black text-white uppercase italic leading-tight mb-3 group-hover:text-red-400 transition-colors line-clamp-2">
-                            {right.title}
-                          </h3>
-                          <p className="text-xs text-gray-400 leading-relaxed font-medium line-clamp-2 mb-4">{right.excerpt}</p>
-
-                          <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                            <div className="flex items-center gap-3">
-                              <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-500 uppercase tracking-widest">
-                                <MapPin className="w-3 h-3 text-purple-500" />{right.location}
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-1.5 text-[9px] font-black text-white hover:text-red-500 uppercase tracking-[0.15em] transition-colors">
-                              Read <ChevronRight className="w-3.5 h-3.5" />
-                            </div>
-                          </div>
-                        </div>
+                    <div className="relative w-full aspect-[21/9] sm:h-48 rounded-xl overflow-hidden mb-6 border border-white/5">
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 scale-110 group-hover:scale-100">
+                        <Target className="w-12 h-12 text-red-500/50 mix-blend-overlay animate-spin-slow" />
                       </div>
-                    )}
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-orbitron font-black text-white uppercase italic leading-tight mb-4 group-hover:text-red-400 transition-colors lg:text-right">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-400 leading-relaxed font-medium line-clamp-3 mb-6 group-hover:text-gray-300 transition-colors lg:text-right">
+                      {item.excerpt}
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-white/5 lg:flex-row-reverse">
+                      <div className="flex flex-wrap items-center gap-4 lg:justify-end">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest"><MapPin className="w-3.5 h-3.5 text-purple-500" />{item.location}</div>
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest"><Clock className="w-3.5 h-3.5 text-purple-500" />{item.readTime}</div>
+                      </div>
+                      <div className="flex items-center gap-2 text-[10px] font-black text-white hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
+                        Engage Intel <ArrowLeft className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+
+            {/* Right Column (Posts 2, 4, 6...) - Offset downwards for overlap */}
+            <div className="w-full lg:w-1/2 flex flex-col gap-8 lg:mt-32">
+              {news.filter((_, idx) => idx % 2 !== 0).map((item) => (
+                <div key={item.id} className="timeline-node relative group cursor-pointer" onClick={() => setSelectedNews(item)}>
+                  {/* Core Dot (Left side of card) */}
+                  <div className="absolute -left-[2.15rem] top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-y-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+                    <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
+                  </div>
+
+                  <div className="relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 lg:p-8 hover:border-red-500/30 transition-all duration-500 backdrop-blur-md hover:bg-white/[0.04]">
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/10 group-hover:to-purple-500/5 transition-opacity duration-700 pointer-events-none opacity-0 group-hover:opacity-100" />
+                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
+
+                    <div className="flex items-center gap-3 mb-6 justify-start">
+                      <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
+                        LOG #{String(item.id).padStart(3, '0')}
+                      </span>
+                      <div className="flex items-center gap-2 opacity-50">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">{item.date}</span>
+                      </div>
+                    </div>
+
+                    <div className="relative w-full aspect-[21/9] sm:h-48 rounded-xl overflow-hidden mb-6 border border-white/5">
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 scale-110 group-hover:scale-100">
+                        <Target className="w-12 h-12 text-red-500/50 mix-blend-overlay animate-spin-slow" />
+                      </div>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-orbitron font-black text-white uppercase italic leading-tight mb-4 group-hover:text-red-400 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-400 leading-relaxed font-medium line-clamp-3 mb-6 group-hover:text-gray-300 transition-colors">
+                      {item.excerpt}
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-white/5">
+                      <div className="flex flex-wrap items-center gap-4 justify-start">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest"><MapPin className="w-3.5 h-3.5 text-purple-500" />{item.location}</div>
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest"><Clock className="w-3.5 h-3.5 text-purple-500" />{item.readTime}</div>
+                      </div>
+                      <div className="flex items-center gap-2 text-[10px] font-black text-white hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
+                        Engage Intel <ChevronRight className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
