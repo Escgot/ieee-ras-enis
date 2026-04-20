@@ -127,7 +127,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
               {news.filter((_, idx) => idx % 2 === 0).map((item) => (
                 <div key={item.id} className="timeline-node relative group cursor-pointer" onClick={() => setSelectedNews(item)}>
                   {/* Core Dot */}
-                  <div className="absolute -right-[2.35rem] top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-y-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+                  <div className="absolute -right-6 top-12 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
@@ -179,7 +179,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
               {news.filter((_, idx) => idx % 2 !== 0).map((item) => (
                 <div key={item.id} className="timeline-node relative group cursor-pointer" onClick={() => setSelectedNews(item)}>
                   {/* Core Dot (Left side of card) */}
-                  <div className="absolute -left-[2.15rem] top-1/2 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 -translate-y-1/2 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
+                  <div className="absolute -left-6 top-12 w-4 h-4 rounded-full bg-[#070707] border-2 border-red-500 z-20 hidden lg:block shadow-[0_0_10px_rgba(239,68,68,0.8)]">
                     <div className="absolute inset-0.5 bg-red-500 rounded-full animate-pulse" />
                   </div>
 
