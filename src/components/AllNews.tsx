@@ -80,7 +80,6 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
   }, []);
 
   return (
-  return (
     <div ref={containerRef} className="min-h-screen bg-background pt-24 pb-20 relative overflow-hidden transition-colors duration-500">
       {/* Rich Ambient Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
