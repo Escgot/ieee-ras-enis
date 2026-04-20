@@ -94,21 +94,11 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Return to Grid
             </button>
-            <div className="flex items-center gap-3 mb-2">
-              <Zap className="w-5 h-5 text-red-500" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-red-500">Global Intel</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-orbitron font-black text-white uppercase italic tracking-tighter">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-orbitron font-black text-white uppercase italic tracking-tighter pr-4">
               Archive <span className="text-gradient">Logs</span>
             </h1>
           </div>
 
-          <div className="flex items-center gap-4 bg-white/[0.02] border border-white/5 p-4 rounded-2xl glass-dark">
-            <div className="text-right">
-              <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">System Status</p>
-              <p className="text-sm font-bold text-white tracking-widest uppercase"><span className="text-green-500">Online</span> / {news.length} Entries</p>
-            </div>
-          </div>
         </div>
 
         {/* Central Asymmetrical Timeline Architecture */}
@@ -136,9 +126,6 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
 
                     <div className="flex items-center gap-3 mb-6 justify-start lg:justify-end">
-                      <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
-                        LOG #{String(item.id).padStart(3, '0')}
-                      </span>
                       <div className="flex items-center gap-2 opacity-50">
                         <Calendar className="w-3.5 h-3.5" />
                         <span className="text-[10px] font-bold uppercase tracking-widest">{item.date}</span>
@@ -188,9 +175,6 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                     <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-red-500/50 to-transparent transition-colors duration-500" />
 
                     <div className="flex items-center gap-3 mb-6 justify-start">
-                      <span className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-[0.2em] rounded-full">
-                        LOG #{String(item.id).padStart(3, '0')}
-                      </span>
                       <div className="flex items-center gap-2 opacity-50">
                         <Calendar className="w-3.5 h-3.5" />
                         <span className="text-[10px] font-bold uppercase tracking-widest">{item.date}</span>
