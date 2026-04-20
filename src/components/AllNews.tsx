@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowLeft, Calendar, MapPin, Clock, X, ChevronLeft, ChevronRight, Share2, Target, Zap } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Clock, X, ChevronLeft, ChevronRight, Share2, Target } from 'lucide-react';
 import { news, type NewsItem } from '../data/news';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 
@@ -53,7 +53,9 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         onEnter: (batch) => {
           // Sort items that enter simultaneously by their true chronological index
           const sorted = [...batch].sort((a, b) => {
-            return parseInt(a.dataset.index || '0') - parseInt(b.dataset.index || '0');
+            const elA = a as HTMLElement;
+            const elB = b as HTMLElement;
+            return parseInt(elA.dataset.index || '0') - parseInt(elB.dataset.index || '0');
           });
 
           // Animate cards one by one
