@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Search, ArrowLeft, X, Cpu, Settings, Target, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ArrowLeft, X, Cpu, Settings, Target, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects, type Project } from '../data/projects';
 import { Dialog, DialogContent } from './ui/dialog';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -198,7 +198,6 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
               </div>
             ))}
           </div>
-          </div>
         </div>
 
         {/* View All */}
