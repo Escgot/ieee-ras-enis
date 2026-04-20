@@ -3,6 +3,14 @@ import { Menu, X, Sun, Moon, Instagram, Facebook, Linkedin } from 'lucide-react'
 import { useTheme } from 'next-themes';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthButton from './AuthButton';
+import DiscordIcon from './DiscordIcon';
+
+const socialLinks = [
+  { icon: Instagram, href: 'https://www.instagram.com/ieee.ras.enis/', label: 'Instagram', brandColor: '#E4405F' },
+  { icon: Facebook, href: 'https://www.facebook.com/IEEERASENIS', label: 'Facebook', brandColor: '#1877F2' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/ieee-ras-chapter-enis-student-branch/posts/?feedView=all', label: 'LinkedIn', brandColor: '#0A66C2' },
+  { icon: DiscordIcon, href: 'https://discord.gg/HXxBRJUq', label: 'Discord', brandColor: '#5865F2' },
+];
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -249,9 +257,29 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
           {/* Footer Area */}
           <div className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border-t border-black/5 dark:border-white/5">
             <div className="flex items-center gap-3 justify-center">
-              {[Instagram, Facebook, Linkedin].map((Icon, idx) => (
-                <a key={idx} href="#" className="p-2.5 bg-black/5 dark:bg-white/5 rounded-xl text-gray-500 hover:text-red-500 hover:scale-110 transition-all">
-                  <Icon className="w-4 h-4" />
+              {socialLinks.map((social, idx) => (
+                <a 
+                  key={idx} 
+                  href={social.href} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 bg-black/5 dark:bg-white/5 border border-transparent rounded-xl text-gray-500 transition-all duration-300 hover:scale-110 active:scale-95"
+                  style={{ 
+                    // @ts-ignore
+                    '--hover-color': social.brandColor,
+                  } as any}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = social.brandColor;
+                    e.currentTarget.style.color = social.brandColor;
+                    e.currentTarget.style.boxShadow = `0 0 15px ${social.brandColor}33`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'transparent';
+                    e.currentTarget.style.color = '';
+                    e.currentTarget.style.boxShadow = '';
+                  }}
+                >
+                  <social.icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
