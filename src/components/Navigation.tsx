@@ -240,7 +240,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                 >
                   <span className="font-orbitron font-bold text-[12px] uppercase tracking-wider">{link.name}</span>
                   {isActive ? (
-                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                   ) : (
                     <div className="w-5 h-px bg-current opacity-0 group-hover:opacity-20 transition-all" />
                   )}
@@ -271,7 +271,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = social.brandColor;
                     e.currentTarget.style.color = social.brandColor;
-                    e.currentTarget.style.boxShadow = `0 0 15px ${social.brandColor}33`;
+                    e.currentTarget.style.boxShadow = `0 0 15px ${social.brandColor}66`;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = 'transparent';
@@ -279,7 +279,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                     e.currentTarget.style.boxShadow = '';
                   }}
                 >
-                  <social.icon className="w-4 h-4" />
+                  <social.icon className="w-4 h-4 transition-colors" />
                 </a>
               ))}
             </div>

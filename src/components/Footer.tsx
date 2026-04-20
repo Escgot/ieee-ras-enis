@@ -115,7 +115,7 @@ export default function Footer() {
                     aria-label={s.label}
                     className={`group w-10 h-10 flex items-center justify-center bg-foreground/5 dark:bg-white/[0.03] border border-foreground/10 dark:border-white/8 rounded-xl transition-all duration-300 hover:scale-110 ${s.hoverColor}`}
                   >
-                    <s.icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                    <s.icon className="w-4 h-4 text-muted-foreground group-hover:text-white transition-colors" />
                   </a>
                 ))}
               </div>

@@ -180,9 +180,9 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.label}
-                      className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/8 rounded-xl transition-all duration-300 text-gray-400 dark:text-gray-500 hover:text-white hover:scale-110 ${s.hoverColor}`}
+                      className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/8 rounded-xl transition-all duration-300 text-gray-500 hover:scale-110 ${s.hoverColor}`}
                     >
-                      <s.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+                      <s.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover:text-white transition-colors" />
                     </a>
                   ))}
                 </div>
