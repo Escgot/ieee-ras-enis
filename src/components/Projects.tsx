@@ -117,7 +117,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
           {featuredProjects.map((project) => (
             <div
               key={project.id}
-              className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-[#0a0a0b]/40 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5"
+              className="project-card flex-[0_0_85vw] md:flex-none min-w-0 snap-center group relative bg-black/5 dark:bg-[#0a0a0b]/40 border border-black/5 dark:border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5 transition-colors duration-500"
               onClick={() => setSelectedProject(project)}
             >
               {/* Top Section: Imagery */}
@@ -132,7 +132,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 />
                 
                 {/* Cinematic Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0a0a0b] via-transparent to-transparent z-10" />
                 <div className="absolute inset-0 bg-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
                 
                 {/* Floating Tags */}
@@ -147,35 +147,35 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 </div>
 
                 {/* Big Background Number */}
-                <span className="absolute -bottom-4 -right-2 font-orbitron text-8xl font-black text-white/[0.03] group-hover:text-red-500/5 transition-colors duration-1000 select-none z-0">
+                <span className="absolute -bottom-4 -right-2 font-orbitron text-8xl font-black text-black/[0.05] dark:text-white/[0.03] group-hover:text-red-500/5 transition-colors duration-1000 select-none z-0">
+                <span className="absolute -bottom-4 -right-2 font-orbitron text-8xl font-black text-foreground/[0.03] group-hover:text-red-500/5 transition-colors duration-1000 select-none z-0">
                   {project.number}
                 </span>
               </div>
 
               {/* Bottom Section: Content */}
               <div className="p-8 pb-10 relative z-20 flex flex-col">
-                <h3 className="font-orbitron text-xl font-black text-foreground mb-4 group-hover:text-red-400 transition-colors uppercase leading-[1.1] tracking-tight">
+                <h3 className="font-orbitron text-xl font-black text-foreground mb-4 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors uppercase leading-[1.1] tracking-tight">
                   {project.title}
                 </h3>
-
-                <p className="text-muted-foreground text-[13px] leading-relaxed mb-8 line-clamp-2 font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                <p className="text-muted-foreground text-[13px] leading-relaxed mb-8 line-clamp-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                   {project.description}
                 </p>
 
                 {/* Tech Pills */}
-                <div className="flex flex-wrap gap-2 mb-8 opacity-40 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-[-4px]">
+                <div className="flex flex-wrap gap-2 mb-8 opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-[-4px]">
                   {project.technologies.slice(0, 3).map((tech) => (
-                    <span key={tech} className="text-[8px] font-black text-gray-500 px-2 py-0.5 border border-white/5 rounded-md uppercase tracking-widest group-hover:border-red-500/30 group-hover:text-red-300 transition-colors">
+                    <span key={tech} className="text-[8px] font-black text-muted-foreground px-2 py-0.5 border border-black/5 dark:border-white/5 rounded-md uppercase tracking-widest group-hover:border-red-500/30 group-hover:text-red-500 dark:group-hover:text-red-300 transition-colors">
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 3 && (
-                    <span className="text-[8px] font-black text-gray-600 px-2 py-0.5 uppercase tracking-widest">+{project.technologies.length - 3} More</span>
+                    <span className="text-[8px] font-black text-muted-foreground/60 px-2 py-0.5 uppercase tracking-widest">+{project.technologies.length - 3} More</span>
                   )}
                 </div>
 
                 {/* Footer Action */}
-                <div className="flex items-center justify-between pt-6 border-t border-white/[0.03] group-hover:border-red-500/10 transition-colors">
+                <div className="flex items-center justify-between pt-6 border-t border-black/10 dark:border-white/[0.03] group-hover:border-red-500/10 transition-colors">
                   <div className="flex items-center gap-3 text-[10px] font-black text-red-500 uppercase tracking-[0.25em] transition-all">
                     <span className="relative">
                       Deep View
@@ -199,12 +199,12 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-white dark:bg-[#0c0515]/95 border-black/10 dark:border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(0,0,0,0.1)] dark:shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
           {selectedProject && (
             <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
+                className="absolute top-4 right-4 z-50 p-2 text-foreground active:scale-95 hover:text-red-500 bg-black/5 dark:bg-black/20 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -244,12 +244,12 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 
                 {/* Visual Status Badges */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
-                  <span className="px-3 py-1 text-[9px] font-black text-red-400 bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
+                  <span className="px-3 py-1 text-[9px] font-black text-red-100 bg-red-600 dark:bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
                     {selectedProject.category}
                   </span>
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/5 shadow-sm opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700 delay-100">
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/50 dark:bg-black/40 backdrop-blur-md rounded-full border border-black/10 dark:border-white/5 shadow-sm opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700 delay-100">
                     <div className="w-1 h-1 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">{selectedProject.status}</span>
+                    <span className="text-[8px] text-gray-200 dark:text-gray-400 font-bold uppercase tracking-wider">{selectedProject.status}</span>
                   </div>
                 </div>
 
@@ -262,12 +262,12 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 </div>
 
                 {/* Gradient merge effect for side-by-side layout */}
-                <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0c0515] to-transparent pointer-events-none z-20" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:hidden pointer-events-none z-20" />
+                <div className="hidden lg:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-[#0c0515] to-transparent pointer-events-none z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0c0515] via-transparent to-transparent lg:hidden pointer-events-none z-20" />
               </div>
 
               {/* Right Side: Main Content Area */}
-              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
+              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-white via-white dark:from-[#0c0515] dark:via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
 
                 {/* Category Badge */}
                 <div className="mb-4 lg:mb-6 self-start shrink-0">
@@ -277,38 +277,38 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 </div>
 
                 {/* Title */}
-                <h2 className="font-orbitron text-base sm:text-lg lg:text-xl font-black text-white mb-4 lg:mb-6 leading-tight tracking-wide shrink-0">
+                <h2 className="font-orbitron text-base sm:text-lg lg:text-xl font-black text-foreground mb-4 lg:mb-6 leading-tight tracking-wide shrink-0">
                   {selectedProject.title}
                 </h2>
 
                 {/* Metadata Row */}
-                <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-4 lg:mb-6 text-xs text-gray-300 font-medium shrink-0">
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-4 lg:mb-6 text-xs text-muted-foreground font-medium shrink-0">
                   <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-red-500" />
+                    <Target className="w-4 h-4 text-red-600 dark:text-red-500" />
                     <span className="uppercase text-[9px] tracking-widest">{selectedProject.status}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Cpu className="w-4 h-4 text-red-500" />
+                    <Cpu className="w-4 h-4 text-red-600 dark:text-red-500" />
                     <span className="uppercase text-[9px] tracking-widest">R&D Phase</span>
                   </div>
                 </div>
 
                 {/* Top Divider */}
-                <div className="h-px w-full bg-white/5 mb-4 lg:mb-6 shrink-0" />
+                <div className="h-px w-full bg-black/5 dark:bg-white/5 mb-4 lg:mb-6 shrink-0" />
 
                 {/* Content / Excerpt */}
-                <div className="space-y-4 text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
-                  <p className="text-gray-200">
+                <div className="space-y-4 text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
+                  <p className="text-foreground/90 font-semibold">
                     {selectedProject.description}
                   </p>
 
-                  <label className="text-[9px] font-black text-gray-600 uppercase tracking-widest block flex items-center gap-2 mt-6">
-                    <Settings className="w-3 h-3 text-red-500" />
+                  <label className="text-[9px] font-black text-muted-foreground/60 uppercase tracking-widest block flex items-center gap-2 mt-6">
+                    <Settings className="w-3 h-3 text-red-600 dark:text-red-500" />
                     Integrated Technologies
                   </label>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {selectedProject.technologies.map((tech) => (
-                      <span key={tech} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[9px] text-gray-300 uppercase font-black tracking-widest hover:border-red-500 hover:text-white transition-all duration-300 cursor-default">
+                      <span key={tech} className="px-3 py-1.5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-lg text-[9px] text-muted-foreground dark:text-gray-300 uppercase font-black tracking-widest hover:border-red-500 hover:text-red-600 dark:hover:text-white transition-all duration-300 cursor-default">
                         {tech}
                       </span>
                     ))}
@@ -316,7 +316,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
                 </div>
 
                 {/* Bottom Divider */}
-                <div className="h-px w-full bg-white/5 mb-3 shrink-0" />
+                <div className="h-px w-full bg-black/5 dark:bg-white/5 mb-3 shrink-0" />
 
                 {/* Bottom Photos Gallery */}
                 <div className="shrink-0 relative">
