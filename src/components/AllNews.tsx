@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowLeft, Calendar, MapPin, Clock, X, ChevronLeft, ChevronRight, Share2, Target } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, MapPin, Clock, X, ChevronLeft, ChevronRight, Target } from 'lucide-react';
 import { news, type NewsItem } from '../data/news';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 
@@ -82,7 +82,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background pt-24 pb-20 relative overflow-hidden transition-colors duration-500">
+    <div ref={containerRef} className="min-h-screen bg-background pt-0 pb-20 relative transition-colors duration-500">
       {/* Rich Ambient Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-red-600/5 dark:bg-red-600/8 blur-[180px] rounded-full" />
@@ -93,33 +93,36 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none opacity-50" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Navigation & Header */}
-        <div className="header-animate mb-16 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center lg:items-start">
-            <button
-              onClick={onBack}
-              className="group flex items-center gap-2 px-5 py-2.5 mb-6 text-sm font-bold text-muted-foreground bg-black/5 dark:bg-white/5 hover:bg-red-500/10 hover:text-red-500 dark:hover:text-red-400 border border-black/10 dark:border-white/10 hover:border-red-500/30 rounded-xl transition-all duration-300 uppercase tracking-widest backdrop-blur-md"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              Return to Grid
-            </button>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-orbitron font-black text-foreground uppercase italic tracking-tighter pr-4">
-              Archive <span className="text-gradient">Logs</span>
-            </h1>
+      {/* Sticky Header */}
+      <div className="relative border-b border-black/5 dark:border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-4">
+        <div className="max-w-7xl mx-auto px-4 py-2">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-4">
+              <button 
+                onClick={onBack}
+                className="p-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
+              >
+                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+              </button>
+              <div>
+                <h1 className="font-orbitron text-2xl font-bold text-foreground uppercase tracking-tight">Archive <span className="text-red-500">Logs</span></h1>
+                <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Total {news.length} Historical Entries</p>
+              </div>
+            </div>
           </div>
-
         </div>
+      </div>
+
+      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 mt-8">
 
         {/* Central Asymmetrical Timeline Architecture */}
-        <div ref={timelineRef} className="relative mt-10">
+        <div ref={timelineRef} className="relative mt-6">
           {/* Main Central Glow Line */}
           <div className="timeline-line absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent lg:-translate-x-1/2 rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
 
           {/* Masonry 2-Column F1 Grid Architecture */}
           <div className="relative flex flex-col lg:flex-row items-start gap-8 lg:gap-16">
-            
+
             {/* Central Timeline Glow Line (Desktop) */}
             <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 via-purple-600 to-transparent lg:-translate-x-1/2 rounded-full hidden sm:block shadow-[0_0_15px_rgba(220,38,38,0.5)]" />
 
@@ -154,7 +157,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                     <h3 className="text-xl sm:text-2xl font-orbitron font-black text-foreground uppercase italic leading-tight mb-4 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors lg:text-right">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed font-medium line-clamp-3 mb-6 group-hover:text-foreground transition-colors lg:text-right">
+                    <p className="text-sm text-muted-foreground leading-relaxed font-medium line-clamp-3 mb-6 group-hover:text-foreground transition-colors lg:text-right whitespace-pre-line">
                       {item.excerpt}
                     </p>
 
@@ -163,8 +166,9 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest"><MapPin className="w-3.5 h-3.5 text-purple-500" />{item.location}</div>
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest"><Clock className="w-3.5 h-3.5 text-purple-500" />{item.readTime}</div>
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] font-black text-foreground hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
-                        <ArrowLeft className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
+                      <div className="flex items-center gap-2 text-[10px] font-black text-red-500 uppercase tracking-[0.2em] group-hover:gap-3 transition-all whitespace-nowrap">
+                        Read Entry
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   </div>
@@ -212,8 +216,9 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest"><MapPin className="w-3.5 h-3.5 text-purple-500" />{item.location}</div>
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-widest"><Clock className="w-3.5 h-3.5 text-purple-500" />{item.readTime}</div>
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] font-black text-foreground hover:text-red-500 uppercase tracking-[0.2em] transition-colors whitespace-nowrap">
-                        <ChevronRight className="w-4 h-4 transition-transform group-hover:scale-110 hidden lg:block" />
+                      <div className="flex items-center gap-2 text-[10px] font-black text-red-500 uppercase tracking-[0.2em] group-hover:gap-3 transition-all whitespace-nowrap">
+                        Read Entry
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   </div>
@@ -317,7 +322,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
 
                 {/* Content / Excerpt */}
                 <div className="space-y-4 text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
-                  <p className="text-foreground font-semibold">
+                  <p className="text-foreground font-semibold whitespace-pre-line">
                     {selectedNews.excerpt}
                   </p>
                   <p>
@@ -383,7 +388,6 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
           )}
         </DialogContent>
       </Dialog>
-
     </div>
   );
 }

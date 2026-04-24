@@ -3,8 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, Send, Clock } from 'lucide-react';
 import DiscordIcon from './DiscordIcon';
-import { supabase } from '../lib/supabase';
-
 gsap.registerPlugin(ScrollTrigger);
 
 const contactInfo = [
@@ -68,34 +66,34 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([{
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message
-        }]);
+    // Construct the email body
+    const emailBody = `Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+Subject: ${formData.subject}
 
-      if (error) throw error;
-      
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
-      }, 4000);
-    } catch (err) {
-      console.error('Error sending message:', err);
-      alert('Failed to send message. Please try again or contact us directly at sbc.enis.ras@ieee.org.');
-    } finally {
-      setIsSubmitting(false);
-    }
+Message:
+${formData.message}`;
+
+    // Construct the mailto link
+    const mailtoLink = `mailto:mbmohamed195@gmail.com?subject=${encodeURIComponent(
+      `[Contact Form] ${formData.subject}`
+    )}&body=${encodeURIComponent(emailBody)}`;
+
+    // Open email client
+    window.location.href = mailtoLink;
+
+    setIsSubmitted(true);
+    setIsSubmitting(false);
+
+    // Reset form after a delay
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
+    }, 4000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

@@ -1,23 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(
-    '⚠️ Supabase credentials not found. Auth and database features will not work.\n' +
-    'Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env.local file.'
-  );
-}
-
+// Backend is disabled for now.
 export const supabase = createClient(
-  supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseAnonKey || 'placeholder',
+  supabaseUrl,
+  supabaseAnonKey,
   {
     auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
+      autoRefreshToken: false,
+      persistSession: false,
+      detectSessionInUrl: false,
     },
   }
 );

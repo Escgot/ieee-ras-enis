@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { row1Images, row2Images } from '../data/gallery';
 
-export default function Gallery() {
+export default function Gallery({ onViewAll }: { onViewAll?: () => void }) {
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
 
@@ -135,10 +135,14 @@ export default function Gallery() {
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-4 w-full">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-red-500/20 to-red-500/40" />
-              <span className="section-tag shrink-0">
+              <button 
+                onClick={onViewAll}
+                className="section-tag shrink-0 cursor-pointer hover:bg-red-500/10 hover:border-red-500/30 transition-all duration-300 hover:scale-105 active:scale-95"
+                title="View Full Gallery"
+              >
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                 Moments
-              </span>
+              </button>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-red-500/20 to-red-500/40" />
             </div>
 

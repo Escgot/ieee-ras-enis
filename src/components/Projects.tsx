@@ -30,6 +30,8 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
   useEffect(() => {
     if (selectedProject) {
       setActiveImage(selectedProject.image);
+    } else {
+      setActiveImage(null);
     }
   }, [selectedProject]);
 
@@ -112,7 +114,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
         {/* Projects Grid */}
         <div
           ref={gridRef}
-          className="flex md:grid overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 md:grid-cols-3 gap-0 md:gap-6 snap-x snap-mandatory no-scrollbar"
+          className="flex md:grid overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0 md:grid-cols-3 gap-5 md:gap-6 snap-x snap-mandatory no-scrollbar"
         >
           {featuredProjects.map((project) => (
             <div

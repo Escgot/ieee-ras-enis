@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useLocation, useNavigate } from 'react-router-dom';
-import AuthButton from './AuthButton';
+
 import DiscordIcon from './DiscordIcon';
 
 const socialLinks = [
@@ -175,8 +175,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
                   {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5 text-black dark:text-white" />}
                 </button>
 
-                {/* Auth Button */}
-                <AuthButton />
+
 
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -249,8 +248,7 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
             })}
 
             <div className="pt-6 mt-6 border-t border-black/5 dark:border-white/5">
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-4 ml-2">Member Access</p>
-              <AuthButton mobile />
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-4 ml-2">Connect With Us</p>
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Search, ArrowLeft, ShoppingCart, Sparkles } from 'lucide-react';
+import { Search, ArrowLeft, Sparkles } from 'lucide-react';
 import { shopItems } from '../data/shop';
 
 export default function AllProducts({ onBack }: { onBack: () => void }) {
@@ -114,13 +114,6 @@ export default function AllProducts({ onBack }: { onBack: () => void }) {
                   
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 pointer-events-none" />
                   
-                  {/* Quick AddOverlay */}
-                  <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
-                    <button className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-black text-[9px] uppercase tracking-widest rounded-xl shadow-xl flex items-center justify-center gap-2 transition-all">
-                      <ShoppingCart className="w-3.5 h-3.5" />
-                      Add to Cart
-                    </button>
-                  </div>
                 </div>
 
                 <div className="p-6 flex flex-col flex-grow">

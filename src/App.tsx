@@ -26,6 +26,7 @@ const Dashboard = lazy(() => import('./components/Dashboard'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const AllProducts = lazy(() => import('./components/AllProducts'));
 const AllNews = lazy(() => import('./components/AllNews'));
+const AllGallery = lazy(() => import('./components/AllGallery'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +48,7 @@ function HomePage() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllProducts, setShowAllProducts] = useState(false);
   const [showAllNews, setShowAllNews] = useState(false);
+  const [showAllGallery, setShowAllGallery] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -85,49 +87,52 @@ function HomePage() {
     return () => ctx.revert();
   }, [showAllEvents, showAllProjects, showAllProducts]);
 
-  const handleShowAllEvents = () => {
-    setShowAllEvents(true);
+  const resetAll = () => {
+    setShowAllEvents(false);
     setShowAllProjects(false);
     setShowAllProducts(false);
     setShowAllNews(false);
+    setShowAllGallery(false);
+  };
+
+  const handleShowAllEvents = () => {
+    resetAll();
+    setShowAllEvents(true);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleShowAllProjects = () => {
+    resetAll();
     setShowAllProjects(true);
-    setShowAllEvents(false);
-    setShowAllProducts(false);
-    setShowAllNews(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleShowAllProducts = () => {
+    resetAll();
     setShowAllProducts(true);
-    setShowAllEvents(false);
-    setShowAllProjects(false);
-    setShowAllNews(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleShowAllNews = () => {
+    resetAll();
     setShowAllNews(true);
-    setShowAllEvents(false);
-    setShowAllProjects(false);
-    setShowAllProducts(false);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const handleBackToHome = (section: 'events' | 'projects' | 'shop' | 'news') => {
-    setShowAllEvents(false);
-    setShowAllProjects(false);
-    setShowAllProducts(false);
-    setShowAllNews(false);
+  const handleShowAllGallery = () => {
+    resetAll();
+    setShowAllGallery(true);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleBackToHome = (section: 'events' | 'projects' | 'shop' | 'news' | 'gallery') => {
+    resetAll();
     setTimeout(() => {
       document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
-  const isHome = !showAllEvents && !showAllProjects && !showAllProducts && !showAllNews;
+  const isHome = !showAllEvents && !showAllProjects && !showAllProducts && !showAllNews && !showAllGallery;
 
   return (
     <div ref={mainRef}>
@@ -136,10 +141,7 @@ function HomePage() {
           <>
             <Navigation
               onNavigateHome={() => {
-                setShowAllEvents(false);
-                setShowAllProjects(false);
-                setShowAllProducts(false);
-                setShowAllNews(false);
+                resetAll();
                 navigate('/');
               }}
             />
@@ -155,7 +157,7 @@ function HomePage() {
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <Gallery />
+                <Gallery onViewAll={handleShowAllGallery} />
               </div>
               <SectionDivider />
               <div className="section-reveal">
@@ -186,6 +188,8 @@ function HomePage() {
           <AllProducts onBack={() => handleBackToHome('shop')} />
         ) : showAllNews ? (
           <AllNews onBack={() => handleBackToHome('news')} />
+        ) : showAllGallery ? (
+          <AllGallery onBack={() => handleBackToHome('gallery')} />
         ) : (
           <AllProjects onBack={() => handleBackToHome('projects')} />
         )}

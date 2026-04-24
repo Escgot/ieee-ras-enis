@@ -17,11 +17,11 @@ export const projects: Project[] = [
     description: 'This project showcases a compact robot designed to follow a predefined path using line-tracking technology. Built on a custom electronic board, the robot integrates multiple sensors that detect contrast between the surface and the guiding line, allowing it to navigate curves and intersections with precision.',
     category: 'LINE FOLLOWER',
     number: '01',
-    image: '/images/projects/news-featured.webp',
+    image: '/images/projects/suiveur.webp',
     status: 'completed',
     technologies: ['ESP32', 'C++', 'custom electronic board', 'IR sensors', 'DC motors'],
     photos: [
-      '/images/projects/news-featured.webp',
+      '/images/projects/suiveur.webp',
     ]
   },
   {
@@ -33,6 +33,9 @@ export const projects: Project[] = [
     image: '/images/projects/tt-terrain.webp',
     status: 'completed',
     technologies: ['Real-time control', 'STMCube', 'PID', 'UART', 'Kinematics'],
+    photos: [
+      '/images/projects/tt-terrain.webp',
+    ]
   },
   {
     id: 3,
@@ -43,15 +46,23 @@ export const projects: Project[] = [
     image: '/images/projects/fighter.webp',
     status: 'completed',
     technologies: ['Weapon systems', 'Armor systems', 'Chassis design', 'Kinetic energy weapons'],
+    photos: [
+      '/images/projects/fighter.webp',
+    ]
   },
   {
     id: 4,
     title: 'AUTONOME',
     description: 'Bipedal robot with pneumatic balancing and dynamic walking capabilities.',
-    category: 'AUTONOME',
+    category: 'AUTONOMOUS',
     number: '04',
     image: '/images/projects/autonome.webp',
     status: 'in-progress',
     technologies: ['Raspberry Pi', 'ROS2', 'LiDAR', 'RF modules', 'PWM control'],
+    photos: [
+      '/images/projects/autonome.webp',
+      '/images/projects/autonome1.png',
+      '/images/projects/autonome2.png',
+    ]
   },
 ];

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ShoppingCart, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { shopItems } from '../data/shop';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -78,7 +78,7 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
           ref={itemsRef}
           className="flex sm:grid overflow-x-auto sm:overflow-visible -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 pb-6 sm:pb-0 snap-x snap-mandatory no-scrollbar"
         >
-          {shopItems.map((item) => (
+          {shopItems.slice(0, 4).map((item) => (
             <div
               key={item.id}
               className="shop-card flex-[0_0_75vw] sm:flex-none min-w-0 snap-center group relative bg-white/[0.02] border border-white/6 rounded-3xl overflow-hidden hover:border-red-500/25 flex flex-col cursor-pointer holographic"
@@ -115,13 +115,6 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
                   decoding="async"
                 />
 
-                {/* Quick Add Overlay */}
-                <div className="absolute inset-x-0 bottom-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
-                  <button className="w-full py-3 bg-red-600 hover:bg-red-500 text-white font-black text-[10px] uppercase tracking-widest rounded-2xl shadow-2xl shadow-red-600/30 flex items-center justify-center gap-2 cyber-btn transition-all">
-                    <ShoppingCart className="w-4 h-4" />
-                    Add to Cart
-                  </button>
-                </div>
               </div>
 
               {/* Info */}

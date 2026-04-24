@@ -7,8 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { value: 200, suffix: '+', label: 'Members', icon: Users },
-  { value: 7, suffix: '+', label: 'Projects', icon: Lightbulb },
-  { value: 70, suffix: '+', label: 'Competition Wins', icon: Trophy },
+  { value: 5, suffix: '+', label: 'Projects', icon: Lightbulb },
+  { value: 85, suffix: '+', label: 'Competition Wins', icon: Trophy },
   { value: 2010, suffix: '', label: 'Founded', icon: Target },
 ];
 

@@ -26,7 +26,7 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
     }
   };
 
-  const categories = ['All Projects', 'Autonomous', 'Industrial Arm', 'Computer Vision', 'Humanoid'];
+  const categories = ['All Projects', 'Autonomous', 'LINE FOLLOWER', 'ALL TERRAIN', 'FIGHTER'];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,6 +46,14 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    if (selectedProject) {
+      setActiveImage(selectedProject.image);
+    } else {
+      setActiveImage(null);
+    }
+  }, [selectedProject]);
 
   const filteredProjects = projects.filter((project) => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

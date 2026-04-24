@@ -24,14 +24,12 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Workshop',
-    image: '/images/event-hackathon.webp',
+    image: '/images/news-1.webp',
     attendees: 50,
     status: 'upcoming',
     registeredCount: 42,
     maxAttendees: 50,
     photos: [
-      '/images/event-hackathon.webp',
-      '/images/event-workshop.webp',
       '/images/news-1.webp'
     ]
   },
@@ -44,7 +42,7 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Workshop',
-    image: '/images/event-workshop.webp',
+    image: '/images/news-3.jpg',
     attendees: 45,
     status: 'upcoming',
     registeredCount: 42,
@@ -58,7 +56,7 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Competition',
-    image: '/images/event-competition.webp',
+    image: '/images/gallery/workshop/comp.jpg',
     attendees: 90,
     status: 'past',
     registeredCount: 90,
@@ -74,11 +72,14 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Workshop',
-    image: '/images/event-workshop.webp',
+    image: '/images/gallery/workshop/0.jpg',
     attendees: 92,
     status: 'past',
     registeredCount: 92,
     maxAttendees: 92,
+    photos: [
+      '/images/gallery/workshop/0.jpg',
+    ]
   },
   {
     id: 5,
@@ -98,7 +99,6 @@ export const events: Event[] = [
       '/images/gallery/workshop/1.webp',
       '/images/gallery/workshop/2.webp',
       '/images/gallery/workshop/3.webp',
-      
     ]
   },
 ];

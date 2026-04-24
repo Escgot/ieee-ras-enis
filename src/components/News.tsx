@@ -141,7 +141,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                   {featured.title}
                 </h3>
 
-                <p className="text-muted-foreground text-base mb-7 line-clamp-2 leading-relaxed flex-grow">
+                <p className="text-muted-foreground text-base mb-7 line-clamp-2 leading-relaxed flex-grow whitespace-pre-line">
                   {featured.excerpt}
                 </p>
 
@@ -190,9 +190,12 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                       {item.title}
                     </h4>
 
-                    <span className="text-[10px] text-gray-600 uppercase font-medium tracking-widest">
-                      {item.category}
-                    </span>
+                    <div className="flex items-center justify-between mt-3">
+                      <span className="text-[10px] text-gray-600 uppercase font-medium tracking-widest">
+                        {item.category}
+                      </span>
+                      <ArrowRight className="w-3.5 h-3.5 text-red-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -296,7 +299,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
 
                 {/* Content / Excerpt */}
                 <div className="space-y-4 text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 lg:mb-6 font-medium flex-grow overflow-y-auto min-h-0 pr-4 custom-scrollbar">
-                  <p className="text-gray-200">
+                  <p className="text-gray-200 whitespace-pre-line">
                     {selectedNews.excerpt}
                   </p>
                   <p>
