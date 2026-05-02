@@ -35,6 +35,7 @@ export const projects: Project[] = [
     technologies: ['Real-time control', 'STMCube', 'PID', 'UART', 'Kinematics'],
     photos: [
       '/images/projects/tt-terrain.webp',
+      '/images/projects/tt-terrain1.webp',
     ]
   },
   {
@@ -62,7 +63,7 @@ export const projects: Project[] = [
     photos: [
       '/images/projects/autonome.webp',
       '/images/projects/autonome1.png',
-      '/images/projects/autonome2.png',
+      '/images/projects/autonome2.webp',
     ]
   },
 ];

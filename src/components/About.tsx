@@ -147,12 +147,12 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
 
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <span className="section-tag mb-6 inline-flex">
+          <div className="text-center mb-8 md:mb-12">
+            <span className="section-tag mb-4 md:mb-6 inline-flex">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               About Us
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight mt-4">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight mt-2 md:mt-4">
               Building the{' '}
               <span className="text-gradient">Future</span>{' '}
               Together

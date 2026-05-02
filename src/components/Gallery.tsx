@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ArrowUpRight } from 'lucide-react';
 import { row1Images, row2Images } from '../data/gallery';
 
 export default function Gallery({ onViewAll }: { onViewAll?: () => void }) {
@@ -137,11 +138,18 @@ export default function Gallery({ onViewAll }: { onViewAll?: () => void }) {
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-red-500/20 to-red-500/40" />
               <button 
                 onClick={onViewAll}
-                className="section-tag shrink-0 cursor-pointer hover:bg-red-500/10 hover:border-red-500/30 transition-all duration-300 hover:scale-105 active:scale-95"
-                title="View Full Gallery"
+                className="group relative flex items-center gap-2.5 px-6 py-2.5 bg-red-500/5 hover:bg-red-500 border border-red-500/20 hover:border-red-500 rounded-full transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(239,68,68,0.05)] hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] animate-float-slow cursor-pointer z-20"
+                title="Explore Full Gallery"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                Moments
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse group-hover:bg-white" />
+                  <span className="font-orbitron text-[11px] font-black uppercase tracking-[0.25em] text-red-500 group-hover:text-white transition-colors">
+                    Moments
+                  </span>
+                </div>
+                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-red-500/10 group-hover:bg-white/20 transition-colors">
+                  <ArrowUpRight className="w-3 h-3 text-red-500 group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
               </button>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-red-500/20 to-red-500/40" />
             </div>

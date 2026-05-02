@@ -85,7 +85,7 @@ export const shopItems: ShopItem[] = [
     name: 'RAS keychain',
     description: 'RAS keychain',
     price: '2.00 TND',
-    category: 'keychain',
+    category: 'key chain',
     image: '/images/shop/key-ring.webp',
   },
   {

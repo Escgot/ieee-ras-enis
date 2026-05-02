@@ -101,12 +101,12 @@ export default function Membership() {
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <span className="section-tag mb-6 inline-flex">
+          <div className="text-center mb-8 md:mb-12">
+            <span className="section-tag mb-4 md:mb-6 inline-flex">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Membership
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mt-4 mb-5 uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mt-2 md:mt-4 mb-4 md:mb-5 uppercase">
               Choose Your <span className="text-gradient">Plan</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">

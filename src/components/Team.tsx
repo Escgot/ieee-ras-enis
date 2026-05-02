@@ -11,7 +11,7 @@ const teamMembers = [
       instagram: 'https://www.instagram.com/mahmoud.feki.5/#',
       linkedin: 'https://www.linkedin.com/in/mahmoud-feki-120a3a302/',
       facebook: 'https://www.facebook.com/mahmoud.feki.5',
-      mail: 'mailto:mahmoud@example.com',
+      mail: 'mailto:mahmoudfeki19@gmail.com',
     },
   },
   {
@@ -22,7 +22,7 @@ const teamMembers = [
       instagram: 'https://www.instagram.com/edam_.s/',
       linkedin: '#',
       facebook: 'https://www.facebook.com/edam.sellami.05',
-      mail: 'mailto:edam@example.com',
+      mail: 'mailto:edam.sellami@enis.tn',
     },
   },
   {
@@ -44,7 +44,7 @@ const teamMembers = [
       instagram: 'https://www.instagram.com/ayoub.ben_ayed/',
       linkedin: 'https://www.linkedin.com/in/mohamed-ayoub-ben-ayed-b645bb355/',
       facebook: 'https://www.facebook.com/med.ayoub.ben.ayed.2025',
-      mail: 'mailto:ayoub@example.com',
+      mail: 'mailto:mohamedayoub.benayed@enis.tn',
     },
   },
   {
@@ -52,10 +52,10 @@ const teamMembers = [
     role: 'WEB MASTER',
     image: '/images/team-web-master.webp',
     social: {
-      instagram: 'https://www.instagram.com/med_ouledali/',
+      instagram: 'https://www.instagram.com/mohamed_ouledali/',
       linkedin: 'https://www.linkedin.com/in/mohamed-ouledali/',
       facebook: 'https://www.facebook.com/med.ouledal1',
-      mail: 'mailto:mohamed@example.com',
+      mail: 'mailto:mohamed.ouledali@enis.tn',
     },
   },
   {
@@ -64,9 +64,8 @@ const teamMembers = [
     image: '/images/team-media-manager.webp',
     social: {
       instagram: 'https://www.instagram.com/melek.zribi/',
-      linkedin: '#',
       facebook: 'https://www.facebook.com/zribi.melek',
-      mail: 'mailto:melek@example.com',
+      mail: 'mailto:melek.zribi@enis.tn',
     },
   },
 ];
@@ -142,8 +141,8 @@ export default function Team() {
 
       <div className="relative w-full z-10">
         {/* Header */}
-        <div className="px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto mb-8 w-full">
-          <div className="flex flex-col items-center text-center gap-5">
+        <div className="px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto mb-6 md:mb-8 w-full">
+          <div className="flex flex-col items-center text-center gap-3 md:gap-5">
             <span className="section-tag">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Build With Us

@@ -60,12 +60,12 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <span className="section-tag mb-6 inline-flex">
+        <div className="text-center mb-8 md:mb-12">
+          <span className="section-tag mb-4 md:mb-6 inline-flex">
             <Sparkles className="w-3 h-3 text-red-400" />
             Official Merch
           </span>
-          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mb-6 mt-4 uppercase">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground mb-4 md:mb-6 mt-2 md:mt-4 uppercase">
             Chapter{' '}<span className="text-gradient">Shop</span>
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto leading-relaxed">

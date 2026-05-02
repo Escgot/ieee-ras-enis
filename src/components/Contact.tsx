@@ -114,12 +114,12 @@ ${formData.message}`;
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
-          <div className="text-center mb-10">
-            <span className="section-tag mb-6 inline-flex">
+          <div className="text-center mb-6 md:mb-10">
+            <span className="section-tag mb-4 md:mb-6 inline-flex">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               Get In Touch
             </span>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-black dark:text-white mt-4 uppercase">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-black dark:text-white mt-2 md:mt-4 uppercase">
               Contact <span className="text-gradient">Us</span>
             </h2>
             <p className="text-gray-700 dark:text-gray-300 max-w-xl mx-auto mt-4 leading-relaxed font-medium">

@@ -54,9 +54,9 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
   return (
     <section id="events" ref={sectionRef} className="relative pt-0 pb-20 bg-transparent min-h-screen">
       {/* Search & Filter Header (Sticky) */}
-      <div className="relative border-b border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-4">
+      <div className="relative border-b border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-2 md:pt-4">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6">
             <div className="flex items-center gap-4">
               {onBack && (
                 <button 
@@ -84,7 +84,7 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
             </div>
           </div>
 
-          <div className="mt-8 flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar lg:pb-0 lg:flex-wrap">
+          <div className="mt-4 md:mt-8 flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar lg:pb-0 lg:flex-wrap">
             {categories.map((category) => (
               <button
                 key={category}
@@ -102,7 +102,7 @@ export default function AllEvents({ onBack }: { onBack?: () => void }) {
         </div>
       </div>
 
-      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 mt-8">
+      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 mt-6 md:mt-8">
         <div className="max-w-7xl mx-auto">
 
           {/* Events Grid */}

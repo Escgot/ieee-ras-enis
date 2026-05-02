@@ -94,9 +94,9 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
       </div>
 
       {/* Sticky Header */}
-      <div className="relative border-b border-black/5 dark:border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-4">
+      <div className="relative border-b border-black/5 dark:border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-2 md:pt-4">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6">
             <div className="flex items-center gap-4">
               <button 
                 onClick={onBack}
@@ -113,7 +113,7 @@ export default function AllNews({ onBack }: { onBack: () => void }) {
         </div>
       </div>
 
-      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 mt-8">
+      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 mt-6 md:mt-8">
 
         {/* Central Asymmetrical Timeline Architecture */}
         <div ref={timelineRef} className="relative mt-6">

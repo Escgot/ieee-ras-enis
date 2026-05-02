@@ -67,9 +67,9 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
   return (
     <div ref={sectionRef} className="min-h-screen bg-transparent pt-0 pb-10">
       {/* Search & Filter Header */}
-      <div className="relative border-b border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-4">
+      <div className="relative border-b border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-2 md:pt-4">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6">
             <div className="flex items-center gap-4">
               <button 
                 onClick={onBack}
@@ -95,7 +95,7 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
             </div>
           </div>
 
-          <div className="mt-8 flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar lg:pb-0 lg:flex-wrap">
+          <div className="mt-4 md:mt-8 flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar lg:pb-0 lg:flex-wrap">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -114,7 +114,7 @@ export default function AllProjects({ onBack }: { onBack: () => void }) {
       </div>
 
       {/* Projects Grid */}
-      <div className="max-w-7xl mx-auto px-4 mt-8">
+      <div className="max-w-7xl mx-auto px-4 mt-6 md:mt-8">
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {filteredProjects.map((project) => (
