@@ -272,5 +272,5 @@ export const news: NewsItem[] = [
       '/images/gallery/iset-sfax.png',
     ]
   },
-  
+
 ];

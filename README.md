@@ -1,7 +1,7 @@
 # 🤖 IEEE RAS ENIS Student Branch Website
 
 <div align="center">
-  <img src="public/images/ras-banner.png" alt="IEEE RAS ENIS Banner" width="800">
+  <img src="app/public/images/ras-banner.png" alt="IEEE RAS ENIS Banner" width="800">
   <p align="center">
     <strong>Innovating the Future, One Line of Code at a Time.</strong>
   </p>
@@ -17,17 +17,18 @@
 
 ## 📖 Overview
 
-A premium, high-performance web platform for the **IEEE Robotics and Automation Society (RAS)** Student Branch at the **National School of Engineers of Sfax (ENIS)**. This website serves as a central hub for members, showcasing projects, events, news, and a community-driven shop.
+A premium, high-performance web application built for the **IEEE Robotics & Automation Society (RAS) Student Branch at ENIS**. This platform serves as a central hub for members and the community to explore projects, events, news, and more. It features a modern glassmorphism design with high-fidelity animations and interactive 3D elements.
 
-## ⚡ Key Features
+## ✨ Key Features
 
 - **🚀 Cinematic Experience**: High-fidelity animations powered by **GSAP** and **ScrollTrigger** for a professional, immersive feel.
-- **🛡️ Secure Dashboard**: Role-based access control for members and administrators to manage content.
+- **🎨 Premium UX/UI**: Modern glassmorphism design with smooth transitions and **Framer Motion** interactions.
+- **🕶️ 3D Integration**: Features interactive 3D scenes integrated via **Spline**.
+- **🛡️ Secure Dashboard**: Role-based access control for members and administrators to manage content via **Supabase**.
 - **🏪 Society Shop**: Integrated marketplace for society merchandise and electronics components.
 - **📂 Project Showcase**: A dynamic gallery of robotics and automation projects developed by the branch.
-- **📅 Event Management**: Real-time updates on upcoming workshops, competitions (like RoboCup), and seminars.
-- **☁️ Supabase Integration**: Real-time database and authentication for seamless user management.
-- **🌐 Responsive & Accessible**: Optimized for all devices with a mobile-first approach and glassmorphism aesthetic.
+- **📅 Event Management**: Real-time updates on upcoming workshops, competitions, and seminars.
+- **🌐 Responsive & Accessible**: Optimized for all devices, from mobile to ultra-wide displays.
 
 ---
 
@@ -35,11 +36,12 @@ A premium, high-performance web platform for the **IEEE Robotics and Automation 
 
 | Category | Technology |
 | :--- | :--- |
-| **Framework** | [React 19](https://react.dev/) + [Vite](https://vitejs.dev/) |
+| **Framework** | [React 19](https://react.dev/) + [Vite 7](https://vitejs.dev/) |
 | **Styling** | [Tailwind CSS](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/) |
-| **Animations** | [GSAP](https://greensock.com/gsap/) + [Framer Motion](https://www.framer.com/motion/) |
+| **Animations** | [GSAP](https://gsap.com/) + [Framer Motion](https://www.framer.com/motion/) |
 | **Backend** | [Supabase](https://supabase.com/) (PostgreSQL + Auth) |
 | **Utilities** | [Lenis Scroll](https://lenis.darkroom.engineering/), [Lucide React](https://lucide.dev/) |
+| **3D Engine** | [Spline](https://spline.design/) |
 | **Language** | [TypeScript](https://www.typescriptlang.org/) |
 
 ---
@@ -48,16 +50,17 @@ A premium, high-performance web platform for the **IEEE Robotics and Automation 
 
 ```bash
 app/
+├── public/              # Static assets (images, fonts, 3D models)
 ├── src/
 │   ├── components/      # Reusable UI & Layout components
-│   ├── sections/        # Main landing page sections (Hero, About, etc.)
+│   ├── sections/        # Main landing page sections
 │   ├── hooks/           # Custom React hooks
 │   ├── types/           # TypeScript definitions
 │   ├── lib/             # Utility functions & Supabase client
 │   ├── App.tsx          # Main entry point & Routing
 │   └── main.tsx         # React DOM rendering
-├── public/              # Static assets (images, fonts)
-└── tailwind.config.js   # Custom theme & animation config
+├── tailwind.config.js   # Custom theme & animation config
+└── vite.config.ts       # Vite build & plugin configuration
 ```
 
 ---
@@ -66,50 +69,45 @@ app/
 
 ### Prerequisites
 
-- **Node.js** (v20+)
+- **Node.js** (v20 or higher)
 - **npm** or **yarn**
 - **Supabase Account** (for backend features)
 
 ### Installation
 
-1. **Clone the repo**:
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-org/ras-enis-website.git
-   cd ras-enis-website/app
+   git clone <repository-url>
+   cd "ras website"
    ```
 
-2. **Install dependencies**:
+2. **Navigate to the app directory**:
+   ```bash
+   cd app
+   ```
+
+3. **Install dependencies**:
    ```bash
    npm install
    ```
 
-3. **Set up Environment Variables**:
+4. **Environment Variables**:
    Create a `.env.local` file in the `app` directory:
    ```env
    VITE_SUPABASE_URL=your_supabase_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
 
-4. **Run the development server**:
+5. **Start the development server**:
    ```bash
    npm run dev
    ```
 
 ---
 
-## 🛠️ Deployment
-
-The project is optimized for deployment on **Vercel**.
-
-```bash
-npm run build
-```
-
----
-
 ## 🤝 Contributing
 
-We welcome contributions! Please follow these steps:
+ we welcome contributions! Please follow these steps:
 1. Fork the repository.
 2. Create a new branch (`git checkout -b feature/AmazingFeature`).
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).

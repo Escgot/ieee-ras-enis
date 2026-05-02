@@ -8,7 +8,7 @@ const teamMembers = [
     role: 'CHAIRPERSON',
     image: '/images/team-chair.webp',
     social: {
-      instagram: 'https://www.instagram.com/mahmoud.feki.5/#',
+      instagram: 'https://www.instagram.com/mahmoud.feki.5/',
       linkedin: 'https://www.linkedin.com/in/mahmoud-feki-120a3a302/',
       facebook: 'https://www.facebook.com/mahmoud.feki.5',
       mail: 'mailto:mahmoudfeki19@gmail.com',
@@ -192,10 +192,10 @@ export default function Team() {
                         onMouseEnter={() => { if (isActive) setIsHovered(true); }}
                         onMouseLeave={() => setIsHovered(false)}
                         className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group will-change-transform ${isActive
-                            ? 'scale-100 opacity-100 z-20'
-                            : diff === 1
-                              ? 'scale-90 opacity-50 lg:grayscale-[50%] z-10'
-                              : 'scale-[0.78] opacity-25 lg:grayscale z-10'
+                          ? 'scale-100 opacity-100 z-20'
+                          : diff === 1
+                            ? 'scale-90 opacity-50 lg:grayscale-[50%] z-10'
+                            : 'scale-[0.78] opacity-25 lg:grayscale z-10'
                           }`}
                         style={{
                           boxShadow: isActive
@@ -295,8 +295,8 @@ export default function Team() {
                     key={i}
                     onClick={() => emblaApi?.scrollTo(i)}
                     className={`rounded-full transition-all duration-400 ${i === activeIndex
-                        ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
-                        : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                      ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
+                      : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                       }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />

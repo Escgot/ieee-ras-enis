@@ -97,7 +97,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
         <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
           {/* Featured Post */}
-          <div 
+          <div
             className="news-featured lg:col-span-7 group cursor-pointer"
             onClick={() => setSelectedNews(featured)}
           >
@@ -159,8 +159,8 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
           {/* Other Posts */}
           <div className="lg:col-span-5 flex overflow-x-auto lg:flex-col gap-4 -mx-4 px-4 lg:mx-0 lg:px-0 pb-4 lg:pb-0 snap-x no-scrollbar">
             {others.map((item) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className="news-item flex-[0_0_80vw] sm:flex-[0_0_55vw] lg:flex-none min-w-0 snap-center group cursor-pointer"
                 onClick={() => setSelectedNews(item)}
               >
@@ -210,7 +210,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
         <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-purple-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(139,92,246,0.15)] flex flex-col my-4">
           {selectedNews && (
             <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
-              <button 
+              <button
                 onClick={() => setSelectedNews(null)}
                 className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
               >
@@ -231,7 +231,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                       const swipe = info.offset.x;
                       const photos = selectedNews.photos || [selectedNews.image];
                       const currentIdx = photos.indexOf(activeImage || selectedNews.image);
-                      
+
                       if (swipe < -50) { // Swipe Left -> Next
                         const nextIdx = (currentIdx + 1) % photos.length;
                         setActiveImage(photos[nextIdx]);
@@ -242,14 +242,14 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                     }}
                     className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing bg-black/20"
                   >
-                    <img 
-                      src={activeImage || selectedNews.image} 
-                      alt={selectedNews.title} 
+                    <img
+                      src={activeImage || selectedNews.image}
+                      alt={selectedNews.title}
                       className="w-full h-full object-contain"
                     />
                   </motion.div>
                 </AnimatePresence>
-                
+
                 {/* Visual Metadata Overlay */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
                   <span className="px-3 py-1.5 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
@@ -259,10 +259,10 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
 
                 {/* Navigation Overlay Hints */}
                 <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center">
-                   <ChevronLeft className="w-6 h-6 text-white/20" />
+                  <ChevronLeft className="w-6 h-6 text-white/20" />
                 </div>
                 <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center">
-                   <ChevronRight className="w-6 h-6 text-white/20" />
+                  <ChevronRight className="w-6 h-6 text-white/20" />
                 </div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent pointer-events-none" />
@@ -270,7 +270,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
 
               {/* Right Side: Main Content Area */}
               <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
-                
+
                 {/* Title */}
                 <DialogTitle asChild>
                   <h2 className="font-orbitron text-base sm:text-lg lg:text-xl font-black text-white mb-4 lg:mb-6 leading-tight tracking-wide shrink-0">
@@ -285,12 +285,12 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                     <span>{selectedNews.date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                     <MapPin className="w-4 h-4 text-fuchsia-500" />
-                     <span>{selectedNews.location}</span>
+                    <MapPin className="w-4 h-4 text-fuchsia-500" />
+                    <span>{selectedNews.location}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                     <Clock className="w-4 h-4 text-fuchsia-500" />
-                     <span>{selectedNews.readTime}</span>
+                    <Clock className="w-4 h-4 text-fuchsia-500" />
+                    <span>{selectedNews.readTime}</span>
                   </div>
                 </div>
 
@@ -303,10 +303,10 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                     {selectedNews.excerpt}
                   </p>
                   <p>
-                     This is an expanded view. Content can be injected here dynamically. The layout puts the picture on the left while perfectly scaling down constraints to give you the ideal proportion you requested.
+                    This is an expanded view. Content can be injected here dynamically. The layout puts the picture on the left while perfectly scaling down constraints to give you the ideal proportion you requested.
                   </p>
                   <p>
-                     Stay tuned for more updates from the RAS ENIS chapter. We are constantly innovating and pushing the boundaries of what is possible in the field of robotics and automation.
+                    Stay tuned for more updates from the RAS ENIS chapter. We are constantly innovating and pushing the boundaries of what is possible in the field of robotics and automation.
                   </p>
                 </div>
 
@@ -317,27 +317,27 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                 <div className="shrink-0 relative">
                   {selectedNews.photos && selectedNews.photos.length > 0 ? (
                     <div className="relative group/gallery">
-                      <button 
+                      <button
                         onClick={() => scrollGallery('left')}
                         className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-fuchsia-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -ml-3 backdrop-blur-md"
                       >
                         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
 
-                      <div 
+                      <div
                         ref={newsGalleryRef}
                         className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
                       >
                         {selectedNews.photos.map((photo, idx) => (
-                          <div 
-                            key={idx} 
+                          <div
+                            key={idx}
                             onClick={() => setActiveImage(photo)}
                             className="w-16 h-12 sm:w-20 sm:h-14 lg:w-24 lg:h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group cursor-pointer snap-center relative"
                           >
-                            <img 
-                              src={photo} 
-                              alt={`Gallery ${idx + 1}`} 
-                              className={`w-full h-full object-cover transition-all duration-500 hover:scale-110 ${activeImage === photo ? 'opacity-100 scale-110' : 'opacity-40 group-hover:opacity-100'}`} 
+                            <img
+                              src={photo}
+                              alt={`Gallery ${idx + 1}`}
+                              className={`w-full h-full object-cover transition-all duration-500 hover:scale-110 ${activeImage === photo ? 'opacity-100 scale-110' : 'opacity-40 group-hover:opacity-100'}`}
                             />
                             {activeImage === photo && (
                               <div className="absolute inset-0 border-2 border-fuchsia-500 rounded-lg pointer-events-none shadow-[inset_0_0_10px_rgba(217,70,239,0.5)]"></div>
@@ -346,7 +346,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
                         ))}
                       </div>
 
-                      <button 
+                      <button
                         onClick={() => scrollGallery('right')}
                         className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-1 bg-black/70 hover:bg-fuchsia-500 text-white rounded-full opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 border border-white/20 -mr-3 backdrop-blur-md"
                       >

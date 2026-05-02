@@ -20,10 +20,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    
+
     const rotateX = (y - centerY) / 20;
     const rotateY = (centerX - x) / 20;
 
@@ -109,11 +109,11 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                   <div className="absolute left-14 top-[120px] bottom-0 w-px bg-gradient-to-b from-red-500/30 to-transparent z-0 hidden sm:block" />
                 )}
 
-                <div 
+                <div
                   className={`relative flex flex-col sm:flex-row gap-5 sm:gap-7 border rounded-3xl p-5 sm:p-7 transition-all duration-500 group-hover:-translate-y-1 cursor-pointer overflow-hidden ${isFirst
                     ? 'bg-white/[0.03] border-red-500/20 hover:border-red-500/40 hover:shadow-[0_20px_60px_rgba(239,68,68,0.08)]'
                     : 'bg-white/[0.02] border-white/6 hover:border-red-500/25 hover:shadow-[0_20px_40px_rgba(239,68,68,0.05)]'
-                  }`}
+                    }`}
                   onClick={() => setSelectedEvent(event)}
                 >
 
@@ -129,8 +129,8 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
 
                   {/* Date Box */}
                   <div className={`relative flex-shrink-0 self-start w-20 h-20 sm:w-24 sm:h-24 rounded-2xl border flex flex-col items-center justify-center text-center shadow-lg transition-all duration-300 ${isFirst
-                      ? 'bg-red-500/10 border-red-500/30 group-hover:border-red-500/60 group-hover:bg-red-500/15'
-                      : 'bg-white/[0.04] border-white/8 group-hover:border-red-500/30 group-hover:bg-white/[0.06]'
+                    ? 'bg-red-500/10 border-red-500/30 group-hover:border-red-500/60 group-hover:bg-red-500/15'
+                    : 'bg-white/[0.04] border-white/8 group-hover:border-red-500/30 group-hover:bg-white/[0.06]'
                     }`}>
                     <span className="text-2xl sm:text-3xl font-black text-red-400 font-orbitron leading-none">{day.replace(',', '')}</span>
                     <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mt-1">{month}</span>
@@ -195,7 +195,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
         <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
           {selectedEvent && (
             <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
-              <button 
+              <button
                 onClick={() => setSelectedEvent(null)}
                 className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
               >
@@ -216,7 +216,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                       const swipe = info.offset.x;
                       const photos = selectedEvent.photos || [selectedEvent.image];
                       const currentIdx = photos.indexOf(activeImage || selectedEvent.image);
-                      
+
                       if (swipe < -50) { // Swipe Left -> Next
                         const nextIdx = (currentIdx + 1) % photos.length;
                         setActiveImage(photos[nextIdx]);
@@ -227,14 +227,14 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                     }}
                     className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing bg-black/20"
                   >
-                    <img 
-                      src={activeImage || selectedEvent.image} 
-                      alt={selectedEvent.title} 
+                    <img
+                      src={activeImage || selectedEvent.image}
+                      alt={selectedEvent.title}
                       className="w-full h-full object-contain"
                     />
                   </motion.div>
                 </AnimatePresence>
-                
+
                 {/* Visual Status Badges */}
                 <div className="absolute bottom-10 left-10 z-20 flex gap-3 translate-y-4 group-hover:translate-y-0 transition-transform hidden lg:flex">
                   <span className="px-4 py-2 bg-red-500 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
@@ -247,10 +247,10 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
 
                 {/* Navigation Overlay Hints */}
                 <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/40 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                   <ChevronLeft className="w-6 h-6 text-white/20" />
+                  <ChevronLeft className="w-6 h-6 text-white/20" />
                 </div>
                 <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/40 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                   <ChevronRight className="w-6 h-6 text-white/20" />
+                  <ChevronRight className="w-6 h-6 text-white/20" />
                 </div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c0515] via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0c0515] lg:via-transparent lg:to-transparent pointer-events-none" />
@@ -258,7 +258,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
 
               {/* Right Side: Main Content Area */}
               <div className="lg:w-[50%] px-6 pt-6 pb-2 sm:px-10 sm:pt-6 sm:pb-4 lg:px-12 lg:pt-8 lg:pb-4 relative z-10 flex flex-col -mt-24 sm:-mt-32 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
-                
+
                 <h2 className="font-orbitron text-lg sm:text-xl lg:text-2xl font-black text-white mb-6 leading-tight tracking-tight shrink-0 uppercase">
                   {selectedEvent.title}
                 </h2>
@@ -288,25 +288,25 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                   <div className="flex gap-3 h-12 sm:h-14">
                     {/* Wider RSVP Box */}
                     <div className="flex-grow min-w-0">
-                       {selectedEvent.status === 'upcoming' ? (
-                          <button className="w-full h-full flex items-center gap-3 px-5 bg-red-600/90 hover:bg-red-500 text-white rounded-xl transition-all group/rsvp relative overflow-hidden shadow-lg shadow-red-600/10 active:scale-[0.98]">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/rsvp:translate-x-full transition-transform duration-1000" />
-                            <div className="w-7 h-7 flex items-center justify-center bg-white/20 rounded-lg group-hover/rsvp:rotate-90 transition-transform hidden sm:flex">
-                              <ChevronRight className="w-4 h-4" />
-                            </div>
-                            <div className="text-left">
-                              <p className="text-[7px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">Authorization</p>
-                              <p className="text-white text-[10px] font-black tracking-[0.2em] uppercase italic">Initiate Presence</p>
-                            </div>
-                          </button>
-                        ) : (
-                          <div className="w-full h-full flex items-center gap-4 px-5 bg-white/[0.05] border border-white/5 rounded-xl opacity-50 grayscale cursor-not-allowed">
-                            <div className="w-7 h-7 flex items-center justify-center bg-gray-500/10 text-gray-400 rounded-lg">
-                              <X className="w-3.5 h-3.5" />
-                            </div>
-                            <p className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Session Concluded</p>
+                      {selectedEvent.status === 'upcoming' ? (
+                        <button className="w-full h-full flex items-center gap-3 px-5 bg-red-600/90 hover:bg-red-500 text-white rounded-xl transition-all group/rsvp relative overflow-hidden shadow-lg shadow-red-600/10 active:scale-[0.98]">
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/rsvp:translate-x-full transition-transform duration-1000" />
+                          <div className="w-7 h-7 flex items-center justify-center bg-white/20 rounded-lg group-hover/rsvp:rotate-90 transition-transform hidden sm:flex">
+                            <ChevronRight className="w-4 h-4" />
                           </div>
-                        )}
+                          <div className="text-left">
+                            <p className="text-[7px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">Authorization</p>
+                            <p className="text-white text-[10px] font-black tracking-[0.2em] uppercase italic">Initiate Presence</p>
+                          </div>
+                        </button>
+                      ) : (
+                        <div className="w-full h-full flex items-center gap-4 px-5 bg-white/[0.05] border border-white/5 rounded-xl opacity-50 grayscale cursor-not-allowed">
+                          <div className="w-7 h-7 flex items-center justify-center bg-gray-500/10 text-gray-400 rounded-lg">
+                            <X className="w-3.5 h-3.5" />
+                          </div>
+                          <p className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Session Concluded</p>
+                        </div>
+                      )}
                     </div>
 
                     {/* Square Attendance Box */}
@@ -337,19 +337,19 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
                 <div className="shrink-0 relative">
                   {selectedEvent.photos && selectedEvent.photos.length > 0 && (
                     <div className="relative group/gallery">
-                       <div 
-                         className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
-                       >
-                         {selectedEvent.photos.map((photo, idx) => (
-                           <div 
-                             key={idx} 
-                             onClick={() => setActiveImage(photo)}
-                             className={`w-20 h-14 shrink-0 rounded-xl overflow-hidden border transition-all duration-300 group cursor-pointer snap-center relative ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
-                           >
-                             <img src={photo} className="w-full h-full object-cover" alt="" />
-                           </div>
-                         ))}
-                       </div>
+                      <div
+                        className="flex flex-row overflow-x-auto gap-2 no-scrollbar snap-x scroll-smooth"
+                      >
+                        {selectedEvent.photos.map((photo, idx) => (
+                          <div
+                            key={idx}
+                            onClick={() => setActiveImage(photo)}
+                            className={`w-20 h-14 shrink-0 rounded-xl overflow-hidden border transition-all duration-300 group cursor-pointer snap-center relative ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
+                          >
+                            <img src={photo} className="w-full h-full object-cover" alt="" />
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

@@ -112,7 +112,7 @@ export default function Hero() {
 
             {/* ENIT Announcement Badge */}
             <a
-              href="https://bit.ly/4cXxA5n"
+
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-3 px-6 py-2.5 mb-8 hero-badge bg-white/5 backdrop-blur-md border border-white/10 rounded-full shadow-[0_0_30px_rgba(239,68,68,0.1)] hover:border-red-500/50 transition-all duration-300 hover:scale-[1.02]"
@@ -123,7 +123,7 @@ export default function Hero() {
               </span>
               <div className="flex items-center gap-2">
                 <span className="px-1.5 py-0.5 rounded-md bg-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest">New</span>
-                <span className="text-xs sm:text-sm text-foreground font-bold tracking-[0.2em] uppercase group-hover:text-red-400 transition-colors">NEXT STATION : ESPRIT</span>
+                <span className="text-xs sm:text-sm text-foreground font-bold tracking-[0.2em] uppercase group-hover:text-red-400 transition-colors">NEXT STATION : ENIM</span>
               </div>
               <ArrowRight className="w-4 h-4 text-red-500 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -193,7 +193,7 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none z-0" />
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-0 left-[48%] sm:left-1/2 -translate-x-1/2 animate-bounce z-30 pb-2">
+      <div className="absolute bottom-0 left-[44%] sm:left-[48%] -translate-x-1/2 animate-bounce z-30 pb-2">
         <a
           href="#about"
           onClick={(e) => { e.preventDefault(); scrollToSection('#about'); }}
