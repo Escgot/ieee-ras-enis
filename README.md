@@ -1,7 +1,7 @@
 # 🤖 IEEE RAS ENIS Student Branch Website
 
 <div align="center">
-  <img src="./public/images/ras_bannr.png" alt="IEEE RAS ENIS Banner" width="800">
+  <img src="./public/images/ras_banner.png" alt="IEEE RAS ENIS Banner" width="800">
   <p align="center">
     <strong>Innovating the Future, One Line of Code at a Time.</strong>
   </p>
