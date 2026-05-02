@@ -123,7 +123,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 <div align="center">
-  <p>Developed with 🤖 and ☕ by the <strong>IEEE RAS ENIS</strong> Web Team.</p>
+  <p>Developed by the webmaster <a href="https://github.com/Escgot/">Escgot</a> of the IEEE RAS ENIS.</p>
   <p>
     <a href="https://instagram.com/ras_enis"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"></a>
     <a href="https://facebook.com/ras_enis"><img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Facebook"></a>

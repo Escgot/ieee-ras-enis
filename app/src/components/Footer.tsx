@@ -149,6 +149,7 @@ export default function Footer() {
               © {new Date().getFullYear()} IEEE RAS ENIS. All rights reserved.
             </p>
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              Developed by the webmaster <a href="https://github.com/Escgot/" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:underline">Escgot</a> of the IEEE RAS ENIS
             </div>
           </div>
         </div>
