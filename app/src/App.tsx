@@ -5,13 +5,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Preloader from './components/Preloader';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import About from './components/About';
-import News from './components/News';
+
 import ParticleBackground from './components/ParticleBackground';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 // Lazy load components that are below the fold and secondary pages
+const About = lazy(() => import('./components/About'));
+const News = lazy(() => import('./components/News'));
 const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const Projects = lazy(() => import('./components/Projects'));
 const AllProjects = lazy(() => import('./components/AllProjects'));
@@ -83,46 +84,48 @@ function HomePage() {
 
   return (
     <div ref={mainRef}>
-      <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
-        <>
-          <Navigation />
-            <main>
-              <Hero />
-              <SectionDivider />
-              <div className="section-reveal">
-                <About />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <News />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <Gallery />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <Events />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <Projects />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <Team />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <Shop />
-              </div>
-              <SectionDivider />
-              <div className="section-reveal">
-                <Contact />
-              </div>
-            </main>
-            <Footer />
-          </>
+      <Navigation />
+      <main>
+        <Hero />
+        
+        <Suspense fallback={<div className="h-screen" />}>
+          <SectionDivider />
+          <div className="section-reveal">
+            <About />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <News />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <Gallery />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <Events />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <Projects />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <Team />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <Shop />
+          </div>
+          <SectionDivider />
+          <div className="section-reveal">
+            <Contact />
+          </div>
+        </Suspense>
+      </main>
+      
+      <Suspense fallback={null}>
+        <Footer />
       </Suspense>
     </div>
   );
