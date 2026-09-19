@@ -1,0 +1,30 @@
+import path from "path"
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
+import { inspectAttr } from 'kimi-plugin-inspect-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  base: './',
+  plugins: [inspectAttr(), react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    target: 'esnext',
+    minify: 'esbuild',
+    cssMinify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],
+          'animations': ['gsap', 'embla-carousel-react'],
+          'ui': ['@radix-ui/react-accordion', '@radix-ui/react-dialog', 'lucide-react']
+        }
+      }
+    }
+  }
+});

@@ -1,0 +1,161 @@
+
+import { Instagram, Facebook, Linkedin, Mail } from 'lucide-react';
+import DiscordIcon from './DiscordIcon';
+
+import { news } from '../data/news';
+
+const footerLinks = {
+  navigation: [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'News', href: '#news' },
+    { name: 'Gallery', href: '#gallery' },
+    { name: 'Events', href: '#events' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Team', href: '#team' },
+    { name: 'Shop', href: '#shop' },
+    { name: 'Contact', href: '#contact' },
+  ],
+};
+
+const socials = [
+  { icon: Instagram, href: 'https://www.instagram.com/ieee.ras.enis/', label: 'Instagram', hoverColor: 'hover:bg-[#E4405F] hover:border-[#E4405F] hover:shadow-[0_0_15px_#E4405F66]' },
+  { icon: Facebook, href: 'https://www.facebook.com/IEEERASENIS', label: 'Facebook', hoverColor: 'hover:bg-[#1877F2] hover:border-[#1877F2] hover:shadow-[0_0_15px_#1877F266]' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/ieee-ras-chapter-enis-student-branch/posts/?feedView=all', label: 'LinkedIn', hoverColor: 'hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:shadow-[0_0_15px_#0A66C266]' },
+  { icon: DiscordIcon, href: 'https://discord.gg/HXxBRJUq', label: 'Discord', hoverColor: 'hover:bg-[#5865F2] hover:border-[#5865F2] hover:shadow-[0_0_15px_#5865F266]' },
+];
+
+
+export default function Footer() {
+
+  const scrollToSection = (href: string) => {
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <footer className="relative bg-background border-t border-foreground/10 dark:border-white/6 overflow-hidden">
+      {/* Background aurora */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-80 h-80 rounded-full"
+          style={{ background: 'radial-gradient(ellipse, rgba(239,68,68,0.04) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full"
+          style={{ background: 'radial-gradient(ellipse, rgba(168,85,247,0.04) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+      </div>
+
+      {/* Top gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent" />
+
+      {/* Marquee Banner */}
+      <div className="relative overflow-hidden py-3 bg-red-600/5 border-b border-white/5">
+        <div className="flex" style={{ width: 'max-content' }}>
+          <div className="marquee-track flex items-center gap-0">
+            {[...news, ...news].map((item, i) => (
+              <div key={i} className="flex items-center">
+                <span className="flex items-center gap-3 font-orbitron text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] px-8 whitespace-nowrap group cursor-pointer hover:text-red-500 transition-colors">
+                  {item.title}
+                </span>
+                <span className="text-red-500/20 text-xs">◆</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-10 lg:py-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+
+            {/* Brand Column */}
+            <div className="lg:col-span-5">
+              {/* Logo */}
+              <a
+                href="#home"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
+                className="inline-flex items-center mb-0 group"
+                aria-label="Home"
+              >
+                <div className="relative h-14 w-48 flex items-center justify-start">
+                  <img 
+                    src="/images/ras.webp" 
+                    alt="RAS Logo" 
+                    className="relative h-12 w-auto object-contain" 
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </a>
+
+              <p className="text-muted-foreground text-sm leading-relaxed mb-8 max-w-sm">
+                IEEE Robotics & Automation Society at ENIS — empowering the next generation of engineers through innovation, collaboration, and cutting-edge technology.
+              </p>
+
+              {/* Social icons */}
+              <div className="flex items-center gap-3">
+                {socials.map((s, i) => (
+                  <a
+                    key={i}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className={`group w-10 h-10 flex items-center justify-center bg-foreground/5 dark:bg-white/[0.03] border border-foreground/10 dark:border-white/8 rounded-xl transition-all duration-300 hover:scale-110 ${s.hoverColor}`}
+                  >
+                    <s.icon className="w-4 h-4 text-muted-foreground group-hover:text-white transition-colors" />
+                  </a>
+                ))}
+              </div>
+
+              {/* Quick contact */}
+              <a
+                href="mailto:sbc.enis.ras@ieee.org"
+                className="mt-6 inline-flex items-center gap-2 text-sm text-gray-400 hover:text-red-400 transition-colors group"
+              >
+                <Mail className="w-4 h-4 group-hover:text-red-400" />
+                sbc.enis.ras@ieee.org
+              </a>
+            </div>
+
+            {/* Navigation */}
+            <div className="lg:col-span-7 pl-0 lg:pl-12">
+              <h2 className="font-orbitron font-bold text-foreground text-sm uppercase tracking-widest mb-6 flex items-center gap-2">
+                <span className="w-3 h-px bg-red-500 inline-block flex-shrink-0" />
+                Navigation
+              </h2>
+              <ul className="grid grid-cols-2 gap-x-8 gap-y-3">
+                {footerLinks.navigation.map((link, i) => (
+                  <li key={i}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                      className="animated-border group inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-300 pb-px"
+                    >
+                      <span className="w-0 group-hover:w-3 h-px bg-red-500 transition-all duration-300 inline-block shrink-0" />
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="relative border-t border-white/5">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-5">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} IEEE RAS ENIS. All rights reserved.
+            </p>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              Developed by the webmaster <a href="https://github.com/Escgot/" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:underline">Escgot</a> of the IEEE RAS ENIS
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+  );
+}
