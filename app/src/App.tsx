@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useRef, lazy, Suspense } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Preloader from './components/Preloader';
@@ -44,13 +44,7 @@ function SectionDivider() {
 
 /* ── Home Page (all sections) ── */
 function HomePage() {
-  const [showAllEvents, setShowAllEvents] = useState(false);
-  const [showAllProjects, setShowAllProjects] = useState(false);
-  const [showAllProducts, setShowAllProducts] = useState(false);
-  const [showAllNews, setShowAllNews] = useState(false);
-  const [showAllGallery, setShowAllGallery] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
   /* Global scroll-triggered section reveals */
   useEffect(() => {
@@ -85,66 +79,13 @@ function HomePage() {
     }, mainRef);
 
     return () => ctx.revert();
-  }, [showAllEvents, showAllProjects, showAllProducts]);
-
-  const resetAll = () => {
-    setShowAllEvents(false);
-    setShowAllProjects(false);
-    setShowAllProducts(false);
-    setShowAllNews(false);
-    setShowAllGallery(false);
-  };
-
-  const handleShowAllEvents = () => {
-    resetAll();
-    setShowAllEvents(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleShowAllProjects = () => {
-    resetAll();
-    setShowAllProjects(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleShowAllProducts = () => {
-    resetAll();
-    setShowAllProducts(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleShowAllNews = () => {
-    resetAll();
-    setShowAllNews(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleShowAllGallery = () => {
-    resetAll();
-    setShowAllGallery(true);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleBackToHome = (section: 'events' | 'projects' | 'shop' | 'news' | 'gallery') => {
-    resetAll();
-    setTimeout(() => {
-      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
-
-  const isHome = !showAllEvents && !showAllProjects && !showAllProducts && !showAllNews && !showAllGallery;
+  }, []);
 
   return (
     <div ref={mainRef}>
       <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
-        {isHome ? (
-          <>
-            <Navigation
-              onNavigateHome={() => {
-                resetAll();
-                navigate('/');
-              }}
-            />
+        <>
+          <Navigation />
             <main>
               <Hero />
               <SectionDivider />
@@ -153,19 +94,19 @@ function HomePage() {
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <News onViewAll={handleShowAllNews} />
+                <News />
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <Gallery onViewAll={handleShowAllGallery} />
+                <Gallery />
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <Events onViewAll={handleShowAllEvents} />
+                <Events />
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <Projects onViewAll={handleShowAllProjects} />
+                <Projects />
               </div>
               <SectionDivider />
               <div className="section-reveal">
@@ -173,7 +114,7 @@ function HomePage() {
               </div>
               <SectionDivider />
               <div className="section-reveal">
-                <Shop onViewAll={handleShowAllProducts} />
+                <Shop />
               </div>
               <SectionDivider />
               <div className="section-reveal">
@@ -182,17 +123,6 @@ function HomePage() {
             </main>
             <Footer />
           </>
-        ) : showAllEvents ? (
-          <AllEvents onBack={() => handleBackToHome('events')} />
-        ) : showAllProducts ? (
-          <AllProducts onBack={() => handleBackToHome('shop')} />
-        ) : showAllNews ? (
-          <AllNews onBack={() => handleBackToHome('news')} />
-        ) : showAllGallery ? (
-          <AllGallery onBack={() => handleBackToHome('gallery')} />
-        ) : (
-          <AllProjects onBack={() => handleBackToHome('projects')} />
-        )}
       </Suspense>
     </div>
   );
@@ -217,6 +147,11 @@ function App() {
           <CustomCursor />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/news" element={<AllNews />} />
+            <Route path="/gallery" element={<AllGallery />} />
+            <Route path="/events" element={<AllEvents />} />
+            <Route path="/projects" element={<AllProjects />} />
+            <Route path="/products" element={<AllProducts />} />
             <Route
               path="/dashboard"
               element={

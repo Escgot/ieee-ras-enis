@@ -212,18 +212,18 @@ export default function About() {
 
               {/* Pillars grid */}
               <div className="grid grid-cols-2 gap-3">
-                {pillars.map((item, index) => (
+                {pillars.map(({ title, desc, color, border, icon: Icon }, index) => (
                   <div
                     key={index}
-                    className={`pillar-card group relative p-4 bg-gradient-to-br ${item.color} border ${item.border} rounded-2xl hover:scale-[1.03] transition-all duration-300 cursor-default backdrop-blur-sm`}
+                    className={`pillar-card group relative p-4 bg-gradient-to-br ${color} border ${border} rounded-2xl hover:scale-[1.03] transition-all duration-300 cursor-default backdrop-blur-sm`}
                   >
                     <div className="flex items-start gap-3">
                       <div className="mt-0.5 text-foreground/80">
-                        <item.icon className="w-5 h-5" />
+                        <Icon className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-orbitron font-bold text-foreground text-sm mb-1">{item.title}</h4>
-                        <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                        <h3 className="font-orbitron font-bold text-foreground text-sm mb-1">{title}</h3>
+                        <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
                       </div>
                     </div>
                   </div>

@@ -80,6 +80,8 @@ export default function Footer() {
                   <img 
                     src="/images/ras.webp" 
                     alt="RAS Logo" 
+                    width="200"
+                    height="48"
                     className="relative h-12 w-auto object-contain" 
                     loading="lazy"
                     decoding="async"

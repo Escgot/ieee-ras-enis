@@ -33,7 +33,7 @@ const bottomNavLinks = [
   { name: 'Menu', href: 'menu', icon: Menu }, // Special case for opening menu
 ];
 
-export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => void }) {
+export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -97,17 +97,10 @@ export default function Navigation({ onNavigateHome }: { onNavigateHome?: () => 
   const scrollToSection = (href: string) => {
     if (!isHomePage) {
       navigate('/');
-      if (onNavigateHome) onNavigateHome();
       setTimeout(() => {
         const el = document.querySelector(href);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 200);
-    } else if (onNavigateHome) {
-      onNavigateHome();
-      setTimeout(() => {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 50);
     } else {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: 'smooth' });

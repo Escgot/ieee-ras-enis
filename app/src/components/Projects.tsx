@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -8,7 +9,8 @@ import { Dialog, DialogContent } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
+export default function Projects() {
+  const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -103,7 +105,7 @@ export default function Projects({ onViewAll }: { onViewAll?: () => void }) {
             </h2>
           </div>
           <button
-            onClick={onViewAll}
+            onClick={() => navigate('/projects')}
             className="group cyber-btn flex items-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-7 sm:py-3.5 border border-foreground/10 dark:border-white/10 text-muted-foreground hover:text-foreground transition-all rounded-xl font-bold text-[9px] sm:text-[11px] tracking-widest uppercase backdrop-blur-sm hover:bg-foreground/5 dark:hover:bg-red-500/5"
           >
             All Projects

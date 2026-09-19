@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,7 +7,8 @@ import { shopItems } from '../data/shop';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Shop({ onViewAll }: { onViewAll: () => void }) {
+export default function Shop() {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement>(null);
 
@@ -146,7 +148,7 @@ export default function Shop({ onViewAll }: { onViewAll: () => void }) {
         {/* CTA */}
         <div className="mt-16 text-center">
           <button
-            onClick={onViewAll}
+            onClick={() => navigate('/products')}
             className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-foreground/10 dark:border-white/10 bg-foreground/5 dark:bg-white/[0.02] hover:bg-red-500/5 text-foreground dark:text-white text-xs font-bold uppercase tracking-[0.3em] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]"
           >
             View All Products

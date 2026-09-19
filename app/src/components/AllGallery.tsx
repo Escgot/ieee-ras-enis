@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -25,7 +26,8 @@ const months = [
   { value: 'December', label: '12 - December' },
 ];
 
-export default function AllGallery({ onBack }: { onBack?: () => void }) {
+export default function AllGallery() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeMonth, setActiveMonth] = useState('All');
   const [activeYear, setActiveYear] = useState('All');
@@ -183,14 +185,12 @@ export default function AllGallery({ onBack }: { onBack?: () => void }) {
         <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6">
             <div className="flex items-center gap-4">
-              {onBack && (
                 <button
-                  onClick={onBack}
+                  onClick={() => navigate('/')}
                   className="p-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
                 >
                   <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                 </button>
-              )}
               <div>
                 <h1 className="font-orbitron text-2xl font-bold text-foreground uppercase tracking-tight">Visual <span className="text-red-500">Gallery</span></h1>
                 <div className="flex items-center gap-4 mt-2">

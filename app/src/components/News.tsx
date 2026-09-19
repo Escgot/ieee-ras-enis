@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -8,7 +9,8 @@ import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function News({ onViewAll }: { onViewAll?: () => void }) {
+export default function News() {
+  const navigate = useNavigate();
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -87,7 +89,7 @@ export default function News({ onViewAll }: { onViewAll?: () => void }) {
               News &{' '}<span className="text-gradient">Updates</span>
             </h2>
           </div>
-          <button onClick={onViewAll} className="group cyber-btn flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-red-500/40 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase hover:bg-red-500/5">
+          <button onClick={() => navigate('/news')} className="group cyber-btn flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-red-500/40 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase hover:bg-red-500/5">
             All Posts
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>

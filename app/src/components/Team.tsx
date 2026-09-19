@@ -251,16 +251,17 @@ export default function Team() {
                               </h3>
                               <div className="flex gap-3">
                                 {[
-                                  { href: member.social.instagram, Icon: Instagram, hover: 'hover:bg-[#E4405F] hover:border-[#E4405F]' },
-                                  { href: member.social.linkedin, Icon: Linkedin, hover: 'hover:bg-[#0A66C2] hover:border-[#0A66C2]' },
-                                  { href: member.social.facebook, Icon: Facebook, hover: 'hover:bg-[#1877F2] hover:border-[#1877F2]' },
-                                  { href: member.social.mail, Icon: Mail, hover: 'hover:bg-[#EA4335] hover:border-[#EA4335]' },
-                                ].map(({ href, Icon, hover }, i) => (
+                                  { href: member.social.instagram, Icon: Instagram, hover: 'hover:bg-[#E4405F] hover:border-[#E4405F]', label: 'Instagram' },
+                                  { href: member.social.linkedin, Icon: Linkedin, hover: 'hover:bg-[#0A66C2] hover:border-[#0A66C2]', label: 'LinkedIn' },
+                                  { href: member.social.facebook, Icon: Facebook, hover: 'hover:bg-[#1877F2] hover:border-[#1877F2]', label: 'Facebook' },
+                                  { href: member.social.mail, Icon: Mail, hover: 'hover:bg-[#EA4335] hover:border-[#EA4335]', label: 'Email' },
+                                ].map(({ href, Icon, hover, label }, i) => (
                                   <a
                                     key={i}
                                     href={href}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label={`${member.name} on ${label}`}
                                     className={`w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 border border-white/10 transition-all duration-200 text-gray-400 hover:text-white ${hover}`}
                                     onClick={(e) => e.stopPropagation()}
                                   >
@@ -289,17 +290,19 @@ export default function Team() {
                 <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
               </button>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 {teamMembers.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => emblaApi?.scrollTo(i)}
-                    className={`rounded-full transition-all duration-400 ${i === activeIndex
-                      ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
-                      : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                      }`}
+                    className="p-2 group"
                     aria-label={`Go to slide ${i + 1}`}
-                  />
+                  >
+                    <span className={`block rounded-full transition-all duration-400 ${i === activeIndex
+                      ? 'w-6 h-2 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]'
+                      : 'w-2 h-2 bg-white/20 group-hover:bg-white/40'
+                      }`} />
+                  </button>
                 ))}
               </div>
 

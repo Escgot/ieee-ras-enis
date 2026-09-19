@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ArrowUpRight } from 'lucide-react';
 import { row1Images, row2Images } from '../data/gallery';
 
-export default function Gallery({ onViewAll }: { onViewAll?: () => void }) {
+export default function Gallery() {
+  const navigate = useNavigate();
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
 
@@ -140,7 +142,7 @@ export default function Gallery({ onViewAll }: { onViewAll?: () => void }) {
             <div className="flex items-center gap-4 w-full">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-red-500/20 to-red-500/40" />
               <button 
-                onClick={onViewAll}
+                onClick={() => navigate('/gallery')}
                 className="group relative flex items-center gap-2.5 px-6 py-2.5 bg-red-500/5 hover:bg-red-500 border border-red-500/20 hover:border-red-500 rounded-full transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(239,68,68,0.05)] hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] animate-float-slow cursor-pointer z-20"
                 title="Explore Full Gallery"
               >

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -8,7 +9,8 @@ import { Dialog, DialogContent } from './ui/dialog';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Events({ onViewAll }: { onViewAll: () => void }) {
+export default function Events() {
+  const navigate = useNavigate();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -182,7 +184,7 @@ export default function Events({ onViewAll }: { onViewAll: () => void }) {
         {/* View All */}
         <div className="text-center mt-8">
           <button
-            onClick={onViewAll}
+            onClick={() => navigate('/events')}
             className="group inline-flex items-center gap-2 px-8 py-3.5 border border-foreground/10 dark:border-white/10 text-muted-foreground hover:text-foreground transition-all duration-300 hover:bg-foreground/5 dark:hover:bg-white/[0.03] cyber-btn rounded-xl"
           >
             View All Events
