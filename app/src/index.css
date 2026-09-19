@@ -250,7 +250,7 @@
   }
 }
 
-
+@keyframes aurora {
   0% {
     transform: translateX(-50%) translateY(-50%) rotate(0deg) scale(1);
   }
@@ -524,7 +524,7 @@
   animation: pulse-glow 2.5s ease-in-out infinite;
 }
 
-
+.animate-aurora-2 {
   animation: aurora-2 25s linear infinite;
 }
 

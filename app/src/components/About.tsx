@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Target, Lightbulb, Users, Trophy } from 'lucide-react';
+import { Target, Lightbulb, Users, Trophy, Zap, Handshake, Award, Brain, Bot } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,10 +13,10 @@ const stats = [
 ];
 
 const pillars = [
-  { title: 'Innovation', desc: 'Pushing boundaries in robotics and automation', color: 'from-red-500/10 to-red-500/5', border: 'border-red-500/20', icon: '⚡' },
-  { title: 'Collaboration', desc: 'Teamwork drives exceptional results', color: 'from-purple-500/10 to-purple-500/5', border: 'border-purple-500/20', icon: '🤝' },
-  { title: 'Excellence', desc: 'Striving for the highest standards', color: 'from-red-500/10 to-red-500/5', border: 'border-red-500/20', icon: '🏆' },
-  { title: 'Learning', desc: 'Continuous growth mindset', color: 'from-purple-500/10 to-purple-500/5', border: 'border-purple-500/20', icon: '🧠' },
+  { title: 'Innovation', desc: 'Pushing boundaries in robotics and automation', color: 'from-red-500/10 to-red-500/5', border: 'border-red-500/20', icon: Zap },
+  { title: 'Collaboration', desc: 'Teamwork drives exceptional results', color: 'from-purple-500/10 to-purple-500/5', border: 'border-purple-500/20', icon: Handshake },
+  { title: 'Excellence', desc: 'Striving for the highest standards', color: 'from-red-500/10 to-red-500/5', border: 'border-red-500/20', icon: Award },
+  { title: 'Learning', desc: 'Continuous growth mindset', color: 'from-purple-500/10 to-purple-500/5', border: 'border-purple-500/20', icon: Brain },
 ];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -191,9 +191,8 @@ export default function About() {
                 <div className="text-xs text-muted-foreground font-medium mt-0.5">Years of Excellence</div>
               </div>
 
-              {/* Top-left floating element */}
               <div className="absolute -top-4 -left-4 w-14 h-14 flex items-center justify-center bg-background dark:bg-[#0a0a0a] backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-lg animate-float" style={{ animationDelay: '1.5s' }}>
-                <span className="text-2xl">🤖</span>
+                <Bot className="w-6 h-6 text-purple-500" />
               </div>
             </div>
 
@@ -219,7 +218,9 @@ export default function About() {
                     className={`pillar-card group relative p-4 bg-gradient-to-br ${item.color} border ${item.border} rounded-2xl hover:scale-[1.03] transition-all duration-300 cursor-default backdrop-blur-sm`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-xl mt-0.5">{item.icon}</span>
+                      <div className="mt-0.5 text-foreground/80">
+                        <item.icon className="w-5 h-5" />
+                      </div>
                       <div>
                         <h4 className="font-orbitron font-bold text-foreground text-sm mb-1">{item.title}</h4>
                         <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
