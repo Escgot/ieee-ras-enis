@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -20,16 +20,18 @@ export default function AllEvents() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
-  const filteredEvents = events.filter((event) => {
-    const matchesCategory = activeCategory === 'All Events' ||
-      (activeCategory === 'Workshops' && event.category === 'Workshop') ||
-      (activeCategory === 'Competitions' && event.category === 'Competition') ||
-      (activeCategory === 'Social' && event.category === 'Social');
-    const matchesSearch =
-      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) => {
+      const matchesCategory = activeCategory === 'All Events' ||
+        (activeCategory === 'Workshops' && event.category === 'Workshop') ||
+        (activeCategory === 'Competitions' && event.category === 'Competition') ||
+        (activeCategory === 'Social' && event.category === 'Social');
+      const matchesSearch =
+        event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.description.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -61,7 +63,7 @@ export default function AllEvents() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6">
             <div className="flex items-center gap-4">
                 <button 
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/#events')}
                   className="p-3 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-full hover:bg-red-500 hover:text-white transition-all group"
                 >
                   <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -110,14 +112,16 @@ export default function AllEvents() {
             {filteredEvents.map((event) => (
               <div
                 key={event.id}
-                className="group relative bg-[#0a0a0b]/40 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5 h-full flex flex-col"
-                onClick={() => setSelectedEvent(event)}
+                className="event-card group relative bg-[#0a0a0b]/40 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-red-500/20 transition-all duration-700 cursor-pointer shadow-2xl hover:shadow-red-500/5 h-full flex flex-col"
+                onClick={() => { setSelectedEvent(event); setActiveImage(null); }}
               >
                 {/* Image Section */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img
                     src={event.image}
                     alt={event.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1 opacity-40 group-hover:opacity-100 group-hover:brightness-75"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent z-10" />
@@ -319,7 +323,7 @@ export default function AllEvents() {
                           onClick={() => setActiveImage(photo)}
                           className={`w-16 h-12 shrink-0 rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer snap-center ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
                         >
-                          <img src={photo} className="w-full h-full object-cover" alt="" />
+                          <img src={photo} className="w-full h-full object-cover" alt="" loading="lazy" decoding="async" />
                         </div>
                       ))}
                     </div>

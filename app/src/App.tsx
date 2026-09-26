@@ -135,10 +135,19 @@ function HomePage() {
 function App() {
   const location = useLocation();
 
-  /* Scroll to top on route change */
+  /* Handle scroll to top or hash on route change */
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [location.pathname]);
+    if (location.hash) {
+      setTimeout(() => {
+        const element = document.querySelector(location.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'instant' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <>

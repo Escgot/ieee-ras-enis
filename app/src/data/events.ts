@@ -16,20 +16,6 @@ export interface Event {
 
 export const events: Event[] = [
   {
-    id: 7,
-    title: 'Info Session',
-    description: 'Join us for an introductory session about IEEE RAS ENIS! We will discuss our club rules, upcoming activities, and give a warm welcome to all new members.',
-    date: 'September 24, 2026',
-    time: '12:00 -- 13:00 PM',
-    location: 'ENIS Amphi 4',
-    category: 'Info Session',
-    image: '/images/news-3.jpg',
-    attendees: 0,
-    status: 'upcoming',
-    registeredCount: 0,
-    maxAttendees: 150,
-  },
-  {
     id: 6,
     title: 'Workshop: Line Follower Robot',
     description: 'This workshop introduces the basics of electronics and programming for line follower robots. Learn about key components, clean coding practices, and get hands-on experience.',
@@ -44,19 +30,18 @@ export const events: Event[] = [
     maxAttendees: 100,
   },
   {
-    id: 1,
-    title: 'Workshop: AI in Robotics',
-    description:
-      'Learn how to integrate AI and machine learning into your robotics projects. Hands-on session with real robots.',
-    date: 'April 19, 2026',
-    time: '14:00 PM',
-    location: 'Youth Center of Sfax',
-    category: 'Workshop',
-    image: '/images/news-3.jpg',
-    attendees: 45,
-    status: 'upcoming',
-    registeredCount: 42,
-    maxAttendees: 50,
+    id: 7,
+    title: 'Info Session',
+    description: 'Join us for an introductory session about IEEE RAS ENIS! We will discuss our club rules, upcoming activities, and give a warm welcome to all new members.',
+    date: 'September 24, 2026',
+    time: '12:00 -- 13:00 PM',
+    location: 'ENIS Amphi 4',
+    category: 'Social',
+    image: '/images/news-7.webp',
+    attendees: 0,
+    status: 'past',
+    registeredCount: 0,
+    maxAttendees: 150,
   },
   {
     id: 2,
@@ -66,14 +51,15 @@ export const events: Event[] = [
     date: 'June 27/28/29, 2026',
     time: '17:00 PM - 19:30 PM',
     location: 'Youth Center of Sfax',
-    category: 'Bootcamp',
-    image: '/images/news-5.webp',
+    category: 'Workshop',
+    image: '/images/stem/img0.webp',
     attendees: 50,
     status: 'past',
     registeredCount: 42,
     maxAttendees: 50,
     photos: [
-      '/images/news-1.webp'
+      '/images/stem/img0.webp',
+      '/images/stem/img1.webp',
     ]
   },
   {
@@ -84,7 +70,7 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Competition',
-    image: '/images/gallery/workshop/comp.jpg',
+    image: '/images/gallery/workshop/comp.webp',
     attendees: 90,
     status: 'past',
     registeredCount: 90,
@@ -100,13 +86,13 @@ export const events: Event[] = [
     time: '14:00 PM',
     location: 'Youth Center of Sfax',
     category: 'Workshop',
-    image: '/images/gallery/workshop/0.jpg',
+    image: '/images/gallery/workshop/0.webp',
     attendees: 92,
     status: 'past',
     registeredCount: 92,
     maxAttendees: 92,
     photos: [
-      '/images/gallery/workshop/0.jpg',
+      '/images/gallery/workshop/0.webp',
     ]
   },
   {

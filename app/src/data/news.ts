@@ -81,7 +81,7 @@ export const news: NewsItem[] = [
       '/images/gallery/npc/npc2.webp',
       '/images/gallery/npc/npc3.webp',
       '/images/gallery/npc/npc4.webp',
-      '/images/gallery/npc/npc5.jpg',
+      '/images/gallery/npc/npc5.webp',
     ]
   },
   {
@@ -163,12 +163,12 @@ export const news: NewsItem[] = [
     date: 'Feb 1, 2026',
     category: 'Competitions',
     readTime: '3 min read',
-    image: '/images/gallery/enstab/enstab0.png',
+    image: '/images/gallery/enstab/enstab0.webp',
     location: 'ENSTAB Tunis',
     photos: [
-      '/images/gallery/enstab/enstab0.png',
-      '/images/gallery/enstab/enstab1.png',
-      '/images/gallery/enstab/enstab2.png',
+      '/images/gallery/enstab/enstab0.webp',
+      '/images/gallery/enstab/enstab1.webp',
+      '/images/gallery/enstab/enstab2.webp',
     ]
   },
   {
@@ -191,11 +191,11 @@ export const news: NewsItem[] = [
     date: 'Jan 25, 2026',
     category: 'Competitions',
     readTime: '3 min read',
-    image: '/images/gallery/isgis/isgis0.png',
+    image: '/images/gallery/isgis/isgis0.webp',
     location: 'ISGIS SFAX',
     photos: [
-      '/images/gallery/isgis/isgis0.png',
-      '/images/gallery/isgis/isgis1.png',
+      '/images/gallery/isgis/isgis0.webp',
+      '/images/gallery/isgis/isgis1.webp',
     ]
   },
   {
@@ -220,10 +220,10 @@ export const news: NewsItem[] = [
     date: 'Dec 14, 2025',
     category: 'Competitions',
     readTime: '3 min read',
-    image: '/images/gallery/isimm1.png',
+    image: '/images/gallery/isimm1.webp',
     location: 'ISIMM MONATSTIR',
     photos: [
-      '/images/gallery/isimm1.png',
+      '/images/gallery/isimm1.webp',
     ]
   },
   {
@@ -233,10 +233,10 @@ export const news: NewsItem[] = [
     date: 'Nov 30, 2025',
     category: 'Competitions',
     readTime: '3 min read',
-    image: '/images/gallery/essths.png',
+    image: '/images/gallery/essths.webp',
     location: 'ESSTHS Sousse',
     photos: [
-      '/images/gallery/essths.png',
+      '/images/gallery/essths.webp',
     ]
   },
   {
@@ -266,10 +266,10 @@ export const news: NewsItem[] = [
     date: 'Nov 16, 2025',
     category: 'Competitions',
     readTime: '3 min read',
-    image: '/images/gallery/iset-sfax.png',
+    image: '/images/gallery/iset-sfax.webp',
     location: 'ISET Sfax',
     photos: [
-      '/images/gallery/iset-sfax.png',
+      '/images/gallery/iset-sfax.webp',
     ]
   },
 

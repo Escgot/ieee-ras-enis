@@ -3,7 +3,7 @@
  * 
  * To add your own pictures:
  * 1. Upload your images to the `public/images/gallery/` folder.
- * 2. Add the path as an entry in the appropriate row array below (e.g., '/images/gallery/your-photo.jpg').
+ * 2. Add the path as an entry in the appropriate row array below (e.g., '/images/gallery/your-photo.webp').
  * 3. You can also use external URLs as shown below.
  * 
  * For the full gallery page, add a new GalleryEvent entry to the galleryEvents array.
@@ -55,7 +55,7 @@ export const galleryEvents: GalleryEvent[] = [
       '/images/gallery/npc/npc2.webp',
       '/images/gallery/npc/npc3.webp',
       '/images/gallery/npc/npc4.webp',
-      '/images/gallery/npc/npc5.jpg',
+      '/images/gallery/npc/npc5.webp',
     ],
   },
   {
@@ -66,11 +66,11 @@ export const galleryEvents: GalleryEvent[] = [
     cover: '/images/gallery/workshop/0.webp',
     photos: [
       '/images/gallery/workshop/0.webp',
-      '/images/gallery/workshop/0.jpg',
+      '/images/gallery/workshop/0.webp',
       '/images/gallery/workshop/1.webp',
       '/images/gallery/workshop/2.webp',
       '/images/gallery/workshop/3.webp',
-      '/images/gallery/workshop/comp.jpg',
+      '/images/gallery/workshop/comp.webp',
     ],
   },
   {
@@ -108,11 +108,11 @@ export const galleryEvents: GalleryEvent[] = [
     name: 'ENSTAB Event',
     date: 'October 2024',
     location: 'ENSTAB',
-    cover: '/images/gallery/enstab/enstab0.png',
+    cover: '/images/gallery/enstab/enstab0.webp',
     photos: [
-      '/images/gallery/enstab/enstab0.png',
-      '/images/gallery/enstab/enstab1.png',
-      '/images/gallery/enstab/enstab2.png',
+      '/images/gallery/enstab/enstab0.webp',
+      '/images/gallery/enstab/enstab1.webp',
+      '/images/gallery/enstab/enstab2.webp',
     ],
   },
   {
@@ -160,11 +160,11 @@ export const galleryEvents: GalleryEvent[] = [
     name: 'ISGIS Event',
     date: 'August 2024',
     location: 'ISGIS',
-    cover: '/images/gallery/isgis/isgis0.png',
+    cover: '/images/gallery/isgis/isgis0.webp',
     photos: [
-      '/images/gallery/isgis/isgis0.png',
-      '/images/gallery/isgis/isgis1.png',
-      '/images/gallery/isgi.png',
+      '/images/gallery/isgis/isgis0.webp',
+      '/images/gallery/isgis/isgis1.webp',
+      '/images/gallery/isgi.webp',
     ],
   },
   {
@@ -193,11 +193,11 @@ export const galleryEvents: GalleryEvent[] = [
     name: 'ISIMM Event',
     date: 'May 2024',
     location: 'ISIMM, Monastir',
-    cover: '/images/gallery/isimm.jpeg',
+    cover: '/images/gallery/isimm.webp',
     photos: [
-      '/images/gallery/isimm.jpeg',
-      '/images/gallery/isimm0.png',
-      '/images/gallery/isimm1.png',
+      '/images/gallery/isimm.webp',
+      '/images/gallery/isimm0.webp',
+      '/images/gallery/isimm1.webp',
     ],
   },
   {
@@ -205,9 +205,9 @@ export const galleryEvents: GalleryEvent[] = [
     name: 'Radio Interview',
     date: 'March 2024',
     location: 'Sfax',
-    cover: '/images/gallery/radio.jpg',
+    cover: '/images/gallery/radio.webp',
     photos: [
-      '/images/gallery/radio.jpg',
+      '/images/gallery/radio.webp',
     ],
   },
   {
@@ -232,13 +232,13 @@ export const galleryEvents: GalleryEvent[] = [
     name: 'Chapter Activities',
     date: '2024',
     location: 'Tunisia',
-    cover: '/images/gallery/iset-sfax.png',
+    cover: '/images/gallery/iset-sfax.webp',
     photos: [
-      '/images/gallery/iset-sfax.png',
-      '/images/gallery/essths.png',
-      '/images/gallery/ensit.png',
-      '/images/gallery/fst.png',
-      '/images/gallery/enig.png',
+      '/images/gallery/iset-sfax.webp',
+      '/images/gallery/essths.webp',
+      '/images/gallery/ensit.webp',
+      '/images/gallery/fst.webp',
+      '/images/gallery/enig.webp',
       '/images/gallery/issatkr.webp',
     ],
   },
@@ -246,18 +246,18 @@ export const galleryEvents: GalleryEvent[] = [
 
 /* ── Flat lists for the homepage marquee (unchanged) ── */
 export const row1Images = [
-  "/images/gallery/isimm.jpeg",
-  "/images/gallery/isgi0.png",
+  "/images/gallery/isimm.webp",
+  "/images/gallery/isgi0.webp",
   "/images/gallery/enet/enet0.webp",
   "/images/gallery/enet/enet4.webp",
   "/images/gallery/enet/enet9.webp",
-  "/images/gallery/enstab/enstab0.png",
-  "/images/gallery/enstab/enstab1.png",
-  "/images/gallery/enstab/enstab2.png",
+  "/images/gallery/enstab/enstab0.webp",
+  "/images/gallery/enstab/enstab1.webp",
+  "/images/gallery/enstab/enstab2.webp",
   "/images/gallery/enicar/enicar0.webp",
-  "/images/gallery/isimm0.png",
+  "/images/gallery/isimm0.webp",
   "/images/gallery/ensit/ensit1.webp",
-  "/images/gallery/isgi.png",
+  "/images/gallery/isgi.webp",
   '/images/gallery/aprobot/aprobot0.webp',
   '/images/gallery/aprobot/aprobot1.webp',
   "/images/gallery/npc/npc0.webp",
@@ -267,20 +267,20 @@ export const row1Images = [
 ];
 
 export const row2Images = [
-  "/images/gallery/iset-sfax.png",
-  "/images/gallery/essths.png",
+  "/images/gallery/iset-sfax.webp",
+  "/images/gallery/essths.webp",
   "/images/gallery/enet/enet3.webp",
   "/images/gallery/enet/enet1.webp",
   "/images/gallery/enet/enet5.webp",
   "/images/gallery/npc/npc1.webp",
   "/images/gallery/npc/npc2.webp",
-  "/images/gallery/radio.jpg",
-  "/images/gallery/isimm1.png",
-  "/images/gallery/ensit.png",
-  "/images/gallery/fst.png",
+  "/images/gallery/radio.webp",
+  "/images/gallery/isimm1.webp",
+  "/images/gallery/ensit.webp",
+  "/images/gallery/fst.webp",
   "/images/gallery/enet/enet6.webp",
   "/images/gallery/enet/enet7.webp",
-  "/images/gallery/enig.png",
+  "/images/gallery/enig.webp",
   "/images/gallery/epi2.webp",
   "/images/gallery/workshop/2.webp",
   "/images/gallery/enicar/enicar8.webp",

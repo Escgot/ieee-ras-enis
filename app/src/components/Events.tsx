@@ -116,7 +116,7 @@ export default function Events() {
                     ? 'bg-white/[0.03] border-red-500/20 hover:border-red-500/40 hover:shadow-[0_20px_60px_rgba(239,68,68,0.08)]'
                     : 'bg-white/[0.02] border-white/6 hover:border-red-500/25 hover:shadow-[0_20px_40px_rgba(239,68,68,0.05)]'
                     }`}
-                  onClick={() => setSelectedEvent(event)}
+                  onClick={() => { setSelectedEvent(event); setActiveImage(null); }}
                 >
 
                   {/* Subtle gradient bg on hover */}
@@ -348,7 +348,7 @@ export default function Events() {
                             onClick={() => setActiveImage(photo)}
                             className={`w-20 h-14 shrink-0 rounded-xl overflow-hidden border transition-all duration-300 group cursor-pointer snap-center relative ${activeImage === photo ? 'border-red-500 ring-2 ring-red-500/20' : 'border-white/10 opacity-40 hover:opacity-100'}`}
                           >
-                            <img src={photo} className="w-full h-full object-cover" alt="" />
+                            <img src={photo} className="w-full h-full object-cover" alt="" loading="lazy" decoding="async" />
                           </div>
                         ))}
                       </div>
