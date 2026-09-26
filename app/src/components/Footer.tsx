@@ -52,10 +52,10 @@ export default function Footer() {
           <div className="marquee-track flex items-center gap-0">
             {[...news, ...news].map((item, i) => (
               <div key={i} className="flex items-center">
-                <span className="flex items-center gap-3 font-orbitron text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] px-8 whitespace-nowrap group cursor-pointer hover:text-red-500 transition-colors">
+                <span className="flex items-center gap-3 font-orbitron text-[10px] font-black text-foreground/80 uppercase tracking-[0.2em] px-8 whitespace-nowrap group cursor-pointer hover:text-red-500 transition-colors">
                   {item.title}
                 </span>
-                <span className="text-red-500/20 text-xs">◆</span>
+                <span className="text-red-500/60 text-xs">◆</span>
               </div>
             ))}
           </div>

@@ -47,32 +47,31 @@ export default function Navigation() {
   const isHomePage = location.pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+
+      if (isHomePage) {
+        let current = 'home';
+        for (const link of navLinks) {
+          const id = link.href.slice(1);
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            // If the element's top is above 40% of the viewport height, it's considered active
+            if (rect.top <= window.innerHeight * 0.4) {
+              current = id;
+            }
+          }
+        }
+        setActiveSection(current);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    // Trigger once on mount to set initial state
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Track active section via IntersectionObserver (only on home page)
-  useEffect(() => {
-    if (!isHomePage) return;
-
-    const observers: IntersectionObserver[] = [];
-    const sections = navLinks.map(l => l.href.slice(1));
-
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
-        { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-
-    return () => observers.forEach(o => o.disconnect());
   }, [isHomePage]);
 
   // Move sliding underline indicator (only on home page)

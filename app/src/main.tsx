@@ -8,6 +8,17 @@ import '@fontsource-variable/orbitron';
 import './index.css'
 import App from './App.tsx'
 
+// Suppress the React 19 + next-themes warning
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  const orig = console.error;
+  console.error = (...args) => {
+    if (typeof args[0] === 'string' && args[0].includes('Encountered a script tag')) {
+      return;
+    }
+    orig.apply(console, args);
+  };
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
