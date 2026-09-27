@@ -62,7 +62,7 @@ export const projects: Project[] = [
     technologies: ['Raspberry Pi', 'ROS2', 'LiDAR', 'RF modules', 'PWM control'],
     photos: [
       '/images/projects/autonome.webp',
-      '/images/projects/autonome1.png',
+      '/images/projects/autonome1.webp',
       '/images/projects/autonome2.webp',
     ]
   },

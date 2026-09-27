@@ -171,6 +171,8 @@ export default function About() {
                 <img
                   src="/images/about-team.webp"
                   alt="RAS ENIS Team"
+                  width="600"
+                  height="450"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   loading="lazy"
                   decoding="async"

@@ -110,6 +110,8 @@ export default function News() {
                 <img
                   src={featured.image}
                   alt={featured.title}
+                  width="640"
+                  height="360"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-80"
                   loading="lazy"
                   decoding="async"
@@ -172,6 +174,8 @@ export default function News() {
                     <img
                       src={item.image}
                       alt={item.title}
+                      width="80"
+                      height="80"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-50 group-hover:opacity-80"
                       loading="lazy"
                       decoding="async"

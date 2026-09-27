@@ -271,12 +271,12 @@ export default function Hero() {
               {/* The Robot Image with crisp contrast and screen blending */}
               <img
                 ref={robotRef}
-                src="/images/x-robot.png"
+                src="/images/x-robot.webp"
                 alt="IEEE RAS ENIS Autonomous Robotics Node"
                 fetchPriority="high"
                 loading="eager"
-                width="800"
-                height="800"
+                width="440"
+                height="593"
                 className="opacity-0 relative w-[110%] sm:w-[125%] lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[4%] scale-[1.35] sm:scale-[1.45] pointer-events-none select-none"
                 style={{
                   filter: 'drop-shadow(0 0 45px rgba(239,68,68,0.3)) contrast(1.12) brightness(1.12)',

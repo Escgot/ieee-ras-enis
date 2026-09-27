@@ -144,7 +144,7 @@ export default function Navigation() {
                 aria-label="Home"
               >
                 <div className="relative h-12 w-36 sm:w-60 flex items-center justify-start flex-shrink-0">
-                  <img src="/images/ras.webp" alt="RAS Logo" width="200" height="50" className="relative h-10 w-auto object-contain" />
+                  <img src="/images/ras.webp" alt="RAS Logo" width="112" height="40" className="relative h-10 w-auto object-contain" />
                 </div>
               </a>
 

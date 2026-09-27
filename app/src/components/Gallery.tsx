@@ -129,7 +129,7 @@ export default function Gallery() {
                 key={i}
                 className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-foreground/10 dark:border-white/10 group relative flex-shrink-0"
               >
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="" loading="lazy" decoding="async" />
+                <img src={img} width="380" height="260" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="RAS ENIS Event Moment" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
@@ -180,7 +180,7 @@ export default function Gallery() {
                 key={i}
                 className="w-[260px] sm:w-[380px] h-full rounded-2xl overflow-hidden border border-foreground/10 dark:border-white/10 group relative flex-shrink-0"
               >
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="" loading="lazy" decoding="async" />
+                <img src={img} width="380" height="260" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 pointer-events-none" alt="RAS ENIS Event Moment" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
