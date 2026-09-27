@@ -166,7 +166,7 @@ export default function Hero() {
               href="#events"
               onClick={(e) => { e.preventDefault(); scrollToSection('#events'); }}
               aria-label="Next Station ENIM Event Announcement"
-              className="group inline-flex items-center gap-3 px-4 sm:px-5 py-2 mb-3 sm:mb-4 bg-foreground/[0.03] dark:bg-white/[0.04] backdrop-blur-xl border border-foreground/10 dark:border-white/10 rounded-full shadow-[0_4px_24px_rgba(239,68,68,0.12)] hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-300 hover:scale-[1.02]"
+              className="opacity-0 group inline-flex items-center gap-3 px-4 sm:px-5 py-2 mb-3 sm:mb-4 bg-foreground/[0.03] dark:bg-white/[0.04] backdrop-blur-xl border border-foreground/10 dark:border-white/10 rounded-full shadow-[0_4px_24px_rgba(239,68,68,0.12)] hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-300 hover:scale-[1.02]"
             >
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
@@ -184,7 +184,7 @@ export default function Hero() {
             </a>
 
             {/* Pre-title telemetry line */}
-            <div className="flex items-center gap-2.5 text-[10px] sm:text-[11px] font-numeric font-bold tracking-[0.25em] text-red-500 uppercase mb-2">
+            <div className="opacity-0 flex items-center gap-2.5 text-[10px] sm:text-[11px] font-numeric font-bold tracking-[0.25em] text-red-500 uppercase mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               <span>IEEE RAS CHAPTER #61101</span>
               <span className="text-muted-foreground/40">•</span>
@@ -192,7 +192,7 @@ export default function Hero() {
             </div>
 
             {/* Massive Title */}
-            <h1 className="font-display font-black mb-3 sm:mb-4 tracking-tighter leading-[0.88] flex flex-col uppercase">
+            <h1 className="opacity-0 font-display font-black mb-3 sm:mb-4 tracking-tighter leading-[0.88] flex flex-col uppercase">
               <span className="text-foreground text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] tracking-tight">
                 IEEE
               </span>
@@ -207,11 +207,11 @@ export default function Hero() {
             </h1>
 
             {/* Typewriter Terminal Console */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-4 mb-6 sm:mb-8 w-full">
+            <div className="opacity-0 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-4 mb-6 sm:mb-8 w-full">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-foreground/[0.04] dark:bg-white/[0.04] border border-foreground/10 dark:border-white/10 text-xs sm:text-sm font-numeric">
                 <Terminal className="w-3.5 h-3.5 text-red-500 shrink-0" />
                 <span className="text-muted-foreground font-medium text-[11px] sm:text-xs">INIT //</span>
-                <span className="text-foreground font-bold tracking-wider text-xs sm:text-sm">
+                <span className="text-foreground font-bold tracking-wider text-xs sm:text-sm min-w-[280px] sm:min-w-[340px] inline-block">
                   {typewriterText}
                 </span>
                 <span className="inline-block w-1.5 h-4 bg-red-500 animate-pulse ml-0.5" />
@@ -220,12 +220,12 @@ export default function Hero() {
             </div>
 
             {/* Description */}
-            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-xl mb-8 sm:mb-10 leading-relaxed font-sans font-medium">
+            <p className="opacity-0 text-sm sm:text-base lg:text-lg text-muted-foreground max-w-xl mb-8 sm:mb-10 leading-relaxed font-sans font-medium">
               Pioneering intelligent robotics, autonomous systems, and hands-on engineering excellence. Where ambitious Tunisian engineers transform visionary concepts into breakthrough prototypes.
             </p>
 
             {/* Dual High-Tech Action CTAs */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 w-full sm:w-auto">
+            <div className="opacity-0 flex flex-wrap items-center justify-center lg:justify-start gap-4 w-full sm:w-auto">
               {/* Primary: Explore Innovations */}
               <a
                 href="#projects"
@@ -277,7 +277,7 @@ export default function Hero() {
                 loading="eager"
                 width="800"
                 height="800"
-                className="relative w-[110%] sm:w-[125%] lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[4%] scale-[1.35] sm:scale-[1.45] pointer-events-none select-none"
+                className="opacity-0 relative w-[110%] sm:w-[125%] lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[4%] scale-[1.35] sm:scale-[1.45] pointer-events-none select-none"
                 style={{
                   filter: 'drop-shadow(0 0 45px rgba(239,68,68,0.3)) contrast(1.12) brightness(1.12)',
                   WebkitMaskImage: 'linear-gradient(to top, transparent 4%, black 30%)',
