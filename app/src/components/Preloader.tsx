@@ -3,23 +3,47 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Preloader() {
   const [progress, setProgress] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('ras_preloader_seen');
+    }
+    return true;
+  });
 
   useEffect(() => {
+    if (!loading) return;
+
     const timer = setInterval(() => {
       setProgress((oldProgress) => {
-        if (oldProgress === 100) {
+        const diff = Math.random() * 25 + 10;
+        const next = Math.min(oldProgress + diff, 100);
+        if (next >= 100) {
           clearInterval(timer);
-          setTimeout(() => setLoading(false), 800);
+          sessionStorage.setItem('ras_preloader_seen', 'true');
+          setTimeout(() => setLoading(false), 400);
           return 100;
         }
-        const diff = Math.random() * 15;
-        return Math.min(oldProgress + diff, 100);
+        return next;
       });
-    }, 150);
+    }, 80);
 
-    return () => clearInterval(timer);
-  }, []);
+    const handleSkip = () => {
+      clearInterval(timer);
+      sessionStorage.setItem('ras_preloader_seen', 'true');
+      setLoading(false);
+    };
+
+    window.addEventListener('keydown', handleSkip);
+    window.addEventListener('click', handleSkip);
+
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('keydown', handleSkip);
+      window.removeEventListener('click', handleSkip);
+    };
+  }, [loading]);
+
+  if (!loading) return null;
 
   return (
     <AnimatePresence>
@@ -162,7 +186,7 @@ export default function Preloader() {
                     {progress < 100 ? 'Synchronizing Archive...' : 'Ready for Deployment'}
                   </span>
                 </div>
-                <span className="font-orbitron text-red-500 text-sm font-black tabular-nums tracking-tighter">
+                <span className="font-numeric text-red-500 text-sm font-black tabular-nums tracking-wider">
                   {Math.round(progress)}%
                 </span>
               </div>

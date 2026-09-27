@@ -28,7 +28,12 @@
 /* Selection color */
 ::selection {
   background: rgba(239, 68, 68, 0.25);
-  color: white;
+  color: inherit;
+}
+
+.dark ::selection {
+  background: rgba(255, 42, 75, 0.35);
+  color: #ffffff;
 }
 
 /* Smooth image rendering */
@@ -36,9 +41,9 @@ img {
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* Font Orbitron class */
+/* Font Orbitron legacy alias */
 .font-orbitron {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Syne', sans-serif;
 }
 
 /* Global section transition */

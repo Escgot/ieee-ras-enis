@@ -2,6 +2,8 @@ import { useEffect, useRef, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import Preloader from './components/Preloader';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -10,10 +12,11 @@ import ParticleBackground from './components/ParticleBackground';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
+import CustomCursor from './components/CustomCursor';
+
 // Lazy load components that are below the fold and secondary pages
 const About = lazy(() => import('./components/About'));
 const News = lazy(() => import('./components/News'));
-const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const Projects = lazy(() => import('./components/Projects'));
 const AllProjects = lazy(() => import('./components/AllProjects'));
 const Events = lazy(() => import('./components/Events'));
@@ -135,13 +138,43 @@ function HomePage() {
 function App() {
   const location = useLocation();
 
+  /* Initialize Lenis butter-smooth inertia scrolling */
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.4,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const update = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(update);
+      lenis.destroy();
+    };
+  }, []);
+
   /* Handle scroll to top or hash on route change */
   useEffect(() => {
     if (location.hash) {
       setTimeout(() => {
         const element = document.querySelector(location.hash);
         if (element) {
-          element.scrollIntoView({ behavior: 'instant' });
+          element.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
     } else {
@@ -154,9 +187,9 @@ function App() {
       <ParticleBackground />
       <Preloader />
 
-      <div className="min-h-screen bg-transparent text-foreground">
+      <div className="min-h-screen bg-transparent text-foreground relative z-10">
+        <CustomCursor />
         <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
-          <CustomCursor />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/news" element={<AllNews />} />

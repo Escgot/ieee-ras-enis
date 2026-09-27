@@ -80,7 +80,7 @@ export default function AuthButton({ mobile = false }: { mobile?: boolean }) {
               onClick={() => setModalOpen(false)} 
             />
             
-            <div className="relative w-full max-w-md bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+            <div className="t-resize relative w-full max-w-md bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-xl p-6 md:p-8 shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
               {/* Top accent light */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 to-red-500" />
 

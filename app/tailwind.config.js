@@ -5,8 +5,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        orbitron: ['Orbitron', 'sans-serif'],
+        sans: ['"Manrope"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Syne"', 'sans-serif'],
+        orbitron: ['"Syne"', 'sans-serif'],
+        syne: ['"Syne"', 'sans-serif'],
+        manrope: ['"Manrope"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        numeric: ['"JetBrains Mono"', '"Space Grotesk"', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -83,9 +88,21 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        glow: "0 0 20px rgba(220, 38, 38, 0.5)",
-        "glow-lg": "0 0 40px rgba(220, 38, 38, 0.6), 0 0 80px rgba(220, 38, 38, 0.3)",
-        "glow-purple": "0 0 20px rgba(124, 58, 237, 0.5)",
+        sm: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+        "2xl": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+        glow: "0 0 25px rgba(239, 68, 68, 0.45)",
+        "glow-lg": "0 0 45px rgba(239, 68, 68, 0.55), 0 0 90px rgba(239, 68, 68, 0.25)",
+        "glow-purple": "0 0 25px rgba(139, 92, 246, 0.45)",
+        "glow-crimson": "0 0 30px rgba(255, 42, 75, 0.45), 0 0 60px rgba(255, 42, 75, 0.2)",
+        "glow-emerald": "0 0 25px rgba(16, 185, 129, 0.4)",
+        "card-modern": "0 10px 30px -10px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.06)",
+        "card-hover": "0 20px 45px -15px rgba(239, 68, 68, 0.25), 0 0 0 1px rgba(239, 68, 68, 0.35)",
+        "inner-glow": "inset 0 1px 0 0 rgba(255, 255, 255, 0.1)",
+        "inner-dark": "inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)",
+        "obsidian": "0 30px 60px -12px rgba(0, 0, 0, 0.75), 0 18px 36px -18px rgba(0, 0, 0, 0.6)",
       },
       keyframes: {
         "accordion-down": {

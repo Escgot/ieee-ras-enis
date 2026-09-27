@@ -29,31 +29,39 @@ export default function ParticleBackground() {
     const particleCount = isMobile ? 30 : 200;
     const particles: Particle[] = [];
 
-    const isDark = document.documentElement.classList.contains('dark');
+    const getIsDark = () => document.documentElement.classList.contains('dark');
 
     const initParticles = () => {
+      particles.length = 0;
+      const isDark = getIsDark();
       for (let i = 0; i < particleCount; i++) {
-        const color = Math.random() > 0.7 
-          ? '#ef4444' 
-          : Math.random() > 0.5 
-            ? '#a855f7' 
-            : isDark ? '#ffffff' : '#1a1a1a';
+        const color = Math.random() > 0.65 
+          ? (isDark ? '#ff2a4b' : '#ef4444') 
+          : Math.random() > 0.45 
+            ? (isDark ? '#c084fc' : '#9333ea') 
+            : isDark ? '#ffffff' : '#4b5563';
 
         particles.push({
           x: (Math.random() - 0.5) * width * 2,
           y: (Math.random() - 0.5) * height * 2,
           z: Math.random() * 1000,
-          vx: (Math.random() - 0.5) * 0.2,
-          vy: (Math.random() - 0.5) * 0.2,
-          vz: (Math.random() - 0.5) * 0.1,
-          baseRadius: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          vz: (Math.random() - 0.5) * 0.12,
+          baseRadius: Math.random() * 1.6 + 0.4,
           color,
-          opacity: isDark ? (Math.random() * 0.5 + 0.2) : (Math.random() * 0.3 + 0.1),
+          opacity: isDark ? (Math.random() * 0.5 + 0.15) : (Math.random() * 0.3 + 0.08),
         });
       }
     };
 
     initParticles();
+
+    // Re-init particles on theme change
+    const observer = new MutationObserver(() => {
+      initParticles();
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     let scrollY = 0;
     let lerpedScrollY = 0;
@@ -109,6 +117,7 @@ export default function ParticleBackground() {
 
     animate();
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animId);
@@ -119,7 +128,7 @@ export default function ParticleBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: -1 }}
+      style={{ zIndex: 1 }}
     />
   );
 }

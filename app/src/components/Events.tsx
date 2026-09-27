@@ -134,7 +134,7 @@ export default function Events() {
                     ? 'bg-red-500/10 border-red-500/30 group-hover:border-red-500/60 group-hover:bg-red-500/15'
                     : 'bg-white/[0.04] border-white/8 group-hover:border-red-500/30 group-hover:bg-white/[0.06]'
                     }`}>
-                    <span className="text-2xl sm:text-3xl font-black text-red-400 font-orbitron leading-none">{day.replace(',', '')}</span>
+                    <span className="text-2xl sm:text-3xl font-black text-red-400 font-numeric leading-none tracking-tight">{day.replace(',', '')}</span>
                     <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mt-1">{month}</span>
                   </div>
 

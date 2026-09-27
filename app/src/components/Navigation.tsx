@@ -35,11 +35,13 @@ const bottomNavLinks = [
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const lastScrollY = useRef(0);
   const location = useLocation();
   const navigate = useNavigate();
   const { theme, setTheme } = useTheme();
@@ -48,7 +50,20 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 40);
+
+      // Auto-hide when scrolling down, show immediately when scrolling up
+      if (currentScrollY > 100) {
+        if (currentScrollY > lastScrollY.current && currentScrollY - lastScrollY.current > 8) {
+          setIsVisible(false);
+        } else if (lastScrollY.current - currentScrollY > 8) {
+          setIsVisible(true);
+        }
+      } else {
+        setIsVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
 
       if (isHomePage) {
         let current = 'home';
@@ -110,13 +125,13 @@ export default function Navigation() {
   return (
     <>
       {/* Top Navbar (Desktop & Mobile Header) */}
-      <div className={`fixed top-2 sm:top-6 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-700 ease-out 
-        ${isScrolled ? 'translate-y-0' : 'translate-y-[-4px]'}
-        ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <div className={`fixed top-2 sm:top-4 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-300 ease-out 
+        ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-28 opacity-0 pointer-events-none'}
+        ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}>
         <nav
-          className={`w-full max-w-7xl rounded-2xl lg:rounded-full transition-all duration-500 border ${isScrolled
-            ? 'bg-white/80 dark:bg-[#0a0a0a]/70 backdrop-blur-2xl border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
-            : 'bg-transparent border-transparent lg:bg-white/50 lg:dark:bg-black/20 lg:backdrop-blur-xl lg:border-black/5 lg:dark:border-white/5'
+          className={`w-full max-w-7xl rounded-2xl lg:rounded-full transition-all duration-300 border ${isScrolled
+            ? 'bg-white/85 dark:bg-[#0a0a0a]/80 backdrop-blur-2xl border-black/10 dark:border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]'
+            : 'bg-white/60 dark:bg-black/30 backdrop-blur-xl border-black/5 dark:border-white/5'
             }`}
         >
           <div className="w-full px-4 sm:px-6 lg:px-6">

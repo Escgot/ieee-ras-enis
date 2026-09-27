@@ -411,7 +411,7 @@ export default function AllGallery() {
           />
 
           {/* Content */}
-          <div className="relative w-full max-w-6xl max-h-[90vh] bg-white/95 dark:bg-[#0c0c0e]/95 border border-foreground/10 dark:border-white/10 backdrop-blur-3xl rounded-3xl overflow-hidden shadow-2xl flex flex-col animate-[scale-in_0.3s_ease-out]">
+          <div className="t-resize relative w-full max-w-6xl max-h-[90vh] bg-white/95 dark:bg-[#0c0c0e]/95 border border-foreground/10 dark:border-white/10 backdrop-blur-3xl rounded-xl overflow-hidden shadow-2xl flex flex-col animate-[scale-in_0.3s_ease-out]">
             {/* Header */}
             <div className="flex items-center justify-between p-5 sm:p-6 border-b border-foreground/5 dark:border-white/5 shrink-0">
               <div>

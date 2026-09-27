@@ -15,9 +15,9 @@ export default function Shop() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.shop-card',
-        { opacity: 0, y: 50, scale: 0.94 },
+        { opacity: 0, y: 40, scale: 0.96 },
         {
-          opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.12, ease: 'back.out(1.3)',
+          opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out',
           scrollTrigger: { trigger: itemsRef.current, start: 'top 80%' },
         }
       );
@@ -83,27 +83,31 @@ export default function Shop() {
           {shopItems.slice(0, 4).map((item) => (
             <div
               key={item.id}
-              className="shop-card flex-[0_0_75vw] sm:flex-none min-w-0 snap-center group relative bg-white/[0.02] border border-white/6 rounded-3xl overflow-hidden hover:border-red-500/25 flex flex-col cursor-pointer holographic"
+              onClick={() => navigate('/products')}
+              data-cursor-text="VIEW"
+              className="shop-card flex-[0_0_75vw] sm:flex-none min-w-0 snap-center group relative bg-foreground/[0.02] dark:bg-white/[0.02] border border-foreground/5 dark:border-white/10 rounded-xl overflow-hidden hover:border-red-500/30 flex flex-col cursor-pointer transition-all"
               style={{ transition: 'transform 0.2s ease, border-color 0.4s, box-shadow 0.4s' }}
             >
               {/* Hover glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl"
-                style={{ boxShadow: 'inset 0 0 50px rgba(239,68,68,0.04)' }} />
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl"
+                style={{ boxShadow: 'inset 0 0 50px rgba(239,68,68,0.06)' }}
+              />
 
               {/* Image Area */}
-              <div className="relative aspect-[4/4] overflow-hidden bg-white/[0.01]">
+              <div className="relative aspect-[4/4] overflow-hidden bg-foreground/[0.02] dark:bg-white/[0.01]">
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 z-20">
-                  <span className="px-3 py-1 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 text-[9px] font-bold text-red-400 uppercase tracking-widest rounded-lg">
+                  <span className="px-3 py-1 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 text-[9px] font-bold text-red-400 uppercase tracking-widest rounded-md">
                     {item.category}
                   </span>
                 </div>
 
-                {/* "New" badge if first item */}
-                {item.id === shopItems[0].id && (
+                {/* "New" or item badge if present */}
+                {(item.badge || item.id === shopItems[0].id) && (
                   <div className="absolute top-4 right-4 z-20">
-                    <span className="px-2.5 py-1 bg-red-500 text-white text-[9px] font-black uppercase tracking-widest rounded-lg">
-                      New
+                    <span className="px-2.5 py-1 bg-red-500 text-white text-[9px] font-black uppercase tracking-widest rounded-md shadow-md">
+                      {item.badge || 'New'}
                     </span>
                   </div>
                 )}
@@ -112,11 +116,10 @@ export default function Shop() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-75 group-hover:opacity-100"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
                   loading="lazy"
                   decoding="async"
                 />
-
               </div>
 
               {/* Info */}
@@ -125,16 +128,16 @@ export default function Shop() {
                   {item.name}
                 </h3>
 
-                <p className="text-gray-600 text-xs mb-5 line-clamp-2 leading-relaxed flex-grow">
+                <p className="text-muted-foreground text-xs mb-5 line-clamp-2 leading-relaxed flex-grow">
                   {item.description}
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                  <span className="font-orbitron font-bold text-foreground text-lg">
+                <div className="flex items-center justify-between pt-4 border-t border-foreground/5 dark:border-white/5">
+                  <span className="font-numeric font-black text-foreground text-xl tracking-tight">
                     {item.price}
                   </span>
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 group-hover:bg-red-500/20 border border-white/8 group-hover:border-red-500/30 transition-all duration-300">
-                    <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-red-400 transition-colors" />
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-foreground/5 dark:bg-white/5 group-hover:bg-red-500/20 border border-foreground/10 dark:border-white/10 group-hover:border-red-500/30 transition-all duration-300">
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-red-400 transition-colors" />
                   </div>
                 </div>
               </div>
@@ -149,9 +152,9 @@ export default function Shop() {
         <div className="mt-16 text-center">
           <button
             onClick={() => navigate('/products')}
-            className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-foreground/10 dark:border-white/10 bg-foreground/5 dark:bg-white/[0.02] hover:bg-red-500/5 text-foreground dark:text-white text-xs font-bold uppercase tracking-[0.3em] rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]"
+            className="group cyber-btn inline-flex items-center gap-3 px-10 py-4 border border-foreground/10 dark:border-white/10 bg-foreground/5 dark:bg-white/[0.02] hover:bg-red-500/10 text-foreground dark:text-white text-xs font-bold uppercase tracking-[0.3em] rounded-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)]"
           >
-            View All Products
+            <span>View All Products</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>

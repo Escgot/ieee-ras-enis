@@ -166,7 +166,7 @@ export default function Membership() {
 
                   {/* Price */}
                   <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/5">
-                    <span className={`font-orbitron text-4xl font-black text-foreground`}>
+                    <span className={`font-numeric text-4xl font-black text-foreground tracking-tight`}>
                       {plan.price}
                     </span>
                     <span className="text-muted-foreground text-sm">{plan.period}</span>
