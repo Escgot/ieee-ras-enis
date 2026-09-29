@@ -650,7 +650,7 @@ export default function AllProjects() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="px-3 py-1 text-[9px] font-bold text-red-100 bg-red-600 dark:bg-red-600/90 backdrop-blur-md border border-red-500/40 rounded-lg uppercase tracking-wider shadow-lg"
+                    className="px-3 py-1 text-[9px] font-bold text-white bg-red-600 dark:bg-red-600 backdrop-blur-md border border-red-500/40 rounded-lg uppercase tracking-wider shadow-lg"
                   >
                     {featuredProject.category}
                   </motion.span>
@@ -721,7 +721,7 @@ export default function AllProjects() {
                   className="flex items-center gap-4"
                 >
                   <MagneticButton
-                    className="cyber-btn flex items-center gap-3 px-6 py-3.5 bg-red-500 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-lg hover:bg-red-600 transition-all shadow-[0_4px_20px_rgba(239,68,68,0.3)] hover:shadow-[0_8px_30px_rgba(239,68,68,0.5)]"
+                    className="cyber-btn flex items-center gap-3 px-6 py-3.5 bg-red-600 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-lg hover:bg-red-700 transition-all shadow-[0_4px_20px_rgba(220,38,38,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.5)]"
                   >
                     <span>View Case Study</span>
                     <ArrowRight className="w-4 h-4" />
@@ -788,7 +788,7 @@ export default function AllProjects() {
 
                           {/* Category badge */}
                           <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10">
-                            <span className="px-3 py-1 text-[9px] font-bold text-red-100 bg-red-600 dark:bg-red-600/90 backdrop-blur-md border border-red-500/40 rounded-md uppercase tracking-wider shadow-lg">
+                            <span className="px-3 py-1 text-[9px] font-bold text-white bg-red-600 dark:bg-red-600 backdrop-blur-md border border-red-500/40 rounded-md uppercase tracking-wider shadow-lg">
                               {project.category}
                             </span>
                           </div>
@@ -910,7 +910,7 @@ export default function AllProjects() {
             </p>
             <MagneticButton
               onClick={() => { setSearchTerm(''); setActiveCategory('All Projects'); setStatusFilter('all'); }}
-              className="mt-6 px-6 py-2.5 bg-red-500 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-red-600 transition-colors shadow-[0_4px_20px_rgba(239,68,68,0.3)]"
+              className="mt-6 px-6 py-2.5 bg-red-600 text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-red-700 transition-colors shadow-[0_4px_20px_rgba(220,38,38,0.3)]"
             >
               Reset Filters
             </MagneticButton>
@@ -971,7 +971,7 @@ export default function AllProjects() {
                     transition={{ delay: 0.3 }}
                     className="absolute top-6 left-6 z-20 flex flex-col gap-2"
                   >
-                    <span className="px-3 py-1 text-[9px] font-black text-red-100 bg-red-600 dark:bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-md uppercase tracking-widest shadow-lg">
+                    <span className="px-3 py-1 text-[9px] font-black text-white bg-red-600 dark:text-red-300 dark:bg-red-500/15 backdrop-blur-md border border-red-500/20 rounded-md uppercase tracking-widest shadow-lg">
                       {selectedProject.category}
                     </span>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/50 dark:bg-black/40 backdrop-blur-md rounded-md border border-black/10 dark:border-white/5 shadow-sm">

@@ -307,7 +307,7 @@ export default function Footer() {
                 transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
-                className="group inline-flex items-center gap-2 px-5 py-2.5 bg-red-500 text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg hover:bg-red-600 transition-all duration-300 shadow-[0_4px_16px_rgba(239,68,68,0.25)] hover:shadow-[0_6px_24px_rgba(239,68,68,0.35)]"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg hover:bg-red-700 transition-all duration-300 shadow-[0_4px_16px_rgba(220,38,38,0.25)] hover:shadow-[0_6px_24px_rgba(220,38,38,0.35)]"
               >
                 Get in Touch
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />

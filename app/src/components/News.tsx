@@ -118,7 +118,7 @@ export default function News() {
                 />
                 {/* Category */}
                 <div className="absolute top-5 left-5 z-20">
-                  <span className="px-4 py-1.5 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
+                  <span className="px-4 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
                     {featured.category}
                   </span>
                 </div>
@@ -130,7 +130,7 @@ export default function News() {
 
               {/* Content */}
               <div className="p-7 sm:p-9 flex flex-col flex-grow">
-                <div className="flex items-center gap-5 mb-5 text-xs text-gray-600 uppercase tracking-wider">
+                <div className="flex items-center gap-5 mb-5 text-xs text-muted-foreground uppercase tracking-wider">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-red-500/60" />
                     {featured.date}
@@ -187,7 +187,7 @@ export default function News() {
                       <span className="text-[10px] font-bold text-red-500 uppercase tracking-widest">
                         {item.date}
                       </span>
-                      <span className="text-[9px] text-gray-700 uppercase tracking-widest">
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-widest font-semibold">
                         {item.readTime}
                       </span>
                     </div>
@@ -197,7 +197,7 @@ export default function News() {
                     </h4>
 
                     <div className="flex items-center justify-between mt-3">
-                      <span className="text-[10px] text-gray-600 uppercase font-medium tracking-widest">
+                      <span className="text-[10px] text-muted-foreground uppercase font-semibold tracking-widest">
                         {item.category}
                       </span>
                       <ArrowRight className="w-3.5 h-3.5 text-red-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -258,7 +258,7 @@ export default function News() {
 
                 {/* Visual Metadata Overlay */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
-                  <span className="px-3 py-1.5 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
+                  <span className="px-3 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
                     {selectedNews.category}
                   </span>
                 </div>

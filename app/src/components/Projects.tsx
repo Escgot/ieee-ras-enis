@@ -142,7 +142,7 @@ export default function Projects() {
                 
                 {/* Floating Tags */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="px-3 py-1 text-[9px] font-black text-red-100 bg-red-600 dark:bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
+                  <span className="px-3 py-1 text-[9px] font-black text-white bg-red-600 dark:text-red-300 dark:bg-red-500/15 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
                     {project.category}
                   </span>
                   <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/50 dark:bg-black/40 backdrop-blur-md rounded-full border border-black/10 dark:border-white/5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
@@ -248,7 +248,7 @@ export default function Projects() {
                 
                 {/* Visual Status Badges */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
-                  <span className="px-3 py-1 text-[9px] font-black text-red-100 bg-red-600 dark:bg-red-500/10 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
+                  <span className="px-3 py-1 text-[9px] font-black text-white bg-red-600 dark:text-red-300 dark:bg-red-500/15 backdrop-blur-md border border-red-500/20 rounded-full uppercase tracking-widest shadow-lg">
                     {selectedProject.category}
                   </span>
                   <div className="flex items-center gap-1.5 px-2.5 py-1 bg-black/50 dark:bg-black/40 backdrop-blur-md rounded-full border border-black/10 dark:border-white/5 shadow-sm opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700 delay-100">

@@ -278,7 +278,7 @@ export default function AllNews() {
 
                 {/* Visual Metadata Overlay */}
                 <div className="absolute top-6 left-6 z-20 flex flex-col gap-2 translate-y-2 group-hover/hero:translate-y-0 transition-transform duration-500">
-                  <span className="px-3 py-1.5 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
+                  <span className="px-3 py-1.5 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg">
                     {selectedNews.category}
                   </span>
                 </div>

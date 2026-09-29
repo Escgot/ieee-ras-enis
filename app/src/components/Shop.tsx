@@ -106,7 +106,7 @@ export default function Shop() {
                 {/* "New" or item badge if present */}
                 {(item.badge || item.id === shopItems[0].id) && (
                   <div className="absolute top-4 right-4 z-20">
-                    <span className="px-2.5 py-1 bg-red-500 text-white text-[9px] font-black uppercase tracking-widest rounded-md shadow-md">
+                    <span className="px-2.5 py-1 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-md shadow-md">
                       {item.badge || 'New'}
                     </span>
                   </div>

@@ -124,7 +124,7 @@ export default function Events() {
 
                   {/* "Featured" badge for first event */}
                   {isFirst && (
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-red-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
+                    <div className="absolute top-4 right-4 px-3 py-1 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
                       Featured
                     </div>
                   )}
@@ -160,7 +160,7 @@ export default function Events() {
                         { icon: MapPin, text: event.location },
                         { icon: Users, text: event.status === 'upcoming' ? 'Coming Soon' : `${event.registeredCount}/${event.maxAttendees} registered` },
                       ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                           <item.icon className="w-3.5 h-3.5 text-red-500/60" />
                           <span>{item.text}</span>
                         </div>
@@ -239,7 +239,7 @@ export default function Events() {
 
                 {/* Visual Status Badges */}
                 <div className="absolute bottom-10 left-10 z-20 flex gap-3 translate-y-4 group-hover:translate-y-0 transition-transform hidden lg:flex">
-                  <span className="px-4 py-2 bg-red-500 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
+                  <span className="px-4 py-2 bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
                     {selectedEvent.status}
                   </span>
                   <span className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg backdrop-blur-md">

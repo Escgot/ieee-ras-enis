@@ -248,13 +248,13 @@ export default function AllGallery() {
               <div className="flex items-center gap-1 p-1 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-xl shrink-0">
                 <button
                   onClick={() => setViewMode('events')}
-                  className={`px-3 sm:px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'events' ? 'bg-red-500 text-white' : 'text-muted-foreground'}`}
+                  className={`px-3 sm:px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'events' ? 'bg-red-600 text-white' : 'text-muted-foreground'}`}
                 >
                   Events
                 </button>
                 <button
                   onClick={() => setViewMode('all')}
-                  className={`px-3 sm:px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'all' ? 'bg-red-500 text-white' : 'text-muted-foreground'}`}
+                  className={`px-3 sm:px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'all' ? 'bg-red-600 text-white' : 'text-muted-foreground'}`}
                 >
                   All Photos
                 </button>

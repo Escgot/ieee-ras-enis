@@ -278,7 +278,7 @@ export default function Navigation() {
                       onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                       className={`group flex items-center justify-between p-3 rounded-2xl transition-all duration-300
                         ${isActive
-                          ? 'bg-red-500 text-white shadow-[0_10px_30px_rgba(239,68,68,0.3)]'
+                          ? 'bg-red-600 text-white shadow-[0_10px_30px_rgba(220,38,38,0.3)]'
                           : 'text-muted-foreground hover:bg-black/[0.03] dark:hover:bg-white/5 hover:text-foreground'
                         }`}
                     >

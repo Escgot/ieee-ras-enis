@@ -221,7 +221,7 @@ export default function About() {
                       </div>
                       <div>
                         <h3 className="font-orbitron font-bold text-foreground text-sm mb-1">{title}</h3>
-                        <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
                       </div>
                     </div>
                   </div>

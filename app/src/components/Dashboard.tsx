@@ -354,9 +354,9 @@ export default function Dashboard() {
                         onClick={() => toggleSkill(skill)}
                         className={`px-3 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl border transition-all duration-200
                           ${editForm.skills.includes(skill)
-                            ? 'bg-red-500 text-white border-red-500 shadow-xl shadow-red-500/30'
+                            ? 'bg-red-600 text-white border-red-600 shadow-xl shadow-red-600/30'
                             : isEditing 
-                              ? 'bg-white/5 text-gray-500 border-white/10 hover:border-white/30'
+                              ? 'bg-white/5 text-gray-400 border-white/10 hover:border-white/30'
                               : 'bg-white/5 text-gray-400 border-white/5'
                           }`}
                       >

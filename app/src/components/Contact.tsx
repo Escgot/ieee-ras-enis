@@ -303,7 +303,7 @@ ${formData.message}`;
                             : 'border-black/10 dark:border-white/8 hover:border-white/15'
                           }`}
                       >
-                        <option value="" className="bg-[#0d0d0d] text-gray-500">Select a topic</option>
+                        <option value="" className="bg-[#0d0d0d] text-gray-400">Select a topic</option>
                         <option value="general" className="bg-[#0d0d0d] text-white">General Inquiry</option>
                         <option value="news" className="bg-[#0d0d0d] text-white">News & Updates</option>
                         <option value="sponsorship" className="bg-[#0d0d0d] text-white">Sponsorship</option>

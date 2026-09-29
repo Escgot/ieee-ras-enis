@@ -173,7 +173,7 @@ export default function Hero() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
               </span>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded-md bg-red-500 text-white text-[9px] font-numeric font-bold uppercase tracking-widest shadow-sm">
+                <span className="px-2 py-0.5 rounded-md bg-red-600 text-white text-[9px] font-numeric font-bold uppercase tracking-widest shadow-sm">
                   NEW
                 </span>
                 <span className="text-xs sm:text-sm text-foreground font-bold tracking-[0.2em] uppercase group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors">

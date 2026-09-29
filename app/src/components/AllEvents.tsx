@@ -93,7 +93,7 @@ export default function AllEvents() {
                 onClick={() => setActiveCategory(category)}
                 className={`px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all duration-300 border flex-shrink-0 whitespace-nowrap ${
                     activeCategory === category
-                      ? 'bg-red-500 border-red-500 text-white shadow-glow'
+                      ? 'bg-red-600 border-red-600 text-white shadow-glow'
                       : 'bg-foreground/5 dark:bg-white/5 border-foreground/10 dark:border-white/10 text-muted-foreground hover:border-red-500/50'
                 }`}
               >
@@ -151,12 +151,12 @@ export default function AllEvents() {
                   </p>
 
                   <div className="flex flex-wrap gap-4 mt-auto pt-6 border-t border-white/[0.03]">
-                    <div className="flex items-center gap-2 text-[10px] text-gray-600 font-bold uppercase tracking-wider">
-                      <Calendar className="w-3.5 h-3.5 text-red-500/60" />
+                    <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-bold uppercase tracking-wider">
+                      <Calendar className="w-3.5 h-3.5 text-red-500" />
                       <span>{event.date.split(',')[0]}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-[10px] text-gray-600 font-bold uppercase tracking-wider">
-                      <MapPin className="w-3.5 h-3.5 text-red-500/60" />
+                    <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-bold uppercase tracking-wider">
+                      <MapPin className="w-3.5 h-3.5 text-red-500" />
                       <span>{event.location.split(' ').slice(-1)}</span>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ export default function AllEvents() {
 
                 {/* Visual Status Badges */}
                 <div className="absolute bottom-10 left-10 z-20 flex gap-3 translate-y-4 group-hover/hero:translate-y-0 transition-transform hidden lg:flex">
-                  <span className="px-4 py-2 bg-red-500 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
+                  <span className="px-4 py-2 bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-lg shadow-2xl">
                     {selectedEvent.status}
                   </span>
                   <span className="px-4 py-2 bg-purple-500/20 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg backdrop-blur-md">
@@ -262,7 +262,7 @@ export default function AllEvents() {
                     <div className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/5 rounded-xl hover:bg-white/[0.04] transition-all group/chip">
                       <Calendar className="w-4 h-4 text-red-500 shrink-0" />
                       <div>
-                        <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Timeframe</p>
+                        <p className="text-[8px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Timeframe</p>
                         <p className="text-white text-[10px] font-bold leading-none">{selectedEvent.date.split(',')[0]}</p>
                       </div>
                     </div>
@@ -270,7 +270,7 @@ export default function AllEvents() {
                     <div className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/5 rounded-xl hover:bg-white/[0.04] transition-all group/chip">
                       <MapPin className="w-4 h-4 text-purple-500 shrink-0" />
                       <div>
-                        <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest leading-none mb-1">Deployment</p>
+                        <p className="text-[8px] font-black text-muted-foreground uppercase tracking-widest leading-none mb-1">Deployment</p>
                         <p className="text-white text-[10px] font-bold leading-none truncate">{selectedEvent.location}</p>
                       </div>
                     </div>
@@ -288,7 +288,7 @@ export default function AllEvents() {
                         </button>
                       ) : (
                         <div className="w-full h-full flex items-center gap-4 px-5 bg-white/[0.05] border border-white/5 rounded-xl opacity-50 grayscale cursor-not-allowed">
-                          <p className="text-gray-500 text-[9px] font-black uppercase tracking-widest">Session Concluded</p>
+                          <p className="text-gray-400 text-[9px] font-black uppercase tracking-widest">Session Concluded</p>
                         </div>
                       )}
                     </div>
@@ -297,7 +297,7 @@ export default function AllEvents() {
                       <p className={selectedEvent.status === 'upcoming' ? "text-white text-[7px] font-black leading-tight uppercase text-center px-1" : "text-white text-base font-black leading-none mb-1"}>
                         {selectedEvent.status === 'upcoming' ? 'Coming Soon' : selectedEvent.registeredCount}
                       </p>
-                      <p className="text-[6px] font-black text-gray-500 uppercase tracking-[0.2em] text-center px-1">
+                      <p className="text-[6px] font-black text-gray-400 uppercase tracking-[0.2em] text-center px-1">
                         {selectedEvent.status === 'upcoming' ? 'Status' : 'Att.'}
                       </p>
                     </div>
