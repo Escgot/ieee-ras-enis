@@ -158,16 +158,16 @@ export default function Projects() {
               </div>
 
               {/* Bottom Section: Content */}
-              <div className="p-8 pb-10 relative z-20 flex flex-col">
-                <h3 className="font-orbitron text-xl font-black text-foreground mb-4 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors uppercase leading-[1.1] tracking-tight">
+              <div className="p-5 sm:p-8 pb-6 sm:pb-10 relative z-20 flex flex-col">
+                <h3 className="font-orbitron text-lg sm:text-xl font-black text-foreground mb-3 sm:mb-4 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors uppercase leading-[1.1] tracking-tight">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground text-[13px] leading-relaxed mb-8 line-clamp-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                <p className="text-muted-foreground text-xs sm:text-[13px] leading-relaxed mb-5 sm:mb-8 line-clamp-2 font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                   {project.description}
                 </p>
 
                 {/* Tech Pills */}
-                <div className="flex flex-wrap gap-2 mb-8 opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-[-4px]">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8 opacity-75 sm:opacity-60 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-[-4px]">
                   {project.technologies.slice(0, 3).map((tech) => (
                     <span key={tech} className="text-[8px] font-black text-muted-foreground px-2 py-0.5 border border-black/5 dark:border-white/5 rounded-md uppercase tracking-widest group-hover:border-red-500/30 group-hover:text-red-500 dark:group-hover:text-red-300 transition-colors">
                       {tech}
@@ -179,8 +179,8 @@ export default function Projects() {
                 </div>
 
                 {/* Footer Action */}
-                <div className="flex items-center justify-between pt-6 border-t border-black/10 dark:border-white/[0.03] group-hover:border-red-500/10 transition-colors">
-                  <div className="flex items-center gap-3 text-[10px] font-black text-red-500 uppercase tracking-[0.25em] transition-all">
+                <div className="flex items-center justify-between pt-4 sm:pt-6 border-t border-black/10 dark:border-white/[0.03] group-hover:border-red-500/10 transition-colors">
+                  <div className="flex items-center gap-2 sm:gap-3 text-[10px] font-black text-red-500 uppercase tracking-[0.25em] transition-all">
                     <span className="relative">
                       Deep View
                       <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all duration-500 group-hover:w-full" />
@@ -203,9 +203,9 @@ export default function Projects() {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-white dark:bg-[#0c0515]/95 border-black/10 dark:border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(0,0,0,0.1)] dark:shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-white dark:bg-[#0c0515]/95 border-black/10 dark:border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(0,0,0,0.1)] dark:shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4 max-h-[92vh]">
           {selectedProject && (
-            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+            <div className="relative w-full h-full max-h-[92vh] lg:max-h-none overflow-y-auto lg:overflow-hidden no-scrollbar flex flex-col lg:flex-row">
               <button
                 onClick={() => setSelectedProject(null)}
                 className="absolute top-4 right-4 z-50 p-2 text-foreground active:scale-95 hover:text-red-500 bg-black/5 dark:bg-black/20 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
@@ -214,7 +214,7 @@ export default function Projects() {
               </button>
 
               {/* Left Side: Hero Image - Swippable Gallery */}
-              <div className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center group/hero">
+              <div className="w-full lg:w-[60%] h-[240px] xs:h-[280px] sm:h-[420px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center group/hero">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeImage || selectedProject.image}
@@ -271,7 +271,7 @@ export default function Projects() {
               </div>
 
               {/* Right Side: Main Content Area */}
-              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-white via-white dark:from-[#0c0515] dark:via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
+              <div className="lg:w-[40%] px-5 pt-4 pb-4 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-8 sm:-mt-24 lg:mt-0 flex-grow bg-gradient-to-t from-white via-white dark:from-[#0c0515] dark:via-[#0c0515] to-transparent lg:bg-none min-h-0">
 
                 {/* Category Badge */}
                 <div className="mb-4 lg:mb-6 self-start shrink-0">

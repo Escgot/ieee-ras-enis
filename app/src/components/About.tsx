@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Target, Lightbulb, Users, Trophy, Zap, Handshake, Award, Brain, Bot } from 'lucide-react';
+import { Target, Lightbulb, Users, Trophy, Zap, Handshake, Award, Brain } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -188,13 +188,9 @@ export default function About() {
               </div>
 
               {/* Floating badge */}
-              <div className="absolute -bottom-6 -right-6 px-6 py-4 bg-background dark:bg-[#0a0a0a] backdrop-blur-xl border border-foreground/10 dark:border-red-500/20 rounded-2xl shadow-xl animate-float">
-                <div className="font-orbitron text-2xl font-black text-red-500">14+</div>
-                <div className="text-xs text-muted-foreground font-medium mt-0.5">Years of Excellence</div>
-              </div>
-
-              <div className="absolute -top-4 -left-4 w-14 h-14 flex items-center justify-center bg-background dark:bg-[#0a0a0a] backdrop-blur-xl border border-purple-500/20 rounded-2xl shadow-lg animate-float" style={{ animationDelay: '1.5s' }}>
-                <Bot className="w-6 h-6 text-purple-500" />
+              <div className="absolute -bottom-4 right-2 sm:-bottom-6 sm:-right-6 px-4 sm:px-6 py-2.5 sm:py-4 bg-background/95 dark:bg-[#0a0a0a]/95 backdrop-blur-xl border border-foreground/10 dark:border-red-500/20 rounded-2xl shadow-xl animate-float">
+                <div className="font-orbitron text-xl sm:text-2xl font-black text-red-500">14+</div>
+                <div className="text-[10px] sm:text-xs text-muted-foreground font-medium mt-0.5">Years of Excellence</div>
               </div>
             </div>
 

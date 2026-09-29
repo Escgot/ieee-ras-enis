@@ -79,17 +79,17 @@ export default function News() {
 
       <div className="relative w-full px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-3 sm:mb-5">
               <div className="h-px w-8 bg-gradient-to-r from-red-500 to-transparent" />
               <span className="font-orbitron text-xs font-bold uppercase tracking-[0.35em] text-red-500">Latest</span>
             </div>
-            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight uppercase">
+            <h2 className="font-orbitron text-3xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight uppercase">
               News &{' '}<span className="text-gradient">Updates</span>
             </h2>
           </div>
-          <button onClick={() => navigate('/news')} className="group cyber-btn flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-red-500/40 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase hover:bg-red-500/5">
+          <button onClick={() => navigate('/news')} className="group cyber-btn flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 border border-white/10 hover:border-red-500/40 hover:text-red-400 transition-all rounded-xl font-bold text-[11px] tracking-widest text-gray-400 uppercase hover:bg-red-500/5">
             All Posts
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
@@ -170,7 +170,7 @@ export default function News() {
               >
                 <div className="flex items-start gap-4 p-5 bg-white/[0.02] border border-white/6 rounded-2xl hover:border-red-500/20 transition-all duration-400 hover:bg-white/[0.04]">
                   {/* Thumbnail */}
-                  <div className="hidden sm:block flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border border-white/8 group-hover:border-red-500/20 transition-colors">
+                  <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-white/8 group-hover:border-red-500/20 transition-colors">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -213,9 +213,9 @@ export default function News() {
       </div>
 
       <Dialog open={!!selectedNews} onOpenChange={() => setSelectedNews(null)}>
-        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-purple-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(139,92,246,0.15)] flex flex-col my-4">
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-purple-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(139,92,246,0.15)] flex flex-col my-4 max-h-[92vh]">
           {selectedNews && (
-            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+            <div className="relative w-full h-full max-h-[92vh] lg:max-h-none overflow-y-auto lg:overflow-hidden no-scrollbar flex flex-col lg:flex-row">
               <button
                 onClick={() => setSelectedNews(null)}
                 className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
@@ -224,7 +224,7 @@ export default function News() {
               </button>
 
               {/* Left Side: Hero Image - Swippable Gallery */}
-              <div className="w-full lg:w-[60%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center group/hero">
+              <div className="w-full lg:w-[60%] h-[240px] xs:h-[280px] sm:h-[420px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center group/hero">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeImage || selectedNews.image}
@@ -275,7 +275,7 @@ export default function News() {
               </div>
 
               {/* Right Side: Main Content Area */}
-              <div className="lg:w-[40%] px-6 pt-6 pb-2 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-20 sm:-mt-28 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
+              <div className="lg:w-[40%] px-5 pt-4 pb-4 sm:px-10 sm:pt-10 sm:pb-4 lg:px-12 lg:pt-12 lg:pb-4 relative z-10 flex flex-col -mt-8 sm:-mt-24 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0">
 
                 {/* Title */}
                 <DialogTitle asChild>

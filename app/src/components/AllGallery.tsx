@@ -179,7 +179,7 @@ export default function AllGallery() {
   const totalPhotos = filteredEvents.reduce((sum, e) => sum + e.photos.length, 0);
 
   return (
-    <section id="gallery" ref={sectionRef} className="relative pt-0 pb-20 bg-transparent min-h-screen">
+    <section id="gallery" ref={sectionRef} className="relative pt-0 pb-28 lg:pb-20 bg-transparent min-h-screen">
       {/* Search & Filter Header (Unpinned) */}
       <div className="relative border-b border-black/5 dark:border-white/5 bg-transparent z-40 pt-2 md:pt-4">
         <div className="max-w-7xl mx-auto px-4 py-2">
@@ -218,8 +218,8 @@ export default function AllGallery() {
             </div>
           </div>
 
-          <div className="mt-4 md:mt-8 flex items-center justify-between gap-4 pb-4">
-            <div className="flex items-center gap-3 overflow-x-auto no-scrollbar lg:flex-wrap">
+          <div className="mt-4 md:mt-8 flex flex-wrap items-center justify-between gap-3 pb-4">
+            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar scroll-smooth w-full sm:w-auto">
               <div className="flex items-center gap-2">
                 <select
                   value={activeMonth}
@@ -245,16 +245,16 @@ export default function AllGallery() {
 
               <div className="h-6 w-px bg-white/5 hidden sm:block" />
 
-              <div className="flex items-center gap-1 p-1 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-xl">
+              <div className="flex items-center gap-1 p-1 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-xl shrink-0">
                 <button
                   onClick={() => setViewMode('events')}
-                  className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'events' ? 'bg-red-500 text-white' : 'text-muted-foreground'}`}
+                  className={`px-3 sm:px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'events' ? 'bg-red-500 text-white' : 'text-muted-foreground'}`}
                 >
                   Events
                 </button>
                 <button
                   onClick={() => setViewMode('all')}
-                  className={`px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'all' ? 'bg-red-500 text-white' : 'text-muted-foreground'}`}
+                  className={`px-3 sm:px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${viewMode === 'all' ? 'bg-red-500 text-white' : 'text-muted-foreground'}`}
                 >
                   All Photos
                 </button>
@@ -554,7 +554,7 @@ export default function AllGallery() {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 p-4 bg-red-600/90 hover:bg-red-500 text-white rounded-full shadow-2xl backdrop-blur-lg border border-white/20 transition-all duration-500 group ${showScrollTop ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-50 pointer-events-none'
+        className={`fixed bottom-24 sm:bottom-8 right-4 sm:right-8 z-50 p-3 sm:p-4 bg-red-600/90 hover:bg-red-500 text-white rounded-full shadow-2xl backdrop-blur-lg border border-white/20 transition-all duration-500 group ${showScrollTop ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-50 pointer-events-none'
           }`}
         aria-label="Scroll to top"
       >

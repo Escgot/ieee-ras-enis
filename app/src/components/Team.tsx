@@ -191,7 +191,7 @@ export default function Team() {
                       <div
                         onMouseEnter={() => { if (isActive) setIsHovered(true); }}
                         onMouseLeave={() => setIsHovered(false)}
-                        className={`relative flex-shrink-0 w-[220px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group will-change-transform ${isActive
+                        className={`relative flex-shrink-0 w-[250px] sm:w-[300px] lg:w-[320px] aspect-[3/4] rounded-[2rem] overflow-hidden transition-all duration-700 group will-change-transform ${isActive
                           ? 'scale-100 opacity-100 z-20'
                           : diff === 1
                             ? 'scale-90 opacity-50 lg:grayscale-[50%] z-10'
@@ -215,7 +215,7 @@ export default function Team() {
                         />
 
                         {/* Base gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
 
                         {/* Active glow ring */}
                         {isActive && (
@@ -226,52 +226,41 @@ export default function Team() {
                         {/* Holographic sheen — desktop only */}
                         <div className="hidden lg:block absolute inset-0 bg-gradient-to-br from-red-500/0 via-transparent to-purple-500/0 group-hover:from-red-500/5 group-hover:to-purple-500/5 transition-all duration-500 pointer-events-none" />
 
-                        {/* Static Info (always visible) */}
-                        <div className={`absolute inset-x-0 bottom-0 p-5 sm:p-6 transition-opacity duration-500 z-20 ${isActive ? 'group-hover:opacity-0 opacity-100' : 'opacity-100'}`}>
-                          <span className="text-[9px] font-black text-red-400 tracking-[0.35em] uppercase block mb-2">
+                        {/* Member Information & Social Links */}
+                        <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 z-20">
+                          <span className="text-[9px] font-black text-red-400 tracking-[0.3em] uppercase block mb-1.5">
                             {member.role}
                           </span>
-                          <h3 className="font-orbitron text-2xl sm:text-3xl font-black text-white leading-[0.9] uppercase drop-shadow-2xl">
+                          <h3 className="font-orbitron text-xl sm:text-2xl lg:text-3xl font-black text-white leading-tight uppercase drop-shadow-2xl break-words">
                             {member.name.split(' ')[0]}&nbsp;
                             <br />
-                            <span className="opacity-85 text-xl sm:text-2xl">{member.name.split(' ').slice(1).join(' ')}</span>
+                            <span className="opacity-90 text-lg sm:text-xl lg:text-2xl">{member.name.split(' ').slice(1).join(' ')}</span>
                           </h3>
-                        </div>
 
-                        {/* Hover Info (with socials) — active card only */}
-                        {isActive && (
-                          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 z-30 translate-y-2 group-hover:translate-y-0">
-                            <div className="bg-black/85 lg:backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5">
-                              <span className="text-[9px] font-black text-red-400 tracking-[0.35em] uppercase block mb-2">
-                                {member.role}
-                              </span>
-                              <h3 className="font-orbitron text-xl sm:text-2xl font-black text-white mb-4 uppercase leading-tight">
-                                {member.name.split(' ')[0]}{' '}
-                                <span className="opacity-85">{member.name.split(' ').slice(1).join(' ')}</span>
-                              </h3>
-                              <div className="flex gap-3">
-                                {[
-                                  { href: member.social.instagram, Icon: Instagram, hover: 'hover:bg-[#E4405F] hover:border-[#E4405F]', label: 'Instagram' },
-                                  { href: member.social.linkedin, Icon: Linkedin, hover: 'hover:bg-[#0A66C2] hover:border-[#0A66C2]', label: 'LinkedIn' },
-                                  { href: member.social.facebook, Icon: Facebook, hover: 'hover:bg-[#1877F2] hover:border-[#1877F2]', label: 'Facebook' },
-                                  { href: member.social.mail, Icon: Mail, hover: 'hover:bg-[#EA4335] hover:border-[#EA4335]', label: 'Email' },
-                                ].map(({ href, Icon, hover, label }, i) => (
-                                  <a
-                                    key={i}
-                                    href={href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={`${member.name} on ${label}`}
-                                    className={`w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 border border-white/10 transition-all duration-200 text-gray-400 hover:text-white ${hover}`}
-                                    onClick={(e) => e.stopPropagation()}
-                                  >
-                                    <Icon className="w-3.5 h-3.5" />
-                                  </a>
-                                ))}
-                              </div>
+                          {/* Social links — directly accessible for active card on touch & desktop */}
+                          {isActive && (
+                            <div className="flex items-center gap-2 mt-3 pt-2 border-t border-white/10">
+                              {[
+                                { href: member.social.instagram, Icon: Instagram, hover: 'hover:bg-[#E4405F]', label: 'Instagram' },
+                                { href: member.social.linkedin, Icon: Linkedin, hover: 'hover:bg-[#0A66C2]', label: 'LinkedIn' },
+                                { href: member.social.facebook, Icon: Facebook, hover: 'hover:bg-[#1877F2]', label: 'Facebook' },
+                                { href: member.social.mail, Icon: Mail, hover: 'hover:bg-[#EA4335]', label: 'Email' },
+                              ].map(({ href, Icon, hover, label }, i) => (
+                                <a
+                                  key={i}
+                                  href={href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label={`${member.name} on ${label}`}
+                                  className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-white/15 hover:bg-white/25 border border-white/15 text-white/90 transition-all duration-200 active:scale-90 ${hover}`}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <Icon className="w-3.5 h-3.5" />
+                                </a>
+                              ))}
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
@@ -280,7 +269,7 @@ export default function Team() {
             </div>
 
             {/* Controls */}
-            <div className="flex items-center justify-center gap-6 -mt-4">
+            <div className="flex items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-8 pb-4 lg:pb-0">
               <button
                 onClick={scrollPrev}
                 disabled={!prevBtnReady}

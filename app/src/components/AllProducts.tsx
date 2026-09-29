@@ -302,7 +302,7 @@ export default function AllProducts() {
           {/* Row 1: Search + Category Pills */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
             {/* Category Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 scroll-smooth -mx-4 px-4 sm:mx-0 sm:px-0">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat;
                 return (
@@ -916,7 +916,7 @@ export default function AllProducts() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-lg bg-black/90 dark:bg-white text-white dark:text-black shadow-2xl border border-white/10 dark:border-black/10 text-xs font-mono font-bold"
+            className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-lg bg-black/90 dark:bg-white text-white dark:text-black shadow-2xl border border-white/10 dark:border-black/10 text-xs font-mono font-bold"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>{toastMessage}</span>

@@ -169,8 +169,8 @@ export default function Events() {
                   </div>
 
                   {/* CTA */}
-                  <div className="flex items-center sm:items-start shrink-0 sm:pt-7">
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-red-600/20 hover:shadow-red-500/30 cyber-btn whitespace-nowrap">
+                  <div className="flex items-center sm:items-start shrink-0 sm:pt-7 w-full sm:w-auto">
+                    <button className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-red-600/20 hover:shadow-red-500/30 cyber-btn whitespace-nowrap">
                       RSVP Now
                       <ChevronRight className="w-3.5 h-3.5" />
                     </button>
@@ -194,9 +194,9 @@ export default function Events() {
       </div>
 
       <Dialog open={!!selectedEvent} onOpenChange={() => setSelectedEvent(null)}>
-        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4">
+        <DialogContent className="sm:max-w-6xl w-[95vw] lg:w-[90vw] lg:aspect-[2/1] bg-[#0c0515]/95 border-red-500/20 backdrop-blur-3xl p-0 overflow-hidden rounded-3xl outline-none shadow-[0_0_80px_rgba(239,68,68,0.15)] flex flex-col my-4 max-h-[92vh]">
           {selectedEvent && (
-            <div className="relative w-full h-full max-h-[95vh] lg:max-h-none overflow-hidden no-scrollbar flex flex-col lg:flex-row">
+            <div className="relative w-full h-full max-h-[92vh] lg:max-h-none overflow-y-auto lg:overflow-hidden no-scrollbar flex flex-col lg:flex-row">
               <button
                 onClick={() => setSelectedEvent(null)}
                 className="absolute top-4 right-4 z-50 p-2 text-gray-400 hover:text-white bg-black/20 hover:bg-white/10 border border-white/10 rounded-xl transition-all duration-300 backdrop-blur-md"
@@ -205,7 +205,7 @@ export default function Events() {
               </button>
 
               {/* Left Side: Hero Image - Swippable Gallery */}
-              <div className="w-full lg:w-[50%] h-[350px] sm:h-[450px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center">
+              <div className="w-full lg:w-[50%] h-[240px] xs:h-[280px] sm:h-[420px] lg:h-full relative shrink-0 overflow-hidden bg-[#050505] flex items-center justify-center">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeImage || selectedEvent.image}
@@ -259,9 +259,9 @@ export default function Events() {
               </div>
 
               {/* Right Side: Main Content Area */}
-              <div className="lg:w-[50%] px-6 pt-6 pb-2 sm:px-10 sm:pt-6 sm:pb-4 lg:px-12 lg:pt-8 lg:pb-4 relative z-10 flex flex-col -mt-24 sm:-mt-32 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0 overflow-hidden">
+              <div className="lg:w-[50%] px-5 pt-4 pb-4 sm:px-10 sm:pt-6 sm:pb-4 lg:px-12 lg:pt-8 lg:pb-4 relative z-10 flex flex-col -mt-8 sm:-mt-24 lg:mt-0 flex-grow bg-gradient-to-t from-[#0c0515] via-[#0c0515] to-transparent lg:bg-none min-h-0">
 
-                <h2 className="font-orbitron text-lg sm:text-xl lg:text-2xl font-black text-white mb-6 leading-tight tracking-tight shrink-0 uppercase">
+                <h2 className="font-orbitron text-base sm:text-xl lg:text-2xl font-black text-white mb-4 sm:mb-6 leading-tight tracking-tight shrink-0 uppercase">
                   {selectedEvent.title}
                 </h2>
 

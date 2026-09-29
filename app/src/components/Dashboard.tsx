@@ -129,7 +129,7 @@ export default function Dashboard() {
   const displayName = profile?.full_name || user?.user_metadata?.full_name || 'Member';
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#070707] pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+    <div ref={containerRef} className="min-h-screen bg-[#070707] pt-16 sm:pt-20 pb-20 sm:pb-16 px-3.5 sm:px-6 lg:px-8">
       {/* Background effects */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full 
@@ -150,7 +150,7 @@ export default function Dashboard() {
               <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
               Terminal / Home
             </button>
-            <h1 className="text-3xl font-orbitron font-black text-white uppercase italic tracking-tighter">Member <span className="text-gradient">Control Center</span></h1>
+            <h1 className="text-2xl sm:text-3xl font-orbitron font-black text-white uppercase italic tracking-tighter">Member <span className="text-gradient">Control Center</span></h1>
           </div>
 
           {/* Profile Completion Bar */}
@@ -171,21 +171,21 @@ export default function Dashboard() {
         </div>
 
         {/* Profile Header Card */}
-        <div className="dash-animate relative overflow-hidden premium-card rounded-[2rem] p-6 sm:p-8 mb-8 group">
+        <div className="dash-animate relative overflow-hidden premium-card rounded-[2rem] p-5 sm:p-8 mb-8 group">
           {/* Animated Background Orbs */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-red-600/20 transition-all duration-700" />
           
           <div className="relative z-10">
             <div className="flex flex-col gap-10">
               {/* Profile Main Section: Horizontal on mobile */}
-              <div className="flex flex-row items-start gap-6 sm:gap-10">
+              <div className="flex flex-row items-start gap-4 sm:gap-10">
                 {/* Left Side: Avatar & Role */}
                 <div className="flex flex-col items-center gap-4 shrink-0">
                 <div className="relative group/avatar">
                   <div className="absolute -inset-1.5 bg-gradient-to-tr from-red-600 to-purple-600 rounded-[2.5rem] blur-sm opacity-20 group-hover/avatar:opacity-40 transition-opacity" />
                   
                   {/* Avatar Image / Placeholder */}
-                  <div className="relative w-32 h-32 rounded-[2.2rem] overflow-hidden border border-white/10 shadow-2xl bg-[#0f0f0f]">
+                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-[1.6rem] sm:rounded-[2.2rem] overflow-hidden border border-white/10 shadow-2xl bg-[#0f0f0f]">
                     {avatarUrl ? (
                       <img
                         src={avatarUrl}
@@ -195,7 +195,7 @@ export default function Dashboard() {
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-purple-600/20" />
-                        <span className="text-4xl font-orbitron font-black text-white relative z-10">
+                        <span className="text-3xl sm:text-4xl font-orbitron font-black text-white relative z-10">
                           {displayName.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -269,12 +269,12 @@ export default function Dashboard() {
                         type="text"
                         value={editForm.full_name}
                         onChange={e => setEditForm(prev => ({ ...prev, full_name: e.target.value }))}
-                        className="w-full text-2xl sm:text-4xl font-orbitron font-black text-white bg-white/5 border border-white/10 
+                        className="w-full text-xl sm:text-4xl font-orbitron font-black text-white bg-white/5 border border-white/10 
                                  rounded-xl px-4 py-2 sm:py-3 focus:border-red-500/50 outline-none transition-all uppercase italic"
                         placeholder="Full Name"
                       />
                     ) : (
-                      <h2 className="text-2xl sm:text-4xl font-orbitron font-black text-white tracking-tighter uppercase italic leading-tight break-words">
+                      <h2 className="text-xl sm:text-4xl font-orbitron font-black text-white tracking-tighter uppercase italic leading-tight break-words">
                         {displayName}
                       </h2>
                     )}

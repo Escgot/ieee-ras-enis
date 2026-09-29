@@ -56,7 +56,7 @@ export default function AllEvents() {
   }, [filteredEvents]);
 
   return (
-    <section id="events" ref={sectionRef} className="relative pt-0 pb-20 bg-transparent min-h-screen">
+    <section id="events" ref={sectionRef} className="relative pt-0 pb-28 lg:pb-20 bg-transparent min-h-screen">
       {/* Search & Filter Header (Sticky) */}
       <div className="relative border-b border-white/5 bg-transparent sticky top-0 z-40 backdrop-blur-2xl pt-2 md:pt-4">
         <div className="max-w-7xl mx-auto px-4 py-2">
@@ -86,7 +86,7 @@ export default function AllEvents() {
             </div>
           </div>
 
-          <div className="mt-4 md:mt-8 flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar lg:pb-0 lg:flex-wrap">
+          <div className="mt-4 md:mt-8 flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-3 sm:pb-4 no-scrollbar lg:pb-0 lg:flex-wrap scroll-smooth -mx-4 px-4 sm:mx-0 sm:px-0">
             {categories.map((category) => (
               <button
                 key={category}

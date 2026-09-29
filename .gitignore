@@ -42,3 +42,5 @@ AGENTS.md
 package-lock.json
 build_log.txt
 app/build_log.txt
+scratch/
+app/scratch/

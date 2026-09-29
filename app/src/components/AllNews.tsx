@@ -84,7 +84,7 @@ export default function AllNews() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background pt-0 pb-20 relative transition-colors duration-500">
+    <div ref={containerRef} className="min-h-screen bg-background pt-0 pb-28 lg:pb-20 relative transition-colors duration-500">
       {/* Rich Ambient Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-red-600/5 dark:bg-red-600/8 blur-[180px] rounded-full" />

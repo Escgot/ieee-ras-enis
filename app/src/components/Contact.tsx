@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, Send, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, Send, Clock, ExternalLink } from 'lucide-react';
 import DiscordIcon from './DiscordIcon';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -188,27 +188,36 @@ ${formData.message}`;
             </div>
 
             {/* Column 2: Map */}
-            <div className="lg:col-span-4 contact-left" style={{ transitionDelay: '0.1s' }}>
-              <div className="relative w-full h-full min-h-[280px] lg:min-h-0 bg-white/[0.02] border border-black/10 dark:border-white/6 rounded-3xl overflow-hidden group">
+            <div className="lg:col-span-4 contact-left flex flex-col h-full min-h-[300px] lg:min-h-[380px]">
+              <div className="relative w-full flex-grow h-full min-h-[300px] lg:min-h-[380px] bg-white/[0.02] border border-black/10 dark:border-white/6 rounded-3xl overflow-hidden group">
                 {/* Map border glow on hover */}
                 <div className="absolute inset-0 rounded-3xl border border-red-500/0 group-hover:border-red-500/15 transition-colors duration-500 z-10 pointer-events-none" />
 
                 <iframe
-                  title="Google Maps Location of IEEE RAS ENIS"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1043.1824346955668!2d10.717474605954882!3d34.72572755145792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13002ca414596f93%3A0xe3e9722b14d6ef6!2sIEEE%20ENIS%20SB!5e1!3m2!1sen!2stn!4v1776366655140!5m2!1sen!2stn"
+                  title="Location of IEEE RAS ENIS"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=10.7100%2C34.7210%2C10.7250%2C34.7300&layer=mapnik&marker=34.725727%2C10.717474"
                   width="100%"
                   height="100%"
                   style={{ border: 0, minHeight: 280 }}
-                  allowFullScreen
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="transition-all duration-700 opacity-100"
+                  className="transition-all duration-700 opacity-90 hover:opacity-100 dark:invert-[0.92] dark:hue-rotate-180 dark:contrast-[1.15]"
                 />
 
-                {/* Map overlay label */}
-                <div className="absolute bottom-4 left-4 z-10 px-3 py-2 glass-dark rounded-xl border border-white/10">
-                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">IEEE ENIS SB</p>
-                  <p className="text-[9px] text-gray-600">Sfax, Tunisia</p>
+                {/* Map overlay label with Google Maps direct link */}
+                <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center justify-between px-3.5 py-2 bg-black/80 backdrop-blur-md rounded-xl border border-white/10 shadow-lg">
+                  <div>
+                    <p className="text-[10px] text-gray-200 font-bold uppercase tracking-widest">IEEE ENIS SB</p>
+                    <p className="text-[9px] text-gray-400">Sfax, Tunisia</p>
+                  </div>
+                  <a
+                    href="https://maps.app.goo.gl/T1VGoYWhgBpZEU986"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 text-[9px] font-bold text-white bg-red-600 hover:bg-red-500 rounded-lg transition-all uppercase tracking-wider shadow-sm hover:scale-105 active:scale-95"
+                  >
+                    Open in Maps
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
             </div>

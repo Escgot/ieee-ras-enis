@@ -170,7 +170,7 @@ export default function AdminPanel() {
   ];
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#070707] pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+    <div ref={containerRef} className="min-h-screen bg-[#070707] pt-16 sm:pt-20 pb-24 sm:pb-16 px-3.5 sm:px-6 lg:px-8">
       {/* Background effects */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full 
@@ -199,7 +199,7 @@ export default function AdminPanel() {
         </div>
 
         {/* Tabs */}
-        <div className="admin-animate flex gap-2 mb-6 overflow-x-auto no-scrollbar">
+        <div className="admin-animate flex gap-2 mb-6 overflow-x-auto no-scrollbar -mx-3.5 px-3.5 sm:mx-0 sm:px-0">
           {tabs.map(tab => (
             <button
               key={tab.key}

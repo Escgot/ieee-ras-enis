@@ -201,8 +201,8 @@ export default function Navigation() {
       </div>
 
       {/* Bottom Navigation (Mobile Only) */}
-      <div className="lg:hidden fixed bottom-2 left-4 right-4 z-50 pointer-events-none">
-        <nav className="pointer-events-auto bg-white/80 dark:bg-black/70 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+      <div className="lg:hidden fixed bottom-2 sm:bottom-4 inset-x-4 max-w-md mx-auto z-50 pointer-events-none">
+        <nav className="pointer-events-auto bg-white/85 dark:bg-[#0a0a0a]/85 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_15px_50px_rgba(0,0,0,0.5)] overflow-hidden">
           <div className="flex items-center justify-around h-16 px-2">
             {bottomNavLinks.map((link) => {
               const sectionId = link.href.slice(1);
@@ -318,7 +318,7 @@ export default function Navigation() {
                 </div>
               </div>
 
-              <div className="p-4 border-t border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
+              <div className="p-4 pb-8 sm:pb-4 border-t border-black/5 dark:border-white/5 bg-black/[0.02] dark:bg-white/[0.02]">
                 <p className="text-[9px] text-center text-muted-foreground font-bold uppercase tracking-[0.3em]">
                   © 2026 IEEE RAS ENIS
                 </p>

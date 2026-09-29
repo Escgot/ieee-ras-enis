@@ -184,23 +184,23 @@ export default function Hero() {
             </a>
 
             {/* Pre-title telemetry line */}
-            <div className="opacity-0 flex items-center gap-2.5 text-[10px] sm:text-[11px] font-numeric font-bold tracking-[0.25em] text-red-500 uppercase mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-              <span>IEEE RAS CHAPTER #61101</span>
+            <div className="opacity-0 flex items-center justify-center lg:justify-start gap-2 sm:gap-2.5 text-[9px] sm:text-[11px] font-numeric font-bold tracking-[0.18em] sm:tracking-[0.25em] text-red-500 uppercase mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shrink-0" />
+              <span>IEEE RAS #61101</span>
               <span className="text-muted-foreground/40">•</span>
               <span className="text-muted-foreground">ENIS STUDENT BRANCH</span>
             </div>
 
             {/* Massive Title */}
             <h1 className="opacity-0 font-display font-black mb-3 sm:mb-4 tracking-tighter leading-[0.88] flex flex-col uppercase">
-              <span className="text-foreground text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] tracking-tight">
+              <span className="text-foreground text-[3.8rem] xs:text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] tracking-tight">
                 IEEE
               </span>
-              <div className="flex flex-row flex-wrap items-baseline gap-x-4 sm:gap-x-6 lg:gap-x-8">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] drop-shadow-[0_0_40px_rgba(239,68,68,0.35)]">
+              <div className="flex flex-row flex-wrap items-baseline gap-x-3 sm:gap-x-6 lg:gap-x-8">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 text-[3.8rem] xs:text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] drop-shadow-[0_0_40px_rgba(239,68,68,0.35)]">
                   RAS
                 </span>
-                <span className="text-foreground text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem]">
+                <span className="text-foreground text-[3.8rem] xs:text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem]">
                   ENIS
                 </span>
               </div>
@@ -208,13 +208,13 @@ export default function Hero() {
 
             {/* Typewriter Terminal Console */}
             <div className="opacity-0 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-4 mb-6 sm:mb-8 w-full">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-foreground/[0.04] dark:bg-white/[0.04] border border-foreground/10 dark:border-white/10 text-xs sm:text-sm font-numeric">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-foreground/[0.04] dark:bg-white/[0.04] border border-foreground/10 dark:border-white/10 text-xs sm:text-sm font-numeric max-w-full">
                 <Terminal className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                <span className="text-muted-foreground font-medium text-[11px] sm:text-xs">INIT //</span>
-                <span className="text-foreground font-bold tracking-wider text-xs sm:text-sm min-w-[280px] sm:min-w-[340px] inline-block">
+                <span className="text-muted-foreground font-medium text-[11px] sm:text-xs shrink-0">INIT //</span>
+                <span className="text-foreground font-bold tracking-wider text-xs sm:text-sm min-w-0 max-w-[200px] xs:max-w-[240px] sm:max-w-none sm:min-w-[340px] truncate inline-block">
                   {typewriterText}
                 </span>
-                <span className="inline-block w-1.5 h-4 bg-red-500 animate-pulse ml-0.5" />
+                <span className="inline-block w-1.5 h-4 bg-red-500 animate-pulse ml-0.5 shrink-0" />
               </div>
               <div className="hidden sm:block h-px flex-1 max-w-[120px] bg-gradient-to-r from-red-500/40 to-transparent" />
             </div>
@@ -225,12 +225,12 @@ export default function Hero() {
             </p>
 
             {/* Dual High-Tech Action CTAs */}
-            <div className="opacity-0 flex flex-wrap items-center justify-center lg:justify-start gap-4 w-full sm:w-auto">
+            <div className="opacity-0 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
               {/* Primary: Explore Innovations */}
               <a
                 href="#projects"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#projects'); }}
-                className="group relative inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-numeric text-xs font-bold uppercase tracking-widest rounded-xl shadow-[0_8px_30px_rgba(239,68,68,0.35)] hover:shadow-[0_10px_35px_rgba(239,68,68,0.5)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+                className="w-full sm:w-auto justify-center group relative inline-flex items-center gap-3 px-7 py-3.5 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-numeric text-xs font-bold uppercase tracking-widest rounded-xl shadow-[0_8px_30px_rgba(239,68,68,0.35)] hover:shadow-[0_10px_35px_rgba(239,68,68,0.5)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                 <Compass className="w-4 h-4 text-white/90 group-hover:rotate-45 transition-transform duration-500" />
@@ -242,7 +242,7 @@ export default function Hero() {
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 bg-foreground/[0.03] dark:bg-white/[0.04] hover:bg-foreground/[0.06] dark:hover:bg-white/[0.08] text-foreground border border-foreground/10 dark:border-white/10 hover:border-red-500/40 rounded-xl font-numeric text-xs font-bold uppercase tracking-widest transition-all duration-300 backdrop-blur-md"
+                className="w-full sm:w-auto justify-center group inline-flex items-center gap-2.5 px-6 py-3.5 bg-foreground/[0.03] dark:bg-white/[0.04] hover:bg-foreground/[0.06] dark:hover:bg-white/[0.08] text-foreground border border-foreground/10 dark:border-white/10 hover:border-red-500/40 rounded-xl font-numeric text-xs font-bold uppercase tracking-widest transition-all duration-300 backdrop-blur-md"
               >
                 <ShieldCheck className="w-4 h-4 text-red-500" />
                 <span>JOIN CHAPTER</span>

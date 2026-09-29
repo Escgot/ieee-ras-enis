@@ -338,7 +338,7 @@ export default function Footer() {
 
       {/* ── Bottom Bar ── */}
       <div className="relative border-t border-foreground/5 dark:border-white/5">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-5">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 pt-5 pb-24 lg:pb-6">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             <motion.p
               initial={{ opacity: 0 }}
@@ -367,6 +367,16 @@ export default function Footer() {
               </a>
               <span className="text-muted-foreground/30 mx-1">·</span>
               IEEE RAS ENIS
+              <span className="text-muted-foreground/30 mx-1">·</span>
+              <button
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'instant' });
+                  window.dispatchEvent(new CustomEvent('replay_preloader'));
+                }}
+                className="text-muted-foreground hover:text-red-500 transition-colors font-medium underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-red-500 cursor-pointer"
+              >
+                Replay Intro
+              </button>
             </motion.div>
           </div>
         </div>

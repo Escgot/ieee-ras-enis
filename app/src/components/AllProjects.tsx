@@ -70,7 +70,7 @@ const cardLayoutVariant: Variants = {
 /* ── Character-by-character text reveal ── */
 function AnimatedText({ text, className = '', delay = 0 }: { text: string; className?: string; delay?: number }) {
   return (
-    <span className={className} aria-label={text}>
+    <span className={`inline-block whitespace-nowrap ${className}`} aria-label={text}>
       {text.split('').map((char, i) => (
         <motion.span
           key={`${char}-${i}`}
@@ -457,7 +457,7 @@ export default function AllProjects() {
             </motion.div>
 
             {/* Main Title — Character by character */}
-            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-foreground leading-[0.88] uppercase tracking-tighter">
+            <h1 className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-foreground leading-[0.88] uppercase tracking-tight">
               <AnimatedText text="Project" delay={0.3} />
               <br />
               <span className="text-gradient">
