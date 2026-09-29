@@ -200,7 +200,7 @@ ${formData.message}`;
                   height="100%"
                   style={{ border: 0, minHeight: 280 }}
                   loading="lazy"
-                  className="transition-all duration-700 opacity-90 hover:opacity-100 dark:invert-[0.92] dark:hue-rotate-180 dark:contrast-[1.15]"
+                  className="transition-opacity duration-300 opacity-90 hover:opacity-100 dark:invert-[0.92] dark:hue-rotate-180 dark:contrast-[1.15]"
                 />
 
                 {/* Map overlay label with Google Maps direct link */}

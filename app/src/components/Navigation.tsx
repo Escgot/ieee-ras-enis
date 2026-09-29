@@ -39,6 +39,7 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const [isIndicatorReady, setIsIndicatorReady] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const lastScrollY = useRef(0);
@@ -105,6 +106,7 @@ export default function Navigation() {
         width: linkRect.width,
         opacity: 1,
       });
+      setTimeout(() => setIsIndicatorReady(true), 100);
     });
   }, [activeSection, isHomePage]);
 
@@ -153,7 +155,9 @@ export default function Navigation() {
                 {/* Sliding indicator */}
                 {isHomePage && (
                   <div
-                    className="absolute h-[38px] bg-red-500/10 border border-red-500/30 rounded-full transition-all duration-400 ease-out pointer-events-none shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+                    className={`absolute h-[38px] bg-red-500/10 border border-red-500/30 rounded-full pointer-events-none shadow-[0_0_15px_rgba(239,68,68,0.2)] ${
+                      isIndicatorReady ? 'transition-all duration-400 ease-out' : 'transition-none'
+                    }`}
                     style={{
                       left: indicatorStyle.left,
                       width: indicatorStyle.width,

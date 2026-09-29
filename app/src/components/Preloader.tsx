@@ -160,7 +160,7 @@ export default function Preloader() {
       );
     };
     updateTime();
-    const interval = setInterval(updateTime, 100);
+    const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -367,11 +367,11 @@ export default function Preloader() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-red-600/10 blur-[140px] rounded-full pointer-events-none" />
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
 
-            {/* Continuous Vertical Scanning Laser Sweep */}
+            {/* Continuous Vertical Scanning Laser Sweep (GPU Composited) */}
             <motion.div
-              animate={{ top: ['-10%', '110%'] }}
+              animate={{ y: ['-10vh', '110vh'] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
-              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-40 shadow-[0_0_15px_#ef4444]"
+              className="absolute left-0 top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-40 shadow-[0_0_15px_#ef4444] will-change-transform"
             />
 
             {/* Subtle holographic robot backdrop */}
@@ -469,7 +469,7 @@ export default function Preloader() {
               className="relative flex flex-col items-center max-w-4xl w-full"
             >
               {/* Dynamic Phase Pill Tag */}
-              <div className="mb-4 sm:mb-8 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md max-w-[90vw] sm:max-w-none">
+              <div className="mb-4 sm:mb-8 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md w-[290px] sm:w-[380px] max-w-[90vw]">
                 <div className="w-1.5 h-1.5 shrink-0 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]" />
                 <span className="font-mono text-[8px] sm:text-[10px] text-white/80 font-bold tracking-[0.15em] sm:tracking-[0.25em] uppercase truncate">
                   {currentPhase.text}
@@ -529,7 +529,7 @@ export default function Preloader() {
                 <div className="relative z-10 flex items-baseline justify-center select-none">
                   <div className="flex items-baseline font-syne font-black tracking-tighter">
                     {/* Main Counter Display */}
-                    <span className="text-[5.5rem] sm:text-[8rem] md:text-[10rem] lg:text-[11.5rem] leading-none bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent drop-shadow-[0_15px_35px_rgba(0,0,0,0.8)] tabular-nums">
+                    <span className="text-[5.5rem] sm:text-[8rem] md:text-[10rem] lg:text-[11.5rem] leading-none bg-gradient-to-b from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent drop-shadow-[0_15px_35px_rgba(0,0,0,0.8)] tabular-nums inline-block w-[3ch] text-center">
                       {formattedCount}
                     </span>
                     {/* Precision Percent Tag */}
@@ -541,7 +541,7 @@ export default function Preloader() {
                   {/* Ghost 3D Reflection Below */}
                   <div
                     aria-hidden="true"
-                    className="absolute -bottom-14 sm:-bottom-20 left-0 right-0 flex justify-center opacity-10 blur-[3px] scale-y-[-0.6] pointer-events-none select-none font-syne font-black text-[5.5rem] sm:text-[8rem] md:text-[10rem] lg:text-[11.5rem] tracking-tighter text-red-500"
+                    className="absolute -bottom-14 sm:-bottom-20 left-0 right-0 flex justify-center opacity-10 blur-[3px] scale-y-[-0.6] pointer-events-none select-none font-syne font-black text-[5.5rem] sm:text-[8rem] md:text-[10rem] lg:text-[11.5rem] tracking-tighter text-red-500 tabular-nums w-[3ch] mx-auto text-center"
                   >
                     {formattedCount}
                   </div>
@@ -571,38 +571,34 @@ export default function Preloader() {
               <div className="w-full max-w-lg mt-6 sm:mt-10 flex flex-col items-center">
                 {/* Precision Track */}
                 <div className="w-full relative h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                  {/* Laser Beam */}
-                  <motion.div
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-red-600 via-rose-400 to-red-500 rounded-full shadow-[0_0_12px_rgba(239,68,68,1)]"
-                    style={{ width: `${progress}%` }}
-                    transition={{ ease: 'linear' }}
-                  />
-                  {/* Glowing Laser Head Tip */}
-                  <motion.div
-                    className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_15px_#fff,0_0_30px_#ef4444]"
-                    style={{ left: `calc(${progress}% - 6px)` }}
-                    transition={{ ease: 'linear' }}
-                  />
+                  {/* Laser Beam - GPU Composited scaleX */}
+                  <div
+                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-red-600 via-rose-400 to-red-500 rounded-full shadow-[0_0_12px_rgba(239,68,68,1)] origin-left will-change-transform"
+                    style={{ transform: `scaleX(${progress / 100})` }}
+                  >
+                    {/* Glowing Laser Head Tip positioned at leading edge */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_15px_#fff,0_0_30px_#ef4444]" />
+                  </div>
                 </div>
 
                 {/* Milestone Indicators (25% / 50% / 75% / 100%) */}
                 <div className="w-full flex justify-between mt-2 font-mono text-[8px] sm:text-[9px] tracking-wider sm:tracking-widest text-white/30">
-                  <span className={progress >= 25 ? 'text-red-400 font-bold transition-colors' : ''}>25%<span className="hidden sm:inline"> // INGEST</span></span>
-                  <span className={progress >= 50 ? 'text-red-400 font-bold transition-colors' : ''}>50%<span className="hidden sm:inline"> // PARSE</span></span>
-                  <span className={progress >= 75 ? 'text-red-400 font-bold transition-colors' : ''}>75%<span className="hidden sm:inline"> // SYNC</span></span>
-                  <span className={progress >= 100 ? 'text-red-400 font-bold transition-colors' : ''}>100%<span className="hidden sm:inline"> // ENGAGE</span></span>
+                  <span className={progress >= 25 ? 'text-red-400 font-bold' : ''}>25%<span className="hidden sm:inline"> // INGEST</span></span>
+                  <span className={progress >= 50 ? 'text-red-400 font-bold' : ''}>50%<span className="hidden sm:inline"> // PARSE</span></span>
+                  <span className={progress >= 75 ? 'text-red-400 font-bold' : ''}>75%<span className="hidden sm:inline"> // SYNC</span></span>
+                  <span className={progress >= 100 ? 'text-red-400 font-bold' : ''}>100%<span className="hidden sm:inline"> // ENGAGE</span></span>
                 </div>
 
-                {/* Telemetry Equalizer Spectrum (Live simulated audio/DSP bars) */}
-                <div className="flex items-center justify-center gap-1.5 mt-6">
+                {/* Telemetry Equalizer Spectrum - GPU Composited scaleY */}
+                <div className="flex items-center justify-center gap-1.5 mt-6 h-5">
                   {Array.from({ length: 16 }).map((_, idx) => {
-                    const height = 4 + Math.sin(idx * 0.8 + progress * 0.1) * 8 + (progress > 50 ? 4 : 0);
+                    const barScale = 0.2 + (Math.sin(idx * 0.8 + progress * 0.1) + 1) * 0.4 + (progress > 50 ? 0.2 : 0);
                     return (
-                      <motion.div
+                      <div
                         key={idx}
-                        className="w-[2px] rounded-full bg-white/20 transition-all duration-150"
+                        className="w-[2px] h-full rounded-full origin-bottom will-change-transform transition-transform duration-150"
                         style={{
-                          height: `${Math.max(3, height)}px`,
+                          transform: `scaleY(${Math.min(1, Math.max(0.15, barScale))})`,
                           backgroundColor: idx % 3 === 0 ? 'rgba(239, 68, 68, 0.7)' : 'rgba(255, 255, 255, 0.25)',
                         }}
                       />

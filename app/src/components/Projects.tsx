@@ -183,7 +183,7 @@ export default function Projects() {
                   <div className="flex items-center gap-2 sm:gap-3 text-[10px] font-black text-red-500 uppercase tracking-[0.25em] transition-all">
                     <span className="relative">
                       Deep View
-                      <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all duration-500 group-hover:w-full" />
+                      <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-red-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                     </span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" />
                   </div>

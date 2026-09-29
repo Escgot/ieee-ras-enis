@@ -94,8 +94,8 @@ export default function Hero() {
       if (textColRef.current) {
         const children = textColRef.current.children;
         tl.fromTo(children,
-          { opacity: 0, y: 40, filter: 'blur(8px)' },
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, stagger: 0.12 }
+          { opacity: 0, y: 35 },
+          { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }
         );
       }
 
@@ -192,26 +192,26 @@ export default function Hero() {
             </div>
 
             {/* Massive Title */}
-            <h1 className="opacity-0 font-display font-black mb-3 sm:mb-4 tracking-tighter leading-[0.88] flex flex-col uppercase">
-              <span className="text-foreground text-[3.8rem] xs:text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] tracking-tight">
+            <h1 className="opacity-0 font-display font-black mb-3 sm:mb-4 tracking-tighter leading-[0.88] flex flex-col uppercase min-h-[110px] sm:min-h-[190px]">
+              <span className="text-foreground text-[3.2rem] xs:text-[3.8rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] tracking-tight">
                 IEEE
               </span>
-              <div className="flex flex-row flex-wrap items-baseline gap-x-3 sm:gap-x-6 lg:gap-x-8">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 text-[3.8rem] xs:text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] drop-shadow-[0_0_40px_rgba(239,68,68,0.35)]">
+              <div className="flex flex-row items-baseline gap-x-2.5 sm:gap-x-6 lg:gap-x-8">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 text-[3.2rem] xs:text-[3.8rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem] drop-shadow-[0_0_40px_rgba(239,68,68,0.35)]">
                   RAS
                 </span>
-                <span className="text-foreground text-[3.8rem] xs:text-[4.2rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem]">
+                <span className="text-foreground text-[3.2rem] xs:text-[3.8rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[7.8rem] xl:text-[9.5rem]">
                   ENIS
                 </span>
               </div>
             </h1>
 
-            {/* Typewriter Terminal Console */}
+            {/* Typewriter Terminal Console - Fixed width bounds to prevent CLS */}
             <div className="opacity-0 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-4 mb-6 sm:mb-8 w-full">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-foreground/[0.04] dark:bg-white/[0.04] border border-foreground/10 dark:border-white/10 text-xs sm:text-sm font-numeric max-w-full">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-foreground/[0.04] dark:bg-white/[0.04] border border-foreground/10 dark:border-white/10 text-xs sm:text-sm font-numeric w-[300px] sm:w-[410px]">
                 <Terminal className="w-3.5 h-3.5 text-red-500 shrink-0" />
                 <span className="text-muted-foreground font-medium text-[11px] sm:text-xs shrink-0">INIT //</span>
-                <span className="text-foreground font-bold tracking-wider text-xs sm:text-sm min-w-0 max-w-[200px] xs:max-w-[240px] sm:max-w-none sm:min-w-[340px] truncate inline-block">
+                <span className="text-foreground font-bold tracking-wider text-xs sm:text-sm flex-1 min-w-0 truncate text-left">
                   {typewriterText}
                 </span>
                 <span className="inline-block w-1.5 h-4 bg-red-500 animate-pulse ml-0.5 shrink-0" />
@@ -258,7 +258,7 @@ export default function Hero() {
             <div
               ref={robotContainerRef}
               style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
-              className="relative w-full max-w-[500px] sm:max-w-[550px] lg:max-w-none flex items-center justify-center py-6 sm:py-10"
+              className="relative w-full min-h-[360px] sm:min-h-[440px] lg:min-h-[520px] max-w-[500px] sm:max-w-[550px] lg:max-w-none flex items-center justify-center py-6 sm:py-10"
             >
 
               {/* Ambient Circular Glow Behind Robot */}
@@ -279,6 +279,7 @@ export default function Hero() {
                 height="593"
                 className="opacity-0 relative w-[110%] sm:w-[125%] lg:w-[145%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[4%] scale-[1.35] sm:scale-[1.45] pointer-events-none select-none"
                 style={{
+                  aspectRatio: '440 / 593',
                   filter: 'drop-shadow(0 0 45px rgba(239,68,68,0.3)) contrast(1.12) brightness(1.12)',
                   WebkitMaskImage: 'linear-gradient(to top, transparent 4%, black 30%)',
                   maskImage: 'linear-gradient(to top, transparent 4%, black 30%)',

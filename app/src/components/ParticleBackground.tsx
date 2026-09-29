@@ -26,7 +26,7 @@ export default function ParticleBackground() {
     }
 
     const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 30 : 200;
+    const particleCount = isMobile ? 20 : 65;
     const particles: Particle[] = [];
 
     const getIsDark = () => document.documentElement.classList.contains('dark');

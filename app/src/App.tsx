@@ -13,19 +13,19 @@ import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 import CustomCursor from './components/CustomCursor';
+import About from './components/About';
+import News from './components/News';
+import Projects from './components/Projects';
+import Events from './components/Events';
+import Gallery from './components/Gallery';
+import Team from './components/Team';
+import Shop from './components/Shop';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
-// Lazy load components that are below the fold and secondary pages
-const About = lazy(() => import('./components/About'));
-const News = lazy(() => import('./components/News'));
-const Projects = lazy(() => import('./components/Projects'));
+// Lazy load secondary route pages
 const AllProjects = lazy(() => import('./components/AllProjects'));
-const Events = lazy(() => import('./components/Events'));
 const AllEvents = lazy(() => import('./components/AllEvents'));
-const Gallery = lazy(() => import('./components/Gallery'));
-const Team = lazy(() => import('./components/Team'));
-const Shop = lazy(() => import('./components/Shop'));
-const Contact = lazy(() => import('./components/Contact'));
-const Footer = lazy(() => import('./components/Footer'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const AllProducts = lazy(() => import('./components/AllProducts'));
@@ -91,45 +91,41 @@ function HomePage() {
       <main>
         <Hero />
         
-        <Suspense fallback={<div className="h-screen" />}>
-          <SectionDivider />
-          <div className="section-reveal">
-            <About />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <News />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <Gallery />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <Events />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <Projects />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <Team />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <Shop />
-          </div>
-          <SectionDivider />
-          <div className="section-reveal">
-            <Contact />
-          </div>
-        </Suspense>
+        <SectionDivider />
+        <div className="section-reveal">
+          <About />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <News />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <Gallery />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <Events />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <Projects />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <Team />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <Shop />
+        </div>
+        <SectionDivider />
+        <div className="section-reveal">
+          <Contact />
+        </div>
       </main>
       
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
   );
 }

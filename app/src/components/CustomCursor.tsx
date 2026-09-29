@@ -60,6 +60,11 @@ export default function CustomCursor() {
 
   // RAF loop for buttery-smooth, framerate-independent lerp
   const loop = useCallback((currentTime: number) => {
+    if (!isVisible.current) {
+      rafId.current = requestAnimationFrame(loop);
+      return;
+    }
+
     const dt = Math.min((currentTime - lastTime.current) / 1000, 0.1);
     lastTime.current = currentTime;
 

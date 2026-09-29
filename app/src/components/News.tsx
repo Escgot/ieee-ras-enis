@@ -155,8 +155,8 @@ export default function News() {
                 </div>
               </div>
 
-              {/* Bottom bar */}
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-purple-500 group-hover:w-full transition-all duration-700" />
+              {/* Bottom bar (GPU-composited scale-x) */}
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-red-500 to-purple-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out will-change-transform" />
             </div>
           </div>
 

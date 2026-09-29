@@ -4,9 +4,12 @@ import { defineConfig } from "vite"
 import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: './',
-  plugins: [inspectAttr(), react()],
+  plugins: [
+    ...(mode === 'development' ? [inspectAttr()] : []),
+    react()
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -23,9 +26,10 @@ export default defineConfig({
         manualChunks: {
           'vendor': ['react', 'react-dom'],
           'animations': ['gsap', 'embla-carousel-react'],
+          'framer': ['framer-motion'],
           'ui': ['@radix-ui/react-accordion', '@radix-ui/react-dialog', 'lucide-react']
         }
       }
     }
   }
-});
+}));

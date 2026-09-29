@@ -253,8 +253,8 @@ export default function About() {
                   <div className="text-[8px] sm:text-xs text-muted-foreground uppercase tracking-widest font-medium line-clamp-1">{stat.label}</div>
                 </div>
 
-                {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-purple-500 group-hover:w-full transition-all duration-700 rounded-b-3xl" />
+                {/* Bottom accent (GPU-composited scale-x) */}
+                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-red-500 to-purple-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out will-change-transform rounded-b-3xl" />
               </div>
             ))}
           </div>
