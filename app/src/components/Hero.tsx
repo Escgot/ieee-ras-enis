@@ -209,21 +209,21 @@ export default function Hero() {
             </h1>
 
             {/* MOBILE-ONLY 3D ROBOT CENTERPIECE (Visible on mobile / Hidden on desktop) */}
-            <div className="block lg:hidden w-full my-1 sm:my-2">
-              <div className="relative w-full min-h-[200px] xs:min-h-[230px] sm:min-h-[280px] max-w-[260px] xs:max-w-[300px] sm:max-w-[380px] mx-auto flex items-center justify-center py-2 sm:py-4">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] bg-gradient-to-br from-red-600/15 via-rose-600/10 to-blue-600/10 blur-[60px] rounded-full pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[210px] xs:w-[250px] sm:w-[320px] h-[210px] xs:h-[250px] sm:h-[320px] rounded-full border border-dashed border-red-500/20 animate-[spin_60s_linear_infinite] pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160px] xs:w-[190px] sm:w-[240px] h-[160px] xs:h-[190px] sm:h-[240px] rounded-full border border-red-500/10 pointer-events-none" />
+            <div className="block lg:hidden w-full my-1.5 sm:my-3">
+              <div className="relative w-full min-h-[225px] xs:min-h-[255px] sm:min-h-[310px] max-w-[290px] xs:max-w-[335px] sm:max-w-[410px] mx-auto flex items-center justify-center py-2 sm:py-4">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[135%] h-[135%] bg-gradient-to-br from-red-600/15 via-rose-600/10 to-blue-600/10 blur-[65px] rounded-full pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[230px] xs:w-[275px] sm:w-[345px] h-[230px] xs:h-[275px] sm:h-[345px] rounded-full border border-dashed border-red-500/20 animate-[spin_60s_linear_infinite] pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[175px] xs:w-[210px] sm:w-[260px] h-[175px] xs:h-[210px] sm:h-[260px] rounded-full border border-red-500/10 pointer-events-none" />
                 <img
                   src="/images/x-robot.webp"
                   alt=""
                   aria-hidden="true"
                   width="440"
                   height="593"
-                  className="cyber-robot-img opacity-0 relative w-[80%] xs:w-[85%] sm:w-[95%] h-auto mix-blend-screen mix-blend-lighten z-20 pointer-events-none select-none"
+                  className="cyber-robot-img opacity-0 relative w-[88%] xs:w-[94%] sm:w-[102%] h-auto mix-blend-screen mix-blend-lighten z-20 pointer-events-none select-none scale-[1.06] xs:scale-[1.10] sm:scale-[1.14]"
                   style={{
                     aspectRatio: '440 / 593',
-                    filter: 'drop-shadow(0 0 30px rgba(239,68,68,0.3)) contrast(1.12) brightness(1.12)',
+                    filter: 'drop-shadow(0 0 35px rgba(239,68,68,0.32)) contrast(1.12) brightness(1.12)',
                     WebkitMaskImage: 'linear-gradient(to top, transparent 3%, black 25%)',
                     maskImage: 'linear-gradient(to top, transparent 3%, black 25%)',
                   }}
@@ -283,15 +283,15 @@ export default function Hero() {
             <div
               ref={robotContainerRef}
               style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
-              className="relative w-full min-h-[500px] xl:min-h-[560px] flex items-center justify-center py-6 lg:py-10"
+              className="relative w-full min-h-[520px] xl:min-h-[590px] flex items-center justify-center py-6 lg:py-10"
             >
 
               {/* Ambient Circular Glow Behind Robot */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-to-br from-red-600/15 via-rose-600/10 to-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[145%] h-[145%] bg-gradient-to-br from-red-600/15 via-rose-600/10 to-blue-600/10 blur-[105px] rounded-full pointer-events-none" />
 
               {/* Cyber Concentric Reticle Rings */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] xl:w-[480px] h-[380px] xl:h-[480px] rounded-full border border-dashed border-red-500/20 animate-[spin_60s_linear_infinite] pointer-events-none" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[290px] xl:w-[360px] h-[290px] xl:h-[360px] rounded-full border border-red-500/10 pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] xl:w-[510px] h-[400px] xl:h-[510px] rounded-full border border-dashed border-red-500/20 animate-[spin_60s_linear_infinite] pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[310px] xl:w-[385px] h-[310px] xl:h-[385px] rounded-full border border-red-500/10 pointer-events-none" />
 
               {/* The Robot Image - Monumental, majestic scale on desktop */}
               <img
@@ -302,10 +302,10 @@ export default function Hero() {
                 loading="eager"
                 width="440"
                 height="593"
-                className="cyber-robot-img opacity-0 relative w-[125%] lg:w-[145%] xl:w-[155%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[3%] scale-[1.35] lg:scale-[1.42] xl:scale-[1.48] pointer-events-none select-none"
+                className="cyber-robot-img opacity-0 relative w-[135%] lg:w-[155%] xl:w-[168%] h-auto mix-blend-screen mix-blend-lighten z-20 translate-y-0 lg:translate-y-[2%] scale-[1.42] lg:scale-[1.52] xl:scale-[1.58] pointer-events-none select-none"
                 style={{
                   aspectRatio: '440 / 593',
-                  filter: 'drop-shadow(0 0 45px rgba(239,68,68,0.3)) contrast(1.12) brightness(1.12)',
+                  filter: 'drop-shadow(0 0 50px rgba(239,68,68,0.32)) contrast(1.12) brightness(1.12)',
                   WebkitMaskImage: 'linear-gradient(to top, transparent 4%, black 30%)',
                   maskImage: 'linear-gradient(to top, transparent 4%, black 30%)',
                 }}
