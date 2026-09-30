@@ -167,7 +167,7 @@ export default function Hero() {
             <a
               href="#events"
               onClick={(e) => { e.preventDefault(); scrollToSection('#events'); }}
-              aria-label="Next Station ENIM Event Announcement"
+              aria-label="Next Station ENSI Event Announcement"
               className="opacity-0 group inline-flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-5 py-1.5 sm:py-2 mb-2 sm:mb-3 lg:mb-4 bg-foreground/[0.03] dark:bg-white/[0.04] backdrop-blur-xl border border-foreground/10 dark:border-white/10 rounded-full shadow-[0_4px_24px_rgba(239,68,68,0.12)] hover:border-red-500/50 hover:bg-red-500/5 transition-all duration-300 hover:scale-[1.02]"
             >
               <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
@@ -179,7 +179,7 @@ export default function Hero() {
                   NEW
                 </span>
                 <span className="text-[11px] sm:text-xs md:text-sm text-foreground font-bold tracking-[0.18em] sm:tracking-[0.2em] uppercase group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors">
-                  NEXT STATION : ENIM
+                  NEXT STATION : ENSI
                 </span>
               </div>
               <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500 group-hover:translate-x-1 transition-transform" />
