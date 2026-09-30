@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Compass, ShieldCheck, Terminal } from 'lucide-react';
+import { scrollToSectionWithOffset } from '../utils/scroll';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,8 +138,7 @@ export default function Hero() {
   }, []);
 
   const scrollToSection = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    scrollToSectionWithOffset(href);
   };
 
   return (

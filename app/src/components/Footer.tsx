@@ -3,6 +3,7 @@ import { Instagram, Facebook, Linkedin, Mail, ArrowUpRight, ChevronUp, MapPin, Z
 import { motion } from 'framer-motion';
 import DiscordIcon from './DiscordIcon';
 import { news } from '../data/news';
+import { scrollToSectionWithOffset } from '../utils/scroll';
 
 const footerLinks = {
   navigation: [
@@ -28,8 +29,7 @@ const socials = [
 /* ── Animated link with expanding underline ── */
 function FooterLink({ name, href, index }: { name: string; href: string; index: number }) {
   const scrollToSection = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    scrollToSectionWithOffset(href);
   };
 
   return (
@@ -103,12 +103,11 @@ export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    scrollToSectionWithOffset(href);
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToSectionWithOffset('#home');
   };
 
   return (

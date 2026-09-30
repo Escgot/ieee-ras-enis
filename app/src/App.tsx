@@ -22,6 +22,7 @@ import Team from './components/Team';
 import Shop from './components/Shop';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { scrollToSectionWithOffset } from './utils/scroll';
 
 // Lazy load secondary route pages
 const AllProjects = lazy(() => import('./components/AllProjects'));
@@ -149,6 +150,8 @@ function App() {
       touchMultiplier: 1.4,
     });
 
+    (window as unknown as { __lenis?: unknown }).__lenis = lenis;
+
     lenis.on('scroll', ScrollTrigger.update);
 
     const update = (time: number) => {
@@ -161,6 +164,7 @@ function App() {
     return () => {
       gsap.ticker.remove(update);
       lenis.destroy();
+      delete (window as unknown as { __lenis?: unknown }).__lenis;
     };
   }, []);
 
@@ -168,10 +172,7 @@ function App() {
   useEffect(() => {
     if (location.hash) {
       setTimeout(() => {
-        const element = document.querySelector(location.hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToSectionWithOffset(location.hash);
       }, 100);
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });

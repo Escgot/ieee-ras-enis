@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import DiscordIcon from './DiscordIcon';
+import { scrollToSectionWithOffset } from '../utils/scroll';
 
 const socialLinks = [
   { icon: Instagram, href: 'https://www.instagram.com/ieee.ras.enis/', label: 'Instagram', brandColor: '#E4405F' },
@@ -43,6 +44,7 @@ export default function Navigation() {
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const lastScrollY = useRef(0);
+  const isNavigatingRef = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { theme, setTheme } = useTheme();
@@ -54,11 +56,15 @@ export default function Navigation() {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 40);
 
-      // Auto-hide when scrolling down, show immediately when scrolling up
-      if (currentScrollY > 100) {
-        if (currentScrollY > lastScrollY.current && currentScrollY - lastScrollY.current > 8) {
-          setIsVisible(false);
-        } else if (lastScrollY.current - currentScrollY > 8) {
+      // Auto-hide when scrolling down, show immediately when scrolling up (unless programmatically navigating)
+      if (!isNavigatingRef.current) {
+        if (currentScrollY > 100) {
+          if (currentScrollY > lastScrollY.current && currentScrollY - lastScrollY.current > 8) {
+            setIsVisible(false);
+          } else if (lastScrollY.current - currentScrollY > 8) {
+            setIsVisible(true);
+          }
+        } else {
           setIsVisible(true);
         }
       } else {
@@ -73,8 +79,8 @@ export default function Navigation() {
           const el = document.getElementById(id);
           if (el) {
             const rect = el.getBoundingClientRect();
-            // If the element's top is above 40% of the viewport height, it's considered active
-            if (rect.top <= window.innerHeight * 0.4) {
+            // If the element's top is within active zone
+            if (rect.top <= window.innerHeight * 0.45) {
               current = id;
             }
           }
@@ -111,17 +117,22 @@ export default function Navigation() {
   }, [activeSection, isHomePage]);
 
   const scrollToSection = (href: string) => {
+    setIsMobileMenuOpen(false);
+    setIsVisible(true);
+    isNavigatingRef.current = true;
+
+    const onDone = () => {
+      isNavigatingRef.current = false;
+    };
+
     if (!isHomePage) {
       navigate('/');
       setTimeout(() => {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 200);
+        scrollToSectionWithOffset(href, undefined, undefined, onDone);
+      }, 150);
     } else {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      scrollToSectionWithOffset(href, undefined, undefined, onDone);
     }
-    setIsMobileMenuOpen(false);
   };
 
   return (
